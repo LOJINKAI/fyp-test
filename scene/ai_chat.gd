@@ -72,6 +72,6 @@ func _on_typing_timer_timeout():
 		typing_timer.stop()
 
 
- 
+
 
 
