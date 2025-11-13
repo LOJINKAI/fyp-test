@@ -70,3 +70,8 @@ func _on_typing_timer_timeout():
 		ai_current_index += 1
 	else:
 		typing_timer.stop()
+
+
+
+
+
