@@ -1,5 +1,5 @@
 extends Control
-
+##
 @onready var input_box := $"TextEdit"   # 玩家输入框
 @onready var output_box := $"Label"     # AI 显示框
 @onready var send_button := $"Button"   # 发送按钮
@@ -49,7 +49,7 @@ func send_message(user_text: String):
 	http.request(url, headers, HTTPClient.METHOD_POST, JSON.stringify(body))
 
 func _on_request_completed(result, response_code, headers, body):
-	if response_code != 200:
+	if response_code != 200: 
 		output_box.text = "⚠️ 错误：" + str(response_code)
 		return
 
