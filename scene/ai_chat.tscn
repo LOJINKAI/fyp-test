@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkito0npsbs4y"]
+
+[ext_resource type="Script" path="res://scene/ai_chat.gd" id="1_t8bx0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u07by"]
+bg_color = Color(0.920995, 0.920995, 0.920995, 1)
+
+[node name="AIChat" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t8bx0")
+
+[node name="TextEdit" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 299.0
+offset_right = 1121.0
+offset_bottom = 565.0
+placeholder_text = "Please enter ....."
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 965.0
+offset_top = 571.0
+offset_right = 1116.0
+offset_bottom = 609.0
+text = "Send"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 30.0
+offset_right = 1111.0
+offset_bottom = 220.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_u07by")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
