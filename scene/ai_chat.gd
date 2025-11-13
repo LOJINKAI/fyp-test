@@ -1,5 +1,5 @@
 extends Control
-##
+
 @onready var input_box := $"TextEdit"   # 玩家输入框
 @onready var output_box := $"Label"     # AI 显示框
 @onready var send_button := $"Button"   # 发送按钮
