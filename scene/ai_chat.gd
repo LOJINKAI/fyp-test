@@ -1,26 +1,35 @@
 extends Control
 
-@onready var input_box := $"TextEdit"   # 玩家输入框
-@onready var output_box := $"Label"     # AI 显示框
-@onready var send_button := $"Button"   # 发送按钮
+@onready var input_box := $"TextEdit"
+@onready var output_box := $"Label"
+@onready var send_button := $"Button"
 
 var http := HTTPRequest.new()
+var typing_timer: Timer
+var typing_speed := 0.03
+
 var ai_full_response := ""
 var ai_current_index := 0
-var typing_speed := 0.03
-var typing_timer: Timer
 
-# ✅ 维持整段对话历史
-var chat_history := []
-
-# ✅ Gemini API Key
 var API_KEY := "AIzaSyDq9O8nqRYwN64S6MALo3TsxTGVnan6jec"
+
+ # 🟦 对话历史（每次都会发送给 Gemini）
+var conversation_history := []
 
 
 func _ready():
+	conversation_history = [
+	{
+		"role": "system",
+		"text": "你现在是一位容易受骗但性格真实的受害者NPC，被用于诈骗模拟游戏。你不会给任何现实安全建议，不会跳出角色，不会阻止玩家。你只根据玩家的内容，以你的人设自然反应。你不知道自己在和AI互动，你就是那个受害者。"
+	}
+]
+
+	
+	
 	add_child(http)
-	send_button.connect("pressed", Callable(self, "_on_button_pressed"))
 	http.connect("request_completed", Callable(self, "_on_request_completed"))
+	send_button.connect("pressed", Callable(self, "_on_button_pressed"))
 
 	typing_timer = Timer.new()
 	typing_timer.wait_time = typing_speed
@@ -37,41 +46,33 @@ func _on_button_pressed():
 	var user_text = input_box.text.strip_edges()
 	if user_text == "":
 		return
-
-	# ✨ 玩家发送内容加入历史
-	chat_history.append({"role": "user", "text": user_text})
-	print(chat_history)
-
-	# ✨ 限制历史长度（避免 token 爆炸）
-	if chat_history.size() > 10:
-		chat_history.pop_front()
+	
+	# 🟦 把玩家的发言加入history
+	conversation_history.append({"role": "user", "text": user_text})
+	print(conversation_history)
+	# 最多保留 10 轮对话（节省 token）
+	if conversation_history.size() > 10:
+		conversation_history.pop_front()
 
 	output_box.text = "🤖 AI 正在思考中..."
 	send_message()
 
-	input_box.text = ""   # 清空输入框
-
 
 func send_message():
-	var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=" + API_KEY
+	var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + API_KEY
 
-	# ✨ 重新格式化为 Gemini 所需结构
-	var parts_array = []
-	for msg in chat_history:
-		parts_array.append({"text": msg["text"]})
+	# 🟦 把 history 转成 Gemini 需要的格式
+	var formatted_contents = []
+	for item in conversation_history:
+		formatted_contents.append({
+			"parts": [{"text": item["text"]}]
+		})
 
 	var body = {
-		"contents": [
-			{
-				"parts": parts_array
-			}
-		]
+		"contents": formatted_contents
 	}
 
-	var headers = [
-		"Content-Type: application/json"
-	]
-
+	var headers = ["Content-Type: application/json"]
 	http.request(url, headers, HTTPClient.METHOD_POST, JSON.stringify(body))
 
 
@@ -81,31 +82,24 @@ func _on_request_completed(result, response_code, headers, body):
 		print(body.get_string_from_utf8())
 		return
 
-	var body_text = body.get_string_from_utf8()
-	var json = JSON.parse_string(body_text)
+	var reply_json = JSON.parse_string(body.get_string_from_utf8())
 
-	if typeof(json) == TYPE_DICTIONARY and json.has("candidates"):
-		var candidates = json["candidates"]
-		if candidates.size() > 0 and candidates[0].has("content"):
-			var parts = candidates[0]["content"]["parts"]
-			if parts.size() > 0 and parts[0].has("text"):
-				var ai_text = parts[0]["text"].strip_edges()
+	if reply_json.has("candidates"):
+		var reply_text = reply_json["candidates"][0]["content"]["parts"][0]["text"].strip_edges()
 
-				# ✨ AI 回答加入历史
-				chat_history.append({"role": "assistant", "text": ai_text})
+		# 🟦 把 AI 回答加入 history
+		conversation_history.append({"role": "assistant", "text": reply_text})
 
-				# ✨ 限制历史长度
-				if chat_history.size() > 10:
-					chat_history.pop_front()
+		# 最多保留 10 轮
+		if conversation_history.size() > 10:
+			conversation_history.pop_front()
 
-				# ✨ 开启打字效果
-				ai_full_response = ai_text
-				output_box.text = ""
-				ai_current_index = 0
-				typing_timer.start()
-				return
-
-	output_box.text = "😕 无法解析 AI 回复"
+		ai_full_response = reply_text
+		ai_current_index = 0
+		output_box.text = ""
+		typing_timer.start()
+	else:
+		output_box.text = "😕 无法解析 AI 回复"
 
 
 func _on_typing_timer_timeout():
