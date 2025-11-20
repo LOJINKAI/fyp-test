@@ -37,7 +37,7 @@ func _on_button_pressed():
 
 func send_message(user_text: String):
 	# ✅ Gemini endpoint（目前固定使用 gemini-pro 模型）
-	var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite-preview-06-17:generateContent?key=" + API_KEY
+	var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + API_KEY
 	
 	# ✅ Gemini API 需要的 body 格式
 	var body = {
