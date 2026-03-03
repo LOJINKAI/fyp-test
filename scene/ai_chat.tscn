@@ -16,26 +16,31 @@ script = ExtResource("1_t8bx0")
 
 [node name="TextEdit" type="TextEdit" parent="."]
 layout_mode = 0
-offset_left = 49.0
-offset_top = 299.0
-offset_right = 1121.0
+offset_left = 24.0
+offset_top = 401.0
+offset_right = 632.0
 offset_bottom = 565.0
 placeholder_text = "Please enter ....."
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 965.0
+offset_left = 475.335
 offset_top = 571.0
-offset_right = 1116.0
+offset_right = 626.335
 offset_bottom = 609.0
 text = "Send"
 
 [node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 58.0
-offset_top = 30.0
-offset_right = 1111.0
-offset_bottom = 220.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.037
+anchor_top = 0.029
+anchor_right = 0.975
+anchor_bottom = 0.405
+offset_left = 0.0240002
+offset_top = -0.158001
+offset_right = 0.200012
+offset_bottom = -0.310028
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_u07by")
 
