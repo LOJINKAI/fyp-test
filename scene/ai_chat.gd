@@ -69,7 +69,7 @@ func _on_button_pressed():
 	if conversation_history.size() > 10:
 		conversation_history.pop_front()
 
-	output_box.text = "🤖 AI 正在思考中..."
+	output_box.text = "Entering ....."
 	send_message()
 
 
