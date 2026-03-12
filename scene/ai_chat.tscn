@@ -46,20 +46,19 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Send"
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="RichTextLabel" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.037
-anchor_top = 0.029
-anchor_right = 0.975
-anchor_bottom = 0.405
-offset_left = 0.0240002
-offset_top = -0.158005
-offset_right = 0.200012
-offset_bottom = -0.310028
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
+anchor_top = 0.027
+anchor_right = 0.972
+anchor_bottom = 0.402
+offset_left = -1.976
+offset_top = -0.354
+offset_right = 0.143982
+offset_bottom = 0.395966
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_u07by")
-autowrap_mode = 3
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
