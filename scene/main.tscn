@@ -14,18 +14,21 @@ script = ExtResource("1_adfgs")
 metadata/_edit_lock_ = true
 
 [node name="Button" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0.427451)
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -497.0
-offset_bottom = -864.0
+anchor_right = 1.008
+anchor_bottom = 1.162
+offset_left = 2.0
+offset_top = -14.0
+offset_right = 892.816
+offset_bottom = 1697.88
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(4.43997, 24.1575)
-pivot_offset = Vector2(0.825, 0)
+scale = Vector2(0.423, 0.336)
 
 [node name="quit" type="Button" parent="."]
+z_as_relative = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.35
