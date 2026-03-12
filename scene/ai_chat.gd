@@ -12,7 +12,7 @@ var ai_full_response := ""
 var ai_current_index := 0 
 #
 
-var API_KEY := "AIzaSyDq9O8nqRYwN64S6MALo3TsxTGVnan6jec"
+var API_KEY := "AIzaSyAKUEgXzRSJSPAk8oUxVYws5MUXJBAfTiI"
 
  # 🟦 对话历史（每次都会发送给 Gemini）
 var conversation_history := []
