@@ -145,3 +145,7 @@ func _on_typing_timer_timeout():
 		ai_current_index += 1
 	else:
 		typing_timer.stop()
+
+
+func _on_quit_pressed():
+	get_tree().change_scene_to_file("res://scene/app.tscn")

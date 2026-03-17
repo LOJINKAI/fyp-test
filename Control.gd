@@ -9,7 +9,3 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-
-
-func _on_chat_pressed():
-	get_tree().change_scene_to_file("res://scene/app.tscn")
