@@ -1,5 +1,8 @@
 extends Control
 
+
+
+
 @onready var input_box := $"TextEdit"
 @onready var output_box := $"Label"
 @onready var send_button := $"Button"
