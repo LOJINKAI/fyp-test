@@ -2,21 +2,32 @@ extends Control
 
 
 
+const BUBBLE_SCENE = preload("res://scene/MessageBubble.tscn") # 载入你做的气泡场景
 
-@onready var input_box := $"TextEdit"
+@onready var message_list = $body/VBoxContainer
+@onready var input_text = $footer/TextEdit
+
+
+@onready var input_box := $"footer/TextEdit"
 @onready var output_box := $"Label"
-@onready var send_button := $"Button"
+@onready var send_button := $"footer/send"
 
 var http := HTTPRequest.new()
 var typing_timer: Timer
 var typing_speed := 0.03
 
+
+# 在代码顶部添加一个变量
+var current_ai_label: Label = null
   #  
 var ai_full_response := ""
 var ai_current_index := 0 
 #
 
-var API_KEY := "AIzaSyAKUEgXzRSJSPAk8oUxVYws5MUXJBAfTiI"
+var API_KEY := "AIzaSyBkH3HQKlwcJ8Q5MM38tmc8IEAHn9n9Txk"
+
+#AIzaSyAKUEgXzRSJSPAk8oUxVYws5MUXJBAfTiI
+#AIzaSyBkH3HQKlwcJ8Q5MM38tmc8IEAHn9n9Txk
 
  # 🟦 对话历史（每次都会发送给 Gemini）
 var conversation_history := []
@@ -73,10 +84,10 @@ func _ready():
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
-		_on_button_pressed()
+		_on_send_pressed()
 
 
-func _on_button_pressed():
+func _on_send_pressed():
 	var user_text = input_box.text.strip_edges()
 	if user_text == "":
 		return
@@ -87,9 +98,48 @@ func _on_button_pressed():
 	# 最多保留 10 轮对话（节省 token）
 	if conversation_history.size() > 10:
 		conversation_history.pop_front()
-
-	output_box.text = "Entering ....."
+		
+	await get_tree().create_timer(1.0).timeout
+	# 1. 生成用户自己的气泡
+	create_bubble(user_text, true)
+	
+	# 2. 清空输入框
+	input_box.text = ""
+	
+	# 3. 后续逻辑
+	conversation_history.append({"role": "user", "text": user_text})
 	send_message()
+	
+	#create_bubble(text, true) # 生成自己的消息
+	#input_text.text = "" # 清空输入框
+	
+	# 模拟 AI 回复（延迟一秒）
+
+func scroll_to_bottom():
+	# 等待一帧，让 UI 节点完成重新排版后再滚动
+	await get_tree().process_frame
+	var scroll_container = $body # 确保这是你的 ScrollContainer 路径
+	scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
+
+ 
+func create_bubble(content: String, is_mine: bool) -> Label:
+	var bubble = BUBBLE_SCENE.instantiate()
+	message_list.add_child(bubble)
+	
+	var label = bubble.get_node("Content") # 确保路径正确
+	label.text = content
+	
+	# 设置左右对齐
+	if is_mine:
+		bubble.size_flags_horizontal = Control.SIZE_SHRINK_END
+	else:
+		bubble.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		
+	# 自动滚动到底部（稍后添加这个函数）
+	scroll_to_bottom()
+	
+	return label # 返回这个 label 方便后续修改文字
+	
 
 
 func send_message():
@@ -112,15 +162,8 @@ func send_message():
 
 func _on_request_completed(result, response_code, headers, body):
 	if response_code != 200:
-		var error_body = body.get_string_from_utf8()
-		var error_json = JSON.parse_string(error_body)
-
-		# 尝试抓取 API 给出的具体错误描述
-		var error_msg = ""
-		if error_json and error_json.has("error"):
-			error_msg = error_json["error"]["message"]
-		output_box.text = "⚠️ 错误 %d: %s" % [response_code, error_msg]
-		print("Full Error Body:", error_body) 
+		# 报错信息也可以用气泡显示，或者保持在原位
+		create_bubble("⚠️ Error: " + str(response_code), false)
 		return
 
 	var reply_json = JSON.parse_string(body.get_string_from_utf8())
@@ -128,28 +171,30 @@ func _on_request_completed(result, response_code, headers, body):
 	if reply_json.has("candidates"):
 		var reply_text = reply_json["candidates"][0]["content"]["parts"][0]["text"].strip_edges()
 
-		# 🟦 把 AI 回答加入 history
 		conversation_history.append({"role": "assistant", "text": reply_text})
-
-		# 最多保留 10 轮
 		if conversation_history.size() > 10:
 			conversation_history.pop_front()
 
 		ai_full_response = reply_text
 		ai_current_index = 0
-		output_box.text = ""
+		
+		# --- 关键修改 ---
+		# 创建一个空气泡，并记住它的 Label 节点
+		current_ai_label = create_bubble("", false) 
 		typing_timer.start()
+		# ----------------
 	else:
-		output_box.text = "😕 无法解析 AI 回复"
-
+		create_bubble("😕 无法解析 AI 回复", false)
 
 func _on_typing_timer_timeout():
-	if ai_current_index < ai_full_response.length():
-		output_box.text += ai_full_response[ai_current_index]
+	if current_ai_label and ai_current_index < ai_full_response.length():
+		current_ai_label.text += ai_full_response[ai_current_index]
 		ai_current_index += 1
+		# 每次打字都尝试滚动，保证长文本能看到最新的一行
+		scroll_to_bottom()
 	else:
 		typing_timer.stop()
-
+		current_ai_label = null # 打字结束，清空引用
 
 func _on_quit_pressed():
 	get_tree().change_scene_to_file("res://scene/app.tscn")
