@@ -10,7 +10,8 @@ extends Control
 var http := HTTPRequest.new()
 var typing_timer: Timer
 var typing_speed := 0.03
-  # 
+
+  #  
 var ai_full_response := ""
 var ai_current_index := 0 
 #
