@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://ca2qch5ichnm"]
+
+[ext_resource type="Texture2D" uid="uid://dpuw3udke6y7x" path="res://image/icon.svg" id="1_5rh2y"]
+[ext_resource type="Script" path="res://gd/main.gd" id="1_adfgs"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_adfgs")
+metadata/_edit_lock_ = true
+
+[node name="Button" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0.427451)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.008
+anchor_bottom = 1.162
+offset_left = 2.0
+offset_top = -14.0
+offset_right = 892.816
+offset_bottom = 1697.88
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.423, 0.336)
+
+[node name="quit" type="Button" parent="."]
+z_as_relative = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.35
+anchor_top = 0.695
+anchor_right = 0.63
+anchor_bottom = 0.863
+offset_left = 0.199966
+offset_top = 0.109924
+offset_right = -45.24
+offset_bottom = -15.426
+scale = Vector2(1.33214, 1.11155)
+icon = ExtResource("1_5rh2y")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]

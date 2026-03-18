@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1ufp3kqs0yxn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0i6i5"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.205704, 0.654591, 0.817227, 1)
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+
+[node name="MarginContainer" type="MarginContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_0i6i5")
+
+[node name="Label" type="Label" parent="PanelContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+autowrap_mode = 3
