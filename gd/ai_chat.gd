@@ -24,10 +24,9 @@ var ai_full_response := ""
 var ai_current_index := 0 
 #
 
-var API_KEY := "AIzaSyBkH3HQKlwcJ8Q5MM38tmc8IEAHn9n9Txk"
+var API_KEY := "AIzaSyAsJFRGgkGNISR9S_aWWK3z-Q2Zd5qEcGM"
 
-#AIzaSyAKUEgXzRSJSPAk8oUxVYws5MUXJBAfTiI
-#AIzaSyBkH3HQKlwcJ8Q5MM38tmc8IEAHn9n9Txk
+
 
  # 🟦 对话历史（每次都会发送给 Gemini）
 var conversation_history := []
@@ -130,10 +129,12 @@ func create_bubble(content: String, is_mine: bool) -> Label:
 	label.text = content
 	
 	# 设置左右对齐
-	if is_mine:
+	if is_mine == true:
 		bubble.size_flags_horizontal = Control.SIZE_SHRINK_END
+		print("player")
 	else:
 		bubble.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		print("AI")
 		
 	# 自动滚动到底部（稍后添加这个函数）
 	scroll_to_bottom()
