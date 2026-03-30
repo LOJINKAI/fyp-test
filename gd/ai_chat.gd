@@ -1,6 +1,6 @@
 extends Control
 
-
+const SAVE_PATH = "user://chat_history.json"
 
 const BUBBLE_SCENE = preload("res://scene/MessageBubble.tscn") # 载入你做的气泡场景
 
@@ -31,8 +31,43 @@ var API_KEY := "AIzaSyAsJFRGgkGNISR9S_aWWK3z-Q2Zd5qEcGM"
  # 🟦 对话历史（每次都会发送给 Gemini）
 var conversation_history := []
 
+func save_chat_history():
+	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	if file:
+		# 将数组转为 JSON 字符串并保存
+		var json_string = JSON.stringify(conversation_history)
+		file.store_string(json_string)
+		file.close()
+		print("聊天记录已保存")
+		
+
+func load_chat_history():
+	if not FileAccess.file_exists(SAVE_PATH):
+		return # 如果文件不存在（第一次运行），直接返回
+
+	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	if file:
+		var json_string = file.get_as_text()
+		file.close()
+		
+		# 将 JSON 转回数组
+		var data = JSON.parse_string(json_string)
+		if data is Array:
+			conversation_history = data
+			
+			# 根据读到的历史记录，生成界面上的气泡
+			# 注意：我们要跳过 "system" 角色，因为它不显示在 UI 上
+			for message in conversation_history:
+				if message["role"] == "user":
+					create_bubble(message["text"], true)
+				elif message["role"] == "assistant":
+					create_bubble(message["text"], false)
 
 func _ready():
+	
+	load_chat_history()
+	
+	
 	conversation_history = [
 	{
 		"role": "system",
@@ -107,6 +142,7 @@ func _on_send_pressed():
 	
 	# 3. 后续逻辑
 	conversation_history.append({"role": "user", "text": user_text})
+	save_chat_history() # 保存你刚刚发的那句话
 	send_message()
 	
 	#create_bubble(text, true) # 生成自己的消息
@@ -171,7 +207,7 @@ func _on_request_completed(result, response_code, headers, body):
 
 	if reply_json.has("candidates"):
 		var reply_text = reply_json["candidates"][0]["content"]["parts"][0]["text"].strip_edges()
-
+		
 		conversation_history.append({"role": "assistant", "text": reply_text})
 		if conversation_history.size() > 10:
 			conversation_history.pop_front()
@@ -184,6 +220,9 @@ func _on_request_completed(result, response_code, headers, body):
 		current_ai_label = create_bubble("", false) 
 		typing_timer.start()
 		# ----------------
+		
+		save_chat_history() # 保存 AI 刚刚说的那句话
+		
 	else:
 		create_bubble("😕 无法解析 AI 回复", false)
 
