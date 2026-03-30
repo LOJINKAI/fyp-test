@@ -24,7 +24,7 @@ var ai_full_response := ""
 var ai_current_index := 0 
 #
 
-var API_KEY := "AIzaSyAsJFRGgkGNISR9S_aWWK3z-Q2Zd5qEcGM"
+var API_KEY := "AIzaSyDoqqqMhUAdZwZRTEe1-sfGswy2qzAqe_0"
 
 
 
@@ -38,7 +38,7 @@ func save_chat_history():
 		var json_string = JSON.stringify(conversation_history)
 		file.store_string(json_string)
 		file.close()
-		print("聊天记录已保存")
+
 		
 
 func load_chat_history():
@@ -141,7 +141,6 @@ func _on_send_pressed():
 	input_box.text = ""
 	
 	# 3. 后续逻辑
-	conversation_history.append({"role": "user", "text": user_text})
 	save_chat_history() # 保存你刚刚发的那句话
 	send_message()
 	
@@ -167,10 +166,10 @@ func create_bubble(content: String, is_mine: bool) -> Label:
 	# 设置左右对齐
 	if is_mine == true:
 		bubble.size_flags_horizontal = Control.SIZE_SHRINK_END
-		print("player")
+
 	else:
 		bubble.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-		print("AI")
+
 		
 	# 自动滚动到底部（稍后添加这个函数）
 	scroll_to_bottom()
@@ -238,3 +237,16 @@ func _on_typing_timer_timeout():
 
 func _on_quit_pressed():
 	get_tree().change_scene_to_file("res://scene/app.tscn")
+
+
+func _on_clear_pressed():
+	# 1. 删掉物理文件
+	if FileAccess.file_exists(SAVE_PATH):
+		DirAccess.remove_absolute(SAVE_PATH)
+	
+	# 2. 清空当前数组（只保留 system prompt）
+	conversation_history = [conversation_history[0]] 
+	
+	# 3. 清空 UI 上的气泡
+	for child in message_list.get_children():
+		child.queue_free()
