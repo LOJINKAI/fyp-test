@@ -18,6 +18,7 @@ config/icon="res://image/icon.png"
 [autoload]
 
 Global="*res://gd/Global.gd"
+ApiKey="*res://gd/api_key.gd"
 
 [display]
 

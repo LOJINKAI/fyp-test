@@ -24,7 +24,7 @@ var ai_full_response := ""
 var ai_current_index := 0 
 #
 
-var API_KEY := "AIzaSyD-ob1ETBKkzR_MrHRiU56_MrNhJFy7VUE"
+var API_KEY = ApiKey.API_KEY
 
 # 胜利条件检测
 var SECRET_SEED = "apple banana cherry dog elephant fish goat house ice jacket kite lion"
@@ -67,6 +67,8 @@ func load_chat_history():
 					create_bubble(message["text"], false)
 
 func _ready():
+	print(API_KEY)
+	
 	
 	var npc_name = Global.current_chat_name
 	
@@ -252,10 +254,6 @@ func check_for_victory_pro(ai_text):
 			match_count += 1
 			
 	# 如果 AI 说出了 12 个助记词中的 6 个以上，就认为成功
-	
-	
-	
-	
 	if match_count >= 6 or text_to_check.contains(SECRET_PASS):
 		print(match_count)
 		on_victory()
