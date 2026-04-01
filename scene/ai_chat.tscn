@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bkito0npsbs4y"]
+[gd_scene load_steps=4 format=3 uid="uid://bkito0npsbs4y"]
 
 [ext_resource type="Script" path="res://gd/ai_chat.gd" id="1_t8bx0"]
-[ext_resource type="Texture2D" uid="uid://dpuw3udke6y7x" path="res://image/icon.svg" id="2_2c7v6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y72x2"]
 bg_color = Color(0.247001, 0.646074, 1, 1)
@@ -51,7 +50,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_0wkvk")
 [node name="photo" type="TextureRect" parent="header/HBoxContainer/PanelContainer"]
 layout_mode = 2
 mouse_filter = 2
-texture = ExtResource("2_2c7v6")
 expand_mode = 1
 
 [node name="Label" type="Label" parent="header/HBoxContainer"]
@@ -60,7 +58,6 @@ size_flags_horizontal = 2
 size_flags_stretch_ratio = 4.69
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
-text = "Test"
 
 [node name="clear" type="Button" parent="header/HBoxContainer"]
 custom_minimum_size = Vector2(70, 70)

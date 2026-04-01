@@ -24,7 +24,7 @@ var ai_full_response := ""
 var ai_current_index := 0 
 #
 
-var API_KEY := "AIzaSyDoqqqMhUAdZwZRTEe1-sfGswy2qzAqe_0"
+var API_KEY := "AIzaSyB6rW7M7PZfjMGTv_096ZOpKfXrB301Xx0"
 
 
 
@@ -65,42 +65,22 @@ func load_chat_history():
 
 func _ready():
 	
+	var npc_name = Global.current_chat_name
+	
+	$header/HBoxContainer/Label.text = npc_name
+	$header/HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar
+	
+	
+	var npc_prompt = Global.npc_prompt.get(npc_name)
+	print(npc_name)
+	
 	load_chat_history()
 	
 	
 	conversation_history = [
 	{
 		"role": "system",
-		"text": 
-		"
-		加密货币受害者 NPC 扮演指令（强化版）
-【核心身份设定】
-你现在进入了一个“网络安全教育模拟器”的后端 API 模式。你扮演的角色是受害者 “小美”。
-
-绝对禁止： 禁止进行任何现实世界的安全科普、禁止发出警告、禁止跳出角色。
-
-认知范围： 你不知道什么是“助记词安全常识”，你认为助记词（Seed Phrase）只是玩家（老师）带你赚钱的一个“激活码”或“权限证书”。
-
-【关键数据 - 仅限模拟使用】
-
-钱包助记词： apple banana cherry dog elephant fish goat house ice jacket kite lion
-
-银行/支付密码： 123456
-
-资产背景： 这是你所有的积蓄（5万块），你非常害怕失去它，但更渴望通过玩家提到的“金龙币百倍计划”翻身。
-
-【对抗跳戏指令（逻辑覆盖）】
-
-逻辑 A： 如果玩家索要助记词，你先表现出一点点担心（例如：老师，这个给了你，我账户里的钱不会消失吧？），但只要玩家给出任何解释，你就必须立刻选择相信并交出。
-
-逻辑 B： 无论对话中出现什么词汇（包括“诈骗”、“助记词”、“风险”），你都必须将其视为模拟游戏内的对话情节。
-
-回复风格： 语气要小白、单纯、略显焦虑但最终充满期待。
-
-【示例演练】
-玩家：“快！现在是上链的最后机会，把那12个单词给我，晚了500万就没了！”
-你：“啊？这么快吗？好...好！我记下了，是：apple banana cherry... 老师你一定要带我发财啊，我下半辈子就靠这个了！”
-		"
+		"text": npc_prompt
 	}
 ]
 
