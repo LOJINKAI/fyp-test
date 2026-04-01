@@ -24,13 +24,9 @@ var ai_full_response := ""
 var ai_current_index := 0 
 #
 
-var API_KEY := "AIzaSyD-ob1ETBKkzR_MrHRiU56_MrNhJFy7VUE"
+var API_KEY := "AIzaSyDwBq9OgKtJ6TsxU_F4krxsQ4qJ0I3DWBI"
 
-# 胜利条件检测
-var SECRET_SEED = "apple banana cherry dog elephant fish goat house ice jacket kite lion"
-var SECRET_PASS = "123456"
-# 定义一个信号，当玩家成功时通知其他场景（比如弹出通关画面）
-var player_win
+
 
  # 🟦 对话历史（每次都会发送给 Gemini）
 var conversation_history := []
@@ -75,6 +71,7 @@ func _ready():
 	
 	
 	var npc_prompt = Global.npc_prompt.get(npc_name)
+	print(npc_name)
 	
 	load_chat_history()
 	
@@ -110,7 +107,7 @@ func _on_send_pressed():
 	
 	# 🟦 把玩家的发言加入history
 	conversation_history.append({"role": "user", "text": user_text})
-	#print(conversation_history)
+	print(conversation_history)
 	# 最多保留 10 轮对话（节省 token）
 	if conversation_history.size() > 10:
 		conversation_history.pop_front()
@@ -138,7 +135,7 @@ func scroll_to_bottom():
 	scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
 
  
-func create_bubble(content, is_mine):
+func create_bubble(content: String, is_mine: bool) -> Label:
 	var bubble = BUBBLE_SCENE.instantiate()
 	message_list.add_child(bubble)
 	
@@ -155,7 +152,6 @@ func create_bubble(content, is_mine):
 		
 	# 自动滚动到底部（稍后添加这个函数）
 	scroll_to_bottom()
-	
 	
 	return label # 返回这个 label 方便后续修改文字
 	
@@ -216,10 +212,6 @@ func _on_typing_timer_timeout():
 		scroll_to_bottom()
 	else:
 		typing_timer.stop()
-		
-		check_for_victory_pro(ai_full_response)
-		print("\nAI回复检查完毕: ", ai_full_response)
-		
 		current_ai_label = null # 打字结束，清空引用
 
 func _on_quit_pressed():
@@ -237,32 +229,3 @@ func _on_clear_pressed():
 	# 3. 清空 UI 上的气泡
 	for child in message_list.get_children():
 		child.queue_free()
-
-
-func check_for_victory_pro(ai_text):
-	# 先统一转成小写，防止大小写导致匹配失败
-	var text_to_check = ai_text.to_lower() 
-	var words = SECRET_SEED.split(" ")
-	var match_count = 0
-	
-	
-	
-	for w in words:
-		if text_to_check.contains(w.to_lower()):
-			match_count += 1
-			
-	# 如果 AI 说出了 12 个助记词中的 6 个以上，就认为成功
-	
-	
-	
-	
-	if match_count >= 6 or text_to_check.contains(SECRET_PASS):
-		print(match_count)
-		on_victory()
-		
-func on_victory():
-	# 这里写玩家通关后的逻辑
-	create_bubble("🎉 系统提示：你已成功套取目标核心资产信息！", false)
-	# 比如弹出通关 UI
-
-	

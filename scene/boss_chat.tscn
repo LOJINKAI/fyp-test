@@ -1,0 +1,97 @@
+[gd_scene load_steps=4 format=3 uid="uid://j8apdvn0ngya"]
+
+[ext_resource type="Script" path="res://gd/boss_chat.gd" id="1_pl66e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y72x2"]
+bg_color = Color(0.247001, 0.646074, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wkvk"]
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+
+[node name="AIChat" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pl66e")
+
+[node name="header" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_y72x2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="header"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="quit" type="Button" parent="header/HBoxContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+size_flags_stretch_ratio = 1.18
+
+[node name="PanelContainer" type="PanelContainer" parent="header/HBoxContainer"]
+clip_children = 1
+custom_minimum_size = Vector2(100, 100)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+size_flags_stretch_ratio = 12.91
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0wkvk")
+
+[node name="photo" type="TextureRect" parent="header/HBoxContainer/PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+
+[node name="Label" type="Label" parent="header/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_stretch_ratio = 4.69
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+
+[node name="clear" type="Button" parent="header/HBoxContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+size_flags_stretch_ratio = 1.15
+
+[node name="body" type="ScrollContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="body"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="footer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="TextEdit" type="TextEdit" parent="footer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+placeholder_text = "Please enter ....."
+wrap_mode = 1
+
+[node name="send" type="Button" parent="footer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "Send"
+
+[connection signal="pressed" from="header/HBoxContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="header/HBoxContainer/clear" to="." method="_on_clear_pressed"]
+[connection signal="pressed" from="footer/send" to="." method="_on_send_pressed"]
