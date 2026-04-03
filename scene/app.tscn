@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvo8qojp3aa7f"]
+[gd_scene load_steps=4 format=3 uid="uid://cfxggmjkwm8nn"]
 
 [ext_resource type="Script" path="res://gd/app.gd" id="1_iaqfa"]
-[ext_resource type="Texture2D" uid="uid://dpuw3udke6y7x" path="res://image/icon.svg" id="2_b0obx"]
+[ext_resource type="Texture2D" path="res://image/icon.svg" id="2_b0obx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g7g6t"]
 corner_radius_top_left = 1024

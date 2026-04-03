@@ -215,7 +215,7 @@ func _on_typing_timer_timeout():
 		current_ai_label.text += ai_full_response[ai_current_index]
 		ai_current_index += 1
 		# 每次打字都尝试滚动，保证长文本能看到最新的一行
-		scroll_to_bottom()
+		scroll_to_bottom()  
 	else:
 		typing_timer.stop()
 		
