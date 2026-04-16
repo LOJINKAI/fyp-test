@@ -64,7 +64,7 @@ func load_chat_history():
 
 func _ready():
 	
-	var npc_name = Global.current_chat_name
+	var npc_name = "Boss"
 	
 	$header/HBoxContainer/Label.text = npc_name
 	$header/HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar

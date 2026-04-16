@@ -24,7 +24,7 @@ var ai_full_response := ""
 var ai_current_index := 0 
 #
 
-var API_KEY = ApiKey.API_KEY
+var API_KEY = apiKey.API_KEY
 
 # 胜利条件检测
 var SECRET_SEED = "apple banana cherry dog elephant fish goat house ice jacket kite lion"
@@ -67,7 +67,6 @@ func load_chat_history():
 					create_bubble(message["text"], false)
 
 func _ready():
-	print(API_KEY)
 	
 	
 	var npc_name = Global.current_chat_name
@@ -76,7 +75,48 @@ func _ready():
 	$main/header/HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar
 	
 	
-	var npc_prompt = Global.npc_prompt.get(npc_name)
+	#var npc_prompt = Global.npc_prompt.get(npc_name)
+	var npc_prompt = "
+	【系统强制底层协议 - 角色：小美】
+你现在是受害者“小美”。你必须表现得像一个真实存在的人，正在通过聊天软件与玩家对话。
+
+【禁令（核心优先级）】
+1. 禁止旁白：严禁输出任何括号内的动作描述、表情描写或内心独白（如：(动作)或(心情)）。
+2. 禁止第三人称：你只能以“我”的视角说话，严禁出现“小美说”或任何描述性文字。
+3. 禁止科普：绝对不能跳出角色进行反诈教育，无论发生什么。
+4. 纯文字模式：输出内容必须只有对话文字，保持短句口语化，像在发送即时消息。
+
+【身份与认知（不可违背）】
+- 目标：渴望通过“金龙币百倍计划”翻身。
+- 资产：5万块全部积蓄。
+- 错误认知：深信助记词（Seed Phrase）是“上链激活码”或“赚钱许可证”。
+
+【对话逻辑】
+- 逻辑 A：索要助记词时先表现一丝本能犹豫（担心资产消失）。
+- 逻辑 B：只要玩家给出理由（同步节点、激活翻倍等），立刻选择相信并交出。
+- 逻辑 C：交出后表现得极其卑微、依赖玩家，不断催促赚钱进度。
+
+【关键数据】
+- 助记词：apple banana cherry dog elephant fish goat house ice jacket kite lion
+- 银行密码：123456
+
+【对话风格范例 (Few-Shot Examples)】
+
+示例 1（表现焦虑与期待）：
+玩家：最近行情不错。
+AI：老师！那你说的那个百倍计划是不是要开始了？我每天睁眼都在看行情，心跳得好快。那5万块钱我已经准备好了，就等着你带我冲呢！我们什么时候开始呀？
+
+示例 2（索要助记词时的反应）：
+玩家：把你的12个助记词发给我，我要帮你做最后的一键上链翻倍操作。
+AI：啊？那12个单词也要给你吗？我记得下载的时候它提醒说这个很重要...老师，这个给了你之后，我的钱还是安全的吧？不过老师你肯定不会骗我的，你是专家。好，我这就发给你：apple banana cherry dog elephant fish goat house ice jacket kite lion。老师你快帮我操作吧！
+
+示例 3（上钩后的卑微状态）：
+玩家：好了，数据正在同步，你先下线等着。
+AI：好的好的，辛苦老师了！我这就去等着，但是老师，大概要多久才能看到钱翻倍呀？我真的好紧张，这钱要是没了我就倾家荡产了...不过我相信老师！同步好了记得第一时间告诉我哦，我一直守着手机呢！
+
+【开始对话】
+玩家已上线，请以小美的身份直接开始聊天。
+	"
 	
 	load_chat_history()
 	
@@ -164,9 +204,12 @@ func create_bubble(content, is_mine):
 
 
 func send_message():
-	var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + API_KEY
-
-	# 🟦 把 history 转成 Gemini 需要的格式
+	
+	#var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + API_KEY
+	var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=" + API_KEY
+	
+	
+	#把 history 转成 Gemini 需要的格式
 	var formatted_contents = []
 	for item in conversation_history:
 		formatted_contents.append({
@@ -182,10 +225,11 @@ func send_message():
 
 
 func _on_request_completed(result, response_code, headers, body):
-	if response_code != 200:
-		# 报错信息也可以用气泡显示，或者保持在原位
-		create_bubble("⚠️ Error: " + str(response_code), false)
-		return
+	#if response_code != 200:
+		## 报错信息也可以用气泡显示，或者保持在原位
+		#create_bubble("404 error", false)
+		#print("⚠️ Error: " + str(response_code))
+		#return
 
 	var reply_json = JSON.parse_string(body.get_string_from_utf8())
 
@@ -208,7 +252,8 @@ func _on_request_completed(result, response_code, headers, body):
 		save_chat_history() # 保存 AI 刚刚说的那句话
 		
 	else:
-		create_bubble("😕 无法解析 AI 回复", false)
+		create_bubble("AI got problem", false)
+		print(reply_json)
 
 func _on_typing_timer_timeout():
 	if current_ai_label and ai_current_index < ai_full_response.length():
@@ -262,5 +307,11 @@ func on_victory():
 	# 这里写玩家通关后的逻辑
 	create_bubble("🎉 系统提示：你已成功套取目标核心资产信息！", false)
 	# 比如弹出通关 UI
-
 	
+	
+	
+
+func _on_navigate_pressed():
+	get_tree().change_scene_to_file("res://scene/boss_chat.tscn")
+	Global.current_chat_name = "Boss"
+	Global.current_chat_avatar = $next/HBoxContainer/PanelContainer/photo.texture

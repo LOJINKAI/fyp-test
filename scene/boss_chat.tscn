@@ -58,6 +58,7 @@ size_flags_horizontal = 2
 size_flags_stretch_ratio = 4.69
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
+text = "boss"
 
 [node name="clear" type="Button" parent="header/HBoxContainer"]
 custom_minimum_size = Vector2(70, 70)
