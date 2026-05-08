@@ -152,7 +152,8 @@ func _on_send_pressed():
 	
 	# 🟦 把玩家的发言加入history
 	conversation_history.append({"role": "user", "text": user_text})
-	#print(conversation_history)
+	print("\n\n")
+	print(conversation_history)
 	# 最多保留 10 轮对话（节省 token）
 	if conversation_history.size() > 10:
 		conversation_history.pop_front()
@@ -208,11 +209,26 @@ func send_message():
 	#var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + API_KEY
 	var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=" + API_KEY
 	
+	#gemini-2.5-flash-lite
+	#request perM = 30
+	#per day = 2000
+	#token perM = 1000000
+	#context = 128k - 1m
 	
-	#把 history 转成 Gemini 需要的格式
+	#var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + API_KEY
+	
+	
 	var formatted_contents = []
 	for item in conversation_history:
+		# 关键修正点：Gemini 识别的是 "user" 和 "model"
+		var gemini_role = ""
+		if item["role"] == "user":
+			gemini_role = "user"
+		else:
+			gemini_role = "model" # 必须是 model，不能是 assistant
+			
 		formatted_contents.append({
+			"role": gemini_role, # 加上这一行！明确告诉 AI 谁是谁说的
 			"parts": [{"text": item["text"]}]
 		})
 
@@ -226,13 +242,12 @@ func send_message():
 
 func _on_request_completed(result, response_code, headers, body):
 	#if response_code != 200:
-		## 报错信息也可以用气泡显示，或者保持在原位
-		#create_bubble("404 error", false)
-		#print("⚠️ Error: " + str(response_code))
-		#return
-
+	## 报错信息也可以用气泡显示，或者保持在原位
+	#create_bubble("404 error", false)
+	print("\n\n⚠️ Error: " + str(response_code))
+	#return
+	
 	var reply_json = JSON.parse_string(body.get_string_from_utf8())
-
 	if reply_json.has("candidates"):
 		var reply_text = reply_json["candidates"][0]["content"]["parts"][0]["text"].strip_edges()
 		
@@ -253,7 +268,7 @@ func _on_request_completed(result, response_code, headers, body):
 		
 	else:
 		create_bubble("AI got problem", false)
-		print(reply_json)
+		#print(reply_json)
 
 func _on_typing_timer_timeout():
 	if current_ai_label and ai_current_index < ai_full_response.length():
@@ -265,7 +280,7 @@ func _on_typing_timer_timeout():
 		typing_timer.stop()
 		
 		check_for_victory_pro(ai_full_response)
-		print("\nAI回复检查完毕: ", ai_full_response)
+		#print("\nAI回复检查完毕: ", ai_full_response)
 		
 		current_ai_label = null # 打字结束，清空引用
 
@@ -300,7 +315,7 @@ func check_for_victory_pro(ai_text):
 			
 	# 如果 AI 说出了 12 个助记词中的 6 个以上，就认为成功
 	if match_count >= 6 or text_to_check.contains(SECRET_PASS):
-		print(match_count)
+		#print(match_count)
 		on_victory()
 		
 func on_victory():
