@@ -32,6 +32,6 @@ func _on_quit_pressed():
 	get_tree().quit()
 	#close game
 
-#start button
-func _on_button_pressed():
+
+func _on_start_pressed():
 	get_tree().change_scene_to_file("res://scene/phone.tscn")  

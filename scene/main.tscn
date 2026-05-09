@@ -1,7 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://y7u5xbws7nyr"]
+[gd_scene load_steps=4 format=3 uid="uid://y7u5xbws7nyr"]
 
-[ext_resource type="Texture2D" uid="uid://dpuw3udke6y7x" path="res://image/icon.svg" id="1_5rh2y"]
 [ext_resource type="Script" path="res://gd/main.gd" id="1_adfgs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3pq5"]
+bg_color = Color(1, 1, 1, 0.784314)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+expand_margin_left = 20.0
+expand_margin_top = 15.0
+expand_margin_right = 20.0
+expand_margin_bottom = 15.0
+shadow_color = Color(0, 0, 0, 0.196078)
+shadow_size = 6
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hvsil"]
+bg_color = Color(1, 1, 1, 0.784314)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 20.0
+expand_margin_top = 10.0
+expand_margin_right = 20.0
+expand_margin_bottom = 10.0
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -13,58 +37,160 @@ grow_vertical = 2
 script = ExtResource("1_adfgs")
 metadata/_edit_lock_ = true
 
-[node name="Button" type="Button" parent="."]
-modulate = Color(1, 1, 1, 0.427451)
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.993
-offset_left = 2.0
-offset_right = 881.0
-offset_bottom = 1789.31
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.423, 0.336)
-
-[node name="quit" type="Button" parent="."]
-z_as_relative = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.35
-anchor_top = 0.695
-anchor_right = 0.63
-anchor_bottom = 0.863
-offset_left = 0.199966
-offset_top = 0.109924
-offset_right = -45.24
-offset_bottom = -15.426
-scale = Vector2(1.33214, 1.11155)
-icon = ExtResource("1_5rh2y")
-
 [node name="time" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.272
-anchor_top = 0.142
-anchor_right = 0.667
-anchor_bottom = 0.248
-offset_left = -174.256
-offset_top = -0.0839996
-offset_right = 215.784
-offset_bottom = 0.303986
+anchor_top = 0.076
+anchor_right = 1.0
+anchor_bottom = 0.183
+offset_left = 2.00002
+offset_top = 0.447998
+offset_bottom = -0.0660095
 theme_override_font_sizes/font_size = 70
 text = "9 : 00"
 horizontal_alignment = 1
 
 [node name="title" type="Label" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.173
+anchor_right = 1.0
+anchor_bottom = 0.346
 offset_left = 2.0
-offset_top = 232.0
-offset_right = 648.0
-offset_bottom = 392.0
+offset_top = -0.0460052
+offset_bottom = 3.90799
 theme_override_font_sizes/font_size = 100
 text = "Rich"
 horizontal_alignment = 1
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[node name="start" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+top_level = true
+layout_mode = 2
+anchor_left = 0.099
+anchor_top = 0.355
+anchor_right = 0.889
+anchor_bottom = 0.479
+offset_left = -0.152008
+offset_top = -0.210022
+offset_right = -0.0720215
+offset_bottom = -0.0580139
+
+[node name="PanelContainer" type="PanelContainer" parent="start"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 488.0
+offset_bottom = 98.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_g3pq5")
+
+[node name="MarginContainer" type="MarginContainer" parent="start/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="start/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="start/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "The game is ready !"
+
+[node name="label" type="Label" parent="start/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_hvsil")
+text = "Start Game !"
+
+[node name="setting" type="Button" parent="start"]
+self_modulate = Color(1, 1, 1, 0)
+top_level = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.099
+anchor_top = 0.497
+anchor_right = 0.889
+anchor_bottom = 0.63
+offset_left = -0.152008
+offset_top = -0.294006
+offset_right = -0.0720215
+offset_bottom = -8.26007
+
+[node name="PanelContainer" type="PanelContainer" parent="start/setting"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 488.0
+offset_bottom = 98.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_g3pq5")
+
+[node name="MarginContainer" type="MarginContainer" parent="start/setting/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="start/setting/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="start/setting/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Setting"
+
+[node name="quit" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+top_level = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.086
+anchor_top = 0.639
+anchor_right = 0.889
+anchor_bottom = 0.763
+offset_left = 8.272
+offset_top = -0.378052
+offset_right = -0.0720215
+offset_bottom = -0.226013
+
+[node name="PanelContainer" type="PanelContainer" parent="quit"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 488.0
+offset_bottom = 98.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_g3pq5")
+
+[node name="MarginContainer" type="MarginContainer" parent="quit/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="quit/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="quit/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Quit"
+
+[connection signal="pressed" from="start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
