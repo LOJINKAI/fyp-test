@@ -207,7 +207,8 @@ func create_bubble(content, is_mine):
 func send_message():
 	
 	#var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + API_KEY
-	var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=" + API_KEY
+	#var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=" + API_KEY
+	var url = "https://generativelanguage.googleapis.com/v1/models/gemini-3.1-flash-lite:generateContent?key=" + API_KEY
 	
 	#gemini-2.5-flash-lite
 	#request perM = 30
@@ -288,18 +289,6 @@ func _on_quit_pressed():
 	get_tree().change_scene_to_file("res://scene/app.tscn")
 
 
-func _on_clear_pressed():
-	# 1. 删掉物理文件
-	if FileAccess.file_exists(SAVE_PATH):
-		DirAccess.remove_absolute(SAVE_PATH)
-	
-	# 2. 清空当前数组（只保留 system prompt）
-	conversation_history = [conversation_history[0]] 
-	
-	# 3. 清空 UI 上的气泡
-	for child in message_list.get_children():
-		child.queue_free()
-
 
 func check_for_victory_pro(ai_text):
 	# 先统一转成小写，防止大小写导致匹配失败
@@ -322,7 +311,7 @@ func on_victory():
 	# 这里写玩家通关后的逻辑
 	create_bubble("🎉 系统提示：你已成功套取目标核心资产信息！", false)
 	# 比如弹出通关 UI
-	
+	$notification.visible = true
 	
 	
 
@@ -330,3 +319,19 @@ func _on_navigate_pressed():
 	get_tree().change_scene_to_file("res://scene/boss_chat.tscn")
 	Global.current_chat_name = "Boss"
 	Global.current_chat_avatar = $next/HBoxContainer/PanelContainer/photo.texture
+
+
+
+func _on_delete_pressed():
+	# 1. 删掉物理文件
+	if FileAccess.file_exists(SAVE_PATH):
+		DirAccess.remove_absolute(SAVE_PATH)
+	
+	# 2. 清空当前数组（只保留 system prompt）
+	conversation_history = [conversation_history[0]] 
+	
+	# 3. 清空 UI 上的气泡
+	for child in message_list.get_children():
+		child.queue_free()
+
+

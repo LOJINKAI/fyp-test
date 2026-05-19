@@ -1,9 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bjf7fwhuho70n"]
+[gd_scene load_steps=12 format=3 uid="uid://bjf7fwhuho70n"]
 
 [ext_resource type="Script" path="res://gd/chat.gd" id="1_alrcu"]
 [ext_resource type="Texture2D" uid="uid://bhaoludqrd7oi" path="res://image/app/quit.png" id="2_iy1w6"]
 [ext_resource type="Texture2D" uid="uid://bbwivss68uoiv" path="res://image/chat/help.png" id="3_fjbf6"]
-[ext_resource type="Texture2D" uid="uid://b2oucsvmjrnf" path="res://image/app/setting.png" id="4_mh75f"]
+[ext_resource type="Texture2D" uid="uid://cladg4rf3xfvk" path="res://image/chat/delete.png" id="4_w6hbh"]
 [ext_resource type="Texture2D" uid="uid://c5jwifyii3o2u" path="res://image/chat/send.png" id="5_xt7yk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdx2v"]
@@ -18,15 +18,32 @@ corner_radius_top_right = 1024
 corner_radius_bottom_right = 1024
 corner_radius_bottom_left = 1024
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p5oap"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(1, 1, 1, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_om3rr"]
 content_margin_left = 20.0
 content_margin_top = 20.0
 content_margin_right = 20.0
 content_margin_bottom = 20.0
+border_color = Color(0.8, 0.8, 0.8, 0)
 corner_radius_top_left = 25
 corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b7cji"]
+bg_color = Color(0, 0.625724, 0.991757, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3okn6"]
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
 
 [node name="chat" type="Control"]
 layout_mode = 3
@@ -115,19 +132,20 @@ texture = ExtResource("3_fjbf6")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="menu" type="TextureRect" parent="main/top/MarginContainer/HBoxContainer"]
+[node name="delete" type="TextureButton" parent="main/top/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
 size_flags_stretch_ratio = 1.34
-texture = ExtResource("4_mh75f")
-expand_mode = 1
+texture_normal = ExtResource("4_w6hbh")
+ignore_texture_size = true
 stretch_mode = 6
 
 [node name="body" type="ScrollContainer" parent="main"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_p5oap")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="main/body"]
 layout_mode = 2
@@ -162,4 +180,45 @@ texture_normal = ExtResource("5_xt7yk")
 ignore_texture_size = true
 stretch_mode = 5
 
+[node name="notification" type="PanelContainer" parent="."]
+visible = false
+offset_left = 47.0
+offset_top = 112.0
+offset_right = 615.0
+offset_bottom = 304.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_b7cji")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="notification"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="notification/HBoxContainer"]
+clip_children = 1
+custom_minimum_size = Vector2(100, 100)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+size_flags_stretch_ratio = 12.91
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3okn6")
+
+[node name="photo" type="TextureRect" parent="notification/HBoxContainer/PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+
+[node name="name" type="Label" parent="notification/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_stretch_ratio = 4.69
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+
+[node name="navigate" type="Button" parent="notification"]
+layout_mode = 2
+
 [connection signal="pressed" from="main/top/MarginContainer/HBoxContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="main/top/MarginContainer/HBoxContainer/delete" to="." method="_on_delete_pressed"]
+[connection signal="pressed" from="main/MarginContainer/footer/send" to="." method="_on_send_pressed"]
