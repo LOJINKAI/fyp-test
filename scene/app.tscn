@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cfxggmjkwm8nn"]
+[gd_scene load_steps=9 format=3 uid="uid://cfxggmjkwm8nn"]
 
 [ext_resource type="Script" path="res://gd/app.gd" id="1_iaqfa"]
 [ext_resource type="Texture2D" uid="uid://dpuw3udke6y7x" path="res://image/icon.svg" id="2_b0obx"]
 [ext_resource type="Texture2D" uid="uid://bhaoludqrd7oi" path="res://image/app/quit.png" id="2_t55w7"]
 [ext_resource type="Texture2D" uid="uid://dsfylrvtv3jos" path="res://image/app/S.png" id="3_6oxoy"]
 [ext_resource type="Texture2D" uid="uid://b2oucsvmjrnf" path="res://image/app/setting.png" id="4_fl3x8"]
+[ext_resource type="Texture2D" uid="uid://eouitmgbhqqx" path="res://image/chat/boss.png" id="6_mpnpc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdx2v"]
 bg_color = Color(1, 1, 1, 1)
@@ -40,6 +41,7 @@ mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="top" type="PanelContainer" parent="."]
+layout_mode = 0
 offset_left = 2.0
 offset_right = 648.0
 offset_bottom = 112.0
@@ -48,6 +50,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_pdx2v")
 
 [node name="MarginContainer" type="MarginContainer" parent="top"]
 layout_mode = 2
+size_flags_stretch_ratio = 0.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
@@ -56,14 +59,6 @@ theme_override_constants/margin_bottom = 20
 [node name="HBoxContainer" type="HBoxContainer" parent="top/MarginContainer"]
 layout_mode = 2
 alignment = 1
-
-[node name="quit" type="TextureButton" parent="top/MarginContainer/HBoxContainer"]
-top_level = true
-layout_mode = 2
-size_flags_horizontal = 2
-texture_normal = ExtResource("2_t55w7")
-ignore_texture_size = true
-stretch_mode = 6
 
 [node name="TextureRect" type="TextureRect" parent="top/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -77,6 +72,17 @@ layout_mode = 2
 size_flags_horizontal = 10
 texture = ExtResource("4_fl3x8")
 expand_mode = 2
+
+[node name="quit" type="TextureButton" parent="top/MarginContainer/HBoxContainer"]
+top_level = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+size_flags_stretch_ratio = 3.24
+texture_normal = ExtResource("2_t55w7")
+ignore_texture_size = true
+stretch_mode = 6
 
 [node name="next" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)
@@ -153,8 +159,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_g7g6t")
 
 [node name="photo" type="TextureRect" parent="boss/HBoxContainer/PanelContainer"]
 layout_mode = 2
-texture = ExtResource("2_b0obx")
-expand_mode = 1
+texture = ExtResource("6_mpnpc")
+expand_mode = 5
 
 [node name="Label" type="Label" parent="boss/HBoxContainer"]
 layout_mode = 2

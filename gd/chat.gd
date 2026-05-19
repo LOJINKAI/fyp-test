@@ -71,8 +71,8 @@ func _ready():
 	
 	var npc_name = Global.current_chat_name
 
-	$main/header/HBoxContainer/name.text = npc_name
-	$main/header/HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar
+	$main/top/MarginContainer/HBoxContainer/Label.text = npc_name
+	$main/top/MarginContainer/HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar
 	
 	
 	#var npc_prompt = Global.npc_prompt.get(npc_name)
