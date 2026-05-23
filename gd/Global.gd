@@ -3,6 +3,8 @@ extends Node
 # 用来存储当前正在聊天的人的名字
 var current_chat_name = "none"
 
+var conversation_history
+
 # 用来存储当前正在聊天的人的头像图片
 var current_chat_avatar = null
 

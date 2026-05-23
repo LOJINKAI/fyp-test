@@ -312,13 +312,13 @@ func on_victory():
 	create_bubble("🎉 系统提示：你已成功套取目标核心资产信息！", false)
 	# 比如弹出通关 UI
 	$notification.visible = true
+	$notification/navigate.disabled = false
 	
 	
 
 func _on_navigate_pressed():
 	get_tree().change_scene_to_file("res://scene/boss_chat.tscn")
-	Global.current_chat_name = "Boss"
-	Global.current_chat_avatar = $next/HBoxContainer/PanelContainer/photo.texture
+	Global.conversation_history = conversation_history
 
 
 
