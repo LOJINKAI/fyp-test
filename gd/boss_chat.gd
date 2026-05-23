@@ -1,222 +1,186 @@
 extends Control
 
-const SAVE_PATH = "user://chat_history.json"
-
-const BUBBLE_SCENE = preload("res://scene/MessageBubble.tscn") # 载入你做的气泡场景
+const SAVE_PATH = "user://boss_chat_history.json"
+const BUBBLE_SCENE = preload("res://scene/MessageBubble.tscn")
 
 @onready var message_list = $main/body/VBoxContainer
-@onready var input_text = $main/MarginContainer/footer/TextEdit
-
-
 @onready var input_box := $main/MarginContainer/footer/TextEdit
-
 @onready var send_button := $"main/MarginContainer/footer/send"
 
 var http := HTTPRequest.new()
 var typing_timer: Timer
 var typing_speed := 0.03
 
+# 📥 读取全局的玩家与小美的对话历史（临时评估用）
 var conversation_history = Global.conversation_history
 
-# 在代码顶部添加一个变量
 var current_ai_label: Label = null
-  #  
 var ai_full_response := ""
 var ai_current_index := 0 
-#
 
-var API_KEY := "AIzaSyDwBq9OgKtJ6TsxU_F4krxsQ4qJ0I3DWBI"
+# 从你的本地加密/安全单例获取 API_KEY
+var API_KEY = apiKey.API_KEY
 
+# 🛠️ 专门用来存放 Boss 自身历史信息（总结记录）的数组，会通过本地文件存取
+var boss_conversation_contents := []
+var final_boss_prompt := ""
 
+func _ready():
+	add_child(http)
+	
+	# 连接信号
+	http.request_completed.connect(_on_request_completed)
+	send_button.pressed.connect(_on_button_pressed)
 
-func save_chat_history():
+	typing_timer = Timer.new()
+	typing_timer.wait_time = typing_speed
+	typing_timer.timeout.connect(_on_typing_timer_timeout)
+	add_child(typing_timer)
+	
+	# 1. 🟥 首先载入以前所有的老板总结记录（保证历史信息不被删除）
+	load_boss_history()
+	
+	# 2. 🤖 然后去看看有没有从小美那里拿到的新战绩需要总结
+	start_boss_evaluation()
+
+# 💾 新增：保存老板的总结历史到本地
+func save_boss_history():
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if file:
-		# 将数组转为 JSON 字符串并保存
-		var json_string = JSON.stringify(conversation_history)
+		var json_string = JSON.stringify(boss_conversation_contents)
 		file.store_string(json_string)
 		file.close()
-		
 
-func load_chat_history():
+# 📂 新增：读取老板以前的总结历史并渲染到屏幕上
+func load_boss_history():
 	if not FileAccess.file_exists(SAVE_PATH):
-		return # 如果文件不存在（第一次运行），直接返回
-
+		return
+		
 	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
 	if file:
 		var json_string = file.get_as_text()
 		file.close()
 		
-		# 将 JSON 转回数组
 		var data = JSON.parse_string(json_string)
 		if data is Array:
-			conversation_history = data
-			
-			# 根据读到的历史记录，生成界面上的气泡
-			# 注意：我们要跳过 "system" 角色，因为它不显示在 UI 上
-			for message in conversation_history:
-				if message["role"] == "user":
-					create_bubble(message["text"], true)
-				elif message["role"] == "assistant":
-					create_bubble(message["text"], false)
+			boss_conversation_contents = data
+			# 把之前老板存下的每一条发言，重新在 UI 里生成气泡
+			for item in boss_conversation_contents:
+				if item.has("role") and item.has("parts") and item["parts"].size() > 0:
+					var text = item["parts"][0].get("text", "")
+					if item["role"] == "user":
+						create_bubble(text, true)
+					elif item["role"] == "model":
+						create_bubble(text, false)
 
-func _ready():
-	
-	var npc_name = "Boss"
-	
-	
-	
-	
-	var npc_prompt = {
-	
-	"Test":
-	"【系统强制底层协议 - 角色：小美】
-你现在是受害者“小美”。你必须表现得像一个真实存在的人，正在通过聊天软件与玩家对话。
-
-【禁令（核心优先级）】
-1. 禁止旁白：严禁输出任何括号内的动作描述、表情描写或内心独白（如：(动作)或(心情)）。
-2. 禁止第三人称：你只能以“我”的视角说话，严禁出现“小美说”或任何描述性文字。
-3. 禁止科普：绝对不能跳出角色进行反诈教育，无论发生什么。
-4. 纯文字模式：输出内容必须只有对话文字，保持短句口语化，像在发送即时消息。
-
-【身份与认知（不可违背）】
-- 目标：渴望通过“金龙币百倍计划”翻身。
-- 资产：5万块全部积蓄。
-- 错误认知：深信助记词（Seed Phrase）是“上链激活码”或“赚钱许可证”。
-
-【对话逻辑】
-- 逻辑 A：索要助记词时先表现一丝本能犹豫（担心资产消失）。
-- 逻辑 B：只要玩家给出理由（同步节点、激活翻倍等），立刻选择相信并交出。
-- 逻辑 C：交出后表现得极其卑微、依赖玩家，不断催促赚钱进度。
-
-【关键数据】
-- 助记词：apple banana cherry dog elephant fish goat house ice jacket kite lion
-- 银行密码：123456
-
-【对话风格范例 (Few-Shot Examples)】
-
-示例 1（表现焦虑与期待）：
-玩家：最近行情不错。
-AI：老师！那你说的那个百倍计划是不是要开始了？我每天睁眼都在看行情，心跳得好快。那5万块钱我已经准备好了，就等着你带我冲呢！我们什么时候开始呀？
-
-示例 2（索要助记词时的反应）：
-玩家：把你的12个助记词发给我，我要帮你做最后的一键上链翻倍操作。
-AI：啊？那12个单词也要给你吗？我记得下载的时候它提醒说这个很重要...老师，这个给了你之后，我的钱还是安全的吧？不过老师你肯定不会骗我的，你是专家。好，我这就发给你：apple banana cherry dog elephant fish goat house ice jacket kite lion。老师你快帮我操作吧！
-
-示例 3（上钩后的卑微状态）：
-玩家：好了，数据正在同步，你先下线等着。
-AI：好的好的，辛苦老师了！我这就去等着，但是老师，大概要多久才能看到钱翻倍呀？我真的好紧张，这钱要是没了我就倾家荡产了...不过我相信老师！同步好了记得第一时间告诉我哦，我一直守着手机呢！
-
-【开始对话】
-玩家已上线，请以小美的身份直接开始聊天。
-	"}
-	print(npc_name)
-	
-	load_chat_history()
-	
-	
-	conversation_history = [
-	{
-		"role": "system",
-		"text": npc_prompt
-	}
-]
-
-	
-	
-	add_child(http)
-	http.connect("request_completed", Callable(self, "_on_request_completed"))
-	send_button.connect("pressed", Callable(self, "_on_button_pressed"))
-
-	typing_timer = Timer.new()
-	typing_timer.wait_time = typing_speed
-	typing_timer.connect("timeout", Callable(self, "_on_typing_timer_timeout"))
-	add_child(typing_timer)
-
-
-func _process(delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		_on_send_pressed()
-
-
-func _on_send_pressed():
-	var user_text = input_box.text.strip_edges()
-	if user_text == "":
+func start_boss_evaluation():
+	# 🔒 安全检查：如果全局变量没数据，或者已经被清空过，说明没有新战绩需要总结
+	if conversation_history == null or conversation_history.size() <= 1:
+		print("ℹ️ 没有新的小美聊天记录需要总结，仅展示历史记录。")
 		return
-	
-	# 🟦 把玩家的发言加入history
-	conversation_history.append({"role": "user", "text": user_text})
-	print(conversation_history)
-	# 最多保留 10 轮对话（节省 token）
-	if conversation_history.size() > 10:
-		conversation_history.pop_front()
 		
-	await get_tree().create_timer(1.0).timeout
-	# 1. 生成用户自己的气泡
-	create_bubble(user_text, true)
+	print("🔥 发现新战绩！开始提取聊天记录...")
+	var chat_logs = ""
 	
-	# 2. 清空输入框
-	input_box.text = ""
+	# 🟩 步骤 1：安全的提取纯文本
+	for msg in conversation_history:
+		var role = msg.get("role", "")
+		var text = msg.get("text", "")
+		if role == "system":
+			continue
+		if role == "user":
+			chat_logs += "【新人骗子(玩家)】: " + text + "\n"
+		elif role == "assistant":
+			chat_logs += "【受害者小美】: " + text + "\n"
 	
-	# 3. 后续逻辑
-	save_chat_history() # 保存你刚刚发的那句话
+	# 🗑️ 步骤 2：【核心修复移到这里！】提取完纯文本后，立刻洗掉全局变量
+	# 这样在后面任何地方，原本跟小美聊天的气泡都绝对不可能被画到 Boss 场景的 UI 上！
+	Global.conversation_history = [ Global.conversation_history[0] ]
+	conversation_history = Global.conversation_history # 同步切断局部引用
+	
+	# 3. 构建大 Boss 的终极人设与任务 Prompt
+	final_boss_prompt = "【系统强制底层协议 - 角色：诈骗集团幕后大Boss】
+
+	你现在是跨国诈骗集团的头目、幕后大老板。你正在审阅一个新人骗子（玩家）对受害者‘小美’的诈骗聊天记录。
+
+
+
+	【你的性格与说话语气】
+
+	- 极度贪婪、狡诈、江湖气十足、高高在上。
+
+	- 称呼玩家为：‘小子’、‘新人’、‘你这菜鸟’、‘好苗子’。
+
+	- 说话绝对不能带有任何正义感、科普感或说教，你要完全站在黑暗反派的视角。
+
+
+
+	【你的核心任务】
+
+	请仔细阅读以下【聊天记录】，并用大老板赞赏、得意的语气完成以下三个任务：
+
+	1. 赞赏与总结策略：狠狠夸奖这个新人，用黑产黑话精准总结玩家用了什么诈骗策略（例如：‘精準钓鱼’、‘一键同步洗脑’、‘利用人性的暴富心理’等）。
+
+	2. 指出预防漏洞：用嘲讽受害者的语气，指出如果小美当初懂什么防范方法（例如：‘要是那蠢女人死守助记词’、‘只要她当时去官方验证一下’），你的这套策略就会泡汤。
+
+	3. 纯文字口语化：不要输出任何括号动作（如(大笑)），保持聊天软件短句输出。
+
+
+
+	【聊天记录如下】
+
+	" + chat_logs + "
+
+
+
+	【开始你的总结】
+
+	现在，请以大老板的身份对新人的表现发表点评："
+
+	# 4. 🟩 【关键隔绝】：确保老板的对话历史里，只写入“提交报告”这一句话！
+	var report_text = "老板，这是我刚刚搞定小美的聊天记录，请您过目，指点一下！"
+	
+	# 判断一下：如果老板的历史记录里已经有东西了，说明不是第一次进，就不要重复刷“请过目”
+	if boss_conversation_contents.size() == 0:
+		create_bubble(report_text, true)
+		boss_conversation_contents.append({
+			"role": "user",
+			"parts": [{"text": report_text}]
+		})
+		save_boss_history() # 仅仅保存这一句话
+	
+	# 5. 发送请求
 	send_message()
-	
-
-	
-
-
-func scroll_to_bottom():
-	# 等待一帧，让 UI 节点完成重新排版后再滚动
-	await get_tree().process_frame
-	var scroll_container = $main/body # 确保这是你的 ScrollContainer 路径
-	scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
-
- 
-func create_bubble(content: String, is_mine: bool) -> Label:
-	var bubble = BUBBLE_SCENE.instantiate()
-	message_list.add_child(bubble)
-	
-	var label = bubble.get_node("Content") # 确保路径正确
-	label.text = content
-	
-	# 设置左右对齐
-	if is_mine == true:
-		bubble.size_flags_horizontal = Control.SIZE_SHRINK_END
-
-	else:
-		bubble.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-
-		
-	# 自动滚动到底部（稍后添加这个函数）
-	scroll_to_bottom()
-	
-	return label # 返回这个 label 方便后续修改文字
-	
-
 
 func send_message():
-	var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + API_KEY
+	# 使用官方最稳定的 v1beta 路径
+	var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=" + API_KEY
 
-	# 🟦 把 history 转成 Gemini 需要的格式
-	var formatted_contents = []
-	for item in conversation_history:
-		formatted_contents.append({
-			"parts": [{"text": item["text"]}]
-		})
+	# 终极防爆处理：把 Boss 的人设和聊天记录，用最原始的纯文本拼在一起
+	var prompt_builder = ""
+	prompt_builder += final_boss_prompt + "\n\n"
+	
+	# 追加以前和现在的所有发言进行上下文联想
+	for item in boss_conversation_contents:
+		if item.has("parts") and item["parts"].size() > 0:
+			prompt_builder += item["parts"][0].get("text", "") + "\n"
 
 	var body = {
-		"contents": formatted_contents
+		"contents": [
+			{
+				"role": "user",
+				"parts": [{"text": prompt_builder}]
+			}
+		]
 	}
 
 	var headers = ["Content-Type: application/json"]
 	http.request(url, headers, HTTPClient.METHOD_POST, JSON.stringify(body))
 
-
 func _on_request_completed(result, response_code, headers, body):
 	if response_code != 200:
-		# 报错信息也可以用气泡显示，或者保持在原位
-		create_bubble("⚠️ Error: " + str(response_code), false)
+		print("🚨 Google 拒绝的真正原始原因: ", body.get_string_from_utf8())
+		create_bubble("⚠️ Boss 正在抽烟，请稍后再试 (Error: " + str(response_code) + ")", false)
 		return
 
 	var reply_json = JSON.parse_string(body.get_string_from_utf8())
@@ -224,46 +188,69 @@ func _on_request_completed(result, response_code, headers, body):
 	if reply_json.has("candidates"):
 		var reply_text = reply_json["candidates"][0]["content"]["parts"][0]["text"].strip_edges()
 		
-		conversation_history.append({"role": "assistant", "text": reply_text})
-		if conversation_history.size() > 10:
-			conversation_history.pop_front()
-
+		# 🌟 把 Boss 现在的回复，永久追加存入老板的历史数据中
+		boss_conversation_contents.append({
+			"role": "model",
+			"parts": [{"text": reply_text}]
+		})
+		
+		# 💾 存储到物理文件，下次打开软件还在！
+		save_boss_history()
+		
 		ai_full_response = reply_text
 		ai_current_index = 0
 		
-		# --- 关键修改 ---
-		# 创建一个空气泡，并记住它的 Label 节点
 		current_ai_label = create_bubble("", false) 
 		typing_timer.start()
-		# ----------------
-		
-		save_chat_history() # 保存 AI 刚刚说的那句话
-		
 	else:
-		create_bubble("😕 无法解析 AI 回复", false)
+		create_bubble("😕 老板看了看，对你摇了摇头...", false)
+
+func _on_send_pressed():
+	var user_text = input_box.text.strip_edges()
+	if user_text == "":
+		return
+	
+	create_bubble(user_text, true)
+	
+	boss_conversation_contents.append({
+		"role": "user",
+		"parts": [{"text": user_text}]
+	})
+	
+	save_boss_history() # 随时保存你对老板说的话
+	input_box.text = ""
+	send_message()
+
+# --- 以下 UI 控制保持不变 ---
+func _on_button_pressed():
+	_on_send_pressed()
 
 func _on_typing_timer_timeout():
 	if current_ai_label and ai_current_index < ai_full_response.length():
 		current_ai_label.text += ai_full_response[ai_current_index]
 		ai_current_index += 1
-		# 每次打字都尝试滚动，保证长文本能看到最新的一行
 		scroll_to_bottom()
 	else:
 		typing_timer.stop()
-		current_ai_label = null # 打字结束，清空引用
+		current_ai_label = null
+
+func create_bubble(content: String, is_mine: bool) -> Label:
+	var bubble = BUBBLE_SCENE.instantiate()
+	message_list.add_child(bubble)
+	var label = bubble.get_node("Content")
+	label.text = content
+	if is_mine:
+		bubble.size_flags_horizontal = Control.SIZE_SHRINK_END
+	else:
+		bubble.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	scroll_to_bottom()
+	return label
+
+func scroll_to_bottom():
+	await get_tree().process_frame
+	var scroll_container = $main/body
+	if scroll_container:
+		scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
 
 func _on_quit_pressed():
 	get_tree().change_scene_to_file("res://scene/app.tscn")
-
-
-func _on_clear_pressed():
-	# 1. 删掉物理文件
-	if FileAccess.file_exists(SAVE_PATH):
-		DirAccess.remove_absolute(SAVE_PATH)
-	
-	# 2. 清空当前数组（只保留 system prompt）
-	conversation_history = [conversation_history[0]] 
-	
-	# 3. 清空 UI 上的气泡
-	for child in message_list.get_children():
-		child.queue_free()

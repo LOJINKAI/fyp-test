@@ -61,10 +61,31 @@ func load_chat_history():
 			# 根据读到的历史记录，生成界面上的气泡
 			# 注意：我们要跳过 "system" 角色，因为它不显示在 UI 上
 			for message in conversation_history:
-				if message["role"] == "user":
-					create_bubble(message["text"], true)
-				elif message["role"] == "assistant":
-					create_bubble(message["text"], false)
+				var role = message.get("role", "")
+				
+				# 1. 自动跳过 system 人设提示词，不展示在 UI 上
+				if role == "system":
+					continue
+				
+				# 2. 🟩 安全获取文本的“防爆三部曲”：
+				var msg_text = ""
+				
+				if message.has("text"):
+					# 情况 A：如果是老版本的纯文本结构
+					msg_text = message["text"]
+				elif message.has("parts") and message["parts"] is Array and message["parts"].size() > 0:
+					# 情况 B：如果是大 Boss 场景或新版 Gemini 写入的嵌套 parts 结构
+					msg_text = message["parts"][0].get("text", "")
+				
+				# 3. 如果最后提取出来的文本是空的，说明这行是不合规的数据，直接跳过
+				if msg_text == "":
+					continue
+					
+				# 4. 根据角色在 UI 上生成气泡
+				if role == "user":
+					create_bubble(msg_text, true)
+				elif role == "assistant" or role == "model": # 兼容新老 AI 名字
+					create_bubble(msg_text, false)
 
 func _ready():
 	
@@ -313,13 +334,14 @@ func on_victory():
 	# 比如弹出通关 UI
 	$notification.visible = true
 	$notification/navigate.disabled = false
-	
+	Global.conversation_history = conversation_history
+	print("\n\n")
+	print(Global.conversation_history)
 	
 
 func _on_navigate_pressed():
 	get_tree().change_scene_to_file("res://scene/boss_chat.tscn")
-	Global.conversation_history = conversation_history
-
+	
 
 
 func _on_delete_pressed():
