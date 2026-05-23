@@ -23,6 +23,6 @@ func _on_next_pressed():
 
 
 func _on_boss_pressed():
-	get_tree().change_scene_to_file("res://scene/ai_chat.tscn")
+	get_tree().change_scene_to_file("res://scene/boss_chat.tscn")
 	Global.current_chat_name = $next/HBoxContainer/Label.text
 	Global.current_chat_avatar = $next/HBoxContainer/PanelContainer/photo.texture

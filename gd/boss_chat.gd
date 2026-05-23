@@ -4,13 +4,13 @@ const SAVE_PATH = "user://chat_history.json"
 
 const BUBBLE_SCENE = preload("res://scene/MessageBubble.tscn") # 载入你做的气泡场景
 
-@onready var message_list = $body/VBoxContainer
+@onready var message_list = $main/body/VBoxContainer
 @onready var input_text = $footer/TextEdit
 
 
 @onready var input_box := $"footer/TextEdit"
 @onready var output_box := $"Label"
-@onready var send_button := $"footer/send"
+@onready var send_button := $"main/MarginContainer/footer/send"
 
 var http := HTTPRequest.new()
 var typing_timer: Timer
@@ -66,8 +66,7 @@ func _ready():
 	
 	var npc_name = "Boss"
 	
-	$header/HBoxContainer/Label.text = npc_name
-	$header/HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar
+	
 	
 	
 	var npc_prompt = Global.npc_prompt.get(npc_name)
@@ -131,7 +130,7 @@ func _on_send_pressed():
 func scroll_to_bottom():
 	# 等待一帧，让 UI 节点完成重新排版后再滚动
 	await get_tree().process_frame
-	var scroll_container = $body # 确保这是你的 ScrollContainer 路径
+	var scroll_container = $main/body # 确保这是你的 ScrollContainer 路径
 	scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
 
  
