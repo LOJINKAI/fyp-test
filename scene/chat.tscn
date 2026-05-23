@@ -38,6 +38,10 @@ corner_radius_bottom_left = 25
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b7cji"]
 bg_color = Color(0, 0.625724, 0.991757, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3okn6"]
 corner_radius_top_left = 1024
@@ -182,6 +186,7 @@ stretch_mode = 5
 
 [node name="notification" type="PanelContainer" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 47.0
 offset_top = 112.0
 offset_right = 615.0
