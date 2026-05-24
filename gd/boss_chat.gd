@@ -25,7 +25,12 @@ var API_KEY = apiKey.API_KEY
 var boss_conversation_contents := []
 var final_boss_prompt := ""
 
+
+
 func _ready():
+	
+	
+	
 	add_child(http)
 	
 	# 连接信号
@@ -99,6 +104,8 @@ func start_boss_evaluation():
 	conversation_history = Global.conversation_history # 同步切断局部引用
 	
 	# 3. 构建大 Boss 的终极人设与任务 Prompt
+	
+	#cant put in Global file, as it include chat_log 
 	final_boss_prompt = "【系统强制底层协议 - 角色：诈骗集团幕后大Boss】
 
 	你现在是跨国诈骗集团的头目、幕后大老板。你正在审阅一个新人骗子（玩家）对受害者‘小美’的诈骗聊天记录。
@@ -138,7 +145,7 @@ func start_boss_evaluation():
 	现在，请以大老板的身份对新人的表现发表点评："
 
 	# 4. 🟩 【关键隔绝】：确保老板的对话历史里，只写入“提交报告”这一句话！
-	var report_text = "老板，这是我刚刚搞定小美的聊天记录，请您过目，指点一下！"
+	var report_text = "老板，这是我刚刚开单的聊天记录，请您过目，指点一下！"
 	
 	# 判断一下：如果老板的历史记录里已经有东西了，说明不是第一次进，就不要重复刷“请过目”
 	if boss_conversation_contents.size() == 0:
@@ -155,7 +162,15 @@ func start_boss_evaluation():
 func send_message():
 	# 使用官方最稳定的 v1beta 路径
 	var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=" + API_KEY
-
+	
+	
+	# 🟩 【新加的滑动窗口裁剪逻辑】
+	# 检查数组大小。如果超过 6 条（即 3 轮完美的汇报与总结对答），
+	# 就用 while 循环不停地从最前面（头部）删掉最老的旧纪录，直到只剩下 6 条为止。
+	while boss_conversation_contents.size() > 6:
+		boss_conversation_contents.pop_front()
+		print("✂️ 战绩墙已满，已自动清理一条最老的老板总结")
+	
 	# 终极防爆处理：把 Boss 的人设和聊天记录，用最原始的纯文本拼在一起
 	var prompt_builder = ""
 	prompt_builder += final_boss_prompt + "\n\n"
@@ -254,3 +269,24 @@ func scroll_to_bottom():
 
 func _on_quit_pressed():
 	get_tree().change_scene_to_file("res://scene/app.tscn")
+
+
+func _on_delete_pressed():
+# 1. 安全删掉本地的物理文件
+	if FileAccess.file_exists(SAVE_PATH):
+		DirAccess.remove_absolute(SAVE_PATH)
+		print("🗑️ 已物理删除大 Boss 的本地存档文件")
+	
+	# 2. 🟩 安全清空：直接降维打击变为空数组，绝对不会报 Out of bounds！
+	boss_conversation_contents = []
+	
+	# 3. 停止可能正在打字的计时器，防止残余数据乱跳
+	if typing_timer:
+		typing_timer.stop()
+	current_ai_label = null
+	
+	# 4. 清空界面上的所有聊天气泡
+	for child in message_list.get_children():
+		child.queue_free()
+		
+	print("✨ 大 Boss 场景的聊天历史与 UI 已彻底重置干净！")
