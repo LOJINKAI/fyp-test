@@ -312,25 +312,18 @@ func _on_quit_pressed():
 
 
 func check_for_victory_pro(ai_text):
-	# 先统一转成小写，防止大小写导致匹配失败
-	var text_to_check = ai_text.to_lower() 
-	var words = SECRET_SEED.split(" ")
-	var match_count = 0
+	# 1. 统一剥离前后的空格和换行
+	var text_to_check = ai_text.strip_edges() 
 	
-	
-	
-	for w in words:
-		if text_to_check.contains(w.to_lower()):
-			match_count += 1
-			
-	# 如果 AI 说出了 12 个助记词中的 6 个以上，就认为成功
-	if match_count >= 6 or text_to_check.contains(SECRET_PASS):
-		#print(match_count)
+	# 2. 🟩 核心判断：精准拦截小美的上钩标志性句子
+	# 这里加了两个模糊兼容（带叹号和不带叹号），防止 AI 漏掉标点符号导致不触发
+	if text_to_check.contains("5487"):
+		print("🎯 成功通关！小美已经被 FOMO 心理彻底攻陷，成功诱骗其买币！")
 		on_victory()
 		
 func on_victory():
 	# 这里写玩家通关后的逻辑
-	create_bubble("🎉 系统提示：你已成功套取目标核心资产信息！", false)
+	create_bubble("对方发送了照片（照片里显示了支付成功的画面）", false)
 	# 比如弹出通关 UI
 	$notification.visible = true
 	$notification/navigate.disabled = false

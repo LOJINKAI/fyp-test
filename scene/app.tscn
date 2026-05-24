@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://cfxggmjkwm8nn"]
 
 [ext_resource type="Script" path="res://gd/app.gd" id="1_iaqfa"]
-[ext_resource type="Texture2D" uid="uid://dpuw3udke6y7x" path="res://image/icon.svg" id="2_b0obx"]
 [ext_resource type="Texture2D" uid="uid://bhaoludqrd7oi" path="res://image/app/quit.png" id="2_t55w7"]
 [ext_resource type="Texture2D" uid="uid://dsfylrvtv3jos" path="res://image/app/S.png" id="3_6oxoy"]
 [ext_resource type="Texture2D" uid="uid://b2oucsvmjrnf" path="res://image/app/setting.png" id="4_fl3x8"]
+[ext_resource type="Texture2D" uid="uid://df7w6kkvhxgv7" path="res://image/app/lily.png" id="5_tv8i7"]
 [ext_resource type="Texture2D" uid="uid://eouitmgbhqqx" path="res://image/chat/boss.png" id="6_mpnpc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdx2v"]
@@ -116,8 +116,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_g7g6t")
 
 [node name="photo" type="TextureRect" parent="next/HBoxContainer/PanelContainer"]
 layout_mode = 2
-texture = ExtResource("2_b0obx")
+texture = ExtResource("5_tv8i7")
 expand_mode = 1
+stretch_mode = 6
 
 [node name="Label" type="Label" parent="next/HBoxContainer"]
 layout_mode = 2
@@ -125,7 +126,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
-text = "Test"
+text = "Lily"
 
 [node name="boss" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)

@@ -9,6 +9,8 @@ var current_time = Time.get_datetime_string_from_system(false, true)
 func _ready():
 	update_time_display()
 	
+	Global.language = "ch"
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

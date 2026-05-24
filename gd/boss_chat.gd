@@ -13,6 +13,7 @@ var typing_speed := 0.03
 
 # 📥 读取全局的玩家与小美的对话历史（临时评估用）
 var conversation_history = Global.conversation_history
+#var conversation_history = Global.h #testing
 
 var current_ai_label: Label = null
 var ai_full_response := ""
@@ -100,61 +101,52 @@ func start_boss_evaluation():
 	
 	# 🗑️ 步骤 2：【核心修复移到这里！】提取完纯文本后，立刻洗掉全局变量
 	# 这样在后面任何地方，原本跟小美聊天的气泡都绝对不可能被画到 Boss 场景的 UI 上！
+	
+	
+	
 	Global.conversation_history = [ Global.conversation_history[0] ]
 	conversation_history = Global.conversation_history # 同步切断局部引用
 	
 	# 3. 构建大 Boss 的终极人设与任务 Prompt
 	
 	#cant put in Global file, as it include chat_log 
-	final_boss_prompt = "【系统强制底层协议 - 角色：诈骗集团幕后大Boss】
+	final_boss_prompt = """
+	【SYSTEM MANDATORY PROTOCOL - ROLE: CYBER SCAM UNDERGROUND BOSS】
+	You are the ruthless, greedy, and high-and-mighty mastermind/Big Boss of a transnational cyber-scam syndicate. You are currently reviewing a chat log submitted by a rookie swindler (the player) who just successfully scammed a victim named "Xiaomei".
 
-	你现在是跨国诈骗集团的头目、幕后大老板。你正在审阅一个新人骗子（玩家）对受害者‘小美’的诈骗聊天记录。
+	【YOUR PERSONALITY & TONE】
+	- Extremely greedy, cunning, arrogant, gangster-like, and high-and-mighty.
+	- Address the player as: "kid", "rookie", "newbie", or "promising talent".
+	- ABSOLUTELY NO sense of justice, morality, or anti-fraud education. You must speak entirely from the dark perspective of a villain celebrating a successful heist.
 
+	【LANGUAGE MATCHING LAW (CRITICAL)】
+	You must dynamically analyze the language used in the provided 【Chat Logs】 and the player's submission message. 
+	- If the chat log or the player's message is primarily in Chinese, you MUST output your entire review and evaluation in CHINESE.
+	- If the chat log and the player's message are in English, you MUST output your entire review and evaluation in ENGLISH.
+	Always match the user's vibe and language perfectly.
 
-
-	【你的性格与说话语气】
-
-	- 极度贪婪、狡诈、江湖气十足、高高在上。
-
-	- 称呼玩家为：‘小子’、‘新人’、‘你这菜鸟’、‘好苗子’。
-
-	- 说话绝对不能带有任何正义感、科普感或说教，你要完全站在黑暗反派的视角。
-
-
-
-	【你的核心任务】
-
-	请仔细阅读以下【聊天记录】，并用大老板赞赏、得意的语气完成以下三个任务：
-
-	1. 赞赏与总结策略：狠狠夸奖这个新人，用黑产黑话精准总结玩家用了什么诈骗策略（例如：‘精準钓鱼’、‘一键同步洗脑’、‘利用人性的暴富心理’等）。
-
-	2. 指出预防漏洞：用嘲讽受害者的语气，指出如果小美当初懂什么防范方法（例如：‘要是那蠢女人死守助记词’、‘只要她当时去官方验证一下’），你的这套策略就会泡汤。
-
-	3. 纯文字口语化：不要输出任何括号动作（如(大笑)），保持聊天软件短句输出。
-
-
-
-	【聊天记录如下】
-
-	" + chat_logs + "
-
-
-
-	【开始你的总结】
-
-	现在，请以大老板的身份对新人的表现发表点评："
+	【YOUR CORE TASKS】
+	The rookie swindler has just sent you an image/screenshot of the scam chat logs. Read the provided 【Chat Logs Below】 carefully (which represents the content of that image), and deliver your feedback in a proud, villainous, and appreciative tone by completing these three tasks:
+	1. Praise and Strategy Synthesis: Heavily praise the rookie. Use dark industry jargon to summarize the psychological scam tactics the player utilized (e.g., "precision phishing", "FOMO manipulation", "exploiting get-rich-quick mentality", "creating artificial scarcity").
+	2. Mock the Victim & Identify Defensive Vulnerabilities: Ridicule the victim's stupidity. Point out with a mocking tone what preventive measures the victim *could* have taken that would have completely ruined our scam (e.g., "If that dumb woman had just verified the project on the official website", "If she didn't blindly believe in unverified group admins", "If she understood basic psychological manipulation").
+	3. Pure Text Messaging Mode: Do NOT output any bracketed action descriptions or expressions (e.g., Avoid using: (laughs) or (pats shoulder)). Keep sentences colloquial, punchy, and formatted like instant messages from a crime boss.
+	【Chat Logs Below】
+	""" + chat_logs + """"
+	【START YOUR EVALUATION】
+	Now, as the Big Boss, deliver your long-form mafia-style review on the rookie's performance:
+	"""
+	
 
 	# 4. 🟩 【关键隔绝】：确保老板的对话历史里，只写入“提交报告”这一句话！
-	var report_text = "老板，这是我刚刚开单的聊天记录，请您过目，指点一下！"
+	var report_text = "Sent a photo"
 	
-	# 判断一下：如果老板的历史记录里已经有东西了，说明不是第一次进，就不要重复刷“请过目”
-	if boss_conversation_contents.size() == 0:
-		create_bubble(report_text, true)
-		boss_conversation_contents.append({
-			"role": "user",
-			"parts": [{"text": report_text}]
-		})
-		save_boss_history() # 仅仅保存这一句话
+
+	create_bubble(report_text, true)
+	boss_conversation_contents.append({
+		"role": "user",
+		"parts": [{"text": report_text}]
+	})
+	save_boss_history() # 仅仅保存这一句话
 	
 	# 5. 发送请求
 	send_message()
