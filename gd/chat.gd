@@ -307,7 +307,8 @@ func _on_typing_timer_timeout():
 		current_ai_label = null # 打字结束，清空引用
 
 func _on_quit_pressed():
-	get_tree().change_scene_to_file("res://scene/app.tscn")
+	get_tree().change_scene_to_file("res://scene/bio.tscn")
+	
 
 
 

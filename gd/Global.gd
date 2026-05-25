@@ -4,16 +4,29 @@ extends Node
 #test
 
 
+# 用来存储当前正在聊天的人的头像图片
+var current_chat_avatar = null
 
 # 用来存储当前正在聊天的人的名字
-var current_chat_name = "none"
+var current_chat_name = null
+
+
 
 var conversation_history
 
 var language
 
-# 用来存储当前正在聊天的人的头像图片
-var current_chat_avatar = null
+
+var current_bio = {
+	"Lily":
+	"
+	🕒 Ordinary office worker running away from the 9-to-5 rat race.
+	📈 Always on the hunt for the next 100x gem. Don't talk to me about stable returns — I'm here for the absolute moonshot.
+	💡 Goal: Financial freedom before getting crushed by reality.
+	🚨 Severe case of missing out on life. If there's a gold rush, I need to be there YESTERDAY. Desperately looking for that ONE big break to change my destiny.
+	🚀 High risk, high life! Let's ride it to the moon!
+	"
+}
 
 # 如果你想根据名字自动匹配性格，也可以在这里存一个字典
 var npc_prompt = {

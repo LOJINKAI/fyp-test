@@ -38,11 +38,13 @@ corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b7cji"]
-bg_color = Color(0, 0.625724, 0.991757, 1)
+bg_color = Color(1, 0.996078, 1, 1)
 corner_radius_top_left = 25
 corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
+shadow_color = Color(0, 0, 0, 0.0705882)
+shadow_size = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3okn6"]
 corner_radius_top_left = 1024
@@ -117,6 +119,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_ta2v7")
 layout_mode = 2
 mouse_filter = 2
 expand_mode = 1
+stretch_mode = 6
 
 [node name="Label" type="Label" parent="main/top/MarginContainer/HBoxContainer"]
 layout_mode = 2
