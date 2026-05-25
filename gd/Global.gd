@@ -74,7 +74,7 @@ var npc_prompt = {
 
 
 #test
-# 🟩 这是一个真正的物理 Array 数组！每一段超长的对话文本都用 """ 进行了安全包裹。
+# 拿来test boss那里的总结
 var h = [
 	{ 
 		"role": "system", 
