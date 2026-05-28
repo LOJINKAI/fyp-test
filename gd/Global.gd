@@ -5,7 +5,7 @@ extends Node
 # 📦 物理保存路径
 const CONFIG_PATH = "user://victim_block_status.json"
 
-
+var current_language = "ch"
 
 # 用来存储当前正在聊天的人的头像图片
 var current_chat_avatar = null
@@ -20,8 +20,21 @@ var conversation_history
 var language
 
 
-# record victim block status
+#record victim block status
 var Lily_current_block = false
+var Midas_current_block = false
+var Jane_current_block = false
+var Stanley_current_block = false
+
+
+#record victim done or not
+var Lily_done = false
+var Midas_done = false
+var Jane_done = false
+var Stanley_done = false
+
+
+
 
 func _ready():
 	# 🟩 游戏一启动，就自动加载本地所有的屏蔽数据，保证变量在内存中是最新的
@@ -75,38 +88,56 @@ func reset_victim_chat_history():
 
 
 var current_bio = {
-	"Lily":
-	"
-	🕒 Just an ordinary clerk terrified of being left behind by this fast-moving world... 
-	🚨 Severe FOMO warning: I can't sleep when I see everyone else in the group chat posting profit screenshots. It literally drives me crazy.
-	📈 Pinned announcement link opened 24/7. I'm so scared to take the risk, but I'm even more terrified of watching others get rich while I stay poor forever.
-	💡 If there is a train to wealth, I NEED to jump on it right now. Please don't let me be the only fool who missed out!
-	"
-	,
-	"Midas":
-	"
-	💵 Debt is just numbers, but profit is real. Dissatisfied with my miserable 9-to-5 crumbs. 
-	🏎️ Next target: Full cash payment for my Porsche 911 next month. Screw financial planning, I need an instant miracle.
-	🚨 Why grind for 30 years when a single high-leverage trade can erase all my loans overnight? I don't care about the risk, I just want the fastest shortcut to half a million.
-	🚀 10x? Too slow. 100x? Now we're talking. Show me the money and let me go all in! Go big or go home!
-	"
-	,
-	"Jane":
-	"
-	👥 Just an ordinary girl trying to make the right choices in life... But it's so hard to decide alone.
-	🚨 I never like being the first one to try new things. I feel 100% safer when I see a big crowd doing it together. The majority can't be wrong, right?
-	📈 Keeping an eye on the community chat every single day. I'm too scared to take a risk by myself, but I also don't want to be left behind while everyone else is winning.
-	💡 Looking for a trusted trend to follow. If the whole group is jumping in, then count me in too! Let's stay together!
-	"
-	,
-	"Stanley":
-	"""
-	🏛️ Rationalist. Analytical professional. I do not speculate; I perform calculated risk management. 
-	🚨 Retails are driven by uneducated emotions. I have zero interest in generic internet hype, "get-rich-quick" schemes, or crowded herd behaviors. 
-	📈 Compliance and regulatory frameworks are the only metrics that matter. I exclusively follow certified blueprints backed by state-level institutions and elite global visionaries.
-	💡 True economic leverage belongs only to audited ecosystems and state-approved licenses. If the central authorities and global tech leaders certify a project, compliance is absolute.
-	"""
+	"ch": {
+		"Lily": """
+					🕒 只是一个普通的职员，生怕被这个飞速发展的世界抛弃...
+					🚨 严重的 FOMO 警告：每当我看到大群里其他人疯狂发盈利截图，我就焦虑得睡不着觉，简直要疯了。
+					📈 手机 24 小时死守置顶公告链接。让我一个人去冒险我真的不敢，但我更害怕看着别人都发财了，自己却一辈子当个穷光蛋。
+					💡 如果有一趟通往财富的列车，我现在就必须跳上去！求求了，千万别让我成为唯一错过的人！
+				""",
+		
+		"Midas": """
+					💵 债务只是数字，但利润是真实的。早就受够了 9-to-5 每天拿这点可怜的碎银子。
+					🏎️ 下一个目标：下个月全款拿下梦想中的保时捷 911。稳健理财别沾边，我需要一个瞬间暴富的奇迹。
+					🚨 既然靠一笔高杠杆交易就能一夜抹平所有贷款，干嘛还要苦哈哈地熬 30 年？我根本不在乎风险，我只要最快的翻身捷径。
+					🚀 10倍？太慢。100倍？这才是人过的高档生活。别废话，让我梭哈！Go big or go home!
+				""",
+		
+		"Jane": """👥 只是一个想在生活中做出正确选择的普通女孩……但一个人做决定真的太难了。
+🚨 我从来不喜欢做第一个尝试新事物的人。只有看到大家都在一起做的时候，我才会觉得百分之百安全。大多数人总不会选错吧？
+📈 每天都在默默观察社区群聊。让我一个人去冒险我不敢，但我也不想孤零零地看着大家都在赚钱，只有我被落在后面。
+💡 寻找一个靠谱的、大家都在参与的大趋势。如果整个群的人都冲了，那也算我一个！跟大家在一起才踏实！""",
+		
+		"Stanley": """🏛️ 理性主义者。善于分析的专业人士。我不参与投机，我只做精密的风险管理。
+🚨 散户总是被盲目的情绪所左右。我对普通的网络炒作、“一夜暴富”或盲目从众的乌合之众行为毫无兴趣。
+📈 合规性与监管框架是唯一具有参考价值的指标。我只追随由国家级机构和全球顶尖精英领袖背书的认证蓝图。
+💡 真正的经济杠杆只存在于通过审计的生态系统和官方批准的牌照之中。只要中央监管机构和全球科技巨头对一个项目进行了官方认证，那它的合规性便无懈可击。""",
+		
+		
+	},
+	"en": {
+		"Lily": """🕒 Just an ordinary clerk terrified of being left behind by this fast-moving world... 
+🚨 Severe FOMO warning: I can't sleep when I see everyone else in the group chat posting profit screenshots. It literally drives me crazy. 
+📈 Pinned announcement link opened 24/7. I'm so scared to take the risk, but I'm even more terrified of watching others get rich while I stay poor forever. 
+💡 If there is a train to wealth, I NEED to jump on it right now. Please don't let me be the only fool who missed out!""",
+		
+		"Midas": """💵 Debt is just numbers, but profit is real. Dissatisfied with my miserable 9-to-5 crumbs. 
+🏎️ Next target: Full cash payment for my Porsche 911 next month. Screw financial planning, I need an instant miracle. 
+🚨 Why grind for 30 years when a single high-leverage trade can erase all my loans overnight? I don't care about the risk, I just want the fastest shortcut to half a million. 
+🚀 10x? Too slow. 100x? Now we're talking. Show me the money and let me go all in! Go big or go home!""",
+		
+		"Jane": """👥 Just an ordinary girl trying to make the right choices in life... But it's so hard to decide alone. 
+🚨 I never like being the first one to try new things. I feel 100% safer when I see a big crowd doing it together. The majority can't be wrong, right? 
+📈 Keeping an eye on the community chat every single day. I'm too scared to take a risk by myself, but I also don't want to be left behind while everyone else is winning. 
+💡 Looking for a trusted trend to follow. If the whole group is jumping in, then count me in too! Let's stay together!""",
+		
+		"Stanley": """🏛️ Rationalist. Analytical professional. I do not speculate; I perform calculated risk management. 
+🚨 Retails are driven by uneducated emotions. I have zero interest in generic internet hype, "get-rich-quick" schemes, or crowded herd behaviors. 
+📈 Compliance and regulatory frameworks are the only metrics that matter. I exclusively follow certified blueprints backed by state-level institutions and elite global visionaries. 
+💡 True economic leverage belongs only to audited ecosystems and state-approved licenses. If the central authorities and global tech leaders certify a project, compliance is absolute.""",
+		
 	
+	}
 }
 
 # 如果你想根据名字自动匹配性格，也可以在这里存一个字典

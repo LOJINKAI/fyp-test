@@ -193,4 +193,5 @@ theme_override_font_sizes/font_size = 30
 text = "Quit"
 
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="start/setting" to="." method="_on_setting_pressed"]
 [connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]

@@ -1,11 +1,16 @@
 extends Control
 
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar
 	$HBoxContainer/name.text = Global.current_chat_name
-	$bio_card/ScrollContainer/MarginContainer/bio_content.text = Global.current_bio.get(Global.current_chat_name)
+	
+	var lang = Global.current_language
+	var npc = Global.current_chat_name
+	
+	$bio_card/ScrollContainer/MarginContainer/bio_content.text = Global.current_bio[lang].get(npc)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
