@@ -32,9 +32,9 @@ func _on_option_button_item_selected(index):
 		0:
 			Global.current_language = "ch" 
 			print("🌐 语言已切换为：简体中文")
-			# 💡（可选项）如果你想让主界面的文本立刻刷新，可以在这里调用刷新函数
 		1:
 			Global.current_language = "en"
 			print("🌐 Language switched to: English")
 			
-	# 🎯 毕设加分提示：在这里可以触发你系统里的多语言文本刷新逻辑
+	# 🟩 核心：只要玩家切换了语言，立刻物理存档到本地！重开游戏再也不会打回原形！
+	Global.save_victim_states()

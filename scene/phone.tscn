@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dlw78n4d100wg"]
+[gd_scene load_steps=4 format=3 uid="uid://dlw78n4d100wg"]
 
 [ext_resource type="Script" path="res://gd/phone.gd" id="1_5dlnf"]
 [ext_resource type="Texture2D" uid="uid://cewbi72r2ghx8" path="res://image/S.png" id="2_vg3fp"]
+[ext_resource type="Texture2D" uid="uid://dhonfpcarl5k2" path="res://image/main/X_black.png" id="3_vvwqi"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -36,4 +37,13 @@ texture_normal = ExtResource("2_vg3fp")
 ignore_texture_size = true
 stretch_mode = 6
 
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 208.0
+offset_top = 632.0
+offset_right = 400.0
+offset_bottom = 824.0
+texture_normal = ExtResource("3_vvwqi")
+
 [connection signal="pressed" from="chat" to="." method="_on_chat_pressed"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

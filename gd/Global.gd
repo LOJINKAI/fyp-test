@@ -43,7 +43,7 @@ func _ready():
 # 🟩 新增：在游戏启动时，或者各个场景准备时调用，用来从本地文件读取屏蔽状态
 func load_victim_states():
 	if not FileAccess.file_exists(CONFIG_PATH):
-		return # 文件不存在说明全是默认值（未屏蔽）
+		return # 文件不存在说明全是默认值
 		
 	var file = FileAccess.open(CONFIG_PATH, FileAccess.READ)
 	if file:
@@ -52,21 +52,30 @@ func load_victim_states():
 		
 		var data = JSON.parse_string(json_string)
 		if data is Dictionary:
-			# 安全取出存下的屏蔽状态，如果找不到就依然用原本的默认值
+			# 安全取出屏蔽状态
 			Lily_current_block = data.get("Lily_current_block", false)
-			print("💾 [Global] 成功读取本地持久化状态，Lily 屏蔽状态为: ", Lily_current_block)
+			
+			# 🟩 新增：安全取出语言状态，如果找不到就默认用 "ch"
+			current_language = data.get("current_language", "ch")
+			
+			print("💾 [Global] 成功读取本地持久化数据！")
+			print(" -> Lily 屏蔽状态为: ", Lily_current_block)
+			print(" -> 当前全局语言为: ", current_language)
 
-# 🟩 新增：只要状态一改变，就立刻物理写进硬盘
+# 📝 升级版：只要状态一改变，就立刻物理写进硬盘
 func save_victim_states():
 	var file = FileAccess.open(CONFIG_PATH, FileAccess.WRITE)
 	if file:
 		var data_to_save = {
-			"Lily_current_block": Lily_current_block
+			"Lily_current_block": Lily_current_block,
+			"current_language": current_language # 🟩 新增：把当前语言塞进 JSON 字典里
 		}
 		var json_string = JSON.stringify(data_to_save)
 		file.store_string(json_string)
 		file.close()
-		print("📝 [Global] 屏蔽状态已安全同步物理文件。")
+		print("📝 [Global] 数据（包含语言和屏蔽状态）已安全同步物理文件。")
+
+
 
 # 🟩 新增：供所有关卡/场景调用的物理清空聊天历史函数
 func reset_victim_chat_history():
