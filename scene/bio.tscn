@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://gd/bio.gd" id="1_anoev"]
 [ext_resource type="Texture2D" uid="uid://dsfylrvtv3jos" path="res://image/app/S.png" id="2_34uu3"]
-[ext_resource type="Texture2D" uid="uid://b2oucsvmjrnf" path="res://image/app/setting.png" id="3_yxtvt"]
+[ext_resource type="Texture2D" uid="uid://5uhjallrahbo" path="res://image/chat/block.png" id="4_5e6d6"]
 [ext_resource type="Texture2D" uid="uid://bhaoludqrd7oi" path="res://image/app/quit.png" id="4_61ma3"]
 [ext_resource type="Texture2D" uid="uid://df7w6kkvhxgv7" path="res://image/app/lily.png" id="5_s7dvk"]
 
@@ -74,19 +74,6 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="top/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_stretch_ratio = 1.18
-texture = ExtResource("2_34uu3")
-expand_mode = 2
-
-[node name="TextureRect2" type="TextureRect" parent="top/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 10
-texture = ExtResource("3_yxtvt")
-expand_mode = 2
-
 [node name="quit" type="TextureButton" parent="top/MarginContainer/HBoxContainer"]
 top_level = true
 custom_minimum_size = Vector2(100, 100)
@@ -95,6 +82,21 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 size_flags_stretch_ratio = 3.24
 texture_normal = ExtResource("4_61ma3")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="TextureRect" type="TextureRect" parent="top/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_stretch_ratio = 1.18
+texture = ExtResource("2_34uu3")
+expand_mode = 2
+
+[node name="block" type="TextureButton" parent="top/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(76.38, 40)
+layout_mode = 2
+size_flags_horizontal = 10
+texture_normal = ExtResource("4_5e6d6")
 ignore_texture_size = true
 stretch_mode = 6
 
@@ -182,4 +184,5 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_63shq")
 text = "Chat"
 
 [connection signal="pressed" from="top/MarginContainer/HBoxContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="top/MarginContainer/HBoxContainer/block" to="." method="_on_block_pressed"]
 [connection signal="pressed" from="chat_button" to="." method="_on_chat_button_pressed"]
