@@ -4,6 +4,9 @@ extends Control
 var current_time = Time.get_datetime_string_from_system(false, true)
 @onready var time = $"time"
 
+#setting popup
+const SETTING_POPUP_SCENE = preload("res://scene/setting_popup.tscn")
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -40,4 +43,22 @@ func _on_start_pressed():
 
 
 func _on_setting_pressed():
-	pass # Replace with function body.
+	# 1. 动态实例化这个小窗口
+	var popup = SETTING_POPUP_SCENE.instantiate()
+	
+	# 2. 🟩 核心：直接把它作为子节点加到当前主界面最底层
+	# 因为 Godot 的渲染规则是“越靠下的节点，渲染在越表面”
+	# 它会自动完美覆盖在你的 time、start、setting、quit 之上！
+	get_tree().current_scene.add_child(popup)
+	
+	print("✨ 成功呼出设置弹窗，主界面已被半透明黑色遮罩锁定！")
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
