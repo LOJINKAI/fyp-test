@@ -84,50 +84,6 @@ texture_normal = ExtResource("2_t55w7")
 ignore_texture_size = true
 stretch_mode = 6
 
-[node name="next" type="Button" parent="."]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.293
-anchor_right = 0.972
-anchor_bottom = 0.433
-offset_left = 2.0
-offset_top = -0.286011
-offset_right = 0.143982
-offset_bottom = 0.43396
-
-[node name="HBoxContainer" type="HBoxContainer" parent="next"]
-layout_mode = 0
-offset_left = 12.0
-offset_top = 13.0
-offset_right = 223.0
-offset_bottom = 113.0
-theme_override_constants/separation = 10
-
-[node name="PanelContainer" type="PanelContainer" parent="next/HBoxContainer"]
-clip_children = 1
-custom_minimum_size = Vector2(100, 100)
-layout_direction = 1
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_g7g6t")
-
-[node name="photo" type="TextureRect" parent="next/HBoxContainer/PanelContainer"]
-layout_mode = 2
-texture = ExtResource("5_tv8i7")
-expand_mode = 1
-stretch_mode = 6
-
-[node name="Label" type="Label" parent="next/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 1
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 50
-text = "Lily"
-
 [node name="boss" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -171,6 +127,94 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Boss"
 
+[node name="lily" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.293
+anchor_right = 0.972
+anchor_bottom = 0.433
+offset_top = -12.286
+offset_right = -1.85602
+offset_bottom = -11.566
+
+[node name="HBoxContainer" type="HBoxContainer" parent="lily"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 13.0
+offset_right = 223.0
+offset_bottom = 113.0
+theme_override_constants/separation = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="lily/HBoxContainer"]
+clip_children = 1
+custom_minimum_size = Vector2(100, 100)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_g7g6t")
+
+[node name="photo" type="TextureRect" parent="lily/HBoxContainer/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("5_tv8i7")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="lily/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "Lily"
+
+[node name="lily2" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.293
+anchor_right = 0.972
+anchor_bottom = 0.433
+offset_left = 2.0
+offset_top = 126.714
+offset_right = 0.143982
+offset_bottom = 127.434
+
+[node name="HBoxContainer" type="HBoxContainer" parent="lily2"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 13.0
+offset_right = 223.0
+offset_bottom = 113.0
+theme_override_constants/separation = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="lily2/HBoxContainer"]
+clip_children = 1
+custom_minimum_size = Vector2(100, 100)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_g7g6t")
+
+[node name="photo" type="TextureRect" parent="lily2/HBoxContainer/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("5_tv8i7")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="lily2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "Lily"
+
 [connection signal="pressed" from="top/MarginContainer/HBoxContainer/quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="next" to="." method="_on_next_pressed"]
 [connection signal="pressed" from="boss" to="." method="_on_boss_pressed"]
+[connection signal="pressed" from="lily" to="." method="_on_lily_pressed"]
+[connection signal="pressed" from="lily2" to="." method="_on_lily_pressed"]
