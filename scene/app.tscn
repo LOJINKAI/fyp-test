@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cfxggmjkwm8nn"]
+[gd_scene load_steps=11 format=3 uid="uid://cfxggmjkwm8nn"]
 
 [ext_resource type="Script" path="res://gd/app.gd" id="1_iaqfa"]
 [ext_resource type="Texture2D" uid="uid://bhaoludqrd7oi" path="res://image/app/quit.png" id="2_t55w7"]
@@ -13,6 +13,9 @@ bg_color = Color(1, 1, 1, 1)
 shadow_color = Color(0, 0, 0, 0.196078)
 shadow_size = 6
 shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nkspo"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g7g6t"]
 corner_radius_top_left = 1024
@@ -85,18 +88,23 @@ texture_normal = ExtResource("2_t55w7")
 ignore_texture_size = true
 stretch_mode = 6
 
-[node name="boss" type="Button" parent="."]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.137
-anchor_right = 0.971
-anchor_bottom = 0.278
-offset_top = -11.574
-offset_right = 18.792
-offset_bottom = -11.756
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(648, 130)
+layout_mode = 0
+offset_top = 112.0
+offset_right = 40.0
+offset_bottom = 152.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="boss"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(648, 130)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nkspo")
+
+[node name="boss" type="Button" parent="VBoxContainer/PanelContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer/boss"]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 13.0
@@ -104,7 +112,7 @@ offset_right = 223.0
 offset_bottom = 113.0
 theme_override_constants/separation = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="boss/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/PanelContainer/boss/HBoxContainer"]
 clip_children = 1
 custom_minimum_size = Vector2(100, 100)
 layout_direction = 1
@@ -114,12 +122,12 @@ size_flags_vertical = 4
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_g7g6t")
 
-[node name="photo" type="TextureRect" parent="boss/HBoxContainer/PanelContainer"]
+[node name="photo" type="TextureRect" parent="VBoxContainer/PanelContainer/boss/HBoxContainer/PanelContainer"]
 layout_mode = 2
 texture = ExtResource("6_mpnpc")
 expand_mode = 5
 
-[node name="Label" type="Label" parent="boss/HBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer/boss/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -127,18 +135,16 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Boss"
 
-[node name="lily" type="Button" parent="."]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.293
-anchor_right = 0.972
-anchor_bottom = 0.433
-offset_top = -25.286
-offset_right = 18.144
-offset_bottom = -24.566
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(648, 130)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nkspo")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="lily"]
+[node name="lily" type="Button" parent="VBoxContainer/PanelContainer2"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/lily"]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 13.0
@@ -146,7 +152,7 @@ offset_right = 223.0
 offset_bottom = 113.0
 theme_override_constants/separation = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="lily/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/PanelContainer2/lily/HBoxContainer"]
 clip_children = 1
 custom_minimum_size = Vector2(100, 100)
 layout_direction = 1
@@ -156,13 +162,13 @@ size_flags_vertical = 4
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_g7g6t")
 
-[node name="photo" type="TextureRect" parent="lily/HBoxContainer/PanelContainer"]
+[node name="photo" type="TextureRect" parent="VBoxContainer/PanelContainer2/lily/HBoxContainer/PanelContainer"]
 layout_mode = 2
 texture = ExtResource("5_tv8i7")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="lily/HBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer2/lily/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -170,18 +176,16 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Lily"
 
-[node name="midas" type="Button" parent="."]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.293
-anchor_right = 0.972
-anchor_bottom = 0.433
-offset_top = 101.714
-offset_right = 16.144
-offset_bottom = 102.434
+[node name="PanelContainer3" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(648, 130)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nkspo")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="midas"]
+[node name="midas" type="Button" parent="VBoxContainer/PanelContainer3"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer3/midas"]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 13.0
@@ -189,7 +193,7 @@ offset_right = 223.0
 offset_bottom = 113.0
 theme_override_constants/separation = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="midas/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/PanelContainer3/midas/HBoxContainer"]
 clip_children = 1
 custom_minimum_size = Vector2(100, 100)
 layout_direction = 1
@@ -199,13 +203,13 @@ size_flags_vertical = 4
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_g7g6t")
 
-[node name="photo" type="TextureRect" parent="midas/HBoxContainer/PanelContainer"]
+[node name="photo" type="TextureRect" parent="VBoxContainer/PanelContainer3/midas/HBoxContainer/PanelContainer"]
 layout_mode = 2
 texture = ExtResource("7_vynqb")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="midas/HBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer3/midas/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -213,19 +217,16 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Midas"
 
-[node name="midas2" type="Button" parent="."]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.293
-anchor_right = 0.972
-anchor_bottom = 0.433
-offset_left = 2.0
-offset_top = 228.714
-offset_right = 18.144
-offset_bottom = 229.434
+[node name="PanelContainer4" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(648, 130)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nkspo")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="midas2"]
+[node name="midas2" type="Button" parent="VBoxContainer/PanelContainer4"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer4/midas2"]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 13.0
@@ -233,7 +234,7 @@ offset_right = 223.0
 offset_bottom = 113.0
 theme_override_constants/separation = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="midas2/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/PanelContainer4/midas2/HBoxContainer"]
 clip_children = 1
 custom_minimum_size = Vector2(100, 100)
 layout_direction = 1
@@ -243,13 +244,13 @@ size_flags_vertical = 4
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_g7g6t")
 
-[node name="photo" type="TextureRect" parent="midas2/HBoxContainer/PanelContainer"]
+[node name="photo" type="TextureRect" parent="VBoxContainer/PanelContainer4/midas2/HBoxContainer/PanelContainer"]
 layout_mode = 2
 texture = ExtResource("7_vynqb")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="midas2/HBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer4/midas2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -258,7 +259,7 @@ theme_override_font_sizes/font_size = 50
 text = "Midas"
 
 [connection signal="pressed" from="top/MarginContainer/HBoxContainer/quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="boss" to="." method="_on_boss_pressed"]
-[connection signal="pressed" from="lily" to="." method="_on_lily_pressed"]
-[connection signal="pressed" from="midas" to="." method="_on_lily_pressed"]
-[connection signal="pressed" from="midas2" to="." method="_on_lily_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/boss" to="." method="_on_boss_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer2/lily" to="." method="_on_lily_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer3/midas" to="." method="_on_lily_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer4/midas2" to="." method="_on_lily_pressed"]
