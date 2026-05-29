@@ -85,18 +85,23 @@ texture_normal = ExtResource("2_t55w7")
 ignore_texture_size = true
 stretch_mode = 6
 
-[node name="boss" type="Button" parent="."]
-self_modulate = Color(1, 1, 1, 0)
+[node name="main" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.137
-anchor_right = 0.971
-anchor_bottom = 0.278
-offset_top = -11.574
-offset_right = 18.792
-offset_bottom = -11.756
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="boss"]
+[node name="PanelContainer" type="PanelContainer" parent="main"]
+layout_mode = 2
+
+[node name="boss" type="Button" parent="main"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main/boss"]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 13.0
@@ -104,7 +109,7 @@ offset_right = 223.0
 offset_bottom = 113.0
 theme_override_constants/separation = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="boss/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="main/boss/HBoxContainer"]
 clip_children = 1
 custom_minimum_size = Vector2(100, 100)
 layout_direction = 1
@@ -114,12 +119,12 @@ size_flags_vertical = 4
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_g7g6t")
 
-[node name="photo" type="TextureRect" parent="boss/HBoxContainer/PanelContainer"]
+[node name="photo" type="TextureRect" parent="main/boss/HBoxContainer/PanelContainer"]
 layout_mode = 2
 texture = ExtResource("6_mpnpc")
 expand_mode = 5
 
-[node name="Label" type="Label" parent="boss/HBoxContainer"]
+[node name="Label" type="Label" parent="main/boss/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -127,18 +132,11 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Boss"
 
-[node name="lily" type="Button" parent="."]
+[node name="lily" type="Button" parent="main"]
 self_modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.293
-anchor_right = 0.972
-anchor_bottom = 0.433
-offset_top = -25.286
-offset_right = 18.144
-offset_bottom = -24.566
+layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="lily"]
+[node name="HBoxContainer" type="HBoxContainer" parent="main/lily"]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 13.0
@@ -146,7 +144,7 @@ offset_right = 223.0
 offset_bottom = 113.0
 theme_override_constants/separation = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="lily/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="main/lily/HBoxContainer"]
 clip_children = 1
 custom_minimum_size = Vector2(100, 100)
 layout_direction = 1
@@ -156,13 +154,13 @@ size_flags_vertical = 4
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_g7g6t")
 
-[node name="photo" type="TextureRect" parent="lily/HBoxContainer/PanelContainer"]
+[node name="photo" type="TextureRect" parent="main/lily/HBoxContainer/PanelContainer"]
 layout_mode = 2
 texture = ExtResource("5_tv8i7")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="lily/HBoxContainer"]
+[node name="Label" type="Label" parent="main/lily/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -170,18 +168,11 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Lily"
 
-[node name="midas" type="Button" parent="."]
+[node name="midas" type="Button" parent="main"]
 self_modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.293
-anchor_right = 0.972
-anchor_bottom = 0.433
-offset_top = 101.714
-offset_right = 16.144
-offset_bottom = 102.434
+layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="midas"]
+[node name="HBoxContainer" type="HBoxContainer" parent="main/midas"]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 13.0
@@ -189,7 +180,7 @@ offset_right = 223.0
 offset_bottom = 113.0
 theme_override_constants/separation = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="midas/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="main/midas/HBoxContainer"]
 clip_children = 1
 custom_minimum_size = Vector2(100, 100)
 layout_direction = 1
@@ -199,13 +190,13 @@ size_flags_vertical = 4
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_g7g6t")
 
-[node name="photo" type="TextureRect" parent="midas/HBoxContainer/PanelContainer"]
+[node name="photo" type="TextureRect" parent="main/midas/HBoxContainer/PanelContainer"]
 layout_mode = 2
 texture = ExtResource("7_vynqb")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="midas/HBoxContainer"]
+[node name="Label" type="Label" parent="main/midas/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -213,19 +204,11 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Midas"
 
-[node name="midas2" type="Button" parent="."]
+[node name="midas2" type="Button" parent="main"]
 self_modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.293
-anchor_right = 0.972
-anchor_bottom = 0.433
-offset_left = 2.0
-offset_top = 228.714
-offset_right = 18.144
-offset_bottom = 229.434
+layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="midas2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="main/midas2"]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 13.0
@@ -233,7 +216,7 @@ offset_right = 223.0
 offset_bottom = 113.0
 theme_override_constants/separation = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="midas2/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="main/midas2/HBoxContainer"]
 clip_children = 1
 custom_minimum_size = Vector2(100, 100)
 layout_direction = 1
@@ -243,13 +226,13 @@ size_flags_vertical = 4
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_g7g6t")
 
-[node name="photo" type="TextureRect" parent="midas2/HBoxContainer/PanelContainer"]
+[node name="photo" type="TextureRect" parent="main/midas2/HBoxContainer/PanelContainer"]
 layout_mode = 2
 texture = ExtResource("7_vynqb")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="midas2/HBoxContainer"]
+[node name="Label" type="Label" parent="main/midas2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -258,7 +241,7 @@ theme_override_font_sizes/font_size = 50
 text = "Midas"
 
 [connection signal="pressed" from="top/MarginContainer/HBoxContainer/quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="boss" to="." method="_on_boss_pressed"]
-[connection signal="pressed" from="lily" to="." method="_on_lily_pressed"]
-[connection signal="pressed" from="midas" to="." method="_on_lily_pressed"]
-[connection signal="pressed" from="midas2" to="." method="_on_lily_pressed"]
+[connection signal="pressed" from="main/boss" to="." method="_on_boss_pressed"]
+[connection signal="pressed" from="main/lily" to="." method="_on_lily_pressed"]
+[connection signal="pressed" from="main/midas" to="." method="_on_lily_pressed"]
+[connection signal="pressed" from="main/midas2" to="." method="_on_lily_pressed"]
