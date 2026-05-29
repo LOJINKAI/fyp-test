@@ -27,5 +27,5 @@ func _on_lily_pressed():
 
 
 func _on_boss_pressed():
-	get_tree().change_scene_to_file("res://scene/boss_chat.tscn")
+	get_tree().change_scene_to_file("res://scene/boss_chat.tscn") 
 	
