@@ -1,24 +1,32 @@
 extends Control
 
 
+var lang = Global.current_language
+var npc = Global.current_chat_name
+var npc_block = npc + "_done"
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar
 	$HBoxContainer/name.text = Global.current_chat_name
 	
-	var lang = Global.current_language
-	var npc = Global.current_chat_name
-	
 	$bio_card/ScrollContainer/MarginContainer/bio_content.text = Global.current_bio[lang].get(npc)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if Global.Lily_current_block == true:
+	
+	if Global.get(npc_block) == true:
 		# 2. 🎮 游戏性包装：给玩家一个视觉反馈，比如让 Chat 按钮直接失效或变灰
 		# 提示玩家这个人已经被屏蔽了，符合真实社交软件的逻辑
 		$chat_button.disabled = true
 		$chat_button.text = "已屏蔽 (Blocked)"
+	
+	
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+		
+	
+
 
 
 func _on_quit_pressed():
@@ -40,10 +48,11 @@ func _on_chat_button_pressed():
 func _on_block_pressed():
 	# 1. 🟥 核心：一键调用全局粉碎函数，把上一个人的 json 记录直接物理抹去！
 	Global.reset_victim_chat_history()
-	Global.Lily_current_block = true
+	Global.set(npc_block,true)
 	Global.save_victim_states()
 	
-	
+	$chat_button.disabled = true
+	$chat_button.text = "已屏蔽 (Blocked)"
 	
 	
 	# 3. （可选项）你可以打印一行提示，或者播一个音效

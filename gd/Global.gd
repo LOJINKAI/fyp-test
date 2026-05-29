@@ -40,7 +40,7 @@ func _ready():
 	# 🟩 游戏一启动，就自动加载本地所有的屏蔽数据，保证变量在内存中是最新的
 	load_victim_states()
 
-# 🟩 新增：在游戏启动时，或者各个场景准备时调用，用来从本地文件读取屏蔽状态
+# 🟩 在游戏启动时，或者各个场景准备时调用，用来从本地文件读取屏蔽状态
 func load_victim_states():
 	if not FileAccess.file_exists(CONFIG_PATH):
 		return # 文件不存在说明全是默认值
@@ -52,30 +52,46 @@ func load_victim_states():
 		
 		var data = JSON.parse_string(json_string)
 		if data is Dictionary:
-			# 安全取出屏蔽状态
-			Lily_current_block = data.get("Lily_current_block", false)
-			
-			# 🟩 新增：安全取出语言状态，如果找不到就默认用 "ch"
+			# 1. 恢复语言
 			current_language = data.get("current_language", "ch")
 			
-			print("💾 [Global] 成功读取本地持久化数据！")
-			print(" -> Lily 屏蔽状态为: ", Lily_current_block)
-			print(" -> 当前全局语言为: ", current_language)
+			# 2. 恢复加入黑名单的屏蔽状态
+			Lily_current_block = data.get("Lily_current_block", false)
+			Midas_current_block = data.get("Midas_current_block", false)
+			Jane_current_block = data.get("Jane_current_block", false)
+			Stanley_current_block = data.get("Stanley_current_block", false)
+			
+			# 🟩 新增：从硬盘里安全恢复四个人的通关状态！
+			Lily_done = data.get("Lily_done", false)
+			Midas_done = data.get("Midas_done", false)
+			Jane_done = data.get("Jane_done", false)
+			Stanley_done = data.get("Stanley_done", false)
+			
+			print("💾 [Global] 成功读取本地持久化数据！受害者状态已完美对齐。")
 
-# 📝 升级版：只要状态一改变，就立刻物理写进硬盘
+# 📝 只要状态一改变，就立刻物理写进硬盘
 func save_victim_states():
 	var file = FileAccess.open(CONFIG_PATH, FileAccess.WRITE)
 	if file:
 		var data_to_save = {
+			"current_language": current_language,
+			
+			# 1. 储存点击黑名单的屏蔽状态
 			"Lily_current_block": Lily_current_block,
-			"current_language": current_language # 🟩 新增：把当前语言塞进 JSON 字典里
+			"Midas_current_block": Midas_current_block,
+			"Jane_current_block": Jane_current_block,
+			"Stanley_current_block": Stanley_current_block,
+			
+			# 🟩 新增：把四个受害者是否成功收割（Done）的状态也狠狠存进硬盘！
+			"Lily_done": Lily_done,
+			"Midas_done": Midas_done,
+			"Jane_done": Jane_done,
+			"Stanley_done": Stanley_done
 		}
 		var json_string = JSON.stringify(data_to_save)
 		file.store_string(json_string)
 		file.close()
-		print("📝 [Global] 数据（包含语言和屏蔽状态）已安全同步物理文件。")
-
-
+		print("📝 [Global] 本地硬盘文件同步成功（已包含所有通关/屏蔽数据）。")
 
 # 🟩 新增：供所有关卡/场景调用的物理清空聊天历史函数
 func reset_victim_chat_history():
@@ -112,12 +128,14 @@ var current_bio = {
 					🚀 10倍？太慢。100倍？这才是人过的高档生活。别废话，让我梭哈！Go big or go home!
 				""",
 		
-		"Jane": """👥 只是一个想在生活中做出正确选择的普通女孩……但一个人做决定真的太难了。
+		"Jane": """
+					👥 只是一个想在生活中做出正确选择的普通女孩……但一个人做决定真的太难了。
 					🚨 我从来不喜欢做第一个尝试新事物的人。只有看到大家都在一起做的时候，我才会觉得百分之百安全。大多数人总不会选错吧？
 					📈 每天都在默默观察社区群聊。让我一个人去冒险我不敢，但我也不想孤零零地看着大家都在赚钱，只有我被落在后面。
 					💡 寻找一个靠谱的、大家都在参与的大趋势。如果整个群的人都冲了，那也算我一个！跟大家在一起才踏实！""",
 		
-		"Stanley": """🏛️ 理性主义者。善于分析的专业人士。我不参与投机，我只做精密的风险管理。
+		"Stanley": """
+					🏛️ 理性主义者。善于分析的专业人士。我不参与投机，我只做精密的风险管理。
 					🚨 散户总是被盲目的情绪所左右。我对普通的网络炒作、“一夜暴富”或盲目从众的乌合之众行为毫无兴趣。
 					📈 合规性与监管框架是唯一具有参考价值的指标。我只追随由国家级机构和全球顶尖精英领袖背书的认证蓝图。
 					💡 真正的经济杠杆只存在于通过审计的生态系统和官方批准的牌照之中。只要中央监管机构和全球科技巨头对一个项目进行了官方认证，那它的合规性便无懈可击。""",
@@ -125,22 +143,26 @@ var current_bio = {
 		
 	},
 	"en": {
-		"Lily": """🕒 Just an ordinary clerk terrified of being left behind by this fast-moving world... 
+		"Lily": """
+		🕒 Just an ordinary clerk terrified of being left behind by this fast-moving world... 
 🚨 Severe FOMO warning: I can't sleep when I see everyone else in the group chat posting profit screenshots. It literally drives me crazy. 
 📈 Pinned announcement link opened 24/7. I'm so scared to take the risk, but I'm even more terrified of watching others get rich while I stay poor forever. 
 💡 If there is a train to wealth, I NEED to jump on it right now. Please don't let me be the only fool who missed out!""",
 		
-		"Midas": """💵 Debt is just numbers, but profit is real. Dissatisfied with my miserable 9-to-5 crumbs. 
+		"Midas": """
+		💵 Debt is just numbers, but profit is real. Dissatisfied with my miserable 9-to-5 crumbs. 
 🏎️ Next target: Full cash payment for my Porsche 911 next month. Screw financial planning, I need an instant miracle. 
 🚨 Why grind for 30 years when a single high-leverage trade can erase all my loans overnight? I don't care about the risk, I just want the fastest shortcut to half a million. 
 🚀 10x? Too slow. 100x? Now we're talking. Show me the money and let me go all in! Go big or go home!""",
 		
-		"Jane": """👥 Just an ordinary girl trying to make the right choices in life... But it's so hard to decide alone. 
+		"Jane": """
+		👥 Just an ordinary girl trying to make the right choices in life... But it's so hard to decide alone. 
 🚨 I never like being the first one to try new things. I feel 100% safer when I see a big crowd doing it together. The majority can't be wrong, right? 
 📈 Keeping an eye on the community chat every single day. I'm too scared to take a risk by myself, but I also don't want to be left behind while everyone else is winning. 
 💡 Looking for a trusted trend to follow. If the whole group is jumping in, then count me in too! Let's stay together!""",
 		
-		"Stanley": """🏛️ Rationalist. Analytical professional. I do not speculate; I perform calculated risk management. 
+		"Stanley": """
+		🏛️ Rationalist. Analytical professional. I do not speculate; I perform calculated risk management. 
 🚨 Retails are driven by uneducated emotions. I have zero interest in generic internet hype, "get-rich-quick" schemes, or crowded herd behaviors. 
 📈 Compliance and regulatory frameworks are the only metrics that matter. I exclusively follow certified blueprints backed by state-level institutions and elite global visionaries. 
 💡 True economic leverage belongs only to audited ecosystems and state-approved licenses. If the central authorities and global tech leaders certify a project, compliance is absolute.""",
