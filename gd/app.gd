@@ -22,7 +22,7 @@ func _on_lily_pressed():
 	Global.current_chat_name = $lily/HBoxContainer/Label.text
 	Global.current_chat_avatar = $lily/HBoxContainer/PanelContainer/photo.texture
 	
-	get_tree().change_scene_to_file("res://scene/bio.tscn")
+	get_tree().change_scene_to_file("res://scene/bio.tscn") 
 
 
 
