@@ -1,16 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://c55rmo4cns1fg"]
+[gd_scene load_steps=5 format=3 uid="uid://c55rmo4cns1fg"]
 
 [ext_resource type="Script" path="res://gd/setting_popup.gd" id="1_3wl40"]
 [ext_resource type="Texture2D" uid="uid://bqyuo8uyw0guw" path="res://image/main/X.png" id="1_un15b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gicmx"]
-bg_color = Color(0.197937, 0.197937, 0.197937, 1)
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h3cy6"]
+bg_color = Color(1, 1, 1, 1)
 
 [node name="setting_popup" type="CanvasLayer"]
 layer = 10
 script = ExtResource("1_3wl40")
 
 [node name="window" type="PanelContainer" parent="."]
+self_modulate = Color(1, 1, 1, 0.862745)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -59,6 +67,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.2, 0.2, 0.2, 1)
 theme_override_font_sizes/font_size = 40
 text = "Language"
 
@@ -67,7 +76,15 @@ layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="OptionButton" type="OptionButton" parent="window/VBoxContainer/HBoxContainer/MarginContainer/PanelContainer"]
+self_modulate = Color(1, 1, 1, 0.862745)
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_h3cy6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h3cy6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h3cy6")
 
 [connection signal="pressed" from="window/VBoxContainer/MarginContainer/PanelContainer/TextureButton" to="." method="_on_texture_button_pressed"]
 [connection signal="item_selected" from="window/VBoxContainer/HBoxContainer/MarginContainer/PanelContainer/OptionButton" to="." method="_on_option_button_item_selected"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dlw78n4d100wg"]
+[gd_scene load_steps=5 format=3 uid="uid://dlw78n4d100wg"]
 
 [ext_resource type="Script" path="res://gd/phone.gd" id="1_5dlnf"]
 [ext_resource type="Texture2D" uid="uid://cewbi72r2ghx8" path="res://image/S.png" id="2_vg3fp"]
 [ext_resource type="Texture2D" uid="uid://dhonfpcarl5k2" path="res://image/main/X_black.png" id="3_vvwqi"]
+[ext_resource type="Texture2D" uid="uid://wxlya8exglwf" path="res://image/main/wallpaper.png" id="4_ictpc"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -22,6 +23,7 @@ anchor_bottom = 0.183
 offset_left = 2.00002
 offset_top = 0.447998
 offset_bottom = -0.0660095
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 70
 text = "9 : 00"
 horizontal_alignment = 1
@@ -44,6 +46,19 @@ offset_top = 632.0
 offset_right = 400.0
 offset_bottom = 824.0
 texture_normal = ExtResource("3_vvwqi")
+
+[node name="wallpaper" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_ictpc")
+expand_mode = 1
+stretch_mode = 6
 
 [connection signal="pressed" from="chat" to="." method="_on_chat_pressed"]
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
