@@ -3,14 +3,28 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-
 	
-	
-	pass
+	if Global.Midas_done == true:
+		$VBoxContainer/lily.visible = true
+		$VBoxContainer/lily/lily.disabled = false
+	if Global.Lily_done == true:
+		$VBoxContainer/jane.visible = true
+		$VBoxContainer/jane/jane.disabled = false
+	 
+	if Global.Jane_done == true:
+		$VBoxContainer/stanley.visible = true
+		$VBoxContainer/stanley/stanley.disabled = false
+		
+		
+	if Global.Stanley_done == true:
+		pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+
+
 
 
 func _on_quit_pressed():

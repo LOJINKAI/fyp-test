@@ -181,6 +181,7 @@ theme_override_font_sizes/font_size = 50
 text = "Midas"
 
 [node name="lily" type="PanelContainer" parent="VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(648, 130)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5b3rb")
@@ -222,6 +223,7 @@ theme_override_font_sizes/font_size = 50
 text = "Lily"
 
 [node name="jane" type="PanelContainer" parent="VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(648, 130)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wxca3")
@@ -263,6 +265,7 @@ theme_override_font_sizes/font_size = 50
 text = "Jane"
 
 [node name="stanley" type="PanelContainer" parent="VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(648, 130)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wxca3")
