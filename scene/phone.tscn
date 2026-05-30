@@ -1,9 +1,48 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlw78n4d100wg"]
+[gd_scene load_steps=9 format=3 uid="uid://dlw78n4d100wg"]
 
 [ext_resource type="Script" path="res://gd/phone.gd" id="1_5dlnf"]
 [ext_resource type="Texture2D" uid="uid://cewbi72r2ghx8" path="res://image/S.png" id="2_vg3fp"]
 [ext_resource type="Texture2D" uid="uid://dhonfpcarl5k2" path="res://image/main/X_black.png" id="3_vvwqi"]
 [ext_resource type="Texture2D" uid="uid://wxlya8exglwf" path="res://image/main/wallpaper.png" id="4_ictpc"]
+[ext_resource type="Texture2D" uid="uid://chfi11fmrx01y" path="res://image/tutorial/arrow.png" id="5_0upce"]
+
+[sub_resource type="Animation" id="Animation_c2jei"]
+resource_name = "arrow"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("arrow:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.9, 0.9), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qn5uq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("arrow:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.9, 0.9)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jfxx8"]
+_data = {
+"RESET": SubResource("Animation_qn5uq"),
+"arrow": SubResource("Animation_c2jei")
+}
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -59,6 +98,24 @@ mouse_filter = 2
 texture = ExtResource("4_ictpc")
 expand_mode = 1
 stretch_mode = 6
+
+[node name="arrow" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 208.0
+offset_top = 280.0
+offset_right = 512.0
+offset_bottom = 417.0
+rotation = 0.523598
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("5_0upce")
+expand_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jfxx8")
+}
+autoplay = "arrow"
 
 [connection signal="pressed" from="chat" to="." method="_on_chat_pressed"]
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

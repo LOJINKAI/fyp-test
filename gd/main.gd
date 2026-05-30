@@ -1,3 +1,5 @@
+#main.tscn
+
 extends Control
 
 # 输出格式示例：2026-05-09 15:30:05
@@ -13,6 +15,7 @@ func _ready():
 	update_time_display()
 	
 	Global.language = "ch"
+	print("Global.new_game = ", Global.new_game)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

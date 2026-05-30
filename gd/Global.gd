@@ -1,9 +1,14 @@
+#global.gd
+
 extends Node
 
 
 
-# 📦 物理保存路径
-const CONFIG_PATH = "user://victim_block_status.json"
+#save file
+const victim_file = "user://victim_block_status.json"
+const game_status = "user://game_status.json"
+
+const DIALOGUE_SYSTEM = preload("res://scene/dialogue.tscn")
 
 var current_language = "ch"
 
@@ -13,6 +18,8 @@ var current_chat_avatar = null
 # 用来存储当前正在聊天的人的名字
 var current_chat_name = null
 
+var new_game = true
+var finish_tutorial = false
 
 
 var conversation_history
@@ -37,23 +44,64 @@ var Stanley_done = false
 
 
 func _ready():
+	
+	
 	# 🟩 游戏一启动，就自动加载本地所有的屏蔽数据，保证变量在内存中是最新的
 	load_victim_states()
+	load_game_status()
+
+func save_game_status():
+	var file = FileAccess.open(game_status, FileAccess.WRITE)
+	if file:
+		var data_to_save = {
+			"current_language": current_language,
+			"new_game": new_game,
+			"finish_tutorial": finish_tutorial
+		}
+		var json_string = JSON.stringify(data_to_save)
+		file.store_string(json_string)
+		file.close()
+		print("📝 [Global] 本地硬盘文件同步成功")
+
 
 # 🟩 在游戏启动时，或者各个场景准备时调用，用来从本地文件读取屏蔽状态
-func load_victim_states():
-	if not FileAccess.file_exists(CONFIG_PATH):
+func load_game_status():
+	if not FileAccess.file_exists(game_status):
+		new_game = true
+		language = "en"
 		return # 文件不存在说明全是默认值
 		
-	var file = FileAccess.open(CONFIG_PATH, FileAccess.READ)
+	var file = FileAccess.open(game_status, FileAccess.READ)
 	if file:
 		var json_string = file.get_as_text()
 		file.close()
 		
 		var data = JSON.parse_string(json_string)
 		if data is Dictionary:
+
+			new_game = data.get("new_game", true)
 			# 1. 恢复语言
-			current_language = data.get("current_language", "ch")
+			current_language = data.get("current_language", "en")
+			finish_tutorial = data.get("finish_tutorial", true)
+			
+		print("💾 [Global] 成功读取本地持久化数据！受害者状态已完美对齐。")
+
+
+
+
+# 🟩 在游戏启动时，或者各个场景准备时调用，用来从本地文件读取屏蔽状态
+func load_victim_states():
+	if not FileAccess.file_exists(victim_file):
+		return # 文件不存在说明全是默认值
+		
+	var file = FileAccess.open(victim_file, FileAccess.READ)
+	if file:
+		var json_string = file.get_as_text()
+		file.close()
+		
+		var data = JSON.parse_string(json_string)
+		if data is Dictionary:
+			
 			
 			# 2. 恢复加入黑名单的屏蔽状态
 			Lily_current_block = data.get("Lily_current_block", false)
@@ -71,10 +119,10 @@ func load_victim_states():
 
 # 📝 只要状态一改变，就立刻物理写进硬盘
 func save_victim_states():
-	var file = FileAccess.open(CONFIG_PATH, FileAccess.WRITE)
+	var file = FileAccess.open(victim_file, FileAccess.WRITE)
 	if file:
 		var data_to_save = {
-			"current_language": current_language,
+			
 			
 			# 1. 储存点击黑名单的屏蔽状态
 			"Lily_current_block": Lily_current_block,
@@ -107,6 +155,15 @@ func reset_victim_chat_history():
 	print("✨ [Global] 内存中的受害者对话数组已成功初始化重置。")
 	
 
+func play_dialogue(story_line):
+	var dialogue_instance = DIALOGUE_SYSTEM.instantiate()
+	
+	# 🟩 核心魔法：直接把对话框塞进当前正在运行的那个活跃 Scene 的最顶层！
+	get_tree().current_scene.add_child(dialogue_instance)
+	
+	# 启动剧情
+	dialogue_instance.start_story(story_line)
+	
 
 
 
@@ -369,6 +426,39 @@ The group secretary (player) has initiated the chat. Start the conversation by d
 
 }
 
+
+
+# 🌍 游戏内所有大段主线剧情/开场白的多语言文本仓库
+var story = {
+	"ch": {
+		"intro": [
+			# 主角在左，填入中文名字
+			{"speaker": "player", "name": "我 (秘书)", "text": "终于成功入职这家理财社区了... 听说今天会有几个待宰的“大鱼”进群。"},
+			# 系统或NPC在右，填入对应的中文名字
+			{"speaker": "npc", "name": "系统提示", "text": "（系统提示：受害者 Lily 已加入群聊）"},
+			# 主角在左
+			{"speaker": "player", "name": "我 (秘书)", "text": "很好，猎杀时刻到了。让我先去看看她的 Bio 资料。"},
+			# 假设后面有 Lily 的对话，Lily 在右
+			{"speaker": "npc", "name": "Lily", "text": "大家好，我是新来的..."},
+			# 假设后面有 Midas 的对话，Midas 也在右
+			{"speaker": "npc", "name": "Midas", "text": "欢迎新朋友。"}
+		]
+	},
+	"en": {
+		"intro": [
+			# Player on left, English name
+			{"speaker": "player", "name": "Me (Secretary)", "text": "Finally joined this wealth community... Heard some juicy 'big fish' are entering the group today."},
+			# NPC/System on right, English name
+			{"speaker": "npc", "name": "System", "text": "(System Notification: Victim Lily has joined the chat)"},
+			# Player on left
+			{"speaker": "player", "name": "Me (Secretary)", "text": "Excellent. Hunt is on. Let me check her Bio profile first."},
+			# Example of Lily later, Lily on right
+			{"speaker": "npc", "name": "Lily", "text": "Hi everyone, I'm new here..."},
+			# Example of Midas later, Midas also on right
+			{"speaker": "npc", "name": "Midas", "text": "Welcome, new friend."}
+		]
+	}
+}
 
 
 
