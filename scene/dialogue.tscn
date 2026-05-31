@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cu2e6cpe64r20" path="res://image/character/conny2.png" id="3_xxcbe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_odowj"]
+bg_color = Color(1, 1, 1, 1)
 
 [node name="dialogue" type="CanvasLayer"]
 script = ExtResource("1_3yn5h")
