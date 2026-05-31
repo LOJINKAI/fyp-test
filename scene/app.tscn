@@ -346,6 +346,7 @@ theme_override_font_sizes/font_size = 50
 text = "Stanley"
 
 [node name="arrow" type="TextureRect" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 240.0
 offset_top = 192.0

@@ -48,14 +48,135 @@ var bio_tutorial_finished = false
 var chat_tutorial_finished = false
 
 
+# 预载刚刚做好的全宇宙最高层级黑幕
+const FADE_LAYER_SCENE = preload("res://scene/fade_layer.tscn")
+var fade_instance: CanvasLayer
+var fade_mask: ColorRect
+
 
 func _ready():
+# 🟩 1. 物理安全加载黑幕
+	fade_instance = FADE_LAYER_SCENE.instantiate()
+	
+	# 🟩 2. 核心修正：放弃延迟加载，直接用最高优先级的引擎底层命令物理焊死在游戏最表面！
+	get_tree().root.add_child.call_deferred(fade_instance)
+	
+	# 🟩 3. 游戏启动时，默认将遮罩颜色彻底洗成全透明，防止有些误操作导致开局黑屏
+	fade_mask = fade_instance.get_node("mask")
+	if fade_mask:
+		fade_mask.color = Color(0, 0, 0, 0.0)
 	
 	# 🟩 游戏一启动，就自动加载本地所有的屏蔽数据，保证变量在内存中是最新的
 	load_victim_states()
 	load_game_status()
+
+
+#这个是黑屏后直接亮
+func fade_to_scene(target_scene_path: String, duration: float = 2.0):
+	# 安全防爆抓取
+	if not fade_mask:
+		fade_mask = fade_instance.get_node_or_null("mask")
+		
+	if not fade_mask:
+		get_tree().change_scene_to_file(target_scene_path)
+		return
+		
+	print("🎬 [Global] 触发单向黑屏转场，目标: ", target_scene_path)
+	
+	# 确保起始状态是透明的
+	fade_mask.color = Color(0, 0, 0, 0.0) 
+	await get_tree().process_frame
+	
+	# 1. 🟥 第一阶段：按照你规定的时间（比如 2.0 秒），缓慢黑屏淡出
+	var tween = create_tween()
+	tween.tween_property(fade_mask, "color", Color(0, 0, 0, 1.0), duration)
+	await tween.finished
+	
+	# 2. 🟩 第二阶段：在全黑的绝对保护色下，物理替换底层场景
+	get_tree().change_scene_to_file(target_scene_path)
+	
+	# 3. 🟦 第三阶段（核心修正）：不要动画！一微秒直接将黑幕人间蒸发！
+	# 等一帧让新场景节点挂载上，然后瞬间把 Alpha 调成 0.0 亮起！
+	await get_tree().process_frame
+	fade_mask.color = Color(0, 0, 0, 0.0)
+	
+	print("✨ [Global] 底层场景已更新，黑幕已瞬间剥离亮起！")
+
+
+#这个是直接转场了，从黑屏慢慢亮
+func scene_to_fade(target_scene_path: String, duration: float = 2.0):
+	# 安全防爆抓取
+	if not fade_mask:
+		fade_mask = fade_instance.get_node_or_null("mask")
+		
+	if not fade_mask:
+		get_tree().change_scene_to_file(target_scene_path)
+		return
+		
+	print("🎬 [Global] 触发反向闪现转场，目标: ", target_scene_path)
+	
+	# 1. 🟥 第一阶段：不要任何延迟！一微秒直接把黑幕掐成纯黑 (Alpha = 1.0)
+	# 物理阻断玩家的视线，防止场景在切换的瞬间产生一丝一毫的穿帮画面
+	fade_mask.color = Color(0, 0, 0, 1.0)
+	
+	# 2. 🟩 第二阶段：瞬间将底层场景物理替换过去
+	get_tree().change_scene_to_file(target_scene_path)
+	
+	# 稍微给新场景一丁点微秒的节点挂载和排版时间
+	await get_tree().process_frame
+	await get_tree().create_timer(0.05).timeout
+	
+	# 3. 🟦 第三阶段：此时已经到了新关卡（新关卡背后是一片漆黑），现在开始优雅地拉开帷幕
+	var tween_out = create_tween()
+	# 让全屏的纯黑色，在规定的时间内（比如 2.0 秒），丝滑地变回完全透明 (Alpha = 0.0)
+	tween_out.tween_property(fade_mask, "color", Color(0, 0, 0, 0.0), duration)
+	
+	await tween_out.finished
+	print("✨ [Global] 反向转场完美结束，新界面已全亮披露！")
+
+#这个是慢慢暗，慢慢亮
+func fade_to_fade(target_scene_path: String, duration: float = 2.0):
+	# 安全防爆抓取
+	if not fade_mask:
+		fade_mask = fade_instance.get_node_or_null("mask")
+		
+	if not fade_mask:
+		get_tree().change_scene_to_file(target_scene_path)
+		return
+		
+	print("🎬 [Global] 触发完美双向循环转场，目标: ", target_scene_path)
+	
+	# ----------------【第一阶段：逐渐黑屏】----------------
+	# 确保起始状态是 100% 全透明的
+	fade_mask.color = Color(0, 0, 0, 0.0) 
+	await get_tree().process_frame
+	
+	var tween_in = create_tween()
+	# 让全屏黑色遮罩在规定时间内（比如 2.0 秒），丝滑地变到纯黑色 (Alpha = 1.0)
+	tween_in.tween_property(fade_mask, "color", Color(0, 0, 0, 1.0), duration)
+	# 🔴 强制卡住！一定要等屏幕完全变黑了，才能执行下一步
+	await tween_in.finished
 	
 	
+	# ----------------【第二阶段：暗中换场】----------------
+	# 在纯黑的绝对保护色下，物理替换底层场景，玩家眼睛绝不会看到任何穿帮或穿模
+	get_tree().change_scene_to_file(target_scene_path)
+	
+	# 稍微给新场景 0.05 秒的时间让节点加载、排版和就位
+	await get_tree().process_frame
+	await get_tree().create_timer(0.05).timeout
+	
+	
+	# ----------------【第三阶段：逐渐亮起】----------------
+	var tween_out = create_tween()
+	# 让全屏的纯黑色，再次在规定的时间内（比如 2.0 秒），丝滑地变回全透明 (Alpha = 0.0)
+	tween_out.tween_property(fade_mask, "color", Color(0, 0, 0, 0.0), duration)
+	# 🔵 等到屏幕完全亮起来了，整个转场才算彻底杀青闭环
+	await tween_out.finished
+	
+	print("✨ [Global] 完美双向转场圆满结束！新场景已全亮披露。")
+
+
 
 func save_game_status():
 	var file = FileAccess.open(game_status, FileAccess.WRITE)

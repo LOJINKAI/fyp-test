@@ -37,15 +37,26 @@ func update_time_display():
 
 #quit button
 func _on_quit_pressed():
+	$AudioStreamPlayer.play()
 	get_tree().quit()
 	#close game
 
 
 func _on_start_pressed():
-	get_tree().change_scene_to_file("res://scene/phone.tscn")  
-
+	$AudioStreamPlayer.play()
+	
+	
+	if Global.new_game == true:
+		Global.fade_to_fade("res://scene/phone.tscn", 1.0)
+	else:
+		Global.fade_to_scene("res://scene/phone.tscn", 1.0)
+	
+	
+	
+	
 
 func _on_setting_pressed():
+	$AudioStreamPlayer.play()
 	# 1. 动态实例化这个小窗口
 	var popup = SETTING_POPUP_SCENE.instantiate()
 	
