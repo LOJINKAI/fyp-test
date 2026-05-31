@@ -8,17 +8,18 @@ extends Control
 @onready var arrow = $arrow
 @onready var animation_player = $AnimationPlayer
 
+	
+var new_game = Global.new_game
+var finish_tutorial = Global.finish_tutorial
+var lang = Global.current_language
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var story = Global.story[lang].get("story_intro")
 	
-	var new_game = Global.new_game
-	var finish_tutorial = Global.finish_tutorial
-	var lang = Global.current_language
-	var story = Global.story[lang].get("intro")
-	
-	
-	
+	#if is new game then story
 	if new_game == true:
 		Global.play_dialogue(story)
 		
@@ -49,6 +50,15 @@ func _on_intro_finished():
 	# 2. 随手关闭新游戏开关，并同步硬盘
 	Global.new_game = false
 	Global.save_game_status()
+	
+	var story = Global.story[lang].get("phone_intro")
+	
+	#tutorial
+	Global.play_dialogue(story)
+	
+
+	
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

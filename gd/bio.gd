@@ -3,8 +3,11 @@ extends Control
 
 var lang = Global.current_language
 var npc = Global.current_chat_name
-var npc_block = npc + "_done"
+var npc_done = npc + "_done"
+var npc_block = npc + "_current_block"
 
+#block button
+@onready var block_button := $top/MarginContainer/HBoxContainer/block
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,13 +16,32 @@ func _ready():
 	
 	$bio_card/ScrollContainer/MarginContainer/bio_content.text = Global.current_bio[lang].get(npc)
 	
+	var new_game = Global.new_game
+	var finish_tutorial = Global.finish_tutorial
+	var lang = Global.current_language
+	var story = Global.story[lang].get("bio_intro")
+	
+	
+	#if is new game then tutorial
+	if finish_tutorial == false:
+		Global.play_dialogue(story)
+	
+	
+	
+	if Global.get(npc_done) == false:
+		block_button.disabled = true
+		
+	
 	if Global.get(npc_block) == true:
 		# 2. 🎮 游戏性包装：给玩家一个视觉反馈，比如让 Chat 按钮直接失效或变灰
 		# 提示玩家这个人已经被屏蔽了，符合真实社交软件的逻辑
 		$chat_button.disabled = true
 		$chat_button.text = "已屏蔽 (Blocked)"
 	
-	
+
+
+
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

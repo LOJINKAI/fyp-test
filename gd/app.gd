@@ -20,6 +20,32 @@ func _ready():
 		
 	if Global.Stanley_done == true:
 		pass
+	
+	
+	#tutorial part
+	
+	var new_game = Global.new_game
+	var finish_tutorial = Global.finish_tutorial
+	var lang = Global.current_language
+	var story = Global.story[lang].get("app_intro")
+	
+	
+	#if is new game then tutorial
+	if finish_tutorial == false:
+		Global.play_dialogue(story)
+		
+		# 🟩 暴力抓取法：既然刚加进当前 scene，那它一定是当前 scene 的最后一个子节点！
+		var current_scene = get_tree().current_scene
+		var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
+		
+		
+		
+		
+	if new_game == false && finish_tutorial == false:
+		arrow.visible = true
+		animation_player.play("arrow")
+	
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
