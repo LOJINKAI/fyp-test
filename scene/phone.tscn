@@ -1,10 +1,19 @@
-[gd_scene load_steps=9 format=3 uid="uid://dlw78n4d100wg"]
+[gd_scene load_steps=13 format=3 uid="uid://dlw78n4d100wg"]
 
 [ext_resource type="Script" path="res://gd/phone.gd" id="1_5dlnf"]
-[ext_resource type="Texture2D" uid="uid://cewbi72r2ghx8" path="res://image/S.png" id="2_vg3fp"]
-[ext_resource type="Texture2D" uid="uid://dhonfpcarl5k2" path="res://image/main/X_black.png" id="3_vvwqi"]
+[ext_resource type="Texture2D" uid="uid://cykjlb6e1mbwe" path="res://image/phone/S.png" id="3_07te4"]
 [ext_resource type="Texture2D" uid="uid://wxlya8exglwf" path="res://image/main/wallpaper.png" id="4_ictpc"]
+[ext_resource type="Texture2D" uid="uid://hyjmtwgkwhd" path="res://image/phone/main_page.png" id="4_yo00e"]
 [ext_resource type="Texture2D" uid="uid://chfi11fmrx01y" path="res://image/tutorial/arrow.png" id="5_0upce"]
+[ext_resource type="Texture2D" uid="uid://p1xuflulqr6i" path="res://image/phone/call.png" id="6_kat26"]
+[ext_resource type="Texture2D" uid="uid://sovfwuqpyo6f" path="res://image/phone/camera.png" id="7_d1m8u"]
+[ext_resource type="Texture2D" uid="uid://dgff1ebefbpus" path="res://image/phone/mail.png" id="7_q5sdp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5d3c"]
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
 
 [sub_resource type="Animation" id="Animation_qn5uq"]
 length = 0.001
@@ -53,6 +62,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5dlnf")
 
+[node name="wallpaper" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_ictpc")
+expand_mode = 1
+stretch_mode = 6
+
 [node name="time" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -67,47 +88,31 @@ theme_override_font_sizes/font_size = 70
 text = "9 : 00"
 horizontal_alignment = 1
 
-[node name="chat" type="TextureButton" parent="."]
+[node name="main_page2" type="PanelContainer" parent="."]
+clip_children = 1
 layout_mode = 0
-offset_left = 47.0
-offset_top = 229.0
-offset_right = 147.0
-offset_bottom = 329.0
-scale = Vector2(1.26, 1.26)
-texture_normal = ExtResource("2_vg3fp")
+offset_left = 72.0
+offset_top = 208.0
+offset_right = 172.0
+offset_bottom = 308.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_q5d3c")
+
+[node name="chat" type="TextureButton" parent="main_page2"]
+layout_mode = 2
+texture_normal = ExtResource("3_07te4")
 ignore_texture_size = true
-stretch_mode = 6
-
-[node name="TextureButton" type="TextureButton" parent="."]
-layout_mode = 0
-offset_left = 208.0
-offset_top = 632.0
-offset_right = 400.0
-offset_bottom = 824.0
-texture_normal = ExtResource("3_vvwqi")
-
-[node name="wallpaper" type="TextureRect" parent="."]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("4_ictpc")
-expand_mode = 1
 stretch_mode = 6
 
 [node name="arrow" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 208.0
-offset_top = 280.0
-offset_right = 512.0
-offset_bottom = 417.0
-rotation = 0.523598
+offset_left = 152.0
+offset_top = 144.0
+offset_right = 602.0
+offset_bottom = 344.0
+rotation = 0.785397
 scale = Vector2(0.9, 0.9)
+mouse_filter = 2
 texture = ExtResource("5_0upce")
 expand_mode = 1
 
@@ -117,5 +122,65 @@ libraries = {
 }
 autoplay = "arrow"
 
-[connection signal="pressed" from="chat" to="." method="_on_chat_pressed"]
-[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[node name="call" type="PanelContainer" parent="."]
+clip_children = 1
+layout_mode = 0
+offset_left = 200.0
+offset_top = 752.0
+offset_right = 300.0
+offset_bottom = 852.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_q5d3c")
+
+[node name="TextureRect" type="TextureRect" parent="call"]
+layout_mode = 2
+texture = ExtResource("6_kat26")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="camera" type="PanelContainer" parent="."]
+clip_children = 1
+layout_mode = 0
+offset_left = 336.0
+offset_top = 752.0
+offset_right = 436.0
+offset_bottom = 852.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_q5d3c")
+
+[node name="TextureRect" type="TextureRect" parent="camera"]
+layout_mode = 2
+texture = ExtResource("7_d1m8u")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="mail" type="PanelContainer" parent="."]
+clip_children = 1
+layout_mode = 0
+offset_left = 64.0
+offset_top = 752.0
+offset_right = 164.0
+offset_bottom = 852.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_q5d3c")
+
+[node name="TextureRect" type="TextureRect" parent="mail"]
+layout_mode = 2
+texture = ExtResource("7_q5sdp")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="main_page" type="PanelContainer" parent="."]
+clip_children = 1
+layout_mode = 0
+offset_left = 472.0
+offset_top = 752.0
+offset_right = 572.0
+offset_bottom = 852.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_q5d3c")
+
+[node name="TextureButton" type="TextureButton" parent="main_page"]
+layout_mode = 2
+texture_normal = ExtResource("4_yo00e")
+ignore_texture_size = true
+stretch_mode = 6
+
+[connection signal="pressed" from="main_page2/chat" to="." method="_on_chat_pressed"]
+[connection signal="pressed" from="main_page/TextureButton" to="." method="_on_texture_button_pressed"]
