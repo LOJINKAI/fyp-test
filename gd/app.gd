@@ -1,3 +1,5 @@
+#app.tscn
+
 extends Control
 
 @onready var arrow = $arrow
@@ -25,13 +27,12 @@ func _ready():
 	#tutorial part
 	
 	var new_game = Global.new_game
-	var finish_tutorial = Global.finish_tutorial
 	var lang = Global.current_language
 	var story = Global.story[lang].get("app_intro")
 	
 	
 	#if is new game then tutorial
-	if finish_tutorial == false:
+	if Global.app_tutorial_finished == false:
 		Global.play_dialogue(story)
 		
 		# 🟩 暴力抓取法：既然刚加进当前 scene，那它一定是当前 scene 的最后一个子节点！
@@ -41,11 +42,11 @@ func _ready():
 		
 		
 		
-	if new_game == false && finish_tutorial == false:
+	if Global.app_tutorial_finished == false:
 		arrow.visible = true
 		animation_player.play("arrow")
-	
-	
+		$top/MarginContainer/HBoxContainer/quit.disabled = true
+		$VBoxContainer/boss/boss.disabled = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -70,6 +71,8 @@ func _on_midas_pressed():
 	Global.current_chat_avatar = $VBoxContainer/midas/midas/HBoxContainer/PanelContainer/photo.texture
 	
 	get_tree().change_scene_to_file("res://scene/bio.tscn") 
+	Global.app_tutorial_finished = true
+	Global.save_game_status()
 
 
 func _on_lily_pressed():

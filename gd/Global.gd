@@ -19,7 +19,7 @@ var current_chat_avatar = null
 var current_chat_name = null
 
 var new_game = true
-var finish_tutorial = false
+
 
 
 var conversation_history
@@ -41,14 +41,21 @@ var Jane_done = false
 var Stanley_done = false
 
 
+#record tutorial
+var phone_tutorial_finished = false
+var app_tutorial_finished = false
+var bio_tutorial_finished = false
+var chat_tutorial_finished = false
+
 
 
 func _ready():
 	
-	
 	# 🟩 游戏一启动，就自动加载本地所有的屏蔽数据，保证变量在内存中是最新的
 	load_victim_states()
 	load_game_status()
+	
+	
 
 func save_game_status():
 	var file = FileAccess.open(game_status, FileAccess.WRITE)
@@ -56,7 +63,12 @@ func save_game_status():
 		var data_to_save = {
 			"current_language": current_language,
 			"new_game": new_game,
-			"finish_tutorial": finish_tutorial
+			"phone_tutorial_finished": phone_tutorial_finished,
+			"app_tutorial_finished": app_tutorial_finished,
+			"bio_tutorial_finished": bio_tutorial_finished,
+			"chat_tutorial_finished": chat_tutorial_finished
+
+
 		}
 		var json_string = JSON.stringify(data_to_save)
 		file.store_string(json_string)
@@ -82,7 +94,11 @@ func load_game_status():
 			new_game = data.get("new_game", true)
 			# 1. 恢复语言
 			current_language = data.get("current_language", "en")
-			finish_tutorial = data.get("finish_tutorial", true)
+			phone_tutorial_finished = data.get("phone_tutorial_finished", false)
+			app_tutorial_finished = data.get("app_tutorial_finished", false)
+			bio_tutorial_finished = data.get("bio_tutorial_finished", false)
+			chat_tutorial_finished = data.get("chat_tutorial_finished", false)
+
 			
 		print("💾 [Global] 成功读取本地持久化数据！受害者状态已完美对齐。")
 
@@ -430,13 +446,13 @@ var npc_prompt = {
 
 
 
-# 🌍 游戏内所有大段主线剧情/开场白的多语言文本仓库 (已规范化加入 App 界面新手引导 app_intro)
+# 🌍 游戏内所有大段主线剧情/开场白的多语言文本仓库 (已规范化加入 chat_intro 并优化系统提示标签)
 var story = {
 	"ch": {
 		"story_intro": [
 			# --- 第一阶段：主角独白 (Eren 视角 - 全程纯黑) ---
 			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "我叫 Eren。不久前，我还拿着一份正常的薪水，过着平淡却安稳的生活... 直到我沾上了赌博。"},
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "那是个无底洞。我不仅输光了所有的积蓄，甚至昏了头去借高利贷。直到双手空空，我才彻底醒悟。"},
+			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "那是个无底洞。我不仅输光了所有的积蓄，甚至昏了头去借高利贷。直到双手空空，I才彻底醒悟。"},
 			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "但太迟了。现在朋友把我当瘟神，家人对我失望透顶... 那些催债的每天砸门，我只能活在惶恐和绝望里。"},
 			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "就在我快走投无路的时候，一个几年没见的初中同学突然在社交软件上私信了我。"},
 			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "他叫 Conny。读书时他就是个不务正业的混混，经常在社会上瞎混。"},
@@ -445,7 +461,7 @@ var story = {
 			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "只要脑子没坏，谁都能听出这事情透露着古怪。可我... 真的已经没有退路了。"},
 			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "催债人说再不还钱就要我的命。为了活下去，我答应了 Conny。他让我做好准备，明天一早车子就会来接我。"},
 			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "隔天清晨，一辆没有牌照的面包车停在了路边。我刚上车，Conny 就递过来一根漆黑的布带，让我蒙上眼睛。"},
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true,"text": "我很抗拒，刚想质问。但一转头，看到车里除了 Conny，还坐着两个满身纹身、面目可憎的肌肉大汉... 我咽了口唾沫，乖乖戴上了眼罩。"},
+			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "我很抗拒，刚想质问。但一转头，看到车里除了 Conny，还坐着两个满身纹身、面目可憎的肌肉大汉... 我咽了口唾沫，乖乖戴上了眼罩。"},
 			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "在黑暗与颠簸中，车子不知道开了多久。终于，车停了。我被摘下眼罩，带进了园区。"},
 			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "粗暴地把我的私人物品塞进阴暗的宿舍后，Conny 就带着我径直走向了充满键盘敲击声的工作区。"},
 
@@ -454,7 +470,8 @@ var story = {
 			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "哈哈，兄弟，别紧张。既然都到这一步了，确实可以开诚布公地告诉你了。"},
 			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "我们的业务其实非常简单——‘网络电信诈骗’。而从这一秒开始，你就是我们公司的一员了。"},
 			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "什么？！诈骗？！这是犯法的！这会害死别人的... 不行，我不干了！我要回去！"},
-			{"speaker": "npc", "name": "系统提示", "scene_black": true, "text": "（砰！腹部突然遭到重击，你痛苦地弯下腰去...）"},
+			# 🟩 核心优化：按照你的要求，把 "系统提示" 标签改成了空字符串 ""
+			{"speaker": "npc", "name": "", "scene_black": true, "text": "（砰！腹部突然遭到重击，你痛苦地弯下腰去...）"},
 			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "回去？到了这里你还想走？老子实话告诉你，现在你哪也去不了！"},
 			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "要么老老实实听话用电脑给公司搞钱、把你的高利贷还上。要么... 后面那根电棍看到没有？老子不介意天天让你过过电！"},
 			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "（剧烈的疼痛混杂着无尽的悔恨涌上心头... 我为什么要自投罗网？为什么没有提前想到会是这种结局？！）"},
@@ -465,7 +482,6 @@ var story = {
 			{"speaker": "npc", "name": "Conny", "text": "这个是你今天分到的新工作手机。别动什么歪心思，里面的定位和监控都是焊死的。以后你骗人、搞钱，全都是靠这个设备来搞定。"},
 			{"speaker": "npc", "name": "Conny", "text": "废话少说，群里已经给你加进去了。现在，伸手去点击屏幕上那个蓝色的聊天软件按钮，进去开始干活！"}
 		],
-		# 🟩 新增：App 列表界面新手引导 (全程半透明，严格遵守大纲)
 		"app_intro": [
 			{"speaker": "npc", "name": "Conny", "text": "至于你的具体工作内容嘛... 听好了，你现在被分到了我们专门负责‘诈骗加密货币’的部门。"},
 			{"speaker": "npc", "name": "Conny", "text": "我们的人在聊天软件里开了一个公开的讨论群，并且在外面通过各种平台，大肆宣扬我们捏造出来的‘快速致富投资机会’。"},
@@ -477,6 +493,13 @@ var story = {
 			{"speaker": "npc", "name": "Conny", "text": "在这里你可以看到目标的个性简介。"},
 			{"speaker": "npc", "name": "Conny", "text": "而你要做的就是通过这些自我简介来判断这个人潜在的心理弱点，让你的诈骗过程可以更加顺利。"},
 			{"speaker": "npc", "name": "Conny", "text": "而当你准备好后，只需要点击下方的按钮就能开始表演了。"}
+		],
+		# 🟩 新增：聊天对话界面新手引导 (全程正常半透明背景，Conny 独白)
+		"chat_intro": [
+			{"speaker": "npc", "name": "Conny", "text": "很好，相信你看完刚刚这个人的简介，已经知道该利用什么样的心理弱点，来成功骗到这个人的小金库了。"},
+			{"speaker": "npc", "name": "Conny", "text": "不过以防万一，要是你待会儿觉得这个人挺难搞的话，可以点击顶部那个大大个的‘H’字按钮。我们姑且留了一个帮助功能给像你这样的新手。"},
+			{"speaker": "npc", "name": "Conny", "text": "当然了，这毕竟是你自己的工作。点击之后，我们顶多只会给你一点关于如何拿下这类人的提示罢了，可别抱着会有别人来帮你代打游戏的想法。"},
+			{"speaker": "npc", "name": "Conny", "text": "行了，规矩就这么多。现在，开始通过对话，去一步步引导他购买我们的发财币吧！"}
 		]
 	},
 	"en": {
@@ -501,7 +524,8 @@ var story = {
 			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "Haha, take it easy, brother. Since we've already made it this far, I might as well lay my cards on the table."},
 			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "Our business is actually very simple: Cyber Telecom Scam. And from this very second, you are officially a part of our family."},
 			{"speaker": "player", "name": "Me (Eren)", "scene_black": true, "text": "What?! A scam?! That's illegal! It ruins innocent people's lives... No way, I'm not doing this! I want to go home!"},
-			{"speaker": "npc", "name": "System", "scene_black": true, "text": "(Oof! A brutal punch lands heavily on your stomach. You double over in agonizing pain...)"},
+			# 🟩 English Optimization: System label removed
+			{"speaker": "npc", "name": "", "scene_black": true, "text": "(Oof! A brutal punch lands heavily on your stomach. You double over in agonizing pain...)"},
 			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "Go home? You think you can just walk out of here? Let me tell you the brutal truth, you are going NOWHERE!"},
 			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "You either shut up, sit in front of that PC, and make money for the company to clear your debt, or... see that stun baton over there? I don't mind giving you a taste of electric shocks every single day!"},
 			{"speaker": "player", "name": "Me (Eren)", "scene_black": true, "text": "(A wave of intense pain mixed with overwhelming regret floods my mind... Why did I walk straight into this trap? Why didn't I see this coming?!)"},
@@ -512,7 +536,6 @@ var story = {
 			{"speaker": "npc", "name": "Conny", "text": "This is your new work phone for today. Don't try any funny business—the GPS tracking and surveillance are heavily locked down. From now on, you'll manage all your scamming and money-making through this device."},
 			{"speaker": "npc", "name": "Conny", "text": "Enough talking, you've already been added to the chat group. Now, go ahead and tap that blue chat software button on the screen to get to work!"}
 		],
-		# 🟩 New English App List Tutorial
 		"app_intro": [
 			{"speaker": "npc", "name": "Conny", "text": "As for your specific duties... listen closely. You are now assigned to our specialized 'Cryptocurrency Scam' department."},
 			{"speaker": "npc", "name": "Conny", "text": "Our team has set up a public discussion group inside the app, and we advertise our fake 'get-rich-quick investment opportunities' across various platforms outside."},
@@ -524,9 +547,134 @@ var story = {
 			{"speaker": "npc", "name": "Conny", "text": "Here, you can see the target's profile and biography."},
 			{"speaker": "npc", "name": "Conny", "text": "What you need to do is analyze their personality based on these bios to find their hidden psychological weaknesses. This will make your scam much easier."},
 			{"speaker": "npc", "name": "Conny", "text": "Once you are ready, simply tap the button below to start your show!"}
+		],
+		# 🟩 New English Chat Interface Tutorial
+		"chat_intro": [
+			{"speaker": "npc", "name": "Conny", "text": "Excellent. I bet after reading their bio, you already know exactly what psychological weakness to exploit to successfully drain their savings."},
+			{"speaker": "npc", "name": "Conny", "text": "Just in case you find them a bit tough to handle, you can tap that big 'H' button at the top. We've generously included a help feature for rookies like you."},
+			{"speaker": "npc", "name": "Conny", "text": "But remember, this is your job. Tapping it will only give you a small hint on how to handle them. Don't go thinking anyone is gonna play the game for you."},
+			{"speaker": "npc", "name": "Conny", "text": "Alright, that's enough rules. Now, go ahead and guide them step-by-step into buying our RichCoin!"}
 		]
 	}
 }
+
+# 🌍 游戏内新手卡关时的两轮多语言提示文本仓库 (全程无黑背景，Conny 独白)
+var help = {
+	"ch": {
+		"first_help": {
+			"Midas_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "怎么？这才刚聊了几句就没辙了吗？你到底有没有认真动脑筋思考啊？"},
+				{"speaker": "npc", "name": "Conny", "text": "看好啦，这个叫 Midas 的家伙简介里写着下个月要全款拿保时捷，还说稳健理财别沾边。他一看就是个被债务压垮、满脑子只想走捷径爆赚一笔的投机狂。"},
+				{"speaker": "npc", "name": "Conny", "text": "他的心理弱点就是极端贪婪和心存侥幸！所以你千万别跟他聊什么安全或者细水长流。"},
+				{"speaker": "npc", "name": "Conny", "text": "你应该用‘100倍超高回报’、‘一夜抹平债务’、‘最后几分钟就来不及了’这种话术去疯狂刺激他。多用暴富这种词，他那点可怜的理智马上就会崩溃，然后去公告里点链接把钱全转过来了！"}
+			],
+			"Lily_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "不是吧，遇到一个小职员你就跑来找我求助？看来你还没进入状态啊。"},
+				{"speaker": "npc", "name": "Conny", "text": "仔细看看 Lily 的资料，她写着自己生怕被世界抛弃，别人发盈利截图她就焦虑得睡不着。这就说明她是个极度缺乏安全感、有严重焦虑和 FOMO（跟风恐惧）的人。"},
+				{"speaker": "npc", "name": "Conny", "text": "她的心理弱点就是害怕错过别人都在参与的发财机会！她一个人去冒险绝对不敢。"},
+				{"speaker": "npc", "name": "Conny", "text": "话术上你得营造‘名额马上抢完’、‘群里其他人都已经买疯了，现在只剩最后一个额度’的紧迫感和从众压力。用这种氛围去推她一把，她就会因为害怕成为唯一错过财富列车的人而赶紧去点链接转账了！"}
+			],
+			"Jane_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "遇到点小困难就立刻按按钮，你这依赖性也太强了吧？"},
+				{"speaker": "npc", "name": "Conny", "text": "盯紧 Jane 的自我简介！她写着自己不喜欢做第一个尝试新事物的人，看到大家一起做才会觉得百分之百安全。这说明她是一个完全没有主见、极度依赖群体盲从的普通女孩。"},
+				{"speaker": "npc", "name": "Conny", "text": "她的心理弱点就是强烈的跟风从众心理和社会认同感！只要有一大群人背书，她才会觉得踏实。"},
+				{"speaker": "npc", "name": "Conny", "text": "攻略这种目标，你得反复强调‘整个群都在买’、‘大家都觉得这个超级靠谱’、‘跟着大趋势走肯定不会错’。多提到别人都在一起做，她心里的防线就会跟着大家的节奏一起瓦解！"}
+			],
+			"Stanley_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "觉得这个专业人士像一块铁板无从下手？动动脑子，是人就会有破绽。"},
+				{"speaker": "npc", "name": "Conny", "text": "瞅瞅 Stanley 的简介，这家伙说自己只追随国家级机构和全球顶尖精英的认证蓝图，对普通网络炒作毫无兴趣。这就表示他是一个极度迷信权威和合规牌照的所谓的‘高级理性人’。"},
+				{"speaker": "npc", "name": "Conny", "text": "他的心理弱点恰恰就是对官方权威和官方认证的盲目顺从！"},
+				{"speaker": "npc", "name": "Conny", "text": "对付这种自以为聪明的人，普通的暴富口号只会让他鄙视你。你得搬出‘中央银行官方合规认证’、‘全球科技巨头背书’或者‘通过顶级机构精密审计’这种高级伪装话术。只要包装得足够专业、充满了官方名头，他的分析防御就会一秒瘫痪！"}
+			]
+		},
+		"second_help": {
+			"Midas_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "我之前不是才刚和你说过吗？怎么你到现在还是不明白怎么操作呢？"},
+				{"speaker": "npc", "name": "Conny", "text": "我都说了 Midas 只要翻身捷径！他只要那百分之百的巨大财富回报，他根本就不想听你长篇大论。"},
+				{"speaker": "npc", "name": "Conny", "text": "把你的话术变得更直接、更具攻击性一点！直接告诉他‘这是改变他人生的唯一黄金时刻’，用最确定的语气去承诺他下个月就能还清债务、买下他的保时捷。"},
+				{"speaker": "npc", "name": "Conny", "text": "再加上时间仅剩最后几分钟的催促，他的侥幸心理会让他不顾一切地做出决定。快去把他的五十万老本拿下来！"}
+			],
+			"Lily_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "你又来找我了？刚才告诉你的重点是不是左耳进右耳出了？"},
+				{"speaker": "npc", "name": "Conny", "text": "Lily 现在还在犹豫是因为她在对抗自己的积蓄，但她心里的焦虑早就在边缘爆发了。"},
+				{"speaker": "npc", "name": "Conny", "text": "继续加大分量！告诉她群里的小张和小李刚才已经把额度抢走了，现在不点公告的链接，下一秒活动就要原价恢复。"},
+				{"speaker": "npc", "name": "Conny", "text": "利用她对‘独自当穷光蛋’的严重危机感和焦虑情绪。只要你用这种极端的紧迫氛围去推波助澜，她心跳一快，手就会不由自主地去转账了。打起精神来，别让我失望！"}
+			],
+			"Jane_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "怎么？同一个普通女孩，我点拨了你一次你居然还是没能把她拿下？"},
+				{"speaker": "npc", "name": "Conny", "text": "再对你重申一遍，Jane 只看大多数人的选择，她需要的是所谓的‘百分之百的安全感’。"},
+				{"speaker": "npc", "name": "Conny", "text": "别用冷冰冰的指令去催她，要把‘群里已经有几百个小老百姓甚至隔壁王大妈都参与了’的假账单或者截图氛围做足给她看。"},
+				{"speaker": "npc", "name": "Conny", "text": "让她坚信整个社区群聊是一个庞大的、安全的大趋势。只要她感觉自己是在大部队里，她的防御就会彻底变成零。去吧，去和她再战一轮！"}
+			],
+			"Stanley_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "怎么跟理智型的人聊几句你就慌了神？我不是才教过你要怎么绕开他的防线吗？"},
+				{"speaker": "npc", "name": "Conny", "text": "你要记住，越是自诩看透一切的聪明人，一旦遇到高层认证，就越容易跪倒在权威面子下。"},
+				{"speaker": "npc", "name": "Conny", "text": "别跟他扯普通的理财，拿出‘加密牌照、合规性审计、官方批准证书’这种高门槛字眼去砸他。"},
+				{"speaker": "npc", "name": "Conny", "text": "只要你嘴里的项目听起来是有大机构和名人百分之百合法背书的，他那些精密的风险管理逻辑就会瞬间沦为笑话。用官方包装话术去粉碎他的自大吧！"}
+			]
+		}
+	},
+	"en": {
+		"first_help": {
+			"Midas_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "What's wrong? Barely a few lines in and you're already out of moves? Have you even been thinking with your brain at all?"},
+				{"speaker": "npc", "name": "Conny", "text": "Look closely! Midas's bio explicitly states he wants to pay cash for a Porsche next month and wants nothing to do with conservative finance. This guy is drowning in debt and completely blinded by the dream of an instant shortcut to riches."},
+				{"speaker": "npc", "name": "Conny", "text": "His psychological weakness is extreme greed and wishful thinking! So don't bother talking to him about safety or long-term growth."},
+				{"speaker": "npc", "name": "Conny", "text": "You should use phrases like '100x insane returns', 'wipe out your debt overnight', and 'only 5 minutes left'. Flood him with words of instant wealth, and his tiny shred of logic will instantly collapse. He'll rush to the group announcement, click the link, and transfer everything!"}
+			],
+			"Lily_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "Are you serious? Getting stuck on a generic office clerk and running to me for help? You're clearly not in the zone yet."},
+				{"speaker": "npc", "name": "Conny", "text": "Take a good look at Lily's profile. She writes that she's terrified of being left behind by the world and loses sleep just looking at profit screenshots. This means she is deeply insecure and plagued by severe anxiety and FOMO."},
+				{"speaker": "npc", "name": "Conny", "text": "Her weakness is the intense fear of missing out on a wealth trend that everyone else is riding! She would never dare to take a risk alone."},
+				{"speaker": "npc", "name": "Conny", "text": "Your pitching strategy needs to create immense urgency and peer pressure, like 'slots are running out' or 'the entire group has gone crazy buying it, only one left'. Push her with that mob mentality, and her fear of being left poor alone will drive her straight to the payment link!"}
+			],
+			"Jane_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "Hitting a tiny obstacle and immediately running to press the button? Your dependence on me is a bit too much, rookie."},
+				{"speaker": "npc", "name": "Conny", "text": "Pay attention to Jane's biography! She explicitly mentions she hates being the first to try new things and only feels 100% safe when a crowd does it together. She's just an ordinary girl who completely relies on mob conformity."},
+				{"speaker": "npc", "name": "Conny", "text": "Her psychological weakness is herd behavior and the absolute need for social proof! She needs a crowd to back it up before she feels safe."},
+				{"speaker": "npc", "name": "Conny", "text": "To handle her, you must constantly repeat things like 'the whole group is jumping in', 'everyone says it's super safe', and 'you can't go wrong following the big trend'. When she knows the crowd is moving, her individual defenses will completely dissolve!"}
+			],
+			"Stanley_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "Feeling overwhelmed because this professional looks like a solid brick wall? Wake up. Every human has a hidden crack in their armor."},
+				{"speaker": "npc", "name": "Conny", "text": "Examine Stanley's bio. He claims he only follows state-level institutions and elite global visionaries, having zero interest in standard online hype. This means he is deeply submissive to authority and certified credentials under his analytical mask."},
+				{"speaker": "npc", "name": "Conny", "text": "His ultimate weakness is a massive authority bias! He worships legal compliance and expert backing."},
+				{"speaker": "npc", "name": "Conny", "text": "Generic get-rich slogans will only make him look down on you. You need to drop heavy buzzwords like 'Central Bank certified compliance', 'endorsed by global tech leaders', or 'fully audited blueprint'. Once it sounds official enough, his analytical shield will break instantly!"}
+			]
+		},
+		"second_help": {
+			"Midas_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "Didn't I just lay this out for you a moment ago? Why are you still struggling to understand the basic concept?"},
+				{"speaker": "npc", "name": "Conny", "text": "I already told you, Midas only cares about the ultimate shortcut! He wants that absolute promise of a massive payout; he has zero patience for a long-winded debate."},
+				{"speaker": "npc", "name": "Conny", "text": "Make your words punchier and more aggressive! Tell him outright that 'this is the exact definitive gold mine to alter your life'. Guarantee that he can clear his debt and grab his dream ride next month."},
+				{"speaker": "npc", "name": "Conny", "text": "Combine that with a strict time limit of just a couple of minutes, and his wishful thinking will force him to leap blindfolded. Now go back out there and secure that 50k payout!"}
+			],
+			"Lily_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "Back again? Did the points I just gave you literally go in one ear and out the other?"},
+				{"speaker": "npc", "name": "Conny", "text": "Lily is hesitating because she's trying to protect her savings, but her anxiety is already sitting right on the boiling point."},
+				{"speaker": "npc", "name": "Conny", "text": "Turn up the heat! Tell her that other members just snatched up the remaining spots, and if she doesn't access the link in the announcement now, the price returns to original next minute."},
+				{"speaker": "npc", "name": "Conny", "text": "Exploit her terror of being left behind while everyone else wins. Once you turn that pressure cooker up, her racing heart will make her thumb click that link. Don't make me explain this a third time!"}
+			],
+			"Jane_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "Seriously? A standard, ordinary girl and you still haven't managed to close the deal after my tip?"},
+				{"speaker": "npc", "name": "Conny", "text": "Let me repeat myself. Jane watches the majority. She craves what she perceives as 'absolute safety in numbers'."},
+				{"speaker": "npc", "name": "Conny", "text": "Don't just give her cold commands. Paint a vivid picture that hundreds of regular folks and even Auntie Wang from next door have already thrown their money into this trend."},
+				{"speaker": "npc", "name": "Conny", "text": "Make her believe that the entire community ecosystem is moving together. Once she feels secure within the herd, her doubts disappear. Get back in there and try again!"}
+			],
+			"Stanley_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "Panicking just because you're talking to an analytical intellectual? Didn't I just show you how to bypass his defenses?"},
+				{"speaker": "npc", "name": "Conny", "text": "Remember, the more people think they've analyzed everything, the harder they fall when faced with high-level institutional branding."},
+				{"speaker": "npc", "name": "Conny", "text": "Drop the basic retail talk. Hit him with high-barrier vocabulary like 'cryptographic licenses, compliant auditing, and regulatory approvals'."},
+				{"speaker": "npc", "name": "Conny", "text": "As long as you frame the project as a state-approved opportunity backed by institutional giants, his computed risk calculations will crumble. Shatter his arrogance with professional-sounding corporate framing!"}
+			]
+		}
+	}
+}
+
+
+
+
+
+
 
 #test
 # 拿来test boss那里的总结

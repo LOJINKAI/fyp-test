@@ -10,7 +10,6 @@ extends Control
 
 	
 var new_game = Global.new_game
-var finish_tutorial = Global.finish_tutorial
 var lang = Global.current_language
 
 
@@ -34,7 +33,7 @@ func _ready():
 		arrow.visible = false
 		
 		
-	if new_game == false && finish_tutorial == false:
+	if Global.phone_tutorial_finished == false:
 		arrow.visible = true
 		animation_player.play("arrow")
 
@@ -49,6 +48,7 @@ func _on_intro_finished():
 	
 	# 2. 随手关闭新游戏开关，并同步硬盘
 	Global.new_game = false
+	Global.phone_tutorial_finished = true
 	Global.save_game_status()
 	
 	var story = Global.story[lang].get("phone_intro")
@@ -67,6 +67,7 @@ func _process(delta):
 
 func _on_chat_pressed():
 	get_tree().change_scene_to_file("res://scene/app.tscn")
+
 	
 
 

@@ -15,7 +15,7 @@ func _ready():
 	update_time_display()
 	
 	Global.language = "ch"
-	print("Global.new_game = ", Global.new_game)
+	print("\n\nGlobal.bio_tutorial_finished = ",Global.bio_tutorial_finished)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

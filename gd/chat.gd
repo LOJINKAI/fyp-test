@@ -1,3 +1,5 @@
+#chat.tscn
+
 extends Control
 
 const SAVE_PATH = "user://chat_history.json"
@@ -36,10 +38,56 @@ var conversation_history := []
 #load npc info
 var npc_name = Global.current_chat_name
 var npc_prompt = Global.npc_prompt.get(npc_name)
+var lang = Global.current_language
+
+
+var already_helped = false
+
+
 
 var npc_done = npc_name + "_done"
 
 
+func _ready():
+	
+	print("\n\nGlobal.bio_tutorial_finished = ",Global.bio_tutorial_finished)
+	
+	$main/top/MarginContainer/HBoxContainer/Label.text = npc_name
+	$main/top/MarginContainer/HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar
+	
+	
+	load_chat_history()
+	
+	
+	conversation_history = [
+	{
+		"role": "system",
+		"text": npc_prompt
+	}
+	]
+	
+	
+	var story = Global.story[lang].get("chat_intro")
+	
+	#if is new game then tutorial
+	if Global.chat_tutorial_finished == false:
+		Global.play_dialogue(story)
+		
+	
+	var current_scene = get_tree().current_scene
+	var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
+	
+	if active_dialogue:
+		active_dialogue.tree_exited.connect(_on_intro_finished)
+		print("🎯 成功捕捉到剧情节点：", active_dialogue.name)
+
+func _on_intro_finished():
+	
+	Global.chat_tutorial_finished = true
+	Global.save_game_status()
+	
+	
+	
 
 
 
@@ -95,27 +143,7 @@ func load_chat_history():
 				elif role == "assistant" or role == "model": # 兼容新老 AI 名字
 					create_bubble(msg_text, false)
 
-func _ready():
-	
-	
-	
 
-	$main/top/MarginContainer/HBoxContainer/Label.text = npc_name
-	$main/top/MarginContainer/HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar
-	
-	
-	
-	
-	
-	load_chat_history()
-	
-	
-	conversation_history = [
-	{
-		"role": "system",
-		"text": npc_prompt
-	}
-]
 
 	
 	
@@ -334,3 +362,49 @@ func _on_delete_pressed():
 		child.queue_free()
 
 
+
+
+# chat.gd 里的 Help 按钮修复段
+
+func _on_help_pressed():
+	# 🟩 1. 安全防错：如果当前正在放别的新手教程对话，先不允许点求助
+	var current_scene = get_tree().current_scene
+	var last_child = current_scene.get_child(current_scene.get_child_count() - 1)
+	if last_child and last_child.name.contains("dialogue"):
+		print("⚠️ [Chat Help] 正在播放其他剧情，请点完后再求助")
+		return
+
+	var help_data = null
+	
+	# 🟩 2. 动态拼接 NPC 名字（比如 "Midas_chat_help"、"Lily_chat_help"）
+	var help_key = npc_name + "_chat_help"
+	
+	# 🟩 3. 核心层级修正：最外层是 Global.help，接着是 [lang]，再跟着子字典名
+	if already_helped == false:
+		var first_help_dict = Global.help[lang].get("first_help")
+		if first_help_dict:
+			help_data = first_help_dict.get(help_key)
+	else:
+		var second_help_dict = Global.help[lang].get("second_help")
+		if second_help_dict:
+			help_data = second_help_dict.get(help_key)
+			
+	# 🟩 4. 安全启动判定，防止数据不存在导致系统崩溃
+	if help_data and help_data is Array:
+		Global.play_dialogue(help_data)
+		
+		# 延迟一小帧，确保对话框已经实例进树，然后安全挂载死灭信号
+		await get_tree().create_timer(0.02).timeout
+		var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
+		
+		# 注意：用可信赖的单次性匿名函数绑定，能完美避开跟 ready 里的旧逻辑信号撞车
+		if active_dialogue and active_dialogue.has_signal("tree_exited"):
+			active_dialogue.tree_exited.connect(_on_help_finished, CONNECT_ONE_SHOT)
+			print("🎯 [Chat Help] Conny 提示小助手启动成功，已安全绑定单次销毁信号。")
+	else:
+		print("⚠️ [Chat Help] 警告：在 Global 字典中找不到对应的提示键名: ", help_key)
+
+# 🟩 当 Conny 喷完并教完话术、对话框物理粉碎时自动执行
+func _on_help_finished():
+	already_helped = true
+	print("✨ [Chat Help] 玩家已阅读第一轮提示，下次点击将自动升级为第二轮严厉吐槽模式。")

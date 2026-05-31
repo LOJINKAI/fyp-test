@@ -6,6 +6,7 @@ var npc = Global.current_chat_name
 var npc_done = npc + "_done"
 var npc_block = npc + "_current_block"
 
+
 #block button
 @onready var block_button := $top/MarginContainer/HBoxContainer/block
 
@@ -16,16 +17,17 @@ func _ready():
 	
 	$bio_card/ScrollContainer/MarginContainer/bio_content.text = Global.current_bio[lang].get(npc)
 	
-	var new_game = Global.new_game
-	var finish_tutorial = Global.finish_tutorial
-	var lang = Global.current_language
 	var story = Global.story[lang].get("bio_intro")
 	
 	
 	#if is new game then tutorial
-	if finish_tutorial == false:
+	if Global.bio_tutorial_finished == false:
 		Global.play_dialogue(story)
+		$top/MarginContainer/HBoxContainer/quit.disabled = true
 	
+	#if still tutorial then cant go out
+	if Global.Midas_done == false:
+		$top/MarginContainer/HBoxContainer/quit.disabled = true
 	
 	
 	if Global.get(npc_done) == false:
@@ -65,7 +67,9 @@ func _on_chat_button_pressed():
 	get_tree().change_scene_to_file("res://scene/chat.tscn")
 	Global.current_chat_name = $HBoxContainer/name.text
 	Global.current_chat_avatar = $HBoxContainer/PanelContainer/photo.texture
-
+	
+	Global.bio_tutorial_finished = true
+	Global.save_game_status()
 
 func _on_block_pressed():
 	# 1. 🟥 核心：一键调用全局粉碎函数，把上一个人的 json 记录直接物理抹去！

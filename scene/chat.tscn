@@ -131,15 +131,14 @@ theme_override_font_sizes/font_size = 50
 text = "none
 "
 
-[node name="photo" type="TextureRect" parent="main/top/MarginContainer/HBoxContainer"]
+[node name="help" type="TextureButton" parent="main/top/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 size_flags_stretch_ratio = 0.0
-mouse_filter = 2
-texture = ExtResource("3_fjbf6")
-expand_mode = 1
+texture_normal = ExtResource("3_fjbf6")
+ignore_texture_size = true
 stretch_mode = 6
 
 [node name="delete" type="TextureButton" parent="main/top/MarginContainer/HBoxContainer"]
@@ -237,6 +236,7 @@ layout_mode = 2
 disabled = true
 
 [connection signal="pressed" from="main/top/MarginContainer/HBoxContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="main/top/MarginContainer/HBoxContainer/help" to="." method="_on_help_pressed"]
 [connection signal="pressed" from="main/top/MarginContainer/HBoxContainer/delete" to="." method="_on_delete_pressed"]
 [connection signal="pressed" from="main/MarginContainer/footer/send" to="." method="_on_send_pressed"]
 [connection signal="pressed" from="notification/navigate" to="." method="_on_navigate_pressed"]
