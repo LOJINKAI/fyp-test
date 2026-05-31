@@ -1,11 +1,20 @@
 [gd_scene load_steps=5 format=3 uid="uid://bprx6d12gvm7w"]
 
 [ext_resource type="Script" path="res://gd/dialogue.gd" id="1_3yn5h"]
-[ext_resource type="Texture2D" uid="uid://bhmr4buy4mx87" path="res://image/character/player2.png" id="2_u515x"]
-[ext_resource type="Texture2D" uid="uid://cu2e6cpe64r20" path="res://image/character/conny2.png" id="3_xxcbe"]
+[ext_resource type="Texture2D" uid="uid://dm0c3bd3bdxxy" path="res://image/character/player3.png" id="2_ian1j"]
+[ext_resource type="Texture2D" uid="uid://ckqargovujy0p" path="res://image/character/conny3.png" id="3_bywt1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_odowj"]
-bg_color = Color(1, 1, 1, 1)
+bg_color = Color(0, 0, 0, 0.184314)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="dialogue" type="CanvasLayer"]
 script = ExtResource("1_3yn5h")
@@ -20,22 +29,22 @@ color = Color(0, 0, 0, 0.196078)
 
 [node name="left_avatar" type="TextureRect" parent="."]
 visible = false
-offset_left = -16.0
 offset_top = 344.0
-offset_right = 1776.0
-offset_bottom = 2744.0
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("2_u515x")
-flip_h = true
+offset_right = 219.0
+offset_bottom = 544.0
+scale = Vector2(1.17, 1.17)
+texture = ExtResource("2_ian1j")
+expand_mode = 1
 
 [node name="right_avatar" type="TextureRect" parent="."]
 visible = false
-offset_left = 400.0
+offset_left = 384.0
 offset_top = 344.0
-offset_right = 2192.0
-offset_bottom = 2744.0
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("3_xxcbe")
+offset_right = 609.0
+offset_bottom = 544.0
+scale = Vector2(1.17, 1.17)
+texture = ExtResource("3_bywt1")
+expand_mode = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 top_level = true
@@ -66,7 +75,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 1
 size_flags_stretch_ratio = 0.12
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 30
 text = "Player"
 
@@ -75,7 +84,7 @@ layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 1
 size_flags_stretch_ratio = 0.18
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 30
 text = "NPC"
 
