@@ -49,17 +49,12 @@ var npc_done = npc_name + "_done"
 
 
 func _ready():
-	
 	print("\n\nGlobal.bio_tutorial_finished = ",Global.bio_tutorial_finished)
-	
 	$main/top/MarginContainer/HBoxContainer/Label.text = npc_name
 	$main/top/MarginContainer/HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar
 	
-	
-	# 1. 优先尝试从本地文件读取历史记录
 	load_chat_history() 
 	
-	# 2. 🌟【核心修复】检查：如果读取后历史记录是空的（说明是新游戏），才进行全新初始化
 	if conversation_history.size() == 0:
 		conversation_history = [
 			{
@@ -68,25 +63,23 @@ func _ready():
 			}
 		]
 	else:
-		# 💡 如果本地已经有历史记录了，我们只需确保历史记录的“第一条”依然是最新的人设
-		# 这样能防止你在后台改了 npc_prompt，而旧存档没有同步更新
-		if conversation_history[0]["role"] == "system":
+		# 💡 终极防爆：如果第一条是 system，更新它；如果不是，强制插在最前面！
+		if conversation_history[0].get("role") == "system":
 			conversation_history[0]["text"] = npc_prompt
-	
+		else:
+			conversation_history.insert(0, {"role": "system", "text": npc_prompt})
 	
 	var story = Global.story[lang].get("chat_intro")
-	
-	#if is new game then tutorial
 	if Global.chat_tutorial_finished == false:
 		Global.play_dialogue(story)
 		
-	
 	var current_scene = get_tree().current_scene
 	var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
 	
 	if active_dialogue:
 		active_dialogue.tree_exited.connect(_on_intro_finished)
 		print("🎯 成功捕捉到剧情节点：", active_dialogue.name)
+
 
 func _on_intro_finished():
 	
@@ -189,24 +182,24 @@ func _on_send_pressed():
 	print("\n\n")
 	print(conversation_history)
 	# 最多保留 10 轮对话（节省 token）
+	# 最多保留 10 轮对话（节省 token）
 	if conversation_history.size() > 10:
-		conversation_history.pop_front()
+		conversation_history.remove_at(1) # 🌟 核心修改：保护 index 0 的 system，删除 index 1 的旧对话
 		
-	await get_tree().create_timer(1.0).timeout
-	# 1. 生成用户自己的气泡
+	# 1. 玩家自己的气泡【立刻】生成，输入框【立刻】清空
 	create_bubble(user_text, true)
-	
-	# 2. 清空输入框
 	input_box.text = ""
+	save_chat_history() # 马上保存玩家刚发的那句话
 	
-	# 3. 后续逻辑
-	save_chat_history() # 保存你刚刚发的那句话
+	# 2. 🌟 核心调整：在这里强制停顿 1 秒，模拟对方刚看到消息的反应时间
+	await get_tree().create_timer(1.0).timeout
+	
+	# 3. 1秒后，才弹出假装正在输入的 AI 气泡
+	current_ai_label = create_bubble("对方正在输入中...", false)
+	
+	# 4. 最后才正式向大模型发送请求
 	send_message()
-	
-	#create_bubble(text, true) # 生成自己的消息
-	#input_text.text = "" # 清空输入框
-	
-	# 模拟 AI 回复（延迟一秒）
+
 
 func scroll_to_bottom():
 	# 等待一帧，让 UI 节点完成重新排版后再滚动
@@ -282,28 +275,41 @@ func _on_request_completed(result, response_code, headers, body):
 	print("\n\n⚠️ Error: " + str(response_code))
 	#return
 	
+	# 🌟 防卡死机制：如果网络报错，把“正在输入中”替换成错误提示
+	if response_code != 200:
+		if current_ai_label:
+			current_ai_label.text = "网络开小差了，请稍后再试 (Error: " + str(response_code) + ")"
+			current_ai_label = null # 释放掉，不让打字机接管
+		return
+	
 	var reply_json = JSON.parse_string(body.get_string_from_utf8())
-	if reply_json.has("candidates"):
+	if reply_json != null and reply_json.has("candidates"):
 		var reply_text = reply_json["candidates"][0]["content"]["parts"][0]["text"].strip_edges()
 		
 		conversation_history.append({"role": "assistant", "text": reply_text})
 		if conversation_history.size() > 10:
-			conversation_history.pop_front()
+			conversation_history.remove_at(1) # 🌟 核心修改：同上
 
 		ai_full_response = reply_text
 		ai_current_index = 0
 		
-		# --- 关键修改 ---
-		# 创建一个空气泡，并记住它的 Label 节点
-		current_ai_label = create_bubble("", false) 
+		# --- 🌟 关键修改 ---
+		# 如果我们刚才成功创建了占位气泡，直接把它清空准备打字
+		if current_ai_label:
+			current_ai_label.text = ""
+		else:
+			# 防爆备用：万一刚才没创建成功，这里补一个空气泡
+			current_ai_label = create_bubble("", false) 
+			
 		typing_timer.start()
 		# ----------------
 		
 		save_chat_history() # 保存 AI 刚刚说的那句话
 		
 	else:
-		create_bubble("AI got problem", false)
-		#print(reply_json)
+		if current_ai_label:
+			current_ai_label.text = "AI got problem"
+			current_ai_label = null
 
 func _on_typing_timer_timeout():
 	if current_ai_label and ai_current_index < ai_full_response.length():
