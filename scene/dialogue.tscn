@@ -1,8 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://y7rnywixusj6"]
+[gd_scene load_steps=5 format=3 uid="uid://c7jqrhat36ypl"]
 
 [ext_resource type="Script" path="res://gd/dialogue.gd" id="1_3yn5h"]
-[ext_resource type="Texture2D" path="res://image/character/player3.png" id="2_ian1j"]
-[ext_resource type="Texture2D" path="res://image/character/conny3.png" id="3_bywt1"]
+[ext_resource type="Texture2D" uid="uid://dm0c3bd3bdxxy" path="res://image/character/player3.png" id="2_ian1j"]
+[ext_resource type="Texture2D" uid="uid://ckqargovujy0p" path="res://image/character/conny3.png" id="3_bywt1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_odowj"]
 bg_color = Color(0, 0, 0, 0.184314)

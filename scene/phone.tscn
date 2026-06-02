@@ -1,13 +1,13 @@
 [gd_scene load_steps=13 format=3 uid="uid://dlw78n4d100wg"]
 
 [ext_resource type="Script" path="res://gd/phone.gd" id="1_5dlnf"]
-[ext_resource type="Texture2D" path="res://image/phone/S.png" id="3_07te4"]
+[ext_resource type="Texture2D" uid="uid://cykjlb6e1mbwe" path="res://image/phone/S.png" id="3_07te4"]
 [ext_resource type="Texture2D" path="res://image/main/wallpaper.png" id="4_ictpc"]
-[ext_resource type="Texture2D" path="res://image/phone/main_page.png" id="4_yo00e"]
-[ext_resource type="Texture2D" path="res://image/tutorial/arrow.png" id="5_0upce"]
-[ext_resource type="Texture2D" path="res://image/phone/call.png" id="6_kat26"]
-[ext_resource type="Texture2D" path="res://image/phone/camera.png" id="7_d1m8u"]
-[ext_resource type="Texture2D" path="res://image/phone/mail.png" id="7_q5sdp"]
+[ext_resource type="Texture2D" uid="uid://hyjmtwgkwhd" path="res://image/phone/main_page.png" id="4_yo00e"]
+[ext_resource type="Texture2D" uid="uid://chfi11fmrx01y" path="res://image/tutorial/arrow.png" id="5_0upce"]
+[ext_resource type="Texture2D" uid="uid://p1xuflulqr6i" path="res://image/phone/call.png" id="6_kat26"]
+[ext_resource type="Texture2D" uid="uid://sovfwuqpyo6f" path="res://image/phone/camera.png" id="7_d1m8u"]
+[ext_resource type="Texture2D" uid="uid://dgff1ebefbpus" path="res://image/phone/mail.png" id="7_q5sdp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5d3c"]
 corner_radius_top_left = 25
