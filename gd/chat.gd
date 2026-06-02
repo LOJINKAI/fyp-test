@@ -28,6 +28,8 @@ var ai_current_index := 0
 
 var API_KEY = apiKey.API_KEY
 
+#懂讲现在是总结，不要发信息泡泡
+var is_fetching_conclusion = false
 
 # 定义一个信号，当玩家成功时通知其他场景（比如弹出通关画面）
 var player_win
@@ -176,6 +178,10 @@ func _on_send_pressed():
 	var user_text = input_box.text.strip_edges()
 	if user_text == "":
 		return
+		
+	input_box.editable = false
+	send_button.disabled = true
+	
 	
 	# 🟦 把玩家的发言加入history
 	conversation_history.append({"role": "user", "text": user_text})
@@ -275,41 +281,75 @@ func _on_request_completed(result, response_code, headers, body):
 	print("\n\n⚠️ Error: " + str(response_code))
 	#return
 	
-	# 🌟 防卡死机制：如果网络报错，把“正在输入中”替换成错误提示
-	if response_code != 200:
+	# 🔓 核心新增：只要有回应（不管成功失败），且不是在做通关总结，就解锁输入框
+	if is_fetching_conclusion == false:
+		input_box.editable = true
+		send_button.disabled = false
+	
+	# 🌟 加强版防卡死机制：不仅查 HTTP 状态，还查 Godot 底层的请求结果（处理超时/断网）
+	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200:
+		var err_msg = "网络开小差了"
+		if result == HTTPRequest.RESULT_TIMEOUT:
+			err_msg = "AI 思考太久，请求超时了"
+			
 		if current_ai_label:
-			current_ai_label.text = "网络开小差了，请稍后再试 (Error: " + str(response_code) + ")"
+			current_ai_label.text = err_msg + " (Error: " + str(response_code) + ")"
 			current_ai_label = null # 释放掉，不让打字机接管
+			
+		is_fetching_conclusion = false # 发生错误时安全重置
 		return
+	
+	
 	
 	var reply_json = JSON.parse_string(body.get_string_from_utf8())
 	if reply_json != null and reply_json.has("candidates"):
 		var reply_text = reply_json["candidates"][0]["content"]["parts"][0]["text"].strip_edges()
 		
+		# 🌟 核心分流：如果是来拿总结的，走 Conny 对话框逻辑
+		if is_fetching_conclusion:
+			is_fetching_conclusion = false # 马上关掉开关
+			
+			# 清洗 AI 可能手贱加上的 markdown 代码块标签
+			var clean_text = reply_text.replace("```json", "").replace("```", "").strip_edges()
+			var dialogue_array = JSON.parse_string(clean_text)
+			
+			if dialogue_array is Array:
+				print("🎯 成功获取 Conny 总结数组：", dialogue_array)
+				Global.play_dialogue(dialogue_array)
+				
+				# 等待 0.1 秒让对话框实例挂载，然后绑定对话结束信号
+				await get_tree().create_timer(0.1).timeout
+				var current_scene = get_tree().current_scene
+				var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
+				# 🌟👇 把下面这三行加上 👇🌟
+				if active_dialogue and active_dialogue.has_signal("tree_exited"):
+					active_dialogue.tree_exited.connect(_on_conclusion_finished, CONNECT_ONE_SHOT)
+				else:
+					# 万一解析失败，也强行通关防止卡死
+					_on_conclusion_finished()
+			return # 总结跑完直接 return，绝不能让它变成聊天气泡！
+
+		# 🟦 下面是原本正常的聊天气泡处理逻辑 🟦
 		conversation_history.append({"role": "assistant", "text": reply_text})
 		if conversation_history.size() > 10:
-			conversation_history.remove_at(1) # 🌟 核心修改：同上
+			conversation_history.remove_at(1) 
 
 		ai_full_response = reply_text
 		ai_current_index = 0
 		
-		# --- 🌟 关键修改 ---
-		# 如果我们刚才成功创建了占位气泡，直接把它清空准备打字
 		if current_ai_label:
 			current_ai_label.text = ""
 		else:
-			# 防爆备用：万一刚才没创建成功，这里补一个空气泡
 			current_ai_label = create_bubble("", false) 
 			
 		typing_timer.start()
-		# ----------------
-		
-		save_chat_history() # 保存 AI 刚刚说的那句话
+		save_chat_history() 
 		
 	else:
 		if current_ai_label:
 			current_ai_label.text = "AI got problem"
 			current_ai_label = null
+		is_fetching_conclusion = false
 
 func _on_typing_timer_timeout():
 	if current_ai_label and ai_current_index < ai_full_response.length():
@@ -342,23 +382,83 @@ func check_for_victory_pro(ai_text):
 		on_victory()
 		
 func on_victory():
-	# 这里写玩家通关后的逻辑
+	# 1. 生成照片气泡
 	create_bubble("对方发送了照片（照片里显示了支付成功的画面）", false)
-	# 比如弹出通关 UI
-	$notification.visible = true
-	$notification/navigate.disabled = false
-	Global.conversation_history = conversation_history
 	
 	Global.set(npc_done,true)
+	Global.conversation_history = conversation_history
 	
-	print("\n\n\nGlobal.Lily_done = " , Global.Lily_done)
+	# 2. 🚨 锁死输入框，防止玩家在 Conny 总结时乱发消息
+	input_box.editable = false
+	send_button.disabled = true
 	
-	print("\n\n")
-	print(Global.conversation_history)
+	# 3. 开始召唤 Conny 的总结
+	conclusion()
+	
+	# 比如弹出通关 UI
+	#$notification.visible = true
+	#$notification/navigate.disabled = false
+	
 	
 
+func conclusion():
+	# 打开分流开关，告诉系统下一条 API 回复是用来播放剧情的
+	is_fetching_conclusion = true
+	
+	# 1. 提取真正的聊天记录，拼成纯文本
+	var logs_string = ""
+	for msg in conversation_history:
+		if msg.get("role") == "system":
+			continue
+		var role_name = "骗子(玩家)" if msg.get("role") == "user" else "受害者(" + npc_name + ")"
+		logs_string += role_name + ": " + msg.get("text", "") + "\n"
+		
+	# 2. 🌟 动态判断当前玩家设置的语言
+	var target_lang_str = "简体中文 (Simplified Chinese)" if Global.current_language == "ch" else "English"
+		
+	# 3. 🌟 核心修改：双重替换！把聊天记录和语言占位符全部替换成真实数据
+	var prompt = Global.conclude_prompt.replace("{CHAT_LOGS}", logs_string).replace("{TARGET_LANGUAGE}", target_lang_str)
+	
+	# 4. 构造给大模型的请求体
+	var body = {
+		"contents": [
+			{
+				"role": "user",
+				"parts": [{"text": prompt}]
+			}
+		]
+	}
+
+	var url = "https://generativelanguage.googleapis.com/v1/models/gemini-3.1-flash-lite:generateContent?key=" + API_KEY
+	var headers = ["Content-Type: application/json"]
+	http.request(url, headers, HTTPClient.METHOD_POST, JSON.stringify(body))
+	
+
+# 🟩 新增：当 Conny 总结对话框被点完关闭后，自动执行这个函数
+func _on_conclusion_finished():
+	print("✨ Conny 总结阅读完毕，正式弹出通关结算 UI！")
+	
+	# 弹出通关 UI
+	$notification.visible = true
+	$notification/navigate.disabled = false
+
+
+
 func _on_navigate_pressed():
-	get_tree().change_scene_to_file("res://scene/boss_chat.tscn")
+	# 1. 删掉物理文件
+	if FileAccess.file_exists(SAVE_PATH):
+		DirAccess.remove_absolute(SAVE_PATH)
+	
+	# 2. 清空当前数组（只保留 system prompt）
+	conversation_history = [conversation_history[0]] 
+	
+	# 3. 清空 UI 上的气泡
+	for child in message_list.get_children():
+		child.queue_free()
+		
+	
+	
+	get_tree().change_scene_to_file("res://scene/app.tscn")
 	
 
 

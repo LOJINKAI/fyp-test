@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://y7u5xbws7nyr"]
 
 [ext_resource type="Script" path="res://gd/main.gd" id="1_adfgs"]
-[ext_resource type="Texture2D" path="res://image/main/wallpaper.png" id="2_kt0ww"]
+[ext_resource type="Texture2D" uid="uid://wxlya8exglwf" path="res://image/main/wallpaper.png" id="2_kt0ww"]
 [ext_resource type="AudioStream" uid="uid://5o1tspw2aar" path="res://sound/ui/ui_button_click.mp3" id="3_1n8a1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3pq5"]

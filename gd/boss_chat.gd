@@ -1,3 +1,5 @@
+#boss_chat
+
 extends Control
 
 const SAVE_PATH = "user://boss_chat_history.json"

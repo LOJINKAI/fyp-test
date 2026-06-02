@@ -37,4 +37,4 @@ func _on_option_button_item_selected(index):
 			print("🌐 Language switched to: English")
 			
 	# 🟩 核心：只要玩家切换了语言，立刻物理存档到本地！重开游戏再也不会打回原形！
-	Global.save_victim_states()
+	Global.save_game_status()

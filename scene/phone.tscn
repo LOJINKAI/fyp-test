@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://gd/phone.gd" id="1_5dlnf"]
 [ext_resource type="Texture2D" uid="uid://cykjlb6e1mbwe" path="res://image/phone/S.png" id="3_07te4"]
-[ext_resource type="Texture2D" path="res://image/main/wallpaper.png" id="4_ictpc"]
+[ext_resource type="Texture2D" uid="uid://wxlya8exglwf" path="res://image/main/wallpaper.png" id="4_ictpc"]
 [ext_resource type="Texture2D" uid="uid://hyjmtwgkwhd" path="res://image/phone/main_page.png" id="4_yo00e"]
 [ext_resource type="Texture2D" uid="uid://chfi11fmrx01y" path="res://image/tutorial/arrow.png" id="5_0upce"]
 [ext_resource type="Texture2D" uid="uid://p1xuflulqr6i" path="res://image/phone/call.png" id="6_kat26"]

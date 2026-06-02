@@ -14,7 +14,7 @@ const SETTING_POPUP_SCENE = preload("res://scene/setting_popup.tscn")
 func _ready():
 	update_time_display()
 	
-	Global.language = "ch"
+	#Global.current_language = "ch"
 	print("\n\nGlobal.bio_tutorial_finished = ",Global.bio_tutorial_finished)
 	
 
