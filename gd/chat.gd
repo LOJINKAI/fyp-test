@@ -318,8 +318,8 @@ func _on_quit_pressed():
 
 
 
-func check_for_victory_pro(ai_text):
-	# 1. 统一剥离前后的空格和换行
+func check_for_victory_pro(ai_text): 
+	# 1. 统一剥离前后的空格和换行 
 	var text_to_check = ai_text.strip_edges() 
 	
 	# 2. 🟩 核心判断：精准拦截小美的上钩标志性句子
