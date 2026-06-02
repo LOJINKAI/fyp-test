@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://clwkuvb6j6iw5"]
+[gd_scene format=3 uid="uid://bb8bx1pw4cfvu"]
 
 [node name="fade_layer" type="CanvasLayer"]
 layer = 100
