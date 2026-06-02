@@ -64,7 +64,7 @@ func _ready():
 		conversation_history = [
 			{
 				"role": "system",
-				"text": npc_prompt
+				"text": npc_prompt 
 			}
 		]
 	else:
