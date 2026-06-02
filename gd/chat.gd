@@ -56,15 +56,22 @@ func _ready():
 	$main/top/MarginContainer/HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar
 	
 	
+	# 1. 优先尝试从本地文件读取历史记录
 	load_chat_history() 
 	
-	
-	conversation_history = [
-	{
-		"role": "system",
-		"text": npc_prompt
-	}
-	]
+	# 2. 🌟【核心修复】检查：如果读取后历史记录是空的（说明是新游戏），才进行全新初始化
+	if conversation_history.size() == 0:
+		conversation_history = [
+			{
+				"role": "system",
+				"text": npc_prompt
+			}
+		]
+	else:
+		# 💡 如果本地已经有历史记录了，我们只需确保历史记录的“第一条”依然是最新的人设
+		# 这样能防止你在后台改了 npc_prompt，而旧存档没有同步更新
+		if conversation_history[0]["role"] == "system":
+			conversation_history[0]["text"] = npc_prompt
 	
 	
 	var story = Global.story[lang].get("chat_intro")
