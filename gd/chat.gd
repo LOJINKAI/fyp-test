@@ -56,7 +56,7 @@ func _ready():
 	$main/top/MarginContainer/HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar
 	
 	
-	load_chat_history()
+	load_chat_history() 
 	
 	
 	conversation_history = [
