@@ -677,7 +677,7 @@ var story = {
 			{"speaker": "npc", "name": "Conny", "text": "Alright, that's enough rules. Now, go ahead and guide them step-by-step into buying our RichCoin!"}
 		]
 	}
-}
+} 
 
 # 🌍 游戏内新手卡关时的两轮多语言提示文本仓库 (全程无黑背景，Conny 独白)
 var help = {
