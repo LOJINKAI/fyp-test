@@ -184,7 +184,7 @@ func _on_send_pressed():
 	
 	
 	# 🟦 把玩家的发言加入history
-	conversation_history.append({"role": "user", "text": user_text})
+	conversation_history.append({"role": "user", "text": user_text}) 
 	print("\n\n")
 	print(conversation_history)
 	# 最多保留 10 轮对话（节省 token）
