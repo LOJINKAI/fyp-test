@@ -10,7 +10,7 @@ const game_status = "user://game_status.json"
 
 const DIALOGUE_SYSTEM = preload("res://scene/dialogue.tscn")
 
-var current_language = "ch"
+var current_language 
 var target_language
 
 
@@ -57,6 +57,11 @@ var fade_mask: ColorRect
 
 
 func _ready():
+	
+	# 🟩 游戏一启动，就自动加载本地所有的屏蔽数据，保证变量在内存中是最新的
+	load_victim_states()
+	load_game_status()
+	
 # 🟩 1. 物理安全加载黑幕
 	fade_instance = FADE_LAYER_SCENE.instantiate()
 	
@@ -75,9 +80,7 @@ func _ready():
 	
 	
 	
-	# 🟩 游戏一启动，就自动加载本地所有的屏蔽数据，保证变量在内存中是最新的
-	load_victim_states()
-	load_game_status()
+
 
 
 #这个是黑屏后直接亮

@@ -60,6 +60,15 @@ func _ready():
 	
 	success_id = "5487"
 	
+	add_child(http)
+	http.connect("request_completed", Callable(self, "_on_request_completed"))
+	send_button.connect("pressed", Callable(self, "_on_send_pressed()"))
+
+	typing_timer = Timer.new()
+	typing_timer.wait_time = typing_speed
+	typing_timer.connect("timeout", Callable(self, "_on_typing_timer_timeout"))
+	add_child(typing_timer)
+	
 	load_chat_history() 
 	
 	if conversation_history.size() == 0:
@@ -149,19 +158,9 @@ func load_chat_history():
 					create_bubble(msg_text, true)
 				elif role == "assistant" or role == "model": # 兼容新老 AI 名字
 					create_bubble(msg_text, false)
-
-
-
 	
 	
-	add_child(http)
-	http.connect("request_completed", Callable(self, "_on_request_completed"))
-	send_button.connect("pressed", Callable(self, "_on_button_pressed"))
-
-	typing_timer = Timer.new()
-	typing_timer.wait_time = typing_speed
-	typing_timer.connect("timeout", Callable(self, "_on_typing_timer_timeout"))
-	add_child(typing_timer)
+	
 
 
 func _process(delta):
