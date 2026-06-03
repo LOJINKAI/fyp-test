@@ -8,20 +8,39 @@ extends Control
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	if Global.Midas_done == true:
-		$VBoxContainer/lily.visible = true
-		$VBoxContainer/lily/lily.disabled = false
-	if Global.Lily_done == true:
-		$VBoxContainer/jane.visible = true
-		$VBoxContainer/jane/jane.disabled = false
-	 
-	if Global.Jane_done == true:
-		$VBoxContainer/stanley.visible = true
-		$VBoxContainer/stanley/stanley.disabled = false
+	# ========================================================
+	# 🌟 核心重构：数据驱动名单 (以后加新受害者，只需要在这个数组里加名字！)
+	# ========================================================
+	var targets = ["Midas", "Lily", "Jane", "Stanley"] 
+	
+	var is_previous_done = true # 第一把钥匙默认是给的（第一个人默认解锁）
+	
+	for target in targets:
+		# 1. 动态获取全局变量 (比如循环到 "Midas" 时，就自动读取 Global.Midas_done)
+		var is_done = Global.get(target + "_done")
 		
+		# 2. 动态抓取 UI 节点 (把名字转小写，比如 "Midas" 变成 "midas")
+		var node_name = target.to_lower()
+		var target_ui = $VBoxContainer.get_node(node_name)
+		var target_btn = target_ui.get_node(node_name)
 		
-	if Global.Stanley_done == true:
-		pass
+		# 3. 核心判定逻辑 (自动隐藏旧的，显示新的)
+		if is_done:
+			# 情况 A：已经骗成功了 -> 隐藏掉
+			target_ui.visible = false
+			target_btn.disabled = true
+		elif is_previous_done:
+			# 情况 B：前一个人骗完了，但这个人还没骗 -> 🌟 这就是当前正在进行的活跃目标！
+			target_ui.visible = true
+			target_btn.disabled = false
+			is_previous_done = false # 把钥匙没收，后面的目标不准解锁！
+		else:
+			# 情况 C：前面的还没骗完 -> 后面的统统锁定/隐藏
+			target_ui.visible = false
+			target_btn.disabled = true
+			
+		# 把当前人的状态传给下一次循环，作为下一个人能否解锁的凭证
+		is_previous_done = is_done
 	
 	
 	#tutorial part
@@ -41,7 +60,7 @@ func _ready():
 		
 		arrow.visible = true
 		animation_player.play("arrow")
-		$VBoxContainer/boss/boss.disabled = true
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

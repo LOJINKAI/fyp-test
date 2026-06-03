@@ -23,11 +23,7 @@ func _ready():
 	#if is new game then tutorial
 	if Global.bio_tutorial_finished == false:
 		Global.play_dialogue(story)
-		$top/MarginContainer/HBoxContainer/quit.disabled = true
 	
-	#if still tutorial then cant go out
-	if Global.Midas_done == false:
-		$top/MarginContainer/HBoxContainer/quit.disabled = true
 	
 	
 	if Global.get(npc_done) == false:

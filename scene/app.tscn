@@ -1,11 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://cfxggmjkwm8nn"]
+[gd_scene load_steps=17 format=3 uid="uid://cfxggmjkwm8nn"]
 
 [ext_resource type="Script" path="res://gd/app.gd" id="1_iaqfa"]
 [ext_resource type="Texture2D" uid="uid://bhaoludqrd7oi" path="res://image/app/quit.png" id="2_t55w7"]
 [ext_resource type="Texture2D" uid="uid://dsfylrvtv3jos" path="res://image/app/S.png" id="3_6oxoy"]
 [ext_resource type="Texture2D" uid="uid://b2oucsvmjrnf" path="res://image/app/setting.png" id="4_fl3x8"]
 [ext_resource type="Texture2D" uid="uid://df7w6kkvhxgv7" path="res://image/app/lily.png" id="5_tv8i7"]
-[ext_resource type="Texture2D" uid="uid://eouitmgbhqqx" path="res://image/chat/boss.png" id="6_mpnpc"]
 [ext_resource type="Texture2D" uid="uid://b6etxjksfwg7u" path="res://image/app/Midas.png" id="7_vynqb"]
 [ext_resource type="Texture2D" uid="uid://l8a6idcbaann" path="res://image/app/Jane.png" id="8_i73o2"]
 [ext_resource type="Texture2D" uid="uid://dwk2wol6cusjs" path="res://image/app/Stanley.png" id="9_tfd68"]
@@ -134,49 +133,9 @@ stretch_mode = 6
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_top = 112.0
+offset_top = 128.0
 offset_right = 648.0
-offset_bottom = 644.0
-
-[node name="boss" type="PanelContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(648, 130)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5b3rb")
-
-[node name="boss" type="Button" parent="VBoxContainer/boss"]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/boss/boss"]
-layout_mode = 0
-offset_left = 12.0
-offset_top = 13.0
-offset_right = 223.0
-offset_bottom = 113.0
-theme_override_constants/separation = 10
-
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/boss/boss/HBoxContainer"]
-clip_children = 1
-custom_minimum_size = Vector2(100, 100)
-layout_direction = 1
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_g7g6t")
-
-[node name="photo" type="TextureRect" parent="VBoxContainer/boss/boss/HBoxContainer/PanelContainer"]
-layout_mode = 2
-texture = ExtResource("6_mpnpc")
-expand_mode = 5
-
-[node name="Label" type="Label" parent="VBoxContainer/boss/boss/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 1
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 50
-text = "Boss"
+offset_bottom = 888.0
 
 [node name="midas" type="PanelContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(648, 130)
@@ -365,7 +324,6 @@ libraries = {
 autoplay = "arrow"
 
 [connection signal="pressed" from="top/MarginContainer/HBoxContainer/quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="VBoxContainer/boss/boss" to="." method="_on_boss_pressed"]
 [connection signal="pressed" from="VBoxContainer/midas/midas" to="." method="_on_midas_pressed"]
 [connection signal="pressed" from="VBoxContainer/lily/lily" to="." method="_on_lily_pressed"]
 [connection signal="pressed" from="VBoxContainer/jane/jane" to="." method="_on_jane_pressed"]

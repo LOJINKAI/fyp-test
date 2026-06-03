@@ -34,6 +34,9 @@ var is_fetching_conclusion = false
 # 定义一个信号，当玩家成功时通知其他场景（比如弹出通关画面）
 var player_win
 
+var success_id
+
+
  # 🟦 对话历史（每次都会发送给 Gemini）
 var conversation_history := []
 
@@ -54,6 +57,8 @@ func _ready():
 	print("\n\nGlobal.bio_tutorial_finished = ",Global.bio_tutorial_finished)
 	$main/top/MarginContainer/HBoxContainer/Label.text = npc_name
 	$main/top/MarginContainer/HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar
+	
+	success_id = "5487"
 	
 	load_chat_history() 
 	
@@ -385,23 +390,24 @@ func on_victory():
 	# 1. 生成照片气泡
 	create_bubble("对方发送了照片（照片里显示了支付成功的画面）", false)
 	
-	Global.set(npc_done,true)
-	Global.conversation_history = conversation_history
+
 	
 	# 2. 🚨 锁死输入框，防止玩家在 Conny 总结时乱发消息
 	input_box.editable = false
 	send_button.disabled = true
+	$main/MarginContainer/footer/TextEdit.visible = false
+	$main/MarginContainer/footer/send.visible = false
+	$main/MarginContainer/footer/done_button.visible = true
 	
-	# 3. 开始召唤 Conny 的总结
-	conclusion()
 	
-	# 比如弹出通关 UI
-	#$notification.visible = true
-	#$notification/navigate.disabled = false
+	
 	
 	
 
 func conclusion():
+	
+	print("\n\n\n总结着")
+	
 	# 打开分流开关，告诉系统下一条 API 回复是用来播放剧情的
 	is_fetching_conclusion = true
 	
@@ -438,6 +444,11 @@ func conclusion():
 func _on_conclusion_finished():
 	print("✨ Conny 总结阅读完毕，正式弹出通关结算 UI！")
 	
+	
+	# 1. 把成功界面的遮罩和图片隐藏掉
+	$success_layer.visible = false
+
+	
 	# 弹出通关 UI
 	$notification.visible = true
 	$notification/navigate.disabled = false
@@ -463,6 +474,13 @@ func _on_navigate_pressed():
 
 
 func _on_delete_pressed():
+	
+	delete_conversation()
+	
+	
+
+
+func delete_conversation():
 	# 1. 删掉物理文件
 	if FileAccess.file_exists(SAVE_PATH):
 		DirAccess.remove_absolute(SAVE_PATH)
@@ -473,8 +491,6 @@ func _on_delete_pressed():
 	# 3. 清空 UI 上的气泡
 	for child in message_list.get_children():
 		child.queue_free()
-
-
 
 
 # chat.gd 里的 Help 按钮修复段
@@ -521,3 +537,28 @@ func _on_help_pressed():
 func _on_help_finished():
 	already_helped = true
 	print("✨ [Chat Help] 玩家已阅读第一轮提示，下次点击将自动升级为第二轮严厉吐槽模式。")
+
+
+func _on_done_button_pressed():
+	# 1. 点击后立刻禁用按钮，防止玩家手抖狂点
+	$main/MarginContainer/footer/done_button.disabled = true
+	$main/MarginContainer/footer/done_button.visible = false
+	
+	# 2. 唤醒我们在场景里搭好的 SuccessLayer，并把初始透明度设为 0 (完全透明)
+	$success_layer.visible = true
+	
+	Global.set(npc_done,true)
+	delete_conversation()
+	Global.conversation_history = conversation_history
+	
+	Global.save_victim_states()
+
+	## 3. 🎬 电影级缓动动画：用 1.2 秒的时间，让这层画面缓慢变得完全不透明
+	#var tween = create_tween()
+	#tween.tween_property($success_layer, "modulate", Color(1, 1, 1, 1), 1.2)
+	#
+	## 4. 强制等待这段 1.2 秒的动画播完
+	#await tween.finished
+	
+	# 5. 画面完全浮现，气氛烘托到位后，正式呼叫后台让 Conny 老师入场！
+	conclusion()
