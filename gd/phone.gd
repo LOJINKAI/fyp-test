@@ -36,7 +36,7 @@ func _ready():
 	if Global.phone_tutorial_finished == false:
 		arrow.visible = true
 		animation_player.play("arrow")
-		$main_page/TextureButton.disabled = true
+
 
 
 func _on_intro_finished():

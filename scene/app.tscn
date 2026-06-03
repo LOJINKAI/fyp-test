@@ -6,10 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://b2oucsvmjrnf" path="res://image/app/setting.png" id="4_fl3x8"]
 [ext_resource type="Texture2D" uid="uid://df7w6kkvhxgv7" path="res://image/app/lily.png" id="5_tv8i7"]
 [ext_resource type="Texture2D" uid="uid://eouitmgbhqqx" path="res://image/chat/boss.png" id="6_mpnpc"]
-[ext_resource type="Texture2D" path="res://image/app/Midas.png" id="7_vynqb"]
-[ext_resource type="Texture2D" path="res://image/app/Jane.png" id="8_i73o2"]
-[ext_resource type="Texture2D" path="res://image/app/Stanley.png" id="9_tfd68"]
-[ext_resource type="Texture2D" path="res://image/tutorial/arrow.png" id="10_hca22"]
+[ext_resource type="Texture2D" uid="uid://b6etxjksfwg7u" path="res://image/app/Midas.png" id="7_vynqb"]
+[ext_resource type="Texture2D" uid="uid://l8a6idcbaann" path="res://image/app/Jane.png" id="8_i73o2"]
+[ext_resource type="Texture2D" uid="uid://dwk2wol6cusjs" path="res://image/app/Stanley.png" id="9_tfd68"]
+[ext_resource type="Texture2D" uid="uid://chfi11fmrx01y" path="res://image/tutorial/arrow.png" id="10_hca22"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdx2v"]
 bg_color = Color(1, 1, 1, 1)

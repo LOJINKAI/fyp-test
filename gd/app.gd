@@ -39,13 +39,8 @@ func _ready():
 		var current_scene = get_tree().current_scene
 		var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
 		
-		
-		
-		
-	if Global.app_tutorial_finished == false:
 		arrow.visible = true
 		animation_player.play("arrow")
-		$top/MarginContainer/HBoxContainer/quit.disabled = true
 		$VBoxContainer/boss/boss.disabled = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
