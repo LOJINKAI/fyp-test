@@ -1,12 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://bjf7fwhuho70n"]
+[gd_scene load_steps=14 format=3 uid="uid://bjf7fwhuho70n"]
 
 [ext_resource type="Script" path="res://gd/chat.gd" id="1_alrcu"]
 [ext_resource type="Texture2D" uid="uid://bhaoludqrd7oi" path="res://image/app/quit.png" id="2_iy1w6"]
 [ext_resource type="Texture2D" uid="uid://bbwivss68uoiv" path="res://image/chat/help.png" id="3_fjbf6"]
 [ext_resource type="Texture2D" uid="uid://cladg4rf3xfvk" path="res://image/chat/delete.png" id="4_w6hbh"]
 [ext_resource type="Texture2D" uid="uid://c5jwifyii3o2u" path="res://image/chat/send.png" id="5_xt7yk"]
-[ext_resource type="Texture2D" uid="uid://eouitmgbhqqx" path="res://image/chat/boss.png" id="6_4mw3k"]
 [ext_resource type="Texture2D" uid="uid://tbfu4dwnq6rf" path="res://image/chat/success.png" id="7_0mnl5"]
+[ext_resource type="Texture2D" uid="uid://eampja6dhsby" path="res://image/chat/fail.png" id="8_jlk8f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdx2v"]
 bg_color = Color(1, 1, 1, 1)
@@ -38,27 +38,19 @@ corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h22ve"]
-bg_color = Color(5.77569e-07, 0.634875, 0.959207, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ur3ob"]
+bg_color = Color(0.695158, 0, 0.126318, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b7cji"]
-bg_color = Color(1, 0.996078, 1, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-shadow_color = Color(0, 0, 0, 0.0705882)
-shadow_size = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3okn6"]
-corner_radius_top_left = 1024
-corner_radius_top_right = 1024
-corner_radius_bottom_right = 1024
-corner_radius_bottom_left = 1024
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btcge"]
+bg_color = Color(0.350391, 0.689738, 0.371692, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
 
 [node name="chat" type="Control"]
 layout_mode = 3
@@ -197,61 +189,51 @@ texture_normal = ExtResource("5_xt7yk")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="done_button" type="Button" parent="main/MarginContainer/footer"]
+[node name="fail_layer" type="CanvasLayer" parent="."]
 visible = false
-custom_minimum_size = Vector2(500, 80)
-layout_mode = 2
-size_flags_horizontal = 6
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_h22ve")
-text = "已确认，感谢您的信任"
 
-[node name="notification" type="PanelContainer" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 112.0
-offset_top = 112.0
-offset_right = 528.0
-offset_bottom = 248.0
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_b7cji")
+[node name="ColorRect" type="ColorRect" parent="fail_layer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.588235)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="notification"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 20
-
-[node name="PanelContainer" type="PanelContainer" parent="notification/HBoxContainer"]
-clip_children = 1
-custom_minimum_size = Vector2(100, 100)
-layout_direction = 1
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 4
-size_flags_stretch_ratio = 3.36
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3okn6")
-
-[node name="photo" type="TextureRect" parent="notification/HBoxContainer/PanelContainer"]
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("6_4mw3k")
+[node name="TextureRect" type="TextureRect" parent="fail_layer/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -204.0
+offset_top = -321.0
+offset_right = 196.0
+offset_bottom = 79.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_jlk8f")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="name" type="Label" parent="notification/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_stretch_ratio = 4.69
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 50
-text = "Boss"
-
-[node name="navigate" type="Button" parent="notification"]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 2
+[node name="again" type="Button" parent="fail_layer/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -252.0
+offset_top = 119.0
+offset_right = 248.0
+offset_bottom = 219.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_ur3ob")
 disabled = true
+text = "Try Again"
 
 [node name="success_layer" type="CanvasLayer" parent="."]
 visible = false
@@ -266,31 +248,33 @@ color = Color(0, 0, 0, 0.588235)
 
 [node name="TextureRect" type="TextureRect" parent="success_layer/ColorRect"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 184.0
-offset_top = 192.0
-offset_right = -208.0
-offset_bottom = -454.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -204.0
+offset_top = 130.0
+offset_right = 196.0
+offset_bottom = 530.0
 grow_horizontal = 2
-grow_vertical = 2
 texture = ExtResource("7_0mnl5")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="success_layer/ColorRect"]
+[node name="next_target" type="Button" parent="success_layer/ColorRect"]
+visible = false
 layout_mode = 0
-offset_top = 448.0
-offset_right = 648.0
-offset_bottom = 558.0
-theme_override_font_sizes/font_size = 80
-text = "Success!"
-horizontal_alignment = 1
+offset_left = 72.0
+offset_top = 570.0
+offset_right = 572.0
+offset_bottom = 670.0
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_btcge")
+disabled = true
+text = "Next Target"
 
 [connection signal="pressed" from="main/top/MarginContainer/HBoxContainer/quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="main/top/MarginContainer/HBoxContainer/help" to="." method="_on_help_pressed"]
 [connection signal="pressed" from="main/top/MarginContainer/HBoxContainer/delete" to="." method="_on_delete_pressed"]
 [connection signal="pressed" from="main/MarginContainer/footer/send" to="." method="_on_send_pressed"]
-[connection signal="pressed" from="main/MarginContainer/footer/done_button" to="." method="_on_done_button_pressed"]
-[connection signal="pressed" from="notification/navigate" to="." method="_on_navigate_pressed"]
+[connection signal="pressed" from="fail_layer/ColorRect/again" to="." method="_on_again_pressed"]
+[connection signal="pressed" from="success_layer/ColorRect/next_target" to="." method="_on_next_target_pressed"]

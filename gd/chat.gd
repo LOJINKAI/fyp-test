@@ -32,9 +32,10 @@ var API_KEY = apiKey.API_KEY
 var is_fetching_conclusion = false
 
 # 定义一个信号，当玩家成功时通知其他场景（比如弹出通关画面）
-var player_win
+var is_success
 
 var success_id
+var reply_language
 
 
  # 🟦 对话历史（每次都会发送给 Gemini）
@@ -42,7 +43,7 @@ var conversation_history := []
 
 #load npc info
 var npc_name = Global.current_chat_name
-var npc_prompt = Global.npc_prompt.get(npc_name)
+var npc_prompt
 var lang = Global.current_language
 
 
@@ -54,11 +55,24 @@ var npc_done = npc_name + "_done"
 
 
 func _ready():
+	
+	#random generate id
+	success_id = str(randi_range(1000, 9999))
+	print("\n\nsuccess id = ",success_id)
+	
+	reply_language = Global.reply_language
+	print("\n\nlanguage = ",reply_language)
+	
+	npc_prompt = Global.npc_prompt.get(npc_name).replace("{reply_language}", reply_language).replace("{success_id}", success_id)
+	
+	
 	print("\n\nGlobal.bio_tutorial_finished = ",Global.bio_tutorial_finished)
 	$main/top/MarginContainer/HBoxContainer/Label.text = npc_name
 	$main/top/MarginContainer/HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar
 	
-	success_id = "5487"
+	
+	
+	
 	
 	add_child(http)
 	http.connect("request_completed", Callable(self, "_on_request_completed"))
@@ -94,7 +108,9 @@ func _ready():
 	
 	if active_dialogue:
 		active_dialogue.tree_exited.connect(_on_intro_finished)
-		print("🎯 成功捕捉到剧情节点：", active_dialogue.name)
+
+
+
 
 
 func _on_intro_finished():
@@ -205,7 +221,7 @@ func _on_send_pressed():
 	await get_tree().create_timer(1.0).timeout
 	
 	# 3. 1秒后，才弹出假装正在输入的 AI 气泡
-	current_ai_label = create_bubble("对方正在输入中...", false)
+	current_ai_label = create_bubble(Global.entering, false)
 	
 	# 4. 最后才正式向大模型发送请求
 	send_message()
@@ -318,7 +334,6 @@ func _on_request_completed(result, response_code, headers, body):
 			var dialogue_array = JSON.parse_string(clean_text)
 			
 			if dialogue_array is Array:
-				print("🎯 成功获取 Conny 总结数组：", dialogue_array)
 				Global.play_dialogue(dialogue_array)
 				
 				# 等待 0.1 秒让对话框实例挂载，然后绑定对话结束信号
@@ -381,31 +396,103 @@ func check_for_victory_pro(ai_text):
 	
 	# 2. 🟩 核心判断：精准拦截小美的上钩标志性句子
 	# 这里加了两个模糊兼容（带叹号和不带叹号），防止 AI 漏掉标点符号导致不触发
-	if text_to_check.contains("5487"):
-		print("🎯 成功通关！小美已经被 FOMO 心理彻底攻陷，成功诱骗其买币！")
+	if text_to_check.contains(success_id):
 		on_victory()
 		
-func on_victory():
-	# 1. 生成照片气泡
-	create_bubble("对方发送了照片（照片里显示了支付成功的画面）", false)
+		
+	# 2. 🟥 判定失败：是否包含了连续三个感叹号 "!!!"
+	if text_to_check.contains("!!!"):
+		on_failure() # 呼叫失败处理函数
+	
+	
+# 2. 🟥 🌟【防误判终极正则拦截】：判定失败
+	var regex = RegEx.new()
+	
+	# 表达式微调解读：
+	# [!！] 匹配第一个感叹号
+	# \\s* 允许有任意空格
+	# [!！] 匹配第二个感叹号
+	# \\s* 允许有任意空格
+	# [!！] 匹配第三个感叹号
+	# 🎯 核心原理：中间去掉了允许文字的通配符，它只会在“感叹号全连在一起”时才触发！
+	regex.compile("[!！]\\s*[!！]\\s*[!！]")
+	
+	var result = regex.search(text_to_check)
+	
+	if result:
+		print("💀 成功拦截受害者愤然离场信号（3连感叹号）：", result.get_string())
+		on_failure()
+
+
+# 🟥 新增的失败处理函数
+func on_failure():
+	
+	is_success = false
+	
+	# 这里写玩家失败后的逻辑，比如锁定输入框，弹出失败通知
+	input_box.editable = false
+	send_button.disabled = true
+	$main/MarginContainer/footer/TextEdit.visible = false
+	$main/MarginContainer/footer/send.visible = false
+	
+	# 给玩家一个气泡提示，比如 "对方已开启朋友验证，您还不是他的好友..."
+	create_bubble(Global.fail_message, false)
+	
+	
+	await get_tree().create_timer(1.0).timeout
+	
+	
+	# 2. 唤醒我们在场景里搭好的 SuccessLayer，并把初始透明度设为 0 (完全透明)
+	$fail_layer.visible = true
+	$fail_layer/ColorRect/again.disabled = false
+	
+	
+	
 	
 
+
+
+func on_victory():
+	# 1. 生成照片气泡
+	create_bubble(Global.show_image_message, false)
+	
+	
+	is_success = true
 	
 	# 2. 🚨 锁死输入框，防止玩家在 Conny 总结时乱发消息
 	input_box.editable = false
 	send_button.disabled = true
 	$main/MarginContainer/footer/TextEdit.visible = false
 	$main/MarginContainer/footer/send.visible = false
-	$main/MarginContainer/footer/done_button.visible = true
+
 	
 	
+	#这里加一个定时器，过了1秒才执行以下代码
+	await get_tree().create_timer(1.0).timeout
+	
+	# 2. 唤醒我们在场景里搭好的 SuccessLayer，并把初始透明度设为 0 (完全透明)
+	$success_layer.visible = true
+	
+	Global.set(npc_done,true)
+
+	
+	Global.save_victim_states()
+
+	## 3. 🎬 电影级缓动动画：用 1.2 秒的时间，让这层画面缓慢变得完全不透明
+	#var tween = create_tween()
+	#tween.tween_property($success_layer, "modulate", Color(1, 1, 1, 1), 1.2)
+	#
+	## 4. 强制等待这段 1.2 秒的动画播完
+	#await tween.finished
+	
+	# 5. 画面完全浮现，气氛烘托到位后，正式呼叫后台让 Conny 老师入场！
+	conclusion()
 	
 	
 	
 
 func conclusion():
 	
-	print("\n\n\n总结着")
 	
 	# 打开分流开关，告诉系统下一条 API 回复是用来播放剧情的
 	is_fetching_conclusion = true
@@ -418,11 +505,9 @@ func conclusion():
 		var role_name = "骗子(玩家)" if msg.get("role") == "user" else "受害者(" + npc_name + ")"
 		logs_string += role_name + ": " + msg.get("text", "") + "\n"
 		
-	# 2. 🌟 动态判断当前玩家设置的语言
-	var target_lang_str = "简体中文 (Simplified Chinese)" if Global.current_language == "ch" else "English"
-		
+
 	# 3. 🌟 核心修改：双重替换！把聊天记录和语言占位符全部替换成真实数据
-	var prompt = Global.conclude_prompt.replace("{CHAT_LOGS}", logs_string).replace("{TARGET_LANGUAGE}", target_lang_str)
+	var prompt = Global.conclude_prompt.replace("{CHAT_LOGS}", logs_string).replace("{reply_language}", reply_language)
 	
 	# 4. 构造给大模型的请求体
 	var body = {
@@ -441,16 +526,10 @@ func conclusion():
 
 # 🟩 新增：当 Conny 总结对话框被点完关闭后，自动执行这个函数
 func _on_conclusion_finished():
-	print("✨ Conny 总结阅读完毕，正式弹出通关结算 UI！")
 	
 	
-	# 1. 把成功界面的遮罩和图片隐藏掉
-	$success_layer.visible = false
-
-	
-	# 弹出通关 UI
-	$notification.visible = true
-	$notification/navigate.disabled = false
+	$success_layer/ColorRect/next_target.visible = true
+	$success_layer/ColorRect/next_target.disabled = false
 
 
 
@@ -538,26 +617,22 @@ func _on_help_finished():
 	print("✨ [Chat Help] 玩家已阅读第一轮提示，下次点击将自动升级为第二轮严厉吐槽模式。")
 
 
-func _on_done_button_pressed():
-	# 1. 点击后立刻禁用按钮，防止玩家手抖狂点
-	$main/MarginContainer/footer/done_button.disabled = true
-	$main/MarginContainer/footer/done_button.visible = false
+
+
+func _on_again_pressed():
 	
-	# 2. 唤醒我们在场景里搭好的 SuccessLayer，并把初始透明度设为 0 (完全透明)
-	$success_layer.visible = true
-	
-	Global.set(npc_done,true)
 	delete_conversation()
 	Global.conversation_history = conversation_history
 	
-	Global.save_victim_states()
-
-	## 3. 🎬 电影级缓动动画：用 1.2 秒的时间，让这层画面缓慢变得完全不透明
-	#var tween = create_tween()
-	#tween.tween_property($success_layer, "modulate", Color(1, 1, 1, 1), 1.2)
-	#
-	## 4. 强制等待这段 1.2 秒的动画播完
-	#await tween.finished
 	
-	# 5. 画面完全浮现，气氛烘托到位后，正式呼叫后台让 Conny 老师入场！
-	conclusion()
+	get_tree().change_scene_to_file("res://scene/bio.tscn") 
+
+
+func _on_next_target_pressed():
+	delete_conversation()
+	Global.conversation_history = conversation_history
+	
+	Global.current_chat_avatar = null
+	Global.current_chat_name = null
+	
+	get_tree().change_scene_to_file("res://scene/app.tscn")
