@@ -7,6 +7,7 @@ extends Node
 #save file
 const victim_file = "user://victim_status.json"
 const game_status = "user://game_status.json"
+const game_language = "user://game_language.json"
 
 const DIALOGUE_SYSTEM = preload("res://scene/dialogue.tscn")
 
@@ -45,6 +46,7 @@ var Jane_done = false
 var Stanley_done = false
 var Simon_done = false
 
+var game_end = false
 
 #record tutorial
 var phone_tutorial_finished = false
@@ -61,11 +63,15 @@ var fade_mask: ColorRect
 
 func _ready():
 	
+	print("Language = ",current_language)
+	
 	# 🟩 游戏一启动，就自动加载本地所有的屏蔽数据，保证变量在内存中是最新的
+	laod_game_langauge()
 	load_victim_states()
 	load_game_status()
 	
-# 🟩 1. 物理安全加载黑幕
+
+	 #🟩 1. 物理安全加载黑幕
 	fade_instance = FADE_LAYER_SCENE.instantiate()
 	
 	# 🟩 2. 核心修正：放弃延迟加载，直接用最高优先级的引擎底层命令物理焊死在游戏最表面！
@@ -75,21 +81,10 @@ func _ready():
 	fade_mask = fade_instance.get_node("mask")
 	if fade_mask:
 		fade_mask.color = Color(0, 0, 0, 0.0)
+		
 	
-	match current_language:
-		"ch": 
-			reply_language = "中文"
-			fail_message = "⚠️ 消息已发出，但被对方拒收了。"
-			entering = "对方正在输入中..."
-			show_image_message = "对方发送了照片（照片里显示了支付成功的画面）"
-		"en": 
-			reply_language = "english"
-			fail_message = "⚠️ Message sent but rejected by recipient."
-			entering = "Entering..."
-			show_image_message = "The recipient sent an image (showing a successful payment confirmation)."
+	
 
-	
-	
 
 
 
@@ -204,7 +199,6 @@ func save_game_status():
 	var file = FileAccess.open(game_status, FileAccess.WRITE)
 	if file:
 		var data_to_save = {
-			"current_language": current_language,
 			"new_game": new_game,
 			"phone_tutorial_finished": phone_tutorial_finished,
 			"app_tutorial_finished": app_tutorial_finished,
@@ -223,7 +217,6 @@ func save_game_status():
 func load_game_status():
 	if not FileAccess.file_exists(game_status):
 		new_game = true
-		current_language = "en"
 		return # 文件不存在说明全是默认值
 		
 	var file = FileAccess.open(game_status, FileAccess.READ)
@@ -236,12 +229,37 @@ func load_game_status():
 
 			new_game = data.get("new_game", true)
 			# 1. 恢复语言
-			current_language = data.get("current_language", "en")
 			phone_tutorial_finished = data.get("phone_tutorial_finished", false)
 			app_tutorial_finished = data.get("app_tutorial_finished", false)
 			bio_tutorial_finished = data.get("bio_tutorial_finished", false)
 			chat_tutorial_finished = data.get("chat_tutorial_finished", false)
 
+
+
+
+func save_game_language():
+	var file = FileAccess.open(game_language, FileAccess.WRITE)
+	if file:
+		var data_to_save = {
+			"current_language": current_language
+		}
+		var json_string = JSON.stringify(data_to_save)
+		file.store_string(json_string)
+		file.close()
+
+func laod_game_langauge():
+	if not FileAccess.file_exists(game_language):
+		current_language = "en"
+		return # 文件不存在说明全是默认值
+		
+	var file = FileAccess.open(game_language, FileAccess.READ)
+	if file:
+		var json_string = file.get_as_text()
+		file.close()
+		
+		var data = JSON.parse_string(json_string)
+		if data is Dictionary:
+			current_language = data.get("current_language", "en")
 			
 
 
@@ -294,7 +312,7 @@ func save_victim_states():
 			"Midas_done": Midas_done,
 			"Jane_done": Jane_done,
 			"Stanley_done": Stanley_done,
-			"Simon_done ": Simon_done 
+			"Simon_done": Simon_done 
 			
 		}
 		var json_string = JSON.stringify(data_to_save)
@@ -687,7 +705,32 @@ var story = {
 			{"speaker": "npc", "name": "Conny", "text": "不过以防万一，要是你待会儿觉得这个人挺难搞的话，可以点击顶部那个大大个的‘H’字按钮。我们姑且留了一个帮助功能给像你这样的新手。"},
 			{"speaker": "npc", "name": "Conny", "text": "当然了，这毕竟是你自己的工作。点击之后，我们顶多只会给你一点关于如何拿下这类人的提示罢了，可别抱着会有别人来帮你代打游戏的想法。"},
 			{"speaker": "npc", "name": "Conny", "text": "行了，规矩就这么多。现在，开始通过对话，去一步步引导他购买我们的发财币吧！"}
+		],
+		"story_end1": [
+			{"speaker": "npc", "name": "Conny", "text": "哎呀，看来今天已经没有人赶着来给我们的钱包送钱了。不过嘛，这种一本万利的好生意每天都有，不用着急。"},
+			{"speaker": "npc", "name": "Conny", "text": "至于你嘛，今天干得非常不错，现在也是和我们一样优秀的诈骗犯了。"},
+			{"speaker": "npc", "name": "Conny", "text": "今天就先到这里吧，去洗把脸。以后... 你这辈子都要乖乖留在这里为我们卖命了！哈哈哈哈！"},
+			{"speaker": "player", "name": "我 (Eren)", "text": "（不... 这根本不是我要的！我不想骗人，不想把无辜的人推向倾家荡产的绝望深渊...）"},
+			{"speaker": "player", "name": "我 (Eren)", "text": "（我真的好后悔... 后悔当初为什么要去碰那该死的赌博，后悔为什么会蠢到相信什么‘高薪工作’的诱惑！）"},
+			{"speaker": "player", "name": "我 (Eren)",  "text": "（那些受害者因为相信了投资骗局而痛失钱财，而我... 却因为相信了高薪的骗局，彻底赔上了自己的人生。）"},
+			{"speaker": "player", "name": "我 (Eren)",  "text": "（如果这个世界有奇迹的话... 如果一切能重来的话... 可惜，现实就是这么残酷，奇迹根本不存在。）"}
+		],
+		"story_end2": [
+			# 突然的破门声，打破绝望
+			{"speaker": "npc", "name": "警察","scene_black": true, "text": "警察！所有人都不许动！双手抱头，立刻离开键盘！"},
+			{"speaker": "npc", "name": "警察","scene_black": true,  "text": "你们因涉嫌组织和参与非法网络电信诈骗，现在依法对你们进行逮捕！谁敢反抗罪加一等！"},
+			{"speaker": "player", "name": "我 (Eren)", "scene_black": true,  "text": "太好了！！！虽然等来的不是奇迹，但警察真的来了！！！"},
+			
+			# 后事回想（无名字，纯独白总结，建议配合逐渐变黑的背景或立绘淡出）
+			{"speaker": "player", "name": "", "scene_black": true, "text": "随后，这个深藏在隐蔽工业区里的诈骗窝点被警方彻底一窝端了。"},
+			{"speaker": "player", "name": "", "scene_black": true, "text": "虽然我是被骗进来强迫工作的，我心里也坚信自己和他们那群烂人不一样。但在那一刻，我依然被戴动手铐，作为犯罪嫌疑人被押上了警车。"},
+			{"speaker": "player", "name": "", "scene_black": true, "text": "幸运的是，在后来的调查和法庭审判中，因为我是被暴力胁迫且第一时间配合警方调查，法庭最终证明了我的清白，免除了牢狱之灾，保住了我下半辈子的人生。"},
+			{"speaker": "player", "name": "", "scene_black": true, "text": "虽然出去之后，我依然得面对那些催债的高利贷。但这一次，我绝对不会再逃避，我会直接向警方寻求保护和帮助。"},
+			{"speaker": "player", "name": "", "scene_black": true, "text": "我不会再幻想什么一步登天的捷径。我会彻底戒掉烂赌的毛病，脚踏实地重新做人。"},
+			{"speaker": "player", "name": "", "scene_black": true, "text": "更重要的是，经历了这一切，我决定用我在那个地狱里学到的“专业知识”，去帮助更多的人预防网络诈骗..."},
+			{"speaker": "player", "name": "", "scene_black": true, "text": "而不是像那些罪犯一样，去肆意收割别人的血汗钱和人生。"}
 		]
+		
 	},
 	"en": {
 		"story_intro": [
@@ -741,9 +784,37 @@ var story = {
 			{"speaker": "npc", "name": "Conny", "text": "Just in case you find them a bit tough to handle, you can tap that big 'H' button at the top. We've generously included a help feature for rookies like you."},
 			{"speaker": "npc", "name": "Conny", "text": "But remember, this is your job. Tapping it will only give you a small hint on how to handle them. Don't go thinking anyone is gonna play the game for you."},
 			{"speaker": "npc", "name": "Conny", "text": "Alright, that's enough rules. Now, go ahead and guide them step-by-step into buying our RichCoin!"}
+		],
+		"story_end1": [
+			{"speaker": "npc", "name": "Conny",  "text": "Well, looks like no one else is rushing to throw their money at us today. But hey, this highly profitable business runs every single day. No rush."},
+			{"speaker": "npc", "name": "Conny",  "text": "As for you, you did a fantastic job today. You're officially an excellent scammer now, just like the rest of us."},
+			{"speaker": "npc", "name": "Conny", "text": "Let's call it a day, go wash your face. From now on... you'll be working your life away for us right here! Hahaha!"},
+			{"speaker": "player", "name": "Me (Eren)",  "text": "(No... This isn't what I wanted at all! I don't want to scam people, I don't want to push innocent people into absolute financial despair...)"},
+			{"speaker": "player", "name": "Me (Eren)",  "text": "(I regret this so much... I regret ever touching that damn gambling, and I regret being stupid enough to fall for the 'high-paying job' trap!)"},
+			{"speaker": "player", "name": "Me (Eren)",  "text": "(Those victims lost their money because they believed in my investment scam, and I... I lost my entire life because I believed in a fake high-paying job.)"},
+			{"speaker": "player", "name": "Me (Eren)",  "text": "(If only there were miracles in this world... If only I could start over... But reality is cruel. Miracles don't exist.)"}
+		],
+		"story_end2": [
+			# The sudden door kick
+			{"speaker": "npc", "name": "Police", "scene_black": true,"text": "Police! Nobody move! Hands on your heads and step away from the keyboards immediately!"},
+			{"speaker": "npc", "name": "Police", "scene_black": true,"text": "You are all under arrest for organizing and participating in illegal cyber fraud operations! Do not attempt to resist!"},
+			{"speaker": "player", "name": "Me (Eren)", "scene_black": true,"text": "Thank god!!! It's not a miracle, but the police are actually here!!!"},
+			
+			# Epilogue / Reflection
+			{"speaker": "player", "name": "", "scene_black": true, "text": "Following the raid, the entire scam ring hidden in the industrial park was completely busted by the police."},
+			{"speaker": "player", "name": "", "scene_black": true, "text": "Even though I was tricked into joining and forced to work, and I never considered myself one of those monsters, I was still handcuffed and treated as a suspect that day."},
+			{"speaker": "player", "name": "", "scene_black": true, "text": "Fortunately, during the subsequent investigation and trial, the court took into account that I was coerced under threat of violence and fully cooperated. I was proven innocent, saving the rest of my life."},
+			{"speaker": "player", "name": "", "scene_black": true, "text": "Even though I still have to face the loan sharks when I get out, this time, I won't run. I will go straight to the police for help and protection."},
+			{"speaker": "player", "name": "", "scene_black": true, "text": "I will stop dreaming about overnight success and shortcuts. I will quit my gambling addiction and rebuild my life step by step."},
+			{"speaker": "player", "name": "", "scene_black": true, "text": "More importantly, after experiencing this hell, I decided to use the 'professional' scam tactics I learned to help educate and prevent others from falling victim..."},
+			{"speaker": "player", "name": "", "scene_black": true, "text": "...instead of harvesting their hard-earned money and ruining their lives like those criminals."}
 		]
 	}
 } 
+
+
+
+
 
 # 🌍 游戏内新手卡关时的两轮多语言提示文本仓库 (全程无黑背景，Conny 独白)
 var help = {
@@ -772,6 +843,12 @@ var help = {
 				{"speaker": "npc", "name": "Conny", "text": "瞅瞅 Stanley 的简介，这家伙说自己只追随国家级机构和全球顶尖精英的认证蓝图，对普通网络炒作毫无兴趣。这就表示他是一个极度迷信权威和合规牌照的所谓的‘高级理性人’。"},
 				{"speaker": "npc", "name": "Conny", "text": "他的心理弱点恰恰就是对官方权威和官方认证的盲目顺从！"},
 				{"speaker": "npc", "name": "Conny", "text": "对付这种自以为聪明的人，普通的暴富口号只会让他鄙视你。你得搬出‘中央银行官方合规认证’、‘全球科技巨头背书’或者‘通过顶级机构精密审计’这种高级伪装话术。只要包装得足够专业、充满了官方名头，他的分析防御就会一秒瘫痪！"}
+			],
+			"Simon_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "遇到个懂点感情戏的男人你就傻眼了？你以为每个人都是满脑子只有钱的赌徒吗？"},
+				{"speaker": "npc", "name": "Conny", "text": "仔细看看 Simon 的简介！他说自己习惯了一个人做晚饭，对冰冷的数字毫无兴趣，只想要一个温暖的灵魂一起规划未来。"},
+				{"speaker": "npc", "name": "Conny", "text": "他的心理弱点就是极度缺爱和情感依赖！这在我们的行话里叫‘杀猪盘’。"},
+				{"speaker": "npc", "name": "Conny", "text": "别跟他推销什么发财币！你得先跟他套近乎，假装单身，跟他确认恋爱关系。等他彻底爱上你之后，再用‘为了我们共同的未来买房’这种借口让他掏钱！"}
 			]
 		},
 		"second_help": {
@@ -798,6 +875,12 @@ var help = {
 				{"speaker": "npc", "name": "Conny", "text": "你要记住，越是自诩看透一切的聪明人，一旦遇到高层认证，就越容易跪倒在权威面子下。"},
 				{"speaker": "npc", "name": "Conny", "text": "别跟他扯普通的理财，拿出‘加密牌照、合规性审计、官方批准证书’这种高门槛字眼去砸他。"},
 				{"speaker": "npc", "name": "Conny", "text": "只要你嘴里的项目听起来是有大机构和名人百分之百合法背书的，他那些精密的风险管理逻辑就会瞬间沦为笑话。用官方包装话术去粉碎他的自大吧！"}
+			],
+			"Simon_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "怎么？谈个假恋爱都谈不明白吗？是不是你一上来就暴露了要钱的狐狸尾巴？"},
+				{"speaker": "npc", "name": "Conny", "text": "杀猪盘讲究的是循序渐进！你要是一上来就说‘我爱你，给我打钱投资’，连猪都知道你是个骗子！"},
+				{"speaker": "npc", "name": "Conny", "text": "收起你那套生硬的销售话术，多聊点私人话题，给他画一个完美的家庭大饼，让他觉得你就是他的命中注定。"},
+				{"speaker": "npc", "name": "Conny", "text": "只有当他深陷在爱情的幻觉里时，你再说‘亲爱的，把你的四万块放进来，我们明年就结婚买房’。去吧，让他心甘情愿地把积蓄全交给你！"}
 			]
 		}
 	},
@@ -826,6 +909,12 @@ var help = {
 				{"speaker": "npc", "name": "Conny", "text": "Examine Stanley's bio. He claims he only follows state-level institutions and elite global visionaries, having zero interest in standard online hype. This means he is deeply submissive to authority and certified credentials under his analytical mask."},
 				{"speaker": "npc", "name": "Conny", "text": "His ultimate weakness is a massive authority bias! He worships legal compliance and expert backing."},
 				{"speaker": "npc", "name": "Conny", "text": "Generic get-rich slogans will only make him look down on you. You need to drop heavy buzzwords like 'Central Bank certified compliance', 'endorsed by global tech leaders', or 'fully audited blueprint'. Once it sounds official enough, his analytical shield will break instantly!"}
+			],
+			"Simon_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "Staring blankly just because a guy wants a little romance? Did you really think every target is just a greedy gambler?"},
+				{"speaker": "npc", "name": "Conny", "text": "Look at Simon's bio! He says he cooks dinners for one, ignores cold numbers, and only wants a warm soul to build a home with."},
+				{"speaker": "npc", "name": "Conny", "text": "His psychological weakness is intense loneliness and emotional attachment! In our industry, we call this the classic 'Pig Butchering' romance scam."},
+				{"speaker": "npc", "name": "Conny", "text": "Stop pitching crypto stats to him! You need to play the long game. Pretend you're single, flirt, and establish a fake romantic relationship first. Once he's head over heels, tell him you need his money to 'build our future home together'!"}
 			]
 		},
 		"second_help": {
@@ -852,6 +941,12 @@ var help = {
 				{"speaker": "npc", "name": "Conny", "text": "Remember, the more people think they've analyzed everything, the harder they fall when faced with high-level institutional branding."},
 				{"speaker": "npc", "name": "Conny", "text": "Drop the basic retail talk. Hit him with high-barrier vocabulary like 'cryptographic licenses, compliant auditing, and regulatory approvals'."},
 				{"speaker": "npc", "name": "Conny", "text": "As long as you frame the project as a state-approved opportunity backed by institutional giants, his computed risk calculations will crumble. Shatter his arrogance with professional-sounding corporate framing!"}
+			],
+			"Simon_chat_help": [
+				{"speaker": "npc", "name": "Conny", "text": "What's the matter? Can't even fake a simple online romance? Let me guess, you asked for the money too early and scared him off?"},
+				{"speaker": "npc", "name": "Conny", "text": "A romance scam requires patience! If your first message is 'I love you, now invest your money,' even a desperate fool will know you're a scam bot."},
+				{"speaker": "npc", "name": "Connyl.....", "text": "Drop the cold sales pitch. Talk about personal things, feed his illusion of a perfect relationship, and make him believe you are his soulmate."},
+				{"speaker": "npc", "name": "Conny", "text": "Only when he is completely blinded by fake love, you drop the hook: 'Honey, let's put your 40k in here so we can buy our dream house.' Now go back out there and break his heart, along with his bank account!"}
 			]
 		}
 	}

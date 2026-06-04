@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bhaoludqrd7oi" path="res://image/app/quit.png" id="2_t55w7"]
 [ext_resource type="Texture2D" uid="uid://dsfylrvtv3jos" path="res://image/app/S.png" id="3_6oxoy"]
 [ext_resource type="Texture2D" uid="uid://b2oucsvmjrnf" path="res://image/app/setting.png" id="4_fl3x8"]
-[ext_resource type="Texture2D" uid="uid://df7w6kkvhxgv7" path="res://image/app/lily.png" id="5_tv8i7"]
+[ext_resource type="Texture2D" uid="uid://df7w6kkvhxgv7" path="res://image/app/Lily.png" id="5_tv8i7"]
 [ext_resource type="Texture2D" uid="uid://b6etxjksfwg7u" path="res://image/app/Midas.png" id="7_vynqb"]
 [ext_resource type="Texture2D" uid="uid://l8a6idcbaann" path="res://image/app/Jane.png" id="8_i73o2"]
 [ext_resource type="Texture2D" uid="uid://dwk2wol6cusjs" path="res://image/app/Stanley.png" id="9_tfd68"]
@@ -306,6 +306,7 @@ theme_override_font_sizes/font_size = 50
 text = "Stanley"
 
 [node name="simon" type="PanelContainer" parent="VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(648, 130)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wxca3")

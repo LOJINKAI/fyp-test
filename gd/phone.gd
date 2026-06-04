@@ -16,11 +16,16 @@ var lang = Global.current_language
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	print("new game = ",new_game)
+	print("tutorial = ",Global.phone_tutorial_finished)
+	
 	var story = Global.story[lang].get("story_intro")
 	
 	#if is new game then story
 	if new_game == true:
 		Global.play_dialogue(story)
+
 		
 		# 🟩 暴力抓取法：既然刚加进当前 scene，那它一定是当前 scene 的最后一个子节点！
 		var current_scene = get_tree().current_scene
@@ -28,7 +33,7 @@ func _ready():
 		
 		if active_dialogue:
 			active_dialogue.tree_exited.connect(_on_intro_finished)
-			print("🎯 成功捕捉到剧情节点：", active_dialogue.name)
+		
 	else:
 		arrow.visible = false
 		
@@ -57,6 +62,7 @@ func _on_intro_finished():
 	#tutorial
 	Global.play_dialogue(story)
 	
+
 
 	
 	

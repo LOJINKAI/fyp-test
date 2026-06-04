@@ -7,15 +7,31 @@ extends Control
 @onready var target_avatar = $VBoxContainer/all/all/HBoxContainer/PanelContainer/photo
 @onready var target_name = $VBoxContainer/all/all/HBoxContainer/Label
 
+var new_game = Global.new_game
+var lang = Global.current_language
+
+var story
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
+	print("new game = ",new_game)
+	print("tutorial = ",Global.phone_tutorial_finished)
+	print("game end = ",Global.game_end)
+
+
+	tutorial()
+	show_target()
+	
+	if Global.game_end == true:
+		game_end()
+	
+func show_target():
 	# ========================================================
 	# 🌟 核心重构：数据驱动名单 (以后加新受害者，只需要在这个数组里加名字！)
 	# ========================================================
-	var targets = ["Midas", "Lily", "Jane", "Stanley","Simon"] 
+	var targets = ["Midas", "Lily", "Jane", "Simon", "Stanley"] 
 	
 	var is_previous_done = true # 第一把钥匙默认是给的（第一个人默认解锁）
 	
@@ -49,15 +65,19 @@ func _ready():
 		is_previous_done = is_done
 	
 	
+	
+	
+
+
+
+func tutorial():
 	#tutorial part
-	
-	var new_game = Global.new_game
-	var lang = Global.current_language
-	var story = Global.story[lang].get("app_intro")
-	
-	
+
 	#if is new game then tutorial
 	if Global.app_tutorial_finished == false:
+		
+		story = Global.story[lang].get("app_intro")
+		
 		Global.play_dialogue(story)
 		
 		# 🟩 暴力抓取法：既然刚加进当前 scene，那它一定是当前 scene 的最后一个子节点！
@@ -66,6 +86,47 @@ func _ready():
 		
 		arrow.visible = true
 		animation_player.play("arrow")
+		
+		
+
+
+func game_end():
+	
+	story = Global.story[lang].get("story_end1")
+	
+	
+	Global.play_dialogue(story)
+		
+	var current_scene = get_tree().current_scene
+	var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
+
+	if active_dialogue:
+		active_dialogue.tree_exited.connect(_on_end1_finished)
+
+func _on_end1_finished():
+	# 1. 让带动画的箭头亮亮堂堂地蹦出来！指引玩家
+
+
+	DirAccess.remove_absolute("user://game_status.json")
+	DirAccess.remove_absolute("user://victim_status.json")
+	
+	story = Global.story[lang].get("story_end2")
+	
+	#tutorial
+	Global.play_dialogue(story)
+	
+	var current_scene = get_tree().current_scene
+	var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
+
+	if active_dialogue:
+		active_dialogue.tree_exited.connect(_on_end2_finished)
+	
+	
+	
+func _on_end2_finished():
+	
+	get_tree().change_scene_to_file("res://scene/main.tscn")
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -93,6 +154,8 @@ func _on_midas_pressed():
 	get_tree().change_scene_to_file("res://scene/bio.tscn") 
 	Global.app_tutorial_finished = true
 	Global.save_game_status()
+	
+	print("MIdas!")
 
 
 func _on_lily_pressed():

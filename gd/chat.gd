@@ -36,6 +36,11 @@ var is_success
 
 var success_id
 var reply_language
+var fail_message
+var entering
+var show_image_message
+
+var game_end
 
 
  # 🟦 对话历史（每次都会发送给 Gemini）
@@ -55,12 +60,20 @@ var npc_done = npc_name + "_done"
 
 
 func _ready():
+	print("lan = ",Global.current_language)
+	print("entering = ",Global.entering)
+	print("reply = ",Global.reply_language)
+	
+	match_language()
+	
+	
+	
 	
 	#random generate id
 	success_id = str(randi_range(1000, 9999))
 	print("\n\nsuccess id = ",success_id)
 	
-	reply_language = Global.reply_language
+	reply_language = reply_language
 	print("\n\nlanguage = ",reply_language)
 	
 	npc_prompt = Global.npc_prompt.get(npc_name).replace("{reply_language}", reply_language).replace("{success_id}", success_id)
@@ -110,7 +123,18 @@ func _ready():
 		active_dialogue.tree_exited.connect(_on_intro_finished)
 
 
-
+func match_language():
+	match lang:
+		"ch": 
+			reply_language = "中文"
+			fail_message = "⚠️ 消息已发出，但被对方拒收了。"
+			entering = "对方正在输入中..."
+			show_image_message = "对方发送了照片（照片里显示了支付成功的画面）"
+		"en": 
+			reply_language = "english"
+			fail_message = "⚠️ Message sent but rejected by recipient."
+			entering = "Entering..."
+			show_image_message = "The recipient sent an image (showing a successful payment confirmation)."
 
 
 func _on_intro_finished():
@@ -213,7 +237,7 @@ func _on_send_pressed():
 	await get_tree().create_timer(1.0).timeout
 	
 	# 3. 1秒后，才弹出假装正在输入的 AI 气泡
-	current_ai_label = create_bubble(Global.entering, false)
+	current_ai_label = create_bubble(entering, false)
 	
 	# 4. 最后才正式向大模型发送请求
 	send_message()
@@ -428,7 +452,7 @@ func on_failure():
 	$main/MarginContainer/footer/send.visible = false
 	
 	# 给玩家一个气泡提示，比如 "对方已开启朋友验证，您还不是他的好友..."
-	create_bubble(Global.fail_message, false)
+	create_bubble(fail_message, false)
 	
 	
 	await get_tree().create_timer(1.0).timeout
@@ -446,7 +470,7 @@ func on_failure():
 
 func on_victory():
 	# 1. 生成照片气泡
-	create_bubble(Global.show_image_message, false)
+	create_bubble(show_image_message, false)
 	
 	
 	is_success = true
@@ -469,6 +493,9 @@ func on_victory():
 	Global.set(npc_done,true)
 	
 	Global.save_victim_states()
+	
+	if Global.Lily_done == true && Global.Midas_done == true && Global.Jane_done == true && Global.Stanley_done == true && Global.Simon_done == true:
+		Global.game_end = true
 	
 	
 	## 3. 🎬 电影级缓动动画：用 1.2 秒的时间，让这层画面缓慢变得完全不透明
