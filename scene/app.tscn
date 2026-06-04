@@ -264,6 +264,7 @@ theme_override_font_sizes/font_size = 50
 text = "Jane"
 
 [node name="stanley" type="PanelContainer" parent="VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(648, 130)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wxca3")
@@ -304,16 +305,16 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Stanley"
 
-[node name="all" type="PanelContainer" parent="VBoxContainer"]
+[node name="simon" type="PanelContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(648, 130)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wxca3")
 
-[node name="all" type="Button" parent="VBoxContainer/all"]
+[node name="simon" type="Button" parent="VBoxContainer/simon"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/all/all"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/simon/simon"]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 13.0
@@ -321,7 +322,7 @@ offset_right = 223.0
 offset_bottom = 113.0
 theme_override_constants/separation = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/all/all/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/simon/simon/HBoxContainer"]
 clip_children = 1
 custom_minimum_size = Vector2(100, 100)
 layout_direction = 1
@@ -331,19 +332,19 @@ size_flags_vertical = 4
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_g7g6t")
 
-[node name="photo" type="TextureRect" parent="VBoxContainer/all/all/HBoxContainer/PanelContainer"]
+[node name="photo" type="TextureRect" parent="VBoxContainer/simon/simon/HBoxContainer/PanelContainer"]
 layout_mode = 2
 texture = ExtResource("9_tfd68")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="VBoxContainer/all/all/HBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/simon/simon/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
-text = "Stanley"
+text = "Simon"
 
 [node name="arrow" type="TextureRect" parent="."]
 visible = false
@@ -369,3 +370,4 @@ autoplay = "arrow"
 [connection signal="pressed" from="VBoxContainer/lily/lily" to="." method="_on_lily_pressed"]
 [connection signal="pressed" from="VBoxContainer/jane/jane" to="." method="_on_jane_pressed"]
 [connection signal="pressed" from="VBoxContainer/stanley/stanley" to="." method="_on_stanley_pressed"]
+[connection signal="pressed" from="VBoxContainer/simon/simon" to="." method="_on_simon_pressed"]

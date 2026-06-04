@@ -5,7 +5,7 @@ extends Node
 
 
 #save file
-const victim_file = "user://victim_block_status.json"
+const victim_file = "user://victim_status.json"
 const game_status = "user://game_status.json"
 
 const DIALOGUE_SYSTEM = preload("res://scene/dialogue.tscn")
@@ -210,7 +210,7 @@ func save_game_status():
 			"app_tutorial_finished": app_tutorial_finished,
 			"bio_tutorial_finished": bio_tutorial_finished,
 			"chat_tutorial_finished": chat_tutorial_finished
-
+			
 
 		}
 		var json_string = JSON.stringify(data_to_save)
@@ -272,6 +272,7 @@ func load_victim_states():
 			Midas_done = data.get("Midas_done", false)
 			Jane_done = data.get("Jane_done", false)
 			Stanley_done = data.get("Stanley_done", false)
+			Simon_done = data.get("Simon_done", false)
 			
 			print("💾 [Global] 成功读取本地持久化数据！受害者状态已完美对齐。")
 
@@ -292,7 +293,9 @@ func save_victim_states():
 			"Lily_done": Lily_done,
 			"Midas_done": Midas_done,
 			"Jane_done": Jane_done,
-			"Stanley_done": Stanley_done
+			"Stanley_done": Stanley_done,
+			"Simon_done ": Simon_done 
+			
 		}
 		var json_string = JSON.stringify(data_to_save)
 		file.store_string(json_string)

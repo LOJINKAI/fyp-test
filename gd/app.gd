@@ -115,3 +115,11 @@ func _on_stanley_pressed():
 	Global.current_chat_avatar =$VBoxContainer/stanley/stanley/HBoxContainer/PanelContainer/photo.texture
 	
 	get_tree().change_scene_to_file("res://scene/bio.tscn") 
+
+
+func _on_simon_pressed():
+	Global.current_chat_name = $VBoxContainer/simon/simon/HBoxContainer/Label.text
+	Global.current_chat_avatar = $VBoxContainer/simon/simon/HBoxContainer/PanelContainer/photo.texture
+	
+	
+	get_tree().change_scene_to_file("res://scene/bio.tscn") 

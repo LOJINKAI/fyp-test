@@ -184,14 +184,6 @@ func _process(delta):
 		_on_send_pressed()
 	
 	
-	if Global.Lily_current_block == true:
-		$main/top/MarginContainer/HBoxContainer/delete.disabled = true
-		$main/top/MarginContainer/HBoxContainer/delete.visible = false
-		$main/MarginContainer/footer/TextEdit.visible = false
-		$main/MarginContainer/footer/TextEdit.editable = false
-		$main/MarginContainer/footer/send.visible = false
-		$main/MarginContainer/footer/send.disabled = true
-	
 
 
 func _on_send_pressed():
