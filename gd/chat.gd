@@ -475,10 +475,10 @@ func on_victory():
 	$success_sound.play()
 	
 	Global.set(npc_done,true)
-
 	
 	Global.save_victim_states()
-
+	
+	
 	## 3. 🎬 电影级缓动动画：用 1.2 秒的时间，让这层画面缓慢变得完全不透明
 	#var tween = create_tween()
 	#tween.tween_property($success_layer, "modulate", Color(1, 1, 1, 1), 1.2)

@@ -4,6 +4,10 @@ extends Control
 
 @onready var arrow = $arrow
 @onready var animation_player = $AnimationPlayer
+@onready var target_avatar = $VBoxContainer/all/all/HBoxContainer/PanelContainer/photo
+@onready var target_name = $VBoxContainer/all/all/HBoxContainer/Label
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,7 +15,7 @@ func _ready():
 	# ========================================================
 	# 🌟 核心重构：数据驱动名单 (以后加新受害者，只需要在这个数组里加名字！)
 	# ========================================================
-	var targets = ["Midas", "Lily", "Jane", "Stanley"] 
+	var targets = ["Midas", "Lily", "Jane", "Stanley","Simon"] 
 	
 	var is_previous_done = true # 第一把钥匙默认是给的（第一个人默认解锁）
 	
@@ -23,6 +27,8 @@ func _ready():
 		var node_name = target.to_lower()
 		var target_ui = $VBoxContainer.get_node(node_name)
 		var target_btn = target_ui.get_node(node_name)
+		
+		
 		
 		# 3. 核心判定逻辑 (自动隐藏旧的，显示新的)
 		if is_done:

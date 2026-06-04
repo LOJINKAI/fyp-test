@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df7w6kkvhxgv7"
-path="res://.godot/imported/Lily.png-e36a7b1c9e738917d16f9a6cb6b5d028.ctex"
+uid="uid://12whpa4rseo6"
+path="res://.godot/imported/Simon.png-e5b6556943dfd723c4ecedcf0992cd08.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://image/app/Lily.png"
-dest_files=["res://.godot/imported/Lily.png-e36a7b1c9e738917d16f9a6cb6b5d028.ctex"]
+source_file="res://image/app/Simon.png"
+dest_files=["res://.godot/imported/Simon.png-e5b6556943dfd723c4ecedcf0992cd08.ctex"]
 
 [params]
 

@@ -138,6 +138,7 @@ offset_right = 648.0
 offset_bottom = 888.0
 
 [node name="midas" type="PanelContainer" parent="VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(648, 130)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5b3rb")
@@ -263,7 +264,6 @@ theme_override_font_sizes/font_size = 50
 text = "Jane"
 
 [node name="stanley" type="PanelContainer" parent="VBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(648, 130)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wxca3")
@@ -297,6 +297,47 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="Label" type="Label" parent="VBoxContainer/stanley/stanley/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "Stanley"
+
+[node name="all" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(648, 130)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wxca3")
+
+[node name="all" type="Button" parent="VBoxContainer/all"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/all/all"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 13.0
+offset_right = 223.0
+offset_bottom = 113.0
+theme_override_constants/separation = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/all/all/HBoxContainer"]
+clip_children = 1
+custom_minimum_size = Vector2(100, 100)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_g7g6t")
+
+[node name="photo" type="TextureRect" parent="VBoxContainer/all/all/HBoxContainer/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("9_tfd68")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="VBoxContainer/all/all/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
