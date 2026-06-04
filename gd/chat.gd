@@ -446,7 +446,7 @@ func on_failure():
 	$fail_layer.visible = true
 	$fail_layer/ColorRect/again.disabled = false
 	
-	
+	$fail_sound.play()
 	
 	
 
@@ -464,7 +464,7 @@ func on_victory():
 	send_button.disabled = true
 	$main/MarginContainer/footer/TextEdit.visible = false
 	$main/MarginContainer/footer/send.visible = false
-
+	
 	
 	
 	#这里加一个定时器，过了1秒才执行以下代码
@@ -472,6 +472,7 @@ func on_victory():
 	
 	# 2. 唤醒我们在场景里搭好的 SuccessLayer，并把初始透明度设为 0 (完全透明)
 	$success_layer.visible = true
+	$success_sound.play()
 	
 	Global.set(npc_done,true)
 

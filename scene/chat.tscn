@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bjf7fwhuho70n"]
+[gd_scene load_steps=16 format=3 uid="uid://bjf7fwhuho70n"]
 
 [ext_resource type="Script" path="res://gd/chat.gd" id="1_alrcu"]
 [ext_resource type="Texture2D" uid="uid://bhaoludqrd7oi" path="res://image/app/quit.png" id="2_iy1w6"]
@@ -6,7 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://cladg4rf3xfvk" path="res://image/chat/delete.png" id="4_w6hbh"]
 [ext_resource type="Texture2D" uid="uid://c5jwifyii3o2u" path="res://image/chat/send.png" id="5_xt7yk"]
 [ext_resource type="Texture2D" uid="uid://tbfu4dwnq6rf" path="res://image/chat/success.png" id="7_0mnl5"]
+[ext_resource type="AudioStream" uid="uid://txkfstiv844n" path="res://sound/result/success.mp3" id="8_8vxib"]
 [ext_resource type="Texture2D" uid="uid://eampja6dhsby" path="res://image/chat/fail.png" id="8_jlk8f"]
+[ext_resource type="AudioStream" uid="uid://dwnje77uuowan" path="res://sound/result/fail.mp3" id="9_38h5e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdx2v"]
 bg_color = Color(1, 1, 1, 1)
@@ -271,6 +273,12 @@ theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_btcge")
 disabled = true
 text = "Next Target"
+
+[node name="success_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_8vxib")
+
+[node name="fail_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_38h5e")
 
 [connection signal="pressed" from="main/top/MarginContainer/HBoxContainer/quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="main/top/MarginContainer/HBoxContainer/help" to="." method="_on_help_pressed"]

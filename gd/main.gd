@@ -44,12 +44,13 @@ func _on_quit_pressed():
 func _on_start_pressed():
 	$AudioStreamPlayer.play()
 	
+	get_tree().change_scene_to_file("res://scene/phone.tscn")
 	
-	if Global.new_game == true:
-		Global.fade_to_fade("res://scene/phone.tscn", 1.0)
-	else:
-		Global.fade_to_scene("res://scene/phone.tscn", 1.0)
-	
+	#if Global.new_game == true:
+		#Global.fade_to_fade("res://scene/phone.tscn", 1.0)
+	#else:
+		#Global.fade_to_scene("res://scene/phone.tscn", 1.0)
+		
 	
 	
 	
