@@ -62,7 +62,7 @@ func show_target():
 			target_btn.disabled = true
 			
 		# 把当前人的状态传给下一次循环，作为下一个人能否解锁的凭证
-		is_previous_done = is_done
+		is_previous_done = is_done 
 	
 	
 	
