@@ -737,18 +737,18 @@ var story = {
 		],
 		"story_end2": [
 			# 突然的破门声，打破绝望
-			{"speaker": "npc", "name": "警察","scene_black": true, "text": "警察！所有人都不许动！双手抱头，立刻离开键盘！"},
-			{"speaker": "npc", "name": "警察","scene_black": true,  "text": "你们因涉嫌组织和参与非法网络电信诈骗，现在依法对你们进行逮捕！谁敢反抗罪加一等！"},
+			{"speaker": "police", "name": "警察","scene_black": true, "text": "警察！所有人都不许动！双手抱头，立刻离开键盘！"},
+			{"speaker": "police", "name": "警察","scene_black": true,  "text": "你们因涉嫌组织和参与非法网络电信诈骗，现在依法对你们进行逮捕！谁敢反抗罪加一等！"},
 			{"speaker": "player", "name": "我 (Eren)", "scene_black": true,  "text": "太好了！！！虽然等来的不是奇迹，但警察真的来了！！！"},
 			
 			# 后事回想（无名字，纯独白总结，建议配合逐渐变黑的背景或立绘淡出）
-			{"speaker": "player", "name": "", "scene_black": true, "text": "随后，这个深藏在隐蔽工业区里的诈骗窝点被警方彻底一窝端了。"},
-			{"speaker": "player", "name": "", "scene_black": true, "text": "虽然我是被骗进来强迫工作的，我心里也坚信自己和他们那群烂人不一样。但在那一刻，我依然被戴动手铐，作为犯罪嫌疑人被押上了警车。"},
-			{"speaker": "player", "name": "", "scene_black": true, "text": "幸运的是，在后来的调查和法庭审判中，因为我是被暴力胁迫且第一时间配合警方调查，法庭最终证明了我的清白，免除了牢狱之灾，保住了我下半辈子的人生。"},
-			{"speaker": "player", "name": "", "scene_black": true, "text": "虽然出去之后，我依然得面对那些催债的高利贷。但这一次，我绝对不会再逃避，我会直接向警方寻求保护和帮助。"},
-			{"speaker": "player", "name": "", "scene_black": true, "text": "我不会再幻想什么一步登天的捷径。我会彻底戒掉烂赌的毛病，脚踏实地重新做人。"},
-			{"speaker": "player", "name": "", "scene_black": true, "text": "更重要的是，经历了这一切，我决定用我在那个地狱里学到的“专业知识”，去帮助更多的人预防网络诈骗..."},
-			{"speaker": "player", "name": "", "scene_black": true, "text": "而不是像那些罪犯一样，去肆意收割别人的血汗钱和人生。"}
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "随后，这个深藏在隐蔽工业区里的诈骗窝点被警方彻底一窝端了。"},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "虽然我是被骗进来强迫工作的，我心里也坚信自己和他们那群烂人不一样。但在那一刻，我依然被戴动手铐，作为犯罪嫌疑人被押上了警车。"},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "幸运的是，在后来的调查和法庭审判中，因为我是被暴力胁迫且第一时间配合警方调查，法庭最终证明了我的清白，免除了牢狱之灾，保住了我下半辈子的人生。"},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "虽然出去之后，我依然得面对那些催债的高利贷。但这一次，我绝对不会再逃避，我会直接向警方寻求保护和帮助。"},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "我不会再幻想什么一步登天的捷径。我会彻底戒掉烂赌的毛病，脚踏实地重新做人。"},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "更重要的是，经历了这一切，我决定用我在那个地狱里学到的“专业知识”，去帮助更多的人预防网络诈骗..."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "而不是像那些罪犯一样，去肆意收割别人的血汗钱和人生。"}
 		]
 		
 	},
@@ -816,18 +816,18 @@ var story = {
 		],
 		"story_end2": [
 			# The sudden door kick
-			{"speaker": "npc", "name": "Police", "scene_black": true,"text": "Police! Nobody move! Hands on your heads and step away from the keyboards immediately!"},
-			{"speaker": "npc", "name": "Police", "scene_black": true,"text": "You are all under arrest for organizing and participating in illegal cyber fraud operations! Do not attempt to resist!"},
+			{"speaker": "police", "name": "Police", "scene_black": true,"text": "Police! Nobody move! Hands on your heads and step away from the keyboards immediately!"},
+			{"speaker": "police", "name": "Police", "scene_black": true,"text": "You are all under arrest for organizing and participating in illegal cyber fraud operations! Do not attempt to resist!"},
 			{"speaker": "player", "name": "Me (Eren)", "scene_black": true,"text": "Thank god!!! It's not a miracle, but the police are actually here!!!"},
 			
 			# Epilogue / Reflection
-			{"speaker": "player", "name": "", "scene_black": true, "text": "Following the raid, the entire scam ring hidden in the industrial park was completely busted by the police."},
-			{"speaker": "player", "name": "", "scene_black": true, "text": "Even though I was tricked into joining and forced to work, and I never considered myself one of those monsters, I was still handcuffed and treated as a suspect that day."},
-			{"speaker": "player", "name": "", "scene_black": true, "text": "Fortunately, during the subsequent investigation and trial, the court took into account that I was coerced under threat of violence and fully cooperated. I was proven innocent, saving the rest of my life."},
-			{"speaker": "player", "name": "", "scene_black": true, "text": "Even though I still have to face the loan sharks when I get out, this time, I won't run. I will go straight to the police for help and protection."},
-			{"speaker": "player", "name": "", "scene_black": true, "text": "I will stop dreaming about overnight success and shortcuts. I will quit my gambling addiction and rebuild my life step by step."},
-			{"speaker": "player", "name": "", "scene_black": true, "text": "More importantly, after experiencing this hell, I decided to use the 'professional' scam tactics I learned to help educate and prevent others from falling victim..."},
-			{"speaker": "player", "name": "", "scene_black": true, "text": "...instead of harvesting their hard-earned money and ruining their lives like those criminals."}
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Following the raid, the entire scam ring hidden in the industrial park was completely busted by the police."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Even though I was tricked into joining and forced to work, and I never considered myself one of those monsters, I was still handcuffed and treated as a suspect that day."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Fortunately, during the subsequent investigation and trial, the court took into account that I was coerced under threat of violence and fully cooperated. I was proven innocent, saving the rest of my life."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Even though I still have to face the loan sharks when I get out, this time, I won't run. I will go straight to the police for help and protection."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "I will stop dreaming about overnight success and shortcuts. I will quit my gambling addiction and rebuild my life step by step."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "More importantly, after experiencing this hell, I decided to use the 'professional' scam tactics I learned to help educate and prevent others from falling victim..."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "...instead of harvesting their hard-earned money and ruining their lives like those criminals."}
 		]
 	}
 } 

@@ -7,6 +7,8 @@ extends CanvasLayer
 @onready var text_content = $PanelContainer/MarginContainer/VBoxContainer/RichTextLabel
 @onready var left_avatar = $left_avatar
 @onready var right_avatar = $right_avatar
+@onready var police_avatar = $police
+
 @onready var dark = $dark
 
 
@@ -42,12 +44,29 @@ func show_line():
 			right_name.text = ""
 			left_avatar.visible = true
 			right_avatar.visible = false
+			police_avatar.visible = false
 			
 		elif data["speaker"] == "npc":
 			left_name.text = ""
 			right_name.text = current_speaker_name
 			right_avatar.visible = true
 			left_avatar.visible = false
+			police_avatar.visible = false
+			
+		elif data["speaker"] == "police":
+			left_name.text = ""
+			right_name.text = current_speaker_name
+			police_avatar.visible = true
+			right_avatar.visible = false
+			left_avatar.visible = false
+			
+		elif data["speaker"] == "player_feeling":
+			left_name.text = ""
+			right_name.text = ""
+			right_avatar.visible = false
+			left_avatar.visible = false
+			police_avatar.visible = false
+			
 		
 	else:
 		# 🟩 正常剧情状态：恢复为你原本喜欢的半透明黑底

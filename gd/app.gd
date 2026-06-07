@@ -95,42 +95,92 @@ func tutorial():
 
 
 func game_end():
+	# 1. 🌟 把 story_end1 拆开，剥离最后一句
+	var full_story = Global.story[lang].get("story_end1").duplicate()
+	var last_sentence = [full_story.pop_back()] 
 	
-	story = Global.story[lang].get("story_end1")
-	
-	
-	Global.play_dialogue(story)
+	# 2. 先播放前面几句普通自白
+	Global.play_dialogue(full_story)
 		
 	var current_scene = get_tree().current_scene
 	var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
 
 	if active_dialogue:
+		# 当这前面几句点完后，立刻无缝接上最后一句
+		active_dialogue.tree_exited.connect(func(): _on_story_end1_pre_final(last_sentence))
+
+
+func _on_story_end1_pre_final(last_sentence: Array):
+	# 1. 弹出最后一句绝望的独白
+	Global.play_dialogue(last_sentence)
+	
+	await get_tree().create_timer(0.02).timeout # 稍微等一微秒让对话框节点挂载
+	var current_scene = get_tree().current_scene
+	var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
+	
+	if active_dialogue:
+		# ========================================================
+		# 🌟 绝杀技：在对话框的背后，偷偷铺上一张“铺满全屏的黑布”
+		# ========================================================
+		var black_bg = ColorRect.new()
+		black_bg.name = "MovieBlackBG"
+		black_bg.color = Color(0, 0, 0, 0.0) # 初始是完全透明的
+		black_bg.size = get_viewport_rect().size # 强制铺满整个手机/电脑屏幕
+		black_bg.z_index = 4000 # 极高的层级，确保能盖死底下 app 的所有按钮
+		
+		# 加进当前场景
+		current_scene.add_child(black_bg)
+		
+		# 🌟 核心：把这块黑布的节点层级，强行移动到对话框的前面！
+		# （在 Godot 里，节点越靠后越在顶层，这样就保证了对话框压在黑幕上面！）
+		current_scene.move_child(black_bg, active_dialogue.get_index())
+		
+		# 🎬 伴随着最后一句独白，黑布立刻开始缓慢变黑（耗时 1.5 秒）
+		# 这时玩家正在看着字，而背景已经开始沉入黑暗！
+		var tween = create_tween()
+		tween.tween_property(black_bg, "color", Color(0, 0, 0, 1.0), 1.5)
+		
+		# 只有当玩家最后点掉这句对话时，才去触发真正的 _on_end1_finished 收尾
 		active_dialogue.tree_exited.connect(_on_end1_finished)
 
+
 func _on_end1_finished():
-	# 1. 让带动画的箭头亮亮堂堂地蹦出来！指引玩家
-
-
-	DirAccess.remove_absolute("user://game_status.json")
-	DirAccess.remove_absolute("user://victim_status.json")
+	# 1. 物理删除垃圾记录
+	if FileAccess.file_exists("user://game_status.json"):
+		DirAccess.remove_absolute("user://game_status.json")
+	if FileAccess.file_exists("user://victim_status.json"):
+		DirAccess.remove_absolute("user://victim_status.json")
 	
-	#逐渐黑屏
-	await Global.fade_layer(1.0)
+	# ========================================================
+	# 此时对话框刚被玩家点掉。由于我们刚才在它背后加了黑布，
+	# 现在的屏幕上只会剩下一块纯黑的布！底下的 app 已经被完美遮住了！
+	# ========================================================
 	
-	await get_tree().create_timer(1.0).timeout
+	# 🛡️ 防手贱机制：如果玩家读得太快（1.5秒内就点掉了对话框），我们强制让黑布瞬间变全黑
+	var black_bg = get_tree().current_scene.get_node_or_null("MovieBlackBG")
+	if black_bg:
+		black_bg.color = Color(0, 0, 0, 1.0)
 	
+	print("⏳ 此时屏幕已完全漆黑，毫无破绽...")
 	
-	story = Global.story[lang].get("story_end2")
+	# 2. ⏳ 让空气在黑暗中凝固 0.5 秒，把窒息和绝望感拉满
+	await get_tree().create_timer(2.0).timeout
 	
-	Global.play_dialogue(story)
+	# 3. 💥 撕开黑暗！直接把那块黑布删掉，重见光明！
+	if black_bg:
+		black_bg.queue_free()
+		
+	print("✨ 啪！黑布瞬间消失，警察的对话框轰然砸脸！")
+	
+	# 4. 画面亮起的同一微秒，警察踹门对话框强势弹出！
+	var story2 = Global.story[lang].get("story_end2")
+	Global.play_dialogue(story2)
 	
 	var current_scene = get_tree().current_scene
 	var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
 
 	if active_dialogue:
 		active_dialogue.tree_exited.connect(_on_end2_finished)
-	
-	
 	
 func _on_end2_finished():
 	
