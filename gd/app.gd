@@ -20,13 +20,13 @@ func _ready():
 	print("tutorial = ",Global.phone_tutorial_finished)
 	print("game end = ",Global.game_end)
 
-	#if Global.app_tutorial_finished == false:
-		#tutorial()
+	if Global.app_tutorial_finished == false:
+		tutorial()
 	
 	
 	show_target()
 	
-	game_end()
+	#game_end()
 	
 	
 	if Global.game_end == true:

@@ -128,16 +128,27 @@ func _ready():
 func match_language():
 	match lang:
 		"ch": 
-			reply_language = "中文"
+			reply_language = "简体中文 (Simplified Chinese)"
 			fail_message = "⚠️ 消息已发出，但被对方拒收了。"
 			entering = "对方正在输入中..."
-			show_image_message = "对方发送了照片（照片里显示了支付成功的画面）"
+			show_image_message = "对方发送了照片 (照片里显示了支付成功的画面)"
 		"en": 
-			reply_language = "english"
+			reply_language = "English"
 			fail_message = "⚠️ Message sent but rejected by recipient."
 			entering = "Entering..."
 			show_image_message = "The recipient sent an image (showing a successful payment confirmation)."
-
+		# 🌟 新增：马来西亚官方语言 - 马来文
+		"bm": 
+			reply_language = "Bahasa Melayu (Malaysian)"
+			fail_message = "⚠️ Mesej telah dihantar, tetapi disekat oleh penerima."
+			entering = "Sedang menaip..."
+			show_image_message = "Penerima menghantar sekeping foto (menunjukkan pengesahan pembayaran berjaya)."
+		# 🌟 新增：马来西亚印度裔通用语言 - 淡米尔文
+		"bt": 
+			reply_language = "தமிழ் (Tamil - Malaysian)"
+			fail_message = "⚠️ செய்தி அனுப்பப்பட்டது, ஆனால் பெறுநரால் நிராகரிக்கப்பட்டது."
+			entering = "தட்டச்சு செய்கிறது..."
+			show_image_message = "பெறுநர் ஒரு படத்தை அனுப்பியுள்ளார் (வெற்றிகரமான கட்டண உறுதிப்படுத்தலைக் காட்டுகிறது)."
 
 func _on_intro_finished():
 	

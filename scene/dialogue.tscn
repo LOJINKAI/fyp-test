@@ -102,5 +102,5 @@ text = "NPC"
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 225.11)
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/normal_font_size = 20
 text = "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"
