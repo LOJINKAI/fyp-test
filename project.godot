@@ -23,8 +23,8 @@ Dialogue="*res://gd/dialogue.gd"
 
 [display]
 
-window/size/viewport_width=648
-window/size/viewport_height=902
+window/size/viewport_width=540
+window/size/viewport_height=1200
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
