@@ -7,11 +7,10 @@ const SAVE_PATH = "user://chat_history.json"
 const BUBBLE_SCENE = preload("res://scene/MessageBubble.tscn") # 载入你做的气泡场景
 
 @onready var message_list = $main/body/VBoxContainer
-@onready var input_text = $"main/MarginContainer/footer/TextEdit"
 
 
-@onready var input_box := $"main/MarginContainer/footer/TextEdit"
-
+@onready var input_box := $main/MarginContainer/footer/MarginContainer/TextEdit
+							
 @onready var send_button := $"main/MarginContainer/footer/send"
 
 var http := HTTPRequest.new()
@@ -466,8 +465,9 @@ func on_failure():
 	# 这里写玩家失败后的逻辑，比如锁定输入框，弹出失败通知
 	input_box.editable = false
 	send_button.disabled = true
-	$main/MarginContainer/footer/TextEdit.visible = false
-	$main/MarginContainer/footer/send.visible = false
+	input_box.visible = false
+	send_button.visible = false
+	
 	
 	# 给玩家一个气泡提示，比如 "对方已开启朋友验证，您还不是他的好友..."
 	create_bubble(fail_message, false)
@@ -496,10 +496,8 @@ func on_victory():
 	# 2. 🚨 锁死输入框，防止玩家在 Conny 总结时乱发消息
 	input_box.editable = false
 	send_button.disabled = true
-	$main/MarginContainer/footer/TextEdit.visible = false
-	$main/MarginContainer/footer/send.visible = false
-	
-	
+	input_box.visible = false
+	send_button.visible = false
 	
 	#这里加一个定时器，过了1秒才执行以下代码
 	await get_tree().create_timer(1.0).timeout
