@@ -137,7 +137,7 @@ func match_language():
 			fail_message = "⚠️ Message sent but rejected by recipient."
 			entering = "Entering..."
 			show_image_message = "The recipient sent an image (showing a successful payment confirmation)."
-		# 🌟 新增：马来西亚官方语言 - 马来文
+		# 🌟 新增：马来西亚官方语言 - 马来文 
 		"bm": 
 			reply_language = "Bahasa Melayu (Malaysian)"
 			fail_message = "⚠️ Mesej telah dihantar, tetapi disekat oleh penerima."
