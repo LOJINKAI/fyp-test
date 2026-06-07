@@ -85,6 +85,26 @@ func _ready():
 	
 	
 
+#这个是黑屏罢了，没有换界面
+func fade_layer(duration = 1.0):
+	# 1. 安全防爆抓取
+	if not fade_mask:
+		fade_mask = fade_instance.get_node_or_null("mask")
+	
+	# 2. 🟥 第一阶段：用 Tween 缓慢变黑（按照你规定的时间，比如 2.0 秒）
+	fade_mask.color = Color(0, 0, 0, 0.0) # 确保从透明开始
+	var tween = create_tween()
+	tween.tween_property(fade_mask, "color", Color(0, 0, 0, 1.0), duration)
+	await tween.finished
+	
+	# 3. 🌟 第二阶段：在这里你可以执行你要刷新文本的代码
+	# 函数执行到这里时，屏幕是全黑的，你可以安全地在外面等待或者更新 UI
+	
+	# 4. 🟦 第三阶段：一微秒直接将黑幕人间蒸发！瞬间亮起！
+	await get_tree().process_frame # 等一帧防闪烁
+	fade_mask.color = Color(0, 0, 0, 0.0)
+	
+	print("✨ [Global] 纯黑幕已瞬间剥离亮起！")
 
 
 
@@ -203,8 +223,8 @@ func save_game_status():
 			"phone_tutorial_finished": phone_tutorial_finished,
 			"app_tutorial_finished": app_tutorial_finished,
 			"bio_tutorial_finished": bio_tutorial_finished,
-			"chat_tutorial_finished": chat_tutorial_finished
-			
+			"chat_tutorial_finished": chat_tutorial_finished,
+			"game_end": game_end
 
 		}
 		var json_string = JSON.stringify(data_to_save)
@@ -233,7 +253,7 @@ func load_game_status():
 			app_tutorial_finished = data.get("app_tutorial_finished", false)
 			bio_tutorial_finished = data.get("bio_tutorial_finished", false)
 			chat_tutorial_finished = data.get("chat_tutorial_finished", false)
-
+			game_end = data.get("game_end", false)
 
 
 

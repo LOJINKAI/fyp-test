@@ -26,6 +26,8 @@ var ai_full_response := ""
 var ai_current_index := 0 
 #
 
+var response_code
+
 var API_KEY = apiKey.API_KEY
 
 #懂讲现在是总结，不要发信息泡泡
@@ -342,7 +344,7 @@ func _on_request_completed(result, response_code, headers, body):
 		var reply_text = reply_json["candidates"][0]["content"]["parts"][0]["text"].strip_edges()
 		
 		# 🌟 核心分流：如果是来拿总结的，走 Conny 对话框逻辑
-		if is_fetching_conclusion:
+		if is_fetching_conclusion == true && response_code == 200:
 			is_fetching_conclusion = false # 马上关掉开关
 			
 			# 清洗 AI 可能手贱加上的 markdown 代码块标签
@@ -363,6 +365,11 @@ func _on_request_completed(result, response_code, headers, body):
 					# 万一解析失败，也强行通关防止卡死
 					_on_conclusion_finished()
 			return # 总结跑完直接 return，绝不能让它变成聊天气泡！
+			
+		elif is_fetching_conclusion == false && response_code != 200:
+			_on_conclusion_finished()
+			
+			
 
 		# 🟦 下面是原本正常的聊天气泡处理逻辑 🟦
 		conversation_history.append({"role": "assistant", "text": reply_text})

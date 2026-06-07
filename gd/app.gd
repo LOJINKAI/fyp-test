@@ -20,9 +20,14 @@ func _ready():
 	print("tutorial = ",Global.phone_tutorial_finished)
 	print("game end = ",Global.game_end)
 
-
-	tutorial()
+	#if Global.app_tutorial_finished == false:
+		#tutorial()
+	
+	
 	show_target()
+	
+	game_end()
+	
 	
 	if Global.game_end == true:
 		game_end()
@@ -74,18 +79,17 @@ func tutorial():
 	#tutorial part
 
 	#if is new game then tutorial
-	if Global.app_tutorial_finished == false:
-		
-		story = Global.story[lang].get("app_intro")
-		
-		Global.play_dialogue(story)
-		
-		# 🟩 暴力抓取法：既然刚加进当前 scene，那它一定是当前 scene 的最后一个子节点！
-		var current_scene = get_tree().current_scene
-		var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
-		
-		arrow.visible = true
-		animation_player.play("arrow")
+	
+	story = Global.story[lang].get("app_intro")
+	
+	Global.play_dialogue(story)
+	
+	# 🟩 暴力抓取法：既然刚加进当前 scene，那它一定是当前 scene 的最后一个子节点！
+	var current_scene = get_tree().current_scene
+	var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
+	
+	arrow.visible = true
+	animation_player.play("arrow")
 		
 		
 
@@ -110,9 +114,14 @@ func _on_end1_finished():
 	DirAccess.remove_absolute("user://game_status.json")
 	DirAccess.remove_absolute("user://victim_status.json")
 	
+	#逐渐黑屏
+	await Global.fade_layer(1.0)
+	
+	await get_tree().create_timer(1.0).timeout
+	
+	
 	story = Global.story[lang].get("story_end2")
 	
-	#tutorial
 	Global.play_dialogue(story)
 	
 	var current_scene = get_tree().current_scene
