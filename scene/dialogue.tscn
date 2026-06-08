@@ -101,7 +101,8 @@ theme_override_font_sizes/font_size = 30
 text = "NPC"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 225.11)
+custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 25
 text = "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"
+autowrap_mode = 1

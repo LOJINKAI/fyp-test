@@ -1,0 +1,9 @@
+[gd_resource type="FontVariation" load_steps=4 format=3 uid="uid://dnyr5qkgdjbbu"]
+
+[ext_resource type="FontFile" uid="uid://dydubv4dt42ga" path="res://font/Noto_Sans,Noto_Sans_SC,Noto_Sans_Tamil/Noto_Sans/NotoSans-VariableFont_wdth,wght.ttf" id="1_267e2"]
+[ext_resource type="FontFile" uid="uid://dyyuugosfhgbd" path="res://font/Noto_Sans,Noto_Sans_SC,Noto_Sans_Tamil/Noto_Sans_SC/static/NotoSansSC-Regular.ttf" id="2_m5b2a"]
+[ext_resource type="FontFile" uid="uid://bvguhmd2fhp4e" path="res://font/Noto_Sans,Noto_Sans_SC,Noto_Sans_Tamil/Noto_Sans_Tamil/NotoSansTamil-VariableFont_wdth,wght.ttf" id="3_mfdfu"]
+
+[resource]
+fallbacks = Array[Font]([ExtResource("2_m5b2a"), ExtResource("3_mfdfu")])
+base_font = ExtResource("1_267e2")
