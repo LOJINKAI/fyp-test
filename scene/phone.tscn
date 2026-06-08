@@ -92,9 +92,9 @@ horizontal_alignment = 1
 clip_children = 1
 layout_mode = 0
 offset_left = 72.0
-offset_top = 208.0
+offset_top = 264.0
 offset_right = 172.0
-offset_bottom = 308.0
+offset_bottom = 364.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_q5d3c")
 
 [node name="chat" type="TextureButton" parent="main_page2"]
@@ -122,65 +122,75 @@ libraries = {
 }
 autoplay = "arrow"
 
-[node name="call" type="PanelContainer" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="call" type="PanelContainer" parent="Control"]
 clip_children = 1
 layout_mode = 0
-offset_left = 200.0
-offset_top = 752.0
-offset_right = 300.0
-offset_bottom = 852.0
+offset_left = -118.0
+offset_top = -162.0
+offset_right = -18.0
+offset_bottom = -62.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_q5d3c")
 
-[node name="TextureRect" type="TextureRect" parent="call"]
+[node name="TextureRect" type="TextureRect" parent="Control/call"]
 layout_mode = 2
 texture = ExtResource("6_kat26")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="camera" type="PanelContainer" parent="."]
+[node name="camera" type="PanelContainer" parent="Control"]
 clip_children = 1
 layout_mode = 0
-offset_left = 336.0
-offset_top = 752.0
-offset_right = 436.0
-offset_bottom = 852.0
+offset_left = 18.0
+offset_top = -162.0
+offset_right = 118.0
+offset_bottom = -62.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_q5d3c")
 
-[node name="TextureRect" type="TextureRect" parent="camera"]
+[node name="TextureRect" type="TextureRect" parent="Control/camera"]
 layout_mode = 2
 texture = ExtResource("7_d1m8u")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="mail" type="PanelContainer" parent="."]
+[node name="mail" type="PanelContainer" parent="Control"]
 clip_children = 1
 layout_mode = 0
-offset_left = 64.0
-offset_top = 752.0
-offset_right = 164.0
-offset_bottom = 852.0
+offset_left = -254.0
+offset_top = -162.0
+offset_right = -154.0
+offset_bottom = -62.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_q5d3c")
 
-[node name="TextureRect" type="TextureRect" parent="mail"]
+[node name="TextureRect" type="TextureRect" parent="Control/mail"]
 layout_mode = 2
 texture = ExtResource("7_q5sdp")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="main_page" type="PanelContainer" parent="."]
+[node name="main_page" type="PanelContainer" parent="Control"]
 clip_children = 1
 layout_mode = 0
-offset_left = 472.0
-offset_top = 752.0
-offset_right = 572.0
-offset_bottom = 852.0
+offset_left = 154.0
+offset_top = -162.0
+offset_right = 254.0
+offset_bottom = -62.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_q5d3c")
 
-[node name="TextureButton" type="TextureButton" parent="main_page"]
+[node name="TextureButton" type="TextureButton" parent="Control/main_page"]
 layout_mode = 2
 texture_normal = ExtResource("4_yo00e")
 ignore_texture_size = true
 stretch_mode = 6
 
 [connection signal="pressed" from="main_page2/chat" to="." method="_on_chat_pressed"]
-[connection signal="pressed" from="main_page/TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="Control/main_page/TextureButton" to="." method="_on_texture_button_pressed"]

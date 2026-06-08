@@ -55,10 +55,11 @@ mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="top" type="PanelContainer" parent="."]
-layout_mode = 0
-offset_left = 2.0
-offset_right = 648.0
-offset_bottom = 112.0
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 100.0
+grow_horizontal = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_pdx2v")
 
@@ -101,11 +102,15 @@ ignore_texture_size = true
 stretch_mode = 6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 56.0
-offset_top = 160.0
-offset_right = 242.0
-offset_bottom = 260.0
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 48.0
+offset_top = -425.0
+offset_right = 276.0
+offset_bottom = -325.0
+grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
 clip_children = 1
@@ -132,11 +137,15 @@ theme_override_font_sizes/font_size = 50
 text = "none"
 
 [node name="bio" type="Label" parent="."]
-layout_mode = 2
-offset_left = 64.0
-offset_top = 280.0
-offset_right = 165.0
-offset_bottom = 349.0
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 56.0
+offset_top = -313.0
+offset_right = 157.0
+offset_bottom = -244.0
+grow_vertical = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -144,11 +153,17 @@ theme_override_font_sizes/font_size = 50
 text = "Bio"
 
 [node name="bio_card" type="PanelContainer" parent="."]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
 offset_left = 56.0
-offset_top = 360.0
-offset_right = 604.0
-offset_bottom = 720.0
+offset_top = -209.0
+offset_right = -54.0
+offset_bottom = 151.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_0ebdg")
@@ -166,18 +181,26 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="bio_content" type="Label" parent="bio_card/ScrollContainer/MarginContainer"]
-custom_minimum_size = Vector2(514.895, 0)
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+size_flags_vertical = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
 text = "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"
-autowrap_mode = 2
+autowrap_mode = 1
 
 [node name="chat_button" type="Button" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
 offset_left = 56.0
-offset_top = 760.0
-offset_right = 604.0
-offset_bottom = 824.0
+offset_top = 191.0
+offset_right = -52.0
+offset_bottom = 254.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 45
 theme_override_styles/normal = SubResource("StyleBoxFlat_63shq")

@@ -7,24 +7,38 @@ func _ready():
 	# 1. 清空默认选项
 	language_option.clear()
 	
-	# 2. 🟩 添加四语语言选项 (参数1: 显示的文本, 参数2: 对应的索引ID)
+	# ==========================================
+	# 🌟 新增：强行修改下拉菜单 (PopupMenu) 的外观！
+	# ==========================================
+	var popup = language_option.get_popup()
+	
+	# 1. 把弹窗列表的【字体大小】强行改大（这里暂定 35，你可以自己微调）
+	popup.add_theme_font_size_override("font_size", 25)
+	
+	# 2. 增加选项之间的【上下间距】，不然字变大后会全部挤在一起
+	popup.add_theme_constant_override("v_separation", 20)
+	
+	# 3. 增加选项左右的【留白边缘】，让整个黑框显得更大气
+	popup.add_theme_constant_override("item_start_padding", 20)
+	popup.add_theme_constant_override("item_end_padding", 20)
+	# ==========================================
+	
+	# 2. 添加四语语言选项
 	language_option.add_item("简体中文", 0)
 	language_option.add_item("English", 1)
-	language_option.add_item("Bahasa Melayu", 2) # 🌟 新增马来文
-	language_option.add_item("தமிழ் (Tamil)", 3)  # 🌟 新增淡米尔文
+	language_option.add_item("Bahasa Melayu", 2)
+	language_option.add_item("தமிழ் (Tamil)", 3)
 	
-	# 3. 🔄 自动对齐全局当前的语言状态，防止每次打开弹窗都重置
+	# 3. 自动对齐全局当前的语言状态
 	match Global.current_language:
 		"zh", "ch":
 			language_option.selected = 0
 		"en":
 			language_option.selected = 1
 		"bm":
-			language_option.selected = 2 # 自动对齐马来文
+			language_option.selected = 2
 		"bt":
-			language_option.selected = 3 # 自动对齐淡米尔文
-
-
+			language_option.selected = 3
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

@@ -37,7 +37,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_adfgs")
-metadata/_edit_lock_ = true
 
 [node name="wallpaper" type="TextureRect" parent="."]
 layout_mode = 1
@@ -81,22 +80,28 @@ horizontal_alignment = 1
 [node name="start" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)
 top_level = true
-layout_mode = 2
-anchor_left = 0.099
-anchor_top = 0.355
-anchor_right = 0.889
-anchor_bottom = 0.479
-offset_left = -0.152
-offset_top = -0.209991
-offset_right = -0.0720215
-offset_bottom = -0.0579834
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 48.0
+offset_top = -177.0
+offset_right = -52.0
+offset_bottom = -97.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="start"]
-layout_mode = 0
-offset_left = 24.0
-offset_top = 16.0
-offset_right = 488.0
-offset_bottom = 98.0
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -37.5
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_g3pq5")
 
@@ -115,7 +120,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 25
 text = "The game is ready !"
 
 [node name="label" type="Label" parent="start/PanelContainer/MarginContainer/HBoxContainer"]
@@ -129,22 +134,27 @@ text = "Start Game !"
 self_modulate = Color(1, 1, 1, 0)
 top_level = true
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.099
-anchor_top = 0.497
-anchor_right = 0.889
-anchor_bottom = 0.63
-offset_left = -0.152008
-offset_top = -0.294006
-offset_right = -0.0720215
-offset_bottom = -8.26007
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 48.0
+offset_top = -33.0
+offset_right = -52.0
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="setting"]
-layout_mode = 0
-offset_left = 24.0
-offset_top = 16.0
-offset_right = 488.0
-offset_bottom = 98.0
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -37.5
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_g3pq5")
 
@@ -163,29 +173,35 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 25
 text = "Setting"
 
 [node name="quit" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)
 top_level = true
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.086
-anchor_top = 0.639
-anchor_right = 0.889
-anchor_bottom = 0.763
-offset_left = 8.272
-offset_top = -0.378052
-offset_right = -0.0720215
-offset_bottom = -0.226013
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 48.0
+offset_top = 119.0
+offset_right = -52.0
+offset_bottom = 199.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
 
 [node name="PanelContainer" type="PanelContainer" parent="quit"]
-layout_mode = 0
-offset_left = 24.0
-offset_top = 16.0
-offset_right = 488.0
-offset_bottom = 98.0
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -41.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_g3pq5")
 
