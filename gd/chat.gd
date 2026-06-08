@@ -6,7 +6,7 @@ const SAVE_PATH = "user://chat_history.json"
 
 const BUBBLE_SCENE = preload("res://scene/MessageBubble.tscn") # 载入你做的气泡场景
 
-@onready var message_list = $main/body/VBoxContainer
+@onready var message_list = $main/body/message_list
 
 
 @onready var input_box := $main/MarginContainer/footer/MarginContainer/TextEdit
@@ -267,6 +267,7 @@ func create_bubble(content, is_mine):
 	message_list.add_child(bubble)
 	
 	var label = bubble.get_node("Content") # 确保路径正确
+
 	label.text = content
 	
 	# 设置左右对齐

@@ -12,7 +12,6 @@ corner_radius_bottom_right = 15
 [node name="MarginContainer" type="MarginContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_constants/margin_bottom = 20
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
