@@ -268,7 +268,7 @@ func create_bubble(content, is_mine):
 	
 	var label = bubble.get_node("Content") # 确保路径正确
 
-	label.text = content
+	label.text = content 
 	
 	# 设置左右对齐
 	if is_mine == true:
