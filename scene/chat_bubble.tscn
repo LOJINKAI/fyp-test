@@ -23,6 +23,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_0i6i5")
 [node name="Label" type="Label" parent="PanelContainer"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 50
 text = "hhhhhhhhhhhhh"
 autowrap_mode = 3
