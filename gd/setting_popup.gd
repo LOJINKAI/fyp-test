@@ -2,6 +2,10 @@ extends CanvasLayer
 
 @onready var language_option = $window/VBoxContainer/HBoxContainer/MarginContainer/PanelContainer/OptionButton
 
+@onready var bgm_slider = $window/VBoxContainer/BGM_Slider
+@onready var sfx_slider = $window/VBoxContainer/SFX_Slider 
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# 1. 清空默认选项
