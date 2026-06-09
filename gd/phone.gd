@@ -16,6 +16,7 @@ var lang = Global.current_language
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Bgm.play_music("game")
 	
 	print("new game = ",new_game)
 	print("tutorial = ",Global.phone_tutorial_finished)

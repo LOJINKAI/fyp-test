@@ -12,6 +12,7 @@ const SETTING_POPUP_SCENE = preload("res://scene/setting_popup.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Bgm.play_music("main")
 	update_time_display()
 	
 	#Global.current_language = "ch"

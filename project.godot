@@ -20,6 +20,7 @@ config/icon="res://image/icon.png"
 Global="*res://gd/Global.gd"
 apiKey="*res://gd/.api_key.gd"
 Dialogue="*res://gd/dialogue.gd"
+Bgm="*res://scene/bgm.tscn"
 
 [display]
 
