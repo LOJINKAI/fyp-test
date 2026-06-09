@@ -21,20 +21,20 @@ func _ready():
 	print("new game = ",new_game)
 	print("app_tutorial_finished = ",app_tutorial_finished)
 	print("game end = ",Global.game_end)
-
-	if app_tutorial_finished == false:
-		tutorial()
-		app_tutorial_finished = true
-		Global.save_game_status()
-	
-	show_target()
-	
-	#game_end()
 	
 	
-	if Global.game_end == true:
-		game_end()
-		Global.game_end = false
+	game_end()
+	
+	#if app_tutorial_finished == false:
+		#tutorial()
+		#app_tutorial_finished = true
+		#Global.save_game_status()
+	#
+	#show_target()
+	#
+	#if Global.game_end == true:
+		#game_end()
+		#Global.game_end = false
 	
 func show_target():
 	# ========================================================
@@ -116,7 +116,7 @@ func game_end():
 		active_dialogue.tree_exited.connect(func(): _on_story_end1_pre_final(last_sentence))
 
 
-func _on_story_end1_pre_final(last_sentence: Array):
+func _on_story_end1_pre_final(last_sentence):
 	# 1. 弹出最后一句绝望的独白
 	Global.play_dialogue(last_sentence)
 	
@@ -146,6 +146,8 @@ func _on_story_end1_pre_final(last_sentence: Array):
 		var tween = create_tween()
 		tween.tween_property(black_bg, "color", Color(0, 0, 0, 1.0), 1.5)
 		
+		
+		
 		# 只有当玩家最后点掉这句对话时，才去触发真正的 _on_end1_finished 收尾
 		active_dialogue.tree_exited.connect(_on_end1_finished)
 
@@ -167,7 +169,6 @@ func _on_end1_finished():
 	if black_bg:
 		black_bg.color = Color(0, 0, 0, 1.0)
 	
-	print("⏳ 此时屏幕已完全漆黑，毫无破绽...")
 	
 	# 2. ⏳ 让空气在黑暗中凝固 0.5 秒，把窒息和绝望感拉满
 	await get_tree().create_timer(2.0).timeout
@@ -176,11 +177,14 @@ func _on_end1_finished():
 	if black_bg:
 		black_bg.queue_free()
 		
-	print("✨ 啪！黑布瞬间消失，警察的对话框轰然砸脸！")
 	
 	# 4. 画面亮起的同一微秒，警察踹门对话框强势弹出！
 	var story2 = Global.story[lang].get("story_end2")
+	
+	SoundEffect.play_sound("kick_door_sound")
 	Global.play_dialogue(story2)
+	
+	
 	Bgm.play_music("police")
 	
 	
@@ -192,8 +196,13 @@ func _on_end1_finished():
 	
 func _on_end2_finished():
 	
-	get_tree().change_scene_to_file("res://scene/main.tscn")
 	
+	$end_cover.visible = true
+	
+	Global.fade_to_fade("res://scene/main.tscn", 2.0)
+	
+	#await get_tree().create_timer(2.0).timeout
+	#Global.scene_to_fade("res://scene/main.tscn", 2.0)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

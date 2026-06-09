@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bhun22u5f85rq"
+path="res://.godot/imported/kick door.mp3-eb30a9234df0183018afa54ac4c27501.mp3str"
+
+[deps]
+
+source_file="res://sound/result/kick door.mp3"
+dest_files=["res://.godot/imported/kick door.mp3-eb30a9234df0183018afa54ac4c27501.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

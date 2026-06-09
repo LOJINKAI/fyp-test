@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cfxggmjkwm8nn"]
+[gd_scene load_steps=18 format=3 uid="uid://cfxggmjkwm8nn"]
 
 [ext_resource type="Script" path="res://gd/app.gd" id="1_iaqfa"]
 [ext_resource type="Texture2D" uid="uid://bhaoludqrd7oi" path="res://image/app/quit.png" id="2_t55w7"]
@@ -15,6 +15,9 @@ bg_color = Color(1, 1, 1, 1)
 shadow_color = Color(0, 0, 0, 0.196078)
 shadow_size = 6
 shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2bmh7"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5b3rb"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -75,6 +78,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_iaqfa")
 
+[node name="end_cover" type="ColorRect" parent="."]
+visible = false
+top_level = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
 
@@ -99,38 +114,38 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_pdx2v")
 [node name="MarginContainer" type="MarginContainer" parent="top"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
 
 [node name="HBoxContainer" type="HBoxContainer" parent="top/MarginContainer"]
 layout_mode = 2
 alignment = 1
 
+[node name="PanelContainer" type="PanelContainer" parent="top/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_2bmh7")
+
+[node name="quit" type="TextureButton" parent="top/MarginContainer/HBoxContainer/PanelContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("2_t55w7")
+ignore_texture_size = true
+stretch_mode = 5
+
 [node name="TextureRect" type="TextureRect" parent="top/MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 4
 size_flags_stretch_ratio = 1.18
 texture = ExtResource("3_6oxoy")
 expand_mode = 2
+stretch_mode = 5
 
 [node name="TextureRect2" type="TextureRect" parent="top/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 texture = ExtResource("4_fl3x8")
 expand_mode = 2
-
-[node name="quit" type="TextureButton" parent="top/MarginContainer/HBoxContainer"]
-top_level = true
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-size_flags_stretch_ratio = 3.24
-texture_normal = ExtResource("2_t55w7")
-ignore_texture_size = true
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -367,7 +382,7 @@ libraries = {
 }
 autoplay = "arrow"
 
-[connection signal="pressed" from="top/MarginContainer/HBoxContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="top/MarginContainer/HBoxContainer/PanelContainer/quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="VBoxContainer/midas/midas" to="." method="_on_midas_pressed"]
 [connection signal="pressed" from="VBoxContainer/lily/lily" to="." method="_on_lily_pressed"]
 [connection signal="pressed" from="VBoxContainer/jane/jane" to="." method="_on_jane_pressed"]
