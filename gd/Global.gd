@@ -7,13 +7,16 @@ extends Node
 #save file
 const victim_file = "user://victim_status.json"
 const game_status = "user://game_status.json"
-const game_language = "user://game_language.json"
+const game_language = "user://game_setting.json"
 
 const DIALOGUE_SYSTEM = preload("res://scene/dialogue.tscn")
 
 var current_language 
 var reply_language
 
+
+var bgm_volume = 100.0
+var sound_effect_volume = 100.0
 
 # 用来存储当前正在聊天的人的头像图片
 var current_chat_avatar = null
@@ -66,9 +69,13 @@ func _ready():
 	print("Language = ",current_language)
 	
 	# 🟩 游戏一启动，就自动加载本地所有的屏蔽数据，保证变量在内存中是最新的
-	laod_game_langauge()
+	laod_game_setting()
 	load_victim_states()
 	load_game_status()
+	
+	load_game_sound_volume()
+	
+	
 	
 
 	 #🟩 1. 物理安全加载黑幕
@@ -84,6 +91,17 @@ func _ready():
 		
 	
 	
+
+func load_game_sound_volume():
+	var bgm_db = linear_to_db(bgm_volume / 100.0)
+	if bgm_volume == 0: bgm_db = -80
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("bgm"), bgm_db)
+	
+	var sound_effect_db = linear_to_db(sound_effect_volume / 100.0)
+	if sound_effect_volume == 0: 
+		sound_effect_db = -80
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("sound_effect"), sound_effect_db)
+
 
 #这个是黑屏罢了，没有换界面
 func fade_layer(duration = 1.0):
@@ -215,6 +233,7 @@ func fade_to_fade(target_scene_path: String, duration: float = 2.0):
 
 
 
+
 func save_game_status():
 	var file = FileAccess.open(game_status, FileAccess.WRITE)
 	if file:
@@ -257,17 +276,19 @@ func load_game_status():
 
 
 
-func save_game_language():
+func save_game_setting():
 	var file = FileAccess.open(game_language, FileAccess.WRITE)
 	if file:
 		var data_to_save = {
-			"current_language": current_language
+			"current_language": current_language,
+			"bgm_volume": bgm_volume,
+			"sound_effect_volume": sound_effect_volume,
 		}
 		var json_string = JSON.stringify(data_to_save)
 		file.store_string(json_string)
 		file.close()
 
-func laod_game_langauge():
+func laod_game_setting():
 	if not FileAccess.file_exists(game_language):
 		current_language = "en"
 		return # 文件不存在说明全是默认值
@@ -280,7 +301,8 @@ func laod_game_langauge():
 		var data = JSON.parse_string(json_string)
 		if data is Dictionary:
 			current_language = data.get("current_language", "en")
-			
+			bgm_volume = data.get("bgm_volume", 100.0)
+			sound_effect_volume = data.get("sound_effect_volume", 100.0)
 
 
 

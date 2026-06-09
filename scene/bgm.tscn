@@ -1,10 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://51o1cmd404tu"]
+[gd_scene load_steps=2 format=3 uid="uid://51o1cmd404tu"]
 
-[ext_resource type="AudioStream" path="res://sound/bgm/desifreemusic-minimal-lo-fi-ambient-with-soft-pads-369301.mp3" id="1_xqjbx"]
 [ext_resource type="Script" path="res://gd/bgm.gd" id="2_bvypc"]
 
 [node name="bgm" type="AudioStreamPlayer"]
-stream = ExtResource("1_xqjbx")
 volume_db = -15.0
 bus = &"bgm"
 script = ExtResource("2_bvypc")

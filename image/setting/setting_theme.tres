@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://jteny1jl0vt1"]
+
+[ext_resource type="Texture2D" uid="uid://dskmop022scr3" path="res://image/setting/full_slide.png" id="1_pnl6f"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_02vso"]
+texture = ExtResource("1_pnl6f")
+texture_margin_top = 8.0
+texture_margin_bottom = 8.0
+region_rect = Rect2(293.146, 29.105, 26.62, 131.11)
+
+[resource]
+default_base_scale = 1.19
+HSlider/styles/slider = SubResource("StyleBoxTexture_02vso")
