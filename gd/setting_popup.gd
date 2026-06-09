@@ -68,21 +68,23 @@ func _on_ch_pressed():
 	SoundEffect.play_sound("ui_click")
 	Global.current_language = "ch" 
 	Global.save_game_setting()
+	print("Global.current_language = ",Global.current_language)
 
 
 func _on_en_pressed():
 	SoundEffect.play_sound("ui_click")
 	Global.current_language = "en" 
 	Global.save_game_setting()
-
+	print("Global.current_language = ",Global.current_language)
 
 func _on_bm_pressed():
 	SoundEffect.play_sound("ui_click")
 	Global.current_language = "bm" 
 	Global.save_game_setting()
-
+	print("Global.current_language = ",Global.current_language)
 
 func _on_bt_pressed():
 	SoundEffect.play_sound("ui_click")
 	Global.current_language = "bt" 
 	Global.save_game_setting()
+	print("Global.current_language = ",Global.current_language)

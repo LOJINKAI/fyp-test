@@ -8,64 +8,34 @@ extends Control
 @onready var arrow = $arrow
 @onready var animation_player = $AnimationPlayer
 
-	
-var new_game = Global.new_game
+
+
 var lang = Global.current_language
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	arrow.visible = false
+	
 	Bgm.play_music("game")
 	
-	print("app_tutorial_finished = ",Global.app_tutorial_finished)
 	
-	var story = Global.story[lang].get("story_intro")
 	
-	#if is new game then story
-	if new_game == true:
-		Global.play_dialogue(story)
-
-		
-		# 🟩 暴力抓取法：既然刚加进当前 scene，那它一定是当前 scene 的最后一个子节点！
-		var current_scene = get_tree().current_scene
-		var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
-		
-		if active_dialogue:
-			active_dialogue.tree_exited.connect(_on_intro_finished)
-		
-	else:
-		arrow.visible = false
-		
-		
 	if Global.phone_tutorial_finished == false:
+		
+		var story = Global.story[lang].get("phone_intro")
+		Global.play_dialogue(story)
+		
 		arrow.visible = true
 		animation_player.play("arrow")
+		
+		Global.phone_tutorial_finished = true
+		Global.save_game_status()
 
 
 
-func _on_intro_finished():
-	# 1. 让带动画的箭头亮亮堂堂地蹦出来！指引玩家
-	
-	print("finish")
-	
-	arrow.visible = true
-	animation_player.play("arrow")
-	
-	# 2. 随手关闭新游戏开关，并同步硬盘
-	Global.new_game = false
-	Global.phone_tutorial_finished = true
-	Global.save_game_status()
-	
-	var story = Global.story[lang].get("phone_intro")
-	
-	#tutorial
-	Global.play_dialogue(story)
-	
 
-
-	
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

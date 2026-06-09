@@ -117,12 +117,14 @@ func _ready():
 	var story = Global.story[lang].get("chat_intro")
 	if Global.chat_tutorial_finished == false:
 		Global.play_dialogue(story)
+		Global.chat_tutorial_finished = true
+		Global.save_game_status()
 		
-	var current_scene = get_tree().current_scene
-	var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
-	
-	if active_dialogue:
-		active_dialogue.tree_exited.connect(_on_intro_finished)
+		var current_scene = get_tree().current_scene
+		var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
+		
+		if active_dialogue:
+			active_dialogue.tree_exited.connect(_on_intro_finished)
 
 
 

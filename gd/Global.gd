@@ -26,7 +26,7 @@ var current_chat_avatar = null
 # 用来存储当前正在聊天的人的名字
 var current_chat_name = null
 
-var new_game = true
+
 
 var chat_logs
 
@@ -68,7 +68,7 @@ var fade_mask: ColorRect
 
 func _ready():
 	
-	print("Language = ",current_language)
+	
 	
 	# 🟩 游戏一启动，就自动加载本地所有的屏蔽数据，保证变量在内存中是最新的
 	laod_game_setting()
@@ -77,9 +77,8 @@ func _ready():
 	
 	load_game_sound_volume()
 	
+	print("Global.current_language = ",current_language)
 	
-	
-
 	 #🟩 1. 物理安全加载黑幕
 	fade_instance = FADE_LAYER_SCENE.instantiate()
 	
@@ -267,7 +266,6 @@ func save_game_status():
 	var file = FileAccess.open(game_status, FileAccess.WRITE)
 	if file:
 		var data_to_save = {
-			"new_game": new_game,
 			"phone_tutorial_finished": phone_tutorial_finished,
 			"app_tutorial_finished": app_tutorial_finished,
 			"bio_tutorial_finished": bio_tutorial_finished,
@@ -284,7 +282,6 @@ func save_game_status():
 # 🟩 在游戏启动时，或者各个场景准备时调用，用来从本地文件读取屏蔽状态
 func load_game_status():
 	if not FileAccess.file_exists(game_status):
-		new_game = true
 		return # 文件不存在说明全是默认值
 		
 	var file = FileAccess.open(game_status, FileAccess.READ)
@@ -295,7 +292,7 @@ func load_game_status():
 		var data = JSON.parse_string(json_string)
 		if data is Dictionary:
 
-			new_game = data.get("new_game", true)
+
 			# 1. 恢复语言
 			phone_tutorial_finished = data.get("phone_tutorial_finished", false)
 			app_tutorial_finished = data.get("app_tutorial_finished", false)

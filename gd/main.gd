@@ -10,8 +10,11 @@ var current_time = Time.get_datetime_string_from_system(false, true)
 const SETTING_POPUP_SCENE = preload("res://scene/setting_popup.tscn")
 
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	$black_cover.visible = false
 	Bgm.play_music("main")
 	update_time_display()
 	
@@ -47,20 +50,40 @@ func _on_continue_pressed():
 	
 	get_tree().change_scene_to_file("res://scene/phone.tscn")
 	
-	#if Global.new_game == true:
-		#Global.fade_to_fade("res://scene/phone.tscn", 1.0)
-	#else:
-		#Global.fade_to_scene("res://scene/phone.tscn", 1.0)
-		
 	
 	
 
 func _on_start_pressed():
 	SoundEffect.play_sound("ui_click")
+	Bgm.play_music("game")
+	
 	Global.reset_and_new_game()
 	
-	get_tree().change_scene_to_file("res://scene/phone.tscn")
+	var story = Global.story[Global.current_language].get("story_intro")
 	
+	Global.play_dialogue(story)
+	
+	$black_cover.visible = true
+	
+	
+
+	
+	# 🟩 暴力抓取法：既然刚加进当前 scene，那它一定是当前 scene 的最后一个子节点！
+	var current_scene = get_tree().current_scene
+	var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
+	
+	if active_dialogue:
+		active_dialogue.tree_exited.connect(_on_intro_finished)
+	
+	
+
+func _on_intro_finished():
+	#get_tree().change_scene_to_file("res://scene/phone.tscn")
+	
+	#Global.fade_to_fade("res://scene/phone.tscn", 1.0)
+	
+	
+	Global.fade_to_scene("res://scene/phone.tscn", 1.0)
 
 
 func _on_setting_pressed():

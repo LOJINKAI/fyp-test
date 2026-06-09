@@ -7,7 +7,7 @@ extends Control
 @onready var target_avatar = $VBoxContainer/all/all/HBoxContainer/PanelContainer/photo
 @onready var target_name = $VBoxContainer/all/all/HBoxContainer/Label
 
-var new_game = Global.new_game
+
 var lang = Global.current_language
 var app_tutorial_finished 
 var story
@@ -18,23 +18,19 @@ func _ready():
 	app_tutorial_finished = Global.app_tutorial_finished
 	
 	
-	print("new game = ",new_game)
-	print("app_tutorial_finished = ",app_tutorial_finished)
-	print("game end = ",Global.game_end)
 	
+	#game_end()
 	
-	game_end()
+	if app_tutorial_finished == false:
+		tutorial()
+		app_tutorial_finished = true
+		Global.save_game_status()
 	
-	#if app_tutorial_finished == false:
-		#tutorial()
-		#app_tutorial_finished = true
-		#Global.save_game_status()
-	#
-	#show_target()
-	#
-	#if Global.game_end == true:
-		#game_end()
-		#Global.game_end = false
+	show_target()
+	
+	if Global.game_end == true:
+		game_end()
+		Global.game_end = false
 	
 func show_target():
 	# ========================================================
