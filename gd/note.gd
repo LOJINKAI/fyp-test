@@ -61,16 +61,19 @@ func update_page_display():
 
 # 点击右箭头（下一页）
 func _on_right_button_pressed():
+	SoundEffect.play_sound("ui_click")
 	if current_page_index < help_pages.size() - 1:
 		current_page_index += 1
 		update_page_display()
 
 # 点击左箭头（上一页）
 func _on_left_button_pressed():
+	SoundEffect.play_sound("ui_click")
 	if current_page_index > 0:
 		current_page_index -= 1
 		update_page_display()
 
 
 func _on_close_pressed():
+	SoundEffect.play_sound("ui_click")
 	queue_free() 

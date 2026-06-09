@@ -17,7 +17,7 @@ var current_language
 var reply_language
 
 
-var bgm_volume = 40.0
+var bgm_volume = 20.0
 var sound_effect_volume = 80.0
 
 # 用来存储当前正在聊天的人的头像图片

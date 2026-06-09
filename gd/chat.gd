@@ -426,6 +426,7 @@ func _on_typing_timer_timeout():
 		current_ai_label = null # 打字结束，清空引用
 
 func _on_quit_pressed():
+	SoundEffect.play_sound("ui_click")
 	get_tree().change_scene_to_file("res://scene/bio.tscn")
 	
 
@@ -488,7 +489,7 @@ func on_failure():
 	$fail_layer.visible = true
 	$fail_layer/ColorRect/again.disabled = false
 	
-	$fail_sound.play()
+	SoundEffect.play_sound("fail_sound")
 	
 	
 
@@ -512,7 +513,7 @@ func on_victory():
 	
 	# 2. 唤醒我们在场景里搭好的 SuccessLayer，并把初始透明度设为 0 (完全透明)
 	$success_layer.visible = true
-	$success_sound.play()
+	SoundEffect.play_sound("success_sound")
 	
 	Global.set(npc_done,true)
 	
@@ -596,6 +597,7 @@ func _on_navigate_pressed():
 
 
 func _on_delete_pressed():
+	SoundEffect.play_sound("ui_click")
 	
 	delete_conversation()
 	
@@ -618,6 +620,7 @@ func delete_conversation():
 # chat.gd 里的 Help 按钮修复段
 
 func _on_help_pressed():
+	SoundEffect.play_sound("ui_click")
 	# 🟩 1. 安全防错：如果当前正在放别的新手教程对话，先不允许点求助
 	var current_scene = get_tree().current_scene
 	var last_child = current_scene.get_child(current_scene.get_child_count() - 1)
@@ -664,7 +667,7 @@ func _on_help_finished():
 
 
 func _on_again_pressed():
-	
+	SoundEffect.play_sound("ui_click")
 	delete_conversation()
 	Global.conversation_history = conversation_history
 	
@@ -673,6 +676,7 @@ func _on_again_pressed():
 
 
 func _on_next_target_pressed():
+	SoundEffect.play_sound("ui_click")
 	delete_conversation()
 	Global.conversation_history = conversation_history
 	
@@ -683,6 +687,7 @@ func _on_next_target_pressed():
 
 
 func _on_note_pressed():
+	SoundEffect.play_sound("ui_click")
 	var popup = NOTE_POPUP_SCENE.instantiate()
 	
 	# 2. 🟩 核心：直接把它作为子节点加到当前主界面最底层

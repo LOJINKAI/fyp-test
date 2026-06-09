@@ -57,6 +57,7 @@ func _process(delta):
 
 
 func _on_texture_button_pressed():
+	SoundEffect.play_sound("ui_click")
 	Global.save_game_setting()
 	queue_free() 
 
@@ -64,20 +65,24 @@ func _on_texture_button_pressed():
 
 
 func _on_ch_pressed():
+	SoundEffect.play_sound("ui_click")
 	Global.current_language = "ch" 
 	Global.save_game_setting()
 
 
 func _on_en_pressed():
+	SoundEffect.play_sound("ui_click")
 	Global.current_language = "en" 
 	Global.save_game_setting()
 
 
 func _on_bm_pressed():
+	SoundEffect.play_sound("ui_click")
 	Global.current_language = "bm" 
 	Global.save_game_setting()
 
 
 func _on_bt_pressed():
+	SoundEffect.play_sound("ui_click")
 	Global.current_language = "bt" 
 	Global.save_game_setting()

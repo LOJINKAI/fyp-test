@@ -37,13 +37,13 @@ func update_time_display():
 
 #quit button
 func _on_quit_pressed():
-	$AudioStreamPlayer.play()
+	SoundEffect.play_sound("ui_click")
 	get_tree().quit()
 	#close game
 
 
 func _on_continue_pressed():
-	$AudioStreamPlayer.play()
+	SoundEffect.play_sound("ui_click")
 	
 	get_tree().change_scene_to_file("res://scene/phone.tscn")
 	
@@ -56,7 +56,7 @@ func _on_continue_pressed():
 	
 
 func _on_start_pressed():
-	$AudioStreamPlayer.play()
+	SoundEffect.play_sound("ui_click")
 	Global.reset_and_new_game()
 	
 	get_tree().change_scene_to_file("res://scene/phone.tscn")
@@ -64,7 +64,7 @@ func _on_start_pressed():
 
 
 func _on_setting_pressed():
-	$AudioStreamPlayer.play()
+	SoundEffect.play_sound("ui_click")
 	# 1. 动态实例化这个小窗口
 	var popup = SETTING_POPUP_SCENE.instantiate()
 	

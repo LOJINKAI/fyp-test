@@ -3,6 +3,5 @@
 [ext_resource type="Script" path="res://gd/bgm.gd" id="2_bvypc"]
 
 [node name="bgm" type="AudioStreamPlayer"]
-volume_db = -15.0
 bus = &"bgm"
 script = ExtResource("2_bvypc")

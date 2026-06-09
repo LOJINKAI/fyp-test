@@ -50,6 +50,7 @@ func _process(delta):
 
 
 func _on_quit_pressed():
+	SoundEffect.play_sound("ui_click")
 	get_tree().change_scene_to_file("res://scene/app.tscn")
 	Global.current_chat_avatar = null
 	Global.current_chat_name = null
@@ -60,6 +61,7 @@ func _on_quit_pressed():
 
 
 func _on_chat_button_pressed():
+	SoundEffect.play_sound("ui_click")
 	get_tree().change_scene_to_file("res://scene/chat.tscn")
 	Global.current_chat_name = $HBoxContainer/name.text
 	Global.current_chat_avatar = $HBoxContainer/PanelContainer/photo.texture

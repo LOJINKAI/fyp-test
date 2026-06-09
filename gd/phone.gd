@@ -73,6 +73,7 @@ func _process(delta):
 
 
 func _on_chat_pressed():
+	SoundEffect.play_sound("ui_click")
 	get_tree().change_scene_to_file("res://scene/app.tscn")
 
 	
@@ -80,6 +81,7 @@ func _on_chat_pressed():
 
 
 func _on_texture_button_pressed():
+	SoundEffect.play_sound("ui_click")
 	get_tree().change_scene_to_file("res://scene/main.tscn")
 	
 	

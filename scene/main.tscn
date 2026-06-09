@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://y7u5xbws7nyr"]
+[gd_scene load_steps=5 format=3 uid="uid://y7u5xbws7nyr"]
 
 [ext_resource type="Script" path="res://gd/main.gd" id="1_adfgs"]
 [ext_resource type="Texture2D" uid="uid://wxlya8exglwf" path="res://image/main/wallpaper.png" id="2_kt0ww"]
-[ext_resource type="AudioStream" uid="uid://5o1tspw2aar" path="res://sound/ui/ui_button_click.mp3" id="3_1n8a1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3pq5"]
 bg_color = Color(1, 1, 1, 0.784314)
@@ -264,10 +263,6 @@ mouse_filter = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
 text = "Quit"
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_1n8a1")
-bus = &"sound_effect"
 
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="continue" to="." method="_on_continue_pressed"]
