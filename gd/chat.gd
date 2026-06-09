@@ -82,7 +82,6 @@ func _ready():
 	npc_prompt = Global.npc_prompt.get(npc_name).replace("{reply_language}", reply_language).replace("{success_id}", success_id)
 	
 	
-	print("\n\nGlobal.bio_tutorial_finished = ",Global.bio_tutorial_finished)
 	$main/top/MarginContainer/HBoxContainer/Label.text = npc_name
 	$main/top/MarginContainer/HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar
 	
@@ -161,6 +160,9 @@ func _on_intro_finished():
 	Global.chat_tutorial_finished = true
 	Global.save_game_status()
 	
+	var popup = NOTE_POPUP_SCENE.instantiate()
+	
+	get_tree().current_scene.add_child(popup)
 	
 	
 

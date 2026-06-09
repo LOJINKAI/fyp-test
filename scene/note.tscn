@@ -41,9 +41,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -250.0
-offset_top = -193.0
+offset_top = -345.0
 offset_right = 250.0
-offset_bottom = 311.0
+offset_bottom = 312.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gicmx")
@@ -86,7 +86,7 @@ texture = ExtResource("3_cur84")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="window/VBoxContainer"]
+[node name="content" type="Label" parent="window/VBoxContainer"]
 custom_minimum_size = Vector2(400, 157)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -99,15 +99,15 @@ autowrap_mode = 1
 [node name="HBoxContainer" type="HBoxContainer" parent="window/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 10
 theme_override_constants/separation = 200
 
 [node name="left_button" type="PanelContainer" parent="window/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_07iqs")
 
 [node name="left_button" type="TextureButton" parent="window/VBoxContainer/HBoxContainer/left_button"]
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture_normal = ExtResource("3_bjl5r")
 ignore_texture_size = true
@@ -119,7 +119,7 @@ size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_07iqs")
 
 [node name="right_button" type="TextureButton" parent="window/VBoxContainer/HBoxContainer/right_button"]
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture_normal = ExtResource("4_conaw")
 ignore_texture_size = true

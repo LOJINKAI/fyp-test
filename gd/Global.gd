@@ -110,6 +110,12 @@ func reset_and_new_game():
 	bio_tutorial_finished = false
 	chat_tutorial_finished = false
 	
+	Lily_done = false
+	Midas_done = false
+	Jane_done = false
+	Stanley_done = false
+	Simon_done = false
+	
 	load_victim_states()
 	load_game_status()
 
