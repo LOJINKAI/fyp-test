@@ -42,7 +42,7 @@ func _on_quit_pressed():
 	#close game
 
 
-func _on_start_pressed():
+func _on_continue_pressed():
 	$AudioStreamPlayer.play()
 	
 	get_tree().change_scene_to_file("res://scene/phone.tscn")
@@ -54,7 +54,14 @@ func _on_start_pressed():
 		
 	
 	
+
+func _on_start_pressed():
+	$AudioStreamPlayer.play()
+	Global.reset_and_new_game()
 	
+	get_tree().change_scene_to_file("res://scene/phone.tscn")
+	
+
 
 func _on_setting_pressed():
 	$AudioStreamPlayer.play()
@@ -66,14 +73,8 @@ func _on_setting_pressed():
 	# 它会自动完美覆盖在你的 time、start、setting、quit 之上！
 	get_tree().current_scene.add_child(popup)
 	
-	print("✨ 成功呼出设置弹窗，主界面已被半透明黑色遮罩锁定！")
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+

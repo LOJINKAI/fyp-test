@@ -9,20 +9,23 @@ extends Control
 
 var new_game = Global.new_game
 var lang = Global.current_language
-
+var app_tutorial_finished 
 var story
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	app_tutorial_finished = Global.app_tutorial_finished
+	
 	
 	print("new game = ",new_game)
-	print("tutorial = ",Global.phone_tutorial_finished)
+	print("app_tutorial_finished = ",app_tutorial_finished)
 	print("game end = ",Global.game_end)
 
-	if Global.app_tutorial_finished == false:
+	if app_tutorial_finished == false:
 		tutorial()
-	
+		app_tutorial_finished = true
+		Global.save_game_status()
 	
 	show_target()
 	
@@ -31,6 +34,7 @@ func _ready():
 	
 	if Global.game_end == true:
 		game_end()
+		Global.game_end = false
 	
 func show_target():
 	# ========================================================
@@ -101,7 +105,9 @@ func game_end():
 	
 	# 2. 先播放前面几句普通自白
 	Global.play_dialogue(full_story)
-		
+	Bgm.play_music("before_police")
+	
+	
 	var current_scene = get_tree().current_scene
 	var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
 
@@ -175,6 +181,8 @@ func _on_end1_finished():
 	# 4. 画面亮起的同一微秒，警察踹门对话框强势弹出！
 	var story2 = Global.story[lang].get("story_end2")
 	Global.play_dialogue(story2)
+	Bgm.play_music("police")
+	
 	
 	var current_scene = get_tree().current_scene
 	var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)

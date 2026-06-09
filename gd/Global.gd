@@ -7,7 +7,9 @@ extends Node
 #save file
 const victim_file = "user://victim_status.json"
 const game_status = "user://game_status.json"
-const game_language = "user://game_setting.json"
+const game_setting = "user://game_setting.json"
+const chat_history = "user://chat_history.json"
+
 
 const DIALOGUE_SYSTEM = preload("res://scene/dialogue.tscn")
 
@@ -15,8 +17,8 @@ var current_language
 var reply_language
 
 
-var bgm_volume = 100.0
-var sound_effect_volume = 100.0
+var bgm_volume = 40.0
+var sound_effect_volume = 80.0
 
 # 用来存储当前正在聊天的人的头像图片
 var current_chat_avatar = null
@@ -91,6 +93,27 @@ func _ready():
 		
 	
 	
+
+
+func reset_and_new_game():
+	
+	if FileAccess.file_exists(victim_file): 
+		DirAccess.remove_absolute(victim_file)
+	if FileAccess.file_exists(game_status):
+		DirAccess.remove_absolute(game_status)
+	if FileAccess.file_exists(chat_history): 
+		DirAccess.remove_absolute(chat_history)
+		
+	#record tutorial
+	phone_tutorial_finished = false
+	app_tutorial_finished = false
+	bio_tutorial_finished = false
+	chat_tutorial_finished = false
+	
+	load_victim_states()
+	load_game_status()
+
+
 
 func load_game_sound_volume():
 	var bgm_db = linear_to_db(bgm_volume / 100.0)
@@ -277,7 +300,7 @@ func load_game_status():
 
 
 func save_game_setting():
-	var file = FileAccess.open(game_language, FileAccess.WRITE)
+	var file = FileAccess.open(game_setting, FileAccess.WRITE)
 	if file:
 		var data_to_save = {
 			"current_language": current_language,
@@ -289,11 +312,11 @@ func save_game_setting():
 		file.close()
 
 func laod_game_setting():
-	if not FileAccess.file_exists(game_language):
+	if not FileAccess.file_exists(game_setting):
 		current_language = "en"
 		return # 文件不存在说明全是默认值
 		
-	var file = FileAccess.open(game_language, FileAccess.READ)
+	var file = FileAccess.open(game_setting, FileAccess.READ)
 	if file:
 		var json_string = file.get_as_text()
 		file.close()

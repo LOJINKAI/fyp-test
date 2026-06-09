@@ -23,8 +23,8 @@ func _ready():
 	#if is new game then tutorial
 	if Global.bio_tutorial_finished == false:
 		Global.play_dialogue(story)
-	
-	
+		Global.bio_tutorial_finished = true
+		Global.save_game_status()
 	
 	if Global.get(npc_done) == false:
 		block_button.disabled = true

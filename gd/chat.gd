@@ -2,9 +2,11 @@
 
 extends Control
 
-const SAVE_PATH = "user://chat_history.json"
+const SAVE_PATH = Global.chat_history
 
 const BUBBLE_SCENE = preload("res://scene/MessageBubble.tscn") # 载入你做的气泡场景
+
+const NOTE_POPUP_SCENE = preload("res://scene/note.tscn")
 
 @onready var message_list = $main/body/message_list
 
@@ -122,6 +124,11 @@ func _ready():
 	
 	if active_dialogue:
 		active_dialogue.tree_exited.connect(_on_intro_finished)
+
+
+
+	
+
 
 
 func match_language():
@@ -673,3 +680,12 @@ func _on_next_target_pressed():
 	Global.current_chat_name = null
 	
 	get_tree().change_scene_to_file("res://scene/app.tscn")
+
+
+func _on_note_pressed():
+	var popup = NOTE_POPUP_SCENE.instantiate()
+	
+	# 2. 🟩 核心：直接把它作为子节点加到当前主界面最底层
+	# 因为 Godot 的渲染规则是“越靠下的节点，渲染在越表面”
+	# 它会自动完美覆盖在你的 time、start、setting、quit 之上！
+	get_tree().current_scene.add_child(popup)

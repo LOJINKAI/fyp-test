@@ -18,8 +18,7 @@ var lang = Global.current_language
 func _ready():
 	Bgm.play_music("game")
 	
-	print("new game = ",new_game)
-	print("tutorial = ",Global.phone_tutorial_finished)
+	print("app_tutorial_finished = ",Global.app_tutorial_finished)
 	
 	var story = Global.story[lang].get("story_intro")
 	

@@ -1,0 +1,130 @@
+[gd_scene load_steps=9 format=3 uid="uid://crhees7oao662"]
+
+[ext_resource type="Script" path="res://gd/note.gd" id="1_ub2ls"]
+[ext_resource type="Texture2D" uid="uid://dhonfpcarl5k2" path="res://image/main/X_black.png" id="2_550t8"]
+[ext_resource type="Texture2D" uid="uid://b27yi7b8gkvnn" path="res://image/help/left_button.png" id="3_bjl5r"]
+[ext_resource type="Texture2D" uid="uid://cf73t326mo0p2" path="res://image/help/role.png" id="3_cur84"]
+[ext_resource type="Texture2D" uid="uid://bdflqk27r1n4y" path="res://image/help/right_button.png" id="4_conaw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gicmx"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(6.93083e-06, 0.748388, 0.912424, 0.6)
+shadow_size = 8
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b64e4"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_07iqs"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="note" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_ub2ls")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.188235)
+
+[node name="window" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -193.0
+offset_right = 250.0
+offset_bottom = 311.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gicmx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="window"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="window/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="Label" type="Label" parent="window/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 45
+text = "Help"
+
+[node name="PanelContainer" type="PanelContainer" parent="window/VBoxContainer/MarginContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="close" type="TextureButton" parent="window/VBoxContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_550t8")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="window/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_b64e4")
+
+[node name="TextureRect" type="TextureRect" parent="window/VBoxContainer/PanelContainer"]
+custom_minimum_size = Vector2(100, 200)
+layout_mode = 2
+texture = ExtResource("3_cur84")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="window/VBoxContainer"]
+custom_minimum_size = Vector2(400, 157)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "aha"
+horizontal_alignment = 1
+autowrap_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="window/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 200
+
+[node name="left_button" type="PanelContainer" parent="window/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_07iqs")
+
+[node name="left_button" type="TextureButton" parent="window/VBoxContainer/HBoxContainer/left_button"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture_normal = ExtResource("3_bjl5r")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="right_button" type="PanelContainer" parent="window/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_07iqs")
+
+[node name="right_button" type="TextureButton" parent="window/VBoxContainer/HBoxContainer/right_button"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture_normal = ExtResource("4_conaw")
+ignore_texture_size = true
+stretch_mode = 5
+
+[connection signal="pressed" from="window/VBoxContainer/MarginContainer/PanelContainer/close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="window/VBoxContainer/HBoxContainer/left_button/left_button" to="." method="_on_left_button_pressed"]
+[connection signal="pressed" from="window/VBoxContainer/HBoxContainer/right_button/right_button" to="." method="_on_right_button_pressed"]
