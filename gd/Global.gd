@@ -1293,7 +1293,196 @@ var help = {
 }
  
 
-
+var all_groups_data = {
+	"ch": {
+		"Midas": [
+			{"is_mine": false, "speaker": "群主", "text": "来跟各位新加入群组的人介绍一下，我们团队推出了新的加密货币，叫“发财币”！"},
+			{"is_mine": false, "speaker": "群主", "text": "现在发财币还是内部销售没上线，现在买绝对是全网最低价！"},
+			{"is_mine": false, "speaker": "群主", "text": "预计一上线最少暴涨10倍！到时候一抛售就是10倍的超高回报率！"},
+			{"is_mine": false, "speaker": "群主", "text": "我自己也砸了重本等发财，有钱大家一起赚！"},
+			{"is_mine": false, "speaker": "群主", "text": "只要有兴趣的人，都可以点击群置顶的链接来购买我们的发财币。"},
+			{"is_mine": false, "speaker": "Vincent", "text": "10倍回报率看着真香啊！算我一个，我也要买！"},
+			{"is_mine": false, "speaker": "Aidan", "text": "这么高的回报率绝对不能错过，错过等几年啊！"},
+			{"is_mine": false, "speaker": "Lucas", "text": "我就等这个还房贷了，说不定翻倍了还能提一辆梦中情车！"}
+		],
+		"Lily": [
+			{"is_mine": false, "speaker": "Kelvin", "text": "啊，这个发财币看着是真的不错，回报率这么高。"},
+			{"is_mine": false, "speaker": "Kelvin", "text": "不过这东西这么火，会不会晚一步就直接被抢完了啊？"},
+			{"is_mine": false, "speaker": "群主", "text": "你问到点上了，这个内部销售的名额现在只剩下10个名额了！"},
+			{"is_mine": false, "speaker": "群主", "text": "所以各位千万要快！犹豫就会败北！现在买，之后你我都是有钱人！"},
+			{"is_mine": false, "speaker": "Jolim", "text": "蛤！名额这么快就要完了吗？！那我也不等了，直接买！"},
+			{"is_mine": false, "speaker": "Angie", "text": "天啊只剩一点了？帮我留一个名额，我现在就去转账！"},
+			{"is_mine": false, "speaker": "Adam", "text": "我也要买！别抢完啊，我正在点链接了！"}
+		],
+		"Jane": [
+			{"is_mine": false, "speaker": "群主", "text": "非常感谢大家的支持，刚刚的最后10个名额已经被一抢而空了！"},
+			{"is_mine": false, "speaker": "群主", "text": "可是为了照顾社区热度，我们团队紧急开会决定破例再开放100个名额！！"},
+			{"is_mine": false, "speaker": "群主", "text": "虽然贵了5%，但再不抢就真的要等上线交易所了！到时候就不是低价了！"},
+			{"is_mine": false, "speaker": "Marcus", "text": "哇！这么多人都买了吗？！我才刚进来群罢了。"},
+			{"is_mine": false, "speaker": "Marcus", "text": "原本还以为说这东西应该没人会买，看来是我见识短了。"},
+			{"is_mine": false, "speaker": "Marcus", "text": "看到这么多人都买了，我也想不错过这个机会了。"},
+			{"is_mine": false, "speaker": "Chloe", "text": "我也一样，看到这么多人都买了，我也感觉没什么好怕的了。"},
+			{"is_mine": false, "speaker": "Chloe", "text": "这么多人都买了肯定没问题，我也跟上！"}
+		],
+		"Stanley": [
+			{"is_mine": false, "speaker": "群主", "text": "说的没错！而且偷偷告诉各位，其实世界首富马X克也买了我们的发财币！"},
+			{"is_mine": false, "speaker": "Eric", "text": "真的假的！？那个马X克也买了这个发财币！！"},
+			{"is_mine": false, "speaker": "Jason", "text": "这个发财币居然这么厉害吗！连首富都会来买，牛逼啊！"},
+			{"is_mine": false, "speaker": "Joey", "text": "马X克的投资眼光肯定错不了！我不观望了，直接买！"},
+			{"is_mine": false, "speaker": "Jolim", "text": "幸好刚刚有抢到最低价钱的名额，首富都来买了，这次想不发财都难啊。"},
+			{"is_mine": false, "speaker": "Angie", "text": "真的！幸好我刚才手快抢到了，跟着首富绝对稳赚！"},
+			{"is_mine": false, "speaker": "Adam", "text": "太险了，幸好我也抢到了！现在简直安全感满满！"}
+		],
+		"Simon": [
+			{"is_mine": false, "speaker": "Simon", "text": "各位好啊，我是新加入的新人，想来认识朋友。"},
+			{"is_mine": false, "speaker": "Eric", "text": "认真的吗？来这个群是为了认识朋友？"},
+			{"is_mine": false, "speaker": "Eric", "text": "有发财的机会他不香吗，认识朋友哪有发财重要啊兄弟。"},
+			{"is_mine": false, "speaker": "Aidan", "text": "就是啊，还不如点击置顶的链接一起发财，赚钱才是硬道理。"},
+			{"is_mine": false, "speaker": "Chloe", "text": "对啊新来的，听句劝，跟着大家一起买发财币才是正经事！"}
+		]
+	},
+	"en": {
+		"Midas": [
+			{"is_mine": false, "speaker": "Admin", "text": "Let me introduce to the newcomers, our team launched a new crypto called Richcoin!"},
+			{"is_mine": false, "speaker": "Admin", "text": "It's still in internal presale. Buying now is the absolute lowest price!"},
+			{"is_mine": false, "speaker": "Admin", "text": "Expected to surge 10x once listed! You'll get a 10x ROI when you sell!"},
+			{"is_mine": false, "speaker": "Admin", "text": "I've invested heavily myself. Let's make money and get rich together!"},
+			{"is_mine": false, "speaker": "Admin", "text": "If you're interested, just click the pinned link to buy our Richcoin."},
+			{"is_mine": false, "speaker": "Vincent", "text": "A 10x return looks amazing! Count me in, I want to buy!"},
+			{"is_mine": false, "speaker": "Aidan", "text": "Can't miss such high returns. If we miss this, we wait years!"},
+			{"is_mine": false, "speaker": "Lucas", "text": "I'm counting on this for my mortgage, maybe even buy my dream car!"}
+		],
+		"Lily": [
+			{"is_mine": false, "speaker": "Kelvin", "text": "Ah, this Richcoin really looks good with such a high ROI."},
+			{"is_mine": false, "speaker": "Kelvin", "text": "But will it be sold out directly if I'm just a bit slower?"},
+			{"is_mine": false, "speaker": "Admin", "text": "Spot on! There are only 10 spots left for this internal sale!"},
+			{"is_mine": false, "speaker": "Admin", "text": "So hurry up! Hesitation means losing! Buy now, be rich later!"},
+			{"is_mine": false, "speaker": "Jolim", "text": "What! Spots running out so fast?! I'm not waiting, buying now!"},
+			{"is_mine": false, "speaker": "Angie", "text": "Omg only a few left? Save me a spot, I'm transferring now!"},
+			{"is_mine": false, "speaker": "Adam", "text": "I want to buy too! Don't sell out, I'm clicking the link!"}
+		],
+		"Jane": [
+			{"is_mine": false, "speaker": "Admin", "text": "Thanks for your trust. The last 10 spots were just sold out!"},
+			{"is_mine": false, "speaker": "Admin", "text": "But to keep the hype, we had an emergency meeting and opened 100 more spots!!"},
+			{"is_mine": false, "speaker": "Admin", "text": "It's 5% pricier, but it's your last chance before it hits the exchange!"},
+			{"is_mine": false, "speaker": "Marcus", "text": "Wow! So many people bought it?! I just joined the group."},
+			{"is_mine": false, "speaker": "Marcus", "text": "I originally thought no one would buy this thing."},
+			{"is_mine": false, "speaker": "Marcus", "text": "Seeing so many buyers, I don't want to miss this chance anymore."},
+			{"is_mine": false, "speaker": "Chloe", "text": "Same here. Seeing so many buyers makes me feel there's nothing to fear."},
+			{"is_mine": false, "speaker": "Chloe", "text": "With so many people buying, it must be fine. I'm in too!"}
+		],
+		"Stanley": [
+			{"is_mine": false, "speaker": "Admin", "text": "Exactly! And a secret insider tip: the world's richest man M**k also bought Richcoin!"},
+			{"is_mine": false, "speaker": "Eric", "text": "For real!? M**k bought this Richcoin too!!"},
+			{"is_mine": false, "speaker": "Jason", "text": "Is this Richcoin really that powerful! Even the richest man is buying."},
+			{"is_mine": false, "speaker": "Joey", "text": "M**k's investment vision is never wrong! No more waiting, I'm buying!"},
+			{"is_mine": false, "speaker": "Jolim", "text": "Glad I grabbed the lowest price earlier. With M**k in, we'll definitely get rich."},
+			{"is_mine": false, "speaker": "Angie", "text": "So true! Glad I was fast enough. Following the richest man is guaranteed profit!"},
+			{"is_mine": false, "speaker": "Adam", "text": "That was close, glad I bought it too! I feel so secure now!"}
+		],
+		"Simon": [
+			{"is_mine": false, "speaker": "Simon", "text": "Hello everyone, I'm new here and just want to make some friends."},
+			{"is_mine": false, "speaker": "Eric", "text": "Seriously? You came to this group just to make friends?"},
+			{"is_mine": false, "speaker": "Eric", "text": "Isn't a chance to get rich better? Making friends isn't as important as money."},
+			{"is_mine": false, "speaker": "Aidan", "text": "Exactly. You might as well click the pinned link and get rich with us."},
+			{"is_mine": false, "speaker": "Chloe", "text": "Yeah newbie, take our advice, buying Richcoin with us is the real deal!"}
+		]
+	},
+	"bm": {
+		"Midas": [
+			{"is_mine": false, "speaker": "Admin", "text": "Mari saya perkenalkan kpd ahli baru, team kami lancarkan kripto baru bernama Richcoin!"},
+			{"is_mine": false, "speaker": "Admin", "text": "Masih dalam jualan dalaman. Beli sekarang dapat harga paling rendah!"},
+			{"is_mine": false, "speaker": "Admin", "text": "Dijangka naik 10x ganda! Jual nanti confirm dapat pulangan 10x!"},
+			{"is_mine": false, "speaker": "Admin", "text": "Saya sendiri dah labur banyak. Jom kita buat duit sama-sama!"},
+			{"is_mine": false, "speaker": "Admin", "text": "Sesiapa berminat, boleh klik pautan yang dipinkan untuk beli Richcoin."},
+			{"is_mine": false, "speaker": "Vincent", "text": "Pulangan 10x nampak gempak sangat! Nak join juga, saya nak beli!"},
+			{"is_mine": false, "speaker": "Aidan", "text": "Pulangan tinggi macam ni tak boleh lepas. Rugi besar nanti!"},
+			{"is_mine": false, "speaker": "Lucas", "text": "Harap boleh bayar loan rumah, silap-silap boleh beli kereta idaman!"}
+		],
+		"Lily": [
+			{"is_mine": false, "speaker": "Kelvin", "text": "Ah, Richcoin ni memang nampak bagus, pulangan pun tinggi sangat."},
+			{"is_mine": false, "speaker": "Kelvin", "text": "Tapi benda ni takkan habis dijual terus kalau lambat sikit?"},
+			{"is_mine": false, "speaker": "Admin", "text": "Tepat sekali! Kuota jualan dalaman sekarang tinggal 10 slot sahaja!"},
+			{"is_mine": false, "speaker": "Admin", "text": "Korang kena cepat! Teragak-agak akan rugi! Beli sekarang, nanti kita kaya!"},
+			{"is_mine": false, "speaker": "Jolim", "text": "Hah! Kuota nak habis dah ke?! Saya tak tunggu dah, beli terus!"},
+			{"is_mine": false, "speaker": "Angie", "text": "Biar betul tinggal sikit? Simpan satu slot, nak transfer sekarang!"},
+			{"is_mine": false, "speaker": "Adam", "text": "Saya pun nak beli! Jangan bagi habis, tengah klik pautan ni!"}
+		],
+		"Jane": [
+			{"is_mine": false, "speaker": "Admin", "text": "Terima kasih atas sokongan. 10 kuota terakhir tadi dah disapu bersih!"},
+			{"is_mine": false, "speaker": "Admin", "text": "Demi kehangatan komuniti, team kami buka 100 kuota tambahan secara khas!!"},
+			{"is_mine": false, "speaker": "Admin", "text": "Harga naik sikit 5%, tapi ini peluang terakhir sebelum masuk bursa!"},
+			{"is_mine": false, "speaker": "Marcus", "text": "Wah! Ramainya yang beli?! Saya baru je masuk group ni."},
+			{"is_mine": false, "speaker": "Marcus", "text": "Ingatkan takde orang yang akan beli benda ni pada mulanya."},
+			{"is_mine": false, "speaker": "Marcus", "text": "Bila tengok ramai yang beli, saya pun tak nak lepaskan peluang ni."},
+			{"is_mine": false, "speaker": "Chloe", "text": "Saya pun sama, nampak ramai yang dah beli, rasa tak takut dah."},
+			{"is_mine": false, "speaker": "Chloe", "text": "Ramai dah beli mesti takde masalah punya. Saya pun nak beli!"}
+		],
+		"Stanley": [
+			{"is_mine": false, "speaker": "Admin", "text": "Betul tu! Rahsia dalaman, orang terkaya dunia M**k pun beli Richcoin kita!"},
+			{"is_mine": false, "speaker": "Eric", "text": "Biar betul!? M**k pun beli Richcoin ni!! Gila ah!"},
+			{"is_mine": false, "speaker": "Jason", "text": "Hebat betul Richcoin ni! Sampai orang terkaya pun masuk beli."},
+			{"is_mine": false, "speaker": "Joey", "text": "Pandangan pelaburan M**k takkan salah! Tak payah tunggu dah, beli terus!"},
+			{"is_mine": false, "speaker": "Jolim", "text": "Nasib baik sempat grab harga murah tadi. M**k pun join, confirm kaya!"},
+			{"is_mine": false, "speaker": "Angie", "text": "Betul! Nasib baik cepat beli tadi. Ikut M**k memang confirm untung!"},
+			{"is_mine": false, "speaker": "Adam", "text": "Nasib baik saya pun dah beli! Rasa selamat dan yakin gila sekarang!"}
+		],
+		"Simon": [
+			{"is_mine": false, "speaker": "Simon", "text": "Hai semua, saya orang baru kat sini, masuk ni nak cari kawan je."},
+			{"is_mine": false, "speaker": "Eric", "text": "Seriuslah? Masuk group ni semata-mata nak cari kawan?"},
+			{"is_mine": false, "speaker": "Eric", "text": "Peluang kaya depan mata kot. Cari kawan tak sepenting buat duit."},
+			{"is_mine": false, "speaker": "Aidan", "text": "Betul tu, baik klik pautan kat atas lepastu kita kaya sama-sama."},
+			{"is_mine": false, "speaker": "Chloe", "text": "Yalah orang baru, dengar nasihat ni, beli Richcoin dengan kitorang lagi bagus!"}
+		]
+	},
+	"bt": {
+		"Midas": [
+			{"is_mine": false, "speaker": "Admin", "text": "புதியவர்களுக்கு அறிமுகம், எங்கள் குழு Richcoin என்ற புதிய கிரிப்டோவை வெளியிட்டுள்ளது!"},
+			{"is_mine": false, "speaker": "Admin", "text": "இது இன்னும் ஆரம்ப கட்ட விற்பனையில்தான் உள்ளது. இப்போது வாங்குவதுதான் மிக குறைந்த விலை!"},
+			{"is_mine": false, "speaker": "Admin", "text": "இது வந்ததும் 10 மடங்கு உயரும்! விற்றால் 10 மடங்கு லாபம்!"},
+			{"is_mine": false, "speaker": "Admin", "text": "நானும் அதிக முதலீடு செய்துள்ளேன். வாருங்கள் ஒன்றாக பணம் சம்பாதிப்போம்!"},
+			{"is_mine": false, "speaker": "Admin", "text": "ஆர்வம் உள்ளவர்கள், பின் செய்யப்பட்ட இணைப்பை கிளிக் செய்து Richcoin வாங்கலாம்."},
+			{"is_mine": false, "speaker": "Vincent", "text": "10 மடங்கு லாபம் அருமையாக உள்ளது! நானும் வாங்க விரும்புகிறேன்!"},
+			{"is_mine": false, "speaker": "Aidan", "text": "இதை தவறவிட முடியாது. தவறவிட்டால் பல வருடங்கள் காத்திருக்க வேண்டும்!"},
+			{"is_mine": false, "speaker": "Lucas", "text": "இதை வைத்து வீட்டுக்கடன் அடைத்து, கனவு காரையும் வாங்கலாம் என நம்புகிறேன்!"}
+		],
+		"Lily": [
+			{"is_mine": false, "speaker": "Kelvin", "text": "ஆஹா, இந்த Richcoin பார்ப்பதற்கு நன்றாக உள்ளது, லாபமும் மிக அதிகம்."},
+			{"is_mine": false, "speaker": "Kelvin", "text": "ஆனால் கொஞ்சம் தாமதித்தால் இது சீக்கிரம் விற்றுத் தீர்ந்துவிடுமா?"},
+			{"is_mine": false, "speaker": "Admin", "text": "சரியான கேள்வி! இந்த விற்பனையில் இப்போது 10 இடங்கள் மட்டுமே மீதமுள்ளன!"},
+			{"is_mine": false, "speaker": "Admin", "text": "எனவே விரைந்து செயல்படுங்கள்! தயங்கினால் நஷ்டம்! இப்போது வாங்குங்கள்!"},
+			{"is_mine": false, "speaker": "Jolim", "text": "என்ன! இடங்கள் சீக்கிரம் முடிகிறதா?! நான் இப்போதே வாங்குகிறேன்!"},
+			{"is_mine": false, "speaker": "Angie", "text": "கொஞ்சம் தான் உள்ளதா? எனக்கும் ஒரு இடம் வேண்டும், பணம் அனுப்புகிறேன்!"},
+			{"is_mine": false, "speaker": "Adam", "text": "நானும் வாங்க வேண்டும்! தீர்ந்துவிட வேண்டாம், லிங்கை கிளிக் செய்கிறேன்!"}
+		],
+		"Jane": [
+			{"is_mine": false, "speaker": "Admin", "text": "உங்கள் ஆதரவுக்கு நன்றி, முந்தைய 10 இடங்களும் விற்றுத் தீர்ந்துவிட்டன!"},
+			{"is_mine": false, "speaker": "Admin", "text": "ஆனால் குழுவின் ஆர்வத்திற்காக, மேலும் 100 இடங்களை திறந்துள்ளோம்!!"},
+			{"is_mine": false, "speaker": "Admin", "text": "விலை 5% அதிகம் என்றாலும், இதுவே உங்கள் கடைசி வாய்ப்பு!"},
+			{"is_mine": false, "speaker": "Marcus", "text": "வாவ்! இவ்வளவு பேர் வாங்கிவிட்டார்களா?! நான் இப்போதுதான் சேர்ந்தேன்."},
+			{"is_mine": false, "speaker": "Marcus", "text": "ஆரம்பத்தில் இதை யாரும் வாங்க மாட்டார்கள் என்று நினைத்தேன்."},
+			{"is_mine": false, "speaker": "Marcus", "text": "இவ்வளவு பேர் வாங்குவதைப் பார்த்தால், வாய்ப்பை தவறவிட விரும்பவில்லை."},
+			{"is_mine": false, "speaker": "Chloe", "text": "நானும் அப்படித்தான், இத்தனை பேர் வாங்கியதைப் பார்த்தால் பயமாக இல்லை."},
+			{"is_mine": false, "speaker": "Chloe", "text": "நிச்சயமாக எந்தப் பிரச்சனையும் இருக்காது. நானும் வாங்குகிறேன்!"}
+		],
+		"Stanley": [
+			{"is_mine": false, "speaker": "Admin", "text": "உண்மைதான்! ரகசிய செய்தி: உலகின் பணக்காரரான M**k-உம் Richcoin வாங்கியுள்ளார்!"},
+			{"is_mine": false, "speaker": "Eric", "text": "நிஜமாகவா!? அந்த M**k-உம் இந்த Richcoin-ஐ வாங்கியுள்ளாரா!!"},
+			{"is_mine": false, "speaker": "Jason", "text": "இந்த Richcoin இவ்வளவு பெரியதா! உலகப் பணக்காரர் கூட வாங்குகிறார்."},
+			{"is_mine": false, "speaker": "Joey", "text": "M**k-இன் முதலீட்டுப் பார்வை தவறாகாது! நான் நேரடியாக வாங்குகிறேன்!"},
+			{"is_mine": false, "speaker": "Jolim", "text": "குறைந்த விலையில் வாங்கியது நல்லது. இப்போது லாபம் உறுதி!"},
+			{"is_mine": false, "speaker": "Angie", "text": "உண்மைதான்! அவரைப் பின்தொடர்வது எப்பொழுதும் லாபமே!"},
+			{"is_mine": false, "speaker": "Adam", "text": "நல்லவேளையாக நானும் வாங்கிவிட்டேன்! மிகவும் பாதுகாப்பாக உணர்கிறேன்!"}
+		],
+		"Simon": [
+			{"is_mine": false, "speaker": "Simon", "text": "வணக்கம், நான் இங்கு புதியவன், நண்பர்களை உருவாக்கவே இங்கு வந்தேன்."},
+			{"is_mine": false, "speaker": "Eric", "text": "நிஜமாகவா? நண்பர்களை உருவாக்கவா இந்த குழுவிற்கு வந்தீர்கள்?"},
+			{"is_mine": false, "speaker": "Eric", "text": "பணக்காரராகும் வாய்ப்பு இருக்கும்போது, நண்பர்கள் முக்கியமா?"},
+			{"is_mine": false, "speaker": "Aidan", "text": "உண்மைதான், மேலே உள்ள லிங்கை கிளிக் செய்து பணக்காரராகுங்கள்."},
+			{"is_mine": false, "speaker": "Chloe", "text": "ஆமாம் புதியவரே, எங்கள் பேச்சைக் கேளுங்கள், Richcoin வாங்குவதுதான் சிறந்தது!"}
+		]
+	}
+}
 
 
 

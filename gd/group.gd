@@ -11,186 +11,242 @@ var lang = Global.current_language
 var all_groups_data = {
 	"ch": {
 		"Midas": [
-			{"is_mine": false, "text": "绝了！昨天丢进去 5000，今天早上看利息直接翻倍了！"},
-			{"is_mine": false, "text": "我刚把大马银行的定期存款全提出来了，导师说这波 RichCoin 回报率高达 300%！"},
-			{"is_mine": true,  "text": "欢迎新群友。今天下午的【稳赚暴利通道】最后开放。"},
-			{"is_mine": true,  "text": "想跟我们一起资本翻倍的，速度点链接锁仓：\n[url=https://richcoin-global.invest-now.pro]https://richcoin-global.invest-now.pro[/url]"},
-			{"is_mine": false, "text": "收到！我又追投了 2 万，跟着管理员买真的躺着数钱啊！"}
+			{"is_mine": false, "speaker": "群主", "text": "来跟各位新加入群组的人介绍一下，我们团队推出了新的加密货币，叫“发财币”！"},
+			{"is_mine": false, "speaker": "群主", "text": "现在发财币还是内部销售没上线，现在买绝对是全网最低价！"},
+			{"is_mine": false, "speaker": "群主", "text": "预计一上线最少暴涨10倍！到时候一抛售就是10倍的超高回报率！"},
+			{"is_mine": false, "speaker": "群主", "text": "我自己也砸了重本等发财，有钱大家一起赚！"},
+			{"is_mine": false, "speaker": "群主", "text": "只要有兴趣的人，都可以点击群置顶的链接来购买我们的发财币。"},
+			{"is_mine": false, "speaker": "Vincent", "text": "10倍回报率看着真香啊！算我一个，我也要买！"},
+			{"is_mine": false, "speaker": "Aidan", "text": "这么高的回报率绝对不能错过，错过等几年啊！"},
+			{"is_mine": false, "speaker": "Lucas", "text": "我就等这个还房贷了，说不定翻倍了还能提一辆梦中情车！"}
 		],
 		"Lily": [
-			{"is_mine": false, "text": "喂喂喂，刚看公告私募名额只剩几个了！还有谁没上车的？"},
-			{"is_mine": false, "text": "我刚才迟了一分钟差点没买到！幸好手快，不买真的会后悔一辈子！"},
-			{"is_mine": true,  "text": "各位，最后一波红利倒计时 5 分钟，错过今天再也没有这个价了。"},
-			{"is_mine": true,  "text": "别等别人都暴富了你才来拍大腿，抢购直达：\n[url=https://vip-access.richcoin-launch.net/private-sale]https://vip-access.richcoin-launch.net/private-sale[/url]"},
-			{"is_mine": false, "text": "天啊，幸好我全仓跟进了，慢一秒就彻底错过了！"}
+			{"is_mine": false, "speaker": "Kelvin", "text": "啊，这个发财币看着是真的不错，回报率这么高。"},
+			{"is_mine": false, "speaker": "Kelvin", "text": "不过这东西这么火，会不会晚一步就直接被抢完了啊？"},
+			{"is_mine": false, "speaker": "群主", "text": "你问到点上了，这个内部销售的名额现在只剩下10个名额了！"},
+			{"is_mine": false, "speaker": "群主", "text": "所以各位千万要快！犹豫就会败北！现在买，之后你我都是有钱人！"},
+			{"is_mine": false, "speaker": "Jolim", "text": "蛤！名额这么快就要完了吗？！那我也不等了，直接买！"},
+			{"is_mine": false, "speaker": "Angie", "text": "天啊只剩一点了？帮我留一个名额，我现在就去转账！"},
+			{"is_mine": false, "speaker": "Adam", "text": "我也要买！别抢完啊，我正在点链接了！"}
 		],
 		"Jane": [
-			{"is_mine": false, "text": "之前欠了银行几万的大马卡债，全靠导师带我买币，下个月就能一次过还清了！"},
-			{"is_mine": false, "text": "明白你的感受，我之前生意失败也是每天睡不着，是这个币救了我全家。"},
-			{"is_mine": true,  "text": "别灰心，发财币就是给普通人打破死局、实现打工人生意翻盘的唯一机会。"},
-			{"is_mine": true,  "text": "想要尽早摆脱债务、彻底翻身的，通道在这里：\n[url=https://pay.crypto-assets.secure-gateway.app/checkout]https://pay.crypto-assets.secure-gateway.app/checkout[/url]"},
-			{"is_mine": false, "text": "哭死，今天终于把拖欠几个月的租金给清了，这绝对是老天爷给的翻身出路！"}
+			{"is_mine": false, "speaker": "群主", "text": "非常感谢大家的支持，刚刚的最后10个名额已经被一抢而空了！"},
+			{"is_mine": false, "speaker": "群主", "text": "可是为了照顾社区热度，我们团队紧急开会决定破例再开放100个名额！！"},
+			{"is_mine": false, "speaker": "群主", "text": "虽然贵了5%，但再不抢就真的要等上线交易所了！到时候就不是低价了！"},
+			{"is_mine": false, "speaker": "Marcus", "text": "哇！这么多人都买了吗？！我才刚进来群罢了。"},
+			{"is_mine": false, "speaker": "Marcus", "text": "原本还以为说这东西应该没人会买，看来是我见识短了。"},
+			{"is_mine": false, "speaker": "Marcus", "text": "看到这么多人都买了，我也想不错过这个机会了。"},
+			{"is_mine": false, "speaker": "Chloe", "text": "我也一样，看到这么多人都买了，我也感觉没什么好怕的了。"},
+			{"is_mine": false, "speaker": "Chloe", "text": "这么多人都买了肯定没问题，我也跟上！"}
 		],
 		"Stanley": [
-			{"is_mine": false, "text": "听内幕说好几个华尔街的顶级风投大咖都在私下增持 RichCoin 了。"},
-			{"is_mine": false, "text": "那当然，普通的割韭菜项目那些富豪根本看不上。这个是有大集团技术背书的。"},
-			{"is_mine": true,  "text": "没错，普通理财只能抗通胀。大亨富豪玩的是高门槛的行业绝密私募。"},
-			{"is_mine": true,  "text": "本群享有专属白名单通道，想要跻身高阶资产圈的，直接直达链接：\n[url=https://internal-referral.richcoin-launch.com]https://internal-referral.richcoin-launch.com[/url]"},
-			{"is_mine": false, "text": "跟着上流社会的风向走绝对不会错，今天又入手了 5 个节点，格调立刻拉满。"}
+			{"is_mine": false, "speaker": "群主", "text": "说的没错！而且偷偷告诉各位，其实世界首富马X克也买了我们的发财币！"},
+			{"is_mine": false, "speaker": "Eric", "text": "真的假的！？那个马X克也买了这个发财币！！"},
+			{"is_mine": false, "speaker": "Jason", "text": "这个发财币居然这么厉害吗！连首富都会来买，牛逼啊！"},
+			{"is_mine": false, "speaker": "Joey", "text": "马X克的投资眼光肯定错不了！我不观望了，直接买！"},
+			{"is_mine": false, "speaker": "Jolim", "text": "幸好刚刚有抢到最低价钱的名额，首富都来买了，这次想不发财都难啊。"},
+			{"is_mine": false, "speaker": "Angie", "text": "真的！幸好我刚才手快抢到了，跟着首富绝对稳赚！"},
+			{"is_mine": false, "speaker": "Adam", "text": "太险了，幸好我也抢到了！现在简直安全感满满！"}
 		],
 		"Simon": [
-			{"is_mine": false, "text": "之前一个人在吉隆坡打拼感觉很孤单，谢谢这个群的兄弟姐妹每天无私分享赚钱内幕。"},
-			{"is_mine": false, "text": "对啊，导师和管理员真的就像家里人一样亲切，有钱大家一起赚，太温暖了。"},
-			{"is_mine": true,  "text": "我们不仅是一个投资群，更是一个互相扶持、共同走向富裕的大家庭。"},
-			{"is_mine": true,  "text": "信任我们的家人，请直接点击属于我们家庭的内部私募直达链接：\n[url=https://exclusive-mint.crypto-fast-track.org]https://exclusive-mint.crypto-fast-track.org[/url]"},
-			{"is_mine": false, "text": "感恩遇到这个充满爱的群，跟着大家一起买发财币，心里特别踏实安全！"}
+			{"is_mine": false, "speaker": "Simon", "text": "各位好啊，我是新加入的新人，想来认识朋友。"},
+			{"is_mine": false, "speaker": "Eric", "text": "认真的吗？来这个群是为了认识朋友？"},
+			{"is_mine": false, "speaker": "Eric", "text": "有发财的机会他不香吗，认识朋友哪有发财重要啊兄弟。"},
+			{"is_mine": false, "speaker": "Aidan", "text": "就是啊，还不如点击置顶的链接一起发财，赚钱才是硬道理。"},
+			{"is_mine": false, "speaker": "Chloe", "text": "对啊新来的，听句劝，跟着大家一起买发财币才是正经事！"}
 		]
 	},
 	"en": {
 		"Midas": [
-			{"is_mine": false, "text": "Insane! Placed 5,000 yesterday, checked this morning and my profit doubled!"},
-			{"is_mine": false, "text": "Just withdrew all my fixed deposits. Mentor says this RichCoin wave yields 300% ROI!"},
-			{"is_mine": true,  "text": "Welcome newcomers. Today's [Guaranteed High-Yield Channel] is open for the last time."},
-			{"is_mine": true,  "text": "To double your capital with us, secure your spot now:\n[url=https://richcoin-global.invest-now.pro]https://richcoin-global.invest-now.pro[/url]"},
-			{"is_mine": false, "text": "Done! Topped up another 20,000. Easiest money I've ever made!"}
+			{"is_mine": false, "speaker": "Admin", "text": "Let me introduce to the newcomers, our team launched a new crypto called Richcoin!"},
+			{"is_mine": false, "speaker": "Admin", "text": "It's still in internal presale. Buying now is the absolute lowest price!"},
+			{"is_mine": false, "speaker": "Admin", "text": "Expected to surge 10x once listed! You'll get a 10x ROI when you sell!"},
+			{"is_mine": false, "speaker": "Admin", "text": "I've invested heavily myself. Let's make money and get rich together!"},
+			{"is_mine": false, "speaker": "Admin", "text": "If you're interested, just click the pinned link to buy our Richcoin."},
+			{"is_mine": false, "speaker": "Vincent", "text": "A 10x return looks amazing! Count me in, I want to buy!"},
+			{"is_mine": false, "speaker": "Aidan", "text": "Can't miss such high returns. If we miss this, we wait years!"},
+			{"is_mine": false, "speaker": "Lucas", "text": "I'm counting on this for my mortgage, maybe even buy my dream car!"}
 		],
 		"Lily": [
-			{"is_mine": false, "text": "Hey guys! Notice says only a few private spots left! Who hasn't boarded yet?"},
-			{"is_mine": false, "text": "I was one minute late and almost missed out! You'll regret it for life if you don't buy now!"},
-			{"is_mine": true,  "text": "Countdown 5 minutes left for the final wave. You'll never see this price again."},
-			{"is_mine": true,  "text": "Don't wait until everyone is rich to regret it. Grab your quota now:\n[url=https://vip-access.richcoin-launch.net/private-sale]https://vip-access.richcoin-launch.net/private-sale[/url]"},
-			{"is_mine": false, "text": "Gosh, glad I went all in. A second later and I would've missed the flight entirely!"}
+			{"is_mine": false, "speaker": "Kelvin", "text": "Ah, this Richcoin really looks good with such a high ROI."},
+			{"is_mine": false, "speaker": "Kelvin", "text": "But will it be sold out directly if I'm just a bit slower?"},
+			{"is_mine": false, "speaker": "Admin", "text": "Spot on! There are only 10 spots left for this internal sale!"},
+			{"is_mine": false, "speaker": "Admin", "text": "So hurry up! Hesitation means losing! Buy now, be rich later!"},
+			{"is_mine": false, "speaker": "Jolim", "text": "What! Spots running out so fast?! I'm not waiting, buying now!"},
+			{"is_mine": false, "speaker": "Angie", "text": "Omg only a few left? Save me a spot, I'm transferring now!"},
+			{"is_mine": false, "speaker": "Adam", "text": "I want to buy too! Don't sell out, I'm clicking the link!"}
 		],
 		"Jane": [
-			{"is_mine": false, "text": "Had massive credit card debts before, but thanks to mentor, I can clear them all next month!"},
-			{"is_mine": false, "text": "I feel you. My business failed before and I couldn't sleep. This coin saved my whole family."},
-			{"is_mine": true,  "text": "Don't lose hope. Fortune Coin is the only chance for average folks to break their dead ends and flip their lives."},
-			{"is_mine": true,  "text": "To get out of debt and start your comeback journey, click here:\n[url=https://pay.crypto-assets.secure-gateway.app/checkout]https://pay.crypto-assets.secure-gateway.app/checkout[/url]"},
-			{"is_mine": false, "text": "Tearing up right now. Finally cleared my overdue rent today. This is truly our way out!"}
+			{"is_mine": false, "speaker": "Admin", "text": "Thanks for your trust. The last 10 spots were just sold out!"},
+			{"is_mine": false, "speaker": "Admin", "text": "But to keep the hype, we had an emergency meeting and opened 100 more spots!!"},
+			{"is_mine": false, "speaker": "Admin", "text": "It's 5% pricier, but it's your last chance before it hits the exchange!"},
+			{"is_mine": false, "speaker": "Marcus", "text": "Wow! So many people bought it?! I just joined the group."},
+			{"is_mine": false, "speaker": "Marcus", "text": "I originally thought no one would buy this thing."},
+			{"is_mine": false, "speaker": "Marcus", "text": "Seeing so many buyers, I don't want to miss this chance anymore."},
+			{"is_mine": false, "speaker": "Chloe", "text": "Same here. Seeing so many buyers makes me feel there's nothing to fear."},
+			{"is_mine": false, "speaker": "Chloe", "text": "With so many people buying, it must be fine. I'm in too!"}
 		],
 		"Stanley": [
-			{"is_mine": false, "text": "Insider leaks say several top Wall Street venture capitalists are secretly accumulating RichCoin."},
-			{"is_mine": false, "text": "Of course, those elites wouldn't look at ordinary retail projects. This has major institutional backing."},
-			{"is_mine": true,  "text": "Correct. Ordinary financial products only combat inflation. Tycoons play with exclusive, private allocations."},
-			{"is_mine": true,  "text": "This group enjoys a direct whitelist channel. To join the high-net-worth circle, click here:\n[url=https://internal-referral.richcoin-launch.com]https://internal-referral.richcoin-launch.com[/url]"},
-			{"is_mine": false, "text": "Following smart money never goes wrong. Just secured 5 more nodes today, elite status achieved."}
+			{"is_mine": false, "speaker": "Admin", "text": "Exactly! And a secret insider tip: the world's richest man M**k also bought Richcoin!"},
+			{"is_mine": false, "speaker": "Eric", "text": "For real!? M**k bought this Richcoin too!!"},
+			{"is_mine": false, "speaker": "Jason", "text": "Is this Richcoin really that powerful! Even the richest man is buying."},
+			{"is_mine": false, "speaker": "Joey", "text": "M**k's investment vision is never wrong! No more waiting, I'm buying!"},
+			{"is_mine": false, "speaker": "Jolim", "text": "Glad I grabbed the lowest price earlier. With M**k in, we'll definitely get rich."},
+			{"is_mine": false, "speaker": "Angie", "text": "So true! Glad I was fast enough. Following the richest man is guaranteed profit!"},
+			{"is_mine": false, "speaker": "Adam", "text": "That was close, glad I bought it too! I feel so secure now!"}
 		],
 		"Simon": [
-			{"is_mine": false, "text": "Used to feel so lonely hustling alone in KL, thank you brothers and sisters here for selflessly sharing tips."},
-			{"is_mine": false, "text": "Exactly! The mentor and admin are like family. Making money together feels so warm."},
-			{"is_mine": true,  "text": "We are more than an investment group; we are a family supporting each other towards wealth."},
-			{"is_mine": true,  "text": "For the family members who trust us, here is our exclusive allocation link:\n[url=https://exclusive-mint.crypto-fast-track.org]https://exclusive-mint.crypto-fast-track.org[/url]"},
-			{"is_mine": false, "text": "Grateful to find this loving community. Buying Fortune Coin with everyone gives me total peace of mind!"}
+			{"is_mine": false, "speaker": "Simon", "text": "Hello everyone, I'm new here and just want to make some friends."},
+			{"is_mine": false, "speaker": "Eric", "text": "Seriously? You came to this group just to make friends?"},
+			{"is_mine": false, "speaker": "Eric", "text": "Isn't a chance to get rich better? Making friends isn't as important as money."},
+			{"is_mine": false, "speaker": "Aidan", "text": "Exactly. You might as well click the pinned link and get rich with us."},
+			{"is_mine": false, "speaker": "Chloe", "text": "Yeah newbie, take our advice, buying Richcoin with us is the real deal!"}
 		]
 	},
 	"bm": {
 		"Midas": [
-			{"is_mine": false, "text": "Memang gila! Labur 5,000 semalam, pagi ni tengok untung terus ganda dua!"},
-			{"is_mine": false, "text": "Aku baru keluarkan semua simpanan tetap bank. Mentor kata RichCoin kali ni ROI sampai 300%!"},
-			{"is_mine": true,  "text": "Selamat datang ahli baru. Saluran [Untung Lumayan Dijamin] petang ini dibuka buat kali terakhir."},
-			{"is_mine": true,  "text": "Nak gandakan modal bersama kami? Klik pautan sekarang:\n[url=https://richcoin-global.invest-now.pro]https://richcoin-global.invest-now.pro[/url]"},
-			{"is_mine": false, "text": "Setel! Aku tambah lagi 20,000. Goyang kaki je buat duit dengan admin!"}
+			{"is_mine": false, "speaker": "Admin", "text": "Mari saya perkenalkan kpd ahli baru, team kami lancarkan kripto baru bernama Richcoin!"},
+			{"is_mine": false, "speaker": "Admin", "text": "Masih dalam jualan dalaman. Beli sekarang dapat harga paling rendah!"},
+			{"is_mine": false, "speaker": "Admin", "text": "Dijangka naik 10x ganda! Jual nanti confirm dapat pulangan 10x!"},
+			{"is_mine": false, "speaker": "Admin", "text": "Saya sendiri dah labur banyak. Jom kita buat duit sama-sama!"},
+			{"is_mine": false, "speaker": "Admin", "text": "Sesiapa berminat, boleh klik pautan yang dipinkan untuk beli Richcoin."},
+			{"is_mine": false, "speaker": "Vincent", "text": "Pulangan 10x nampak gempak sangat! Nak join juga, saya nak beli!"},
+			{"is_mine": false, "speaker": "Aidan", "text": "Pulangan tinggi macam ni tak boleh lepas. Rugi besar nanti!"},
+			{"is_mine": false, "speaker": "Lucas", "text": "Harap boleh bayar loan rumah, silap-silap boleh beli kereta idaman!"}
 		],
 		"Lily": [
-			{"is_mine": false, "text": "Wey korang! Pengumuman kata slot private sale tinggal sikit je lagi! Siapa belum naik van?"},
-			{"is_mine": false, "text": "Aku lambat satu minit tadi hampir melepas! Menyesal seumur hidup kalau tak beli sekarang!"},
-			{"is_mine": true,  "text": "Perhatian, kaunter bonus terakhir tutup lagi 5 minit. Lepas ni tak dapat dah harga ni."},
-			{"is_mine": true,  "text": "Jangan tunggu orang lain dah kaya baru nak menangis. Klik pautan pantas:\n[url=https://vip-access.richcoin-launch.net/private-sale]https://vip-access.richcoin-launch.net/private-sale[/url]"},
-			{"is_mine": false, "text": "Fuh nasib baik aku dah sauk semua, lambat sesaat tadi memang rugi besar!"}
+			{"is_mine": false, "speaker": "Kelvin", "text": "Ah, Richcoin ni memang nampak bagus, pulangan pun tinggi sangat."},
+			{"is_mine": false, "speaker": "Kelvin", "text": "Tapi benda ni takkan habis dijual terus kalau lambat sikit?"},
+			{"is_mine": false, "speaker": "Admin", "text": "Tepat sekali! Kuota jualan dalaman sekarang tinggal 10 slot sahaja!"},
+			{"is_mine": false, "speaker": "Admin", "text": "Korang kena cepat! Teragak-agak akan rugi! Beli sekarang, nanti kita kaya!"},
+			{"is_mine": false, "speaker": "Jolim", "text": "Hah! Kuota nak habis dah ke?! Saya tak tunggu dah, beli terus!"},
+			{"is_mine": false, "speaker": "Angie", "text": "Biar betul tinggal sikit? Simpan satu slot, nak transfer sekarang!"},
+			{"is_mine": false, "speaker": "Adam", "text": "Saya pun nak beli! Jangan bagi habis, tengah klik pautan ni!"}
 		],
 		"Jane": [
-			{"is_mine": false, "text": "Dulu hutang kad kredit keliling pinggang, nasib baik mentor bantu beli koin ni, bulan depan setel semua!"},
-			{"is_mine": false, "text": "Aku faham. Bisnes aku lingkup dulu sampai tak boleh tidur. Koin inilah yang selamatkan keluarga aku."},
-			{"is_mine": true,  "text": "Jangan putus asa. Fortune Coin adalah satu-satunya jalan untuk orang biasa lepaskan diri daripada kesempitan hidup."},
-			{"is_mine": true,  "text": "Sesiapa yang nak bebas hutang dan ubah nasib hidup, klik pautan ini:\n[url=https://pay.crypto-assets.secure-gateway.app/checkout]https://pay.crypto-assets.secure-gateway.app/checkout[/url]"},
-			{"is_mine": false, "text": "Nak nangis rasanya. Hari ni dapat setel sewa rumah yang tertunggak. Ini memang peluang keemasan!"}
+			{"is_mine": false, "speaker": "Admin", "text": "Terima kasih atas sokongan. 10 kuota terakhir tadi dah disapu bersih!"},
+			{"is_mine": false, "speaker": "Admin", "text": "Demi kehangatan komuniti, team kami buka 100 kuota tambahan secara khas!!"},
+			{"is_mine": false, "speaker": "Admin", "text": "Harga naik sikit 5%, tapi ini peluang terakhir sebelum masuk bursa!"},
+			{"is_mine": false, "speaker": "Marcus", "text": "Wah! Ramainya yang beli?! Saya baru je masuk group ni."},
+			{"is_mine": false, "speaker": "Marcus", "text": "Ingatkan takde orang yang akan beli benda ni pada mulanya."},
+			{"is_mine": false, "speaker": "Marcus", "text": "Bila tengok ramai yang beli, saya pun tak nak lepaskan peluang ni."},
+			{"is_mine": false, "speaker": "Chloe", "text": "Saya pun sama, nampak ramai yang dah beli, rasa tak takut dah."},
+			{"is_mine": false, "speaker": "Chloe", "text": "Ramai dah beli mesti takde masalah punya. Saya pun nak beli!"}
 		],
 		"Stanley": [
-			{"is_mine": false, "text": "Info dalaman kata beberapa pakar modal teroka Wall Street secara senyap tengah borong RichCoin."},
-			{"is_mine": false, "text": "Mestilah, golongan elit tak pandang projek runcit biasa. Projek ni ada sokongan institusi besar."},
-			{"is_mine": true,  "text": "Tepat sekali. Produk kewangan biasa cuma lawan inflasi. Golongan jutawan main 'private sale' premium."},
-			{"is_mine": true,  "text": "Group ini mendapat akses senarai putih eksklusif. Nak sertai komuniti aset kelas tinggi? Klik pautan:\n[url=https://internal-referral.richcoin-launch.com]https://internal-referral.richcoin-launch.com[/url]"},
-			{"is_mine": false, "text": "Ikut jejak langkah orang kaya takkan silap. Hari ni aku sauk lagi 5 nod, status elit setel."}
+			{"is_mine": false, "speaker": "Admin", "text": "Betul tu! Rahsia dalaman, orang terkaya dunia M**k pun beli Richcoin kita!"},
+			{"is_mine": false, "speaker": "Eric", "text": "Biar betul!? M**k pun beli Richcoin ni!! Gila ah!"},
+			{"is_mine": false, "speaker": "Jason", "text": "Hebat betul Richcoin ni! Sampai orang terkaya pun masuk beli."},
+			{"is_mine": false, "speaker": "Joey", "text": "Pandangan pelaburan M**k takkan salah! Tak payah tunggu dah, beli terus!"},
+			{"is_mine": false, "speaker": "Jolim", "text": "Nasib baik sempat grab harga murah tadi. M**k pun join, confirm kaya!"},
+			{"is_mine": false, "speaker": "Angie", "text": "Betul! Nasib baik cepat beli tadi. Ikut M**k memang confirm untung!"},
+			{"is_mine": false, "speaker": "Adam", "text": "Nasib baik saya pun dah beli! Rasa selamat dan yakin gila sekarang!"}
 		],
 		"Simon": [
-			{"is_mine": false, "text": "Dulu rasa sunyi sangat cari rezeki sorang-sorang kat KL, terima kasih abang kakak kat sini sebab selalu kongsi tips untung."},
-			{"is_mine": false, "text": "Betul! Mentor dengan admin dah macam keluarga sendiri, mesra sangat. Cari duit sama-sama rasa gembira."},
-			{"is_mine": true,  "text": "Kita bukan sekadar group pelaburan, kita adalah keluarga besar yang saling membantu demi kesenangan bersama."},
-			{"is_mine": true,  "text": "Buat ahli keluarga yang percaya kepada kami, klik pautan eksklusif kita di sini:\n[url=https://exclusive-mint.crypto-fast-track.org]https://exclusive-mint.crypto-fast-track.org[/url]"},
-			{"is_mine": false, "text": "Bersyukur sangat jumpa group yang penuh kasih sayang ni. Beli Fortune Coin sama-sama rasa tenang sangat!"}
+			{"is_mine": false, "speaker": "Simon", "text": "Hai semua, saya orang baru kat sini, masuk ni nak cari kawan je."},
+			{"is_mine": false, "speaker": "Eric", "text": "Seriuslah? Masuk group ni semata-mata nak cari kawan?"},
+			{"is_mine": false, "speaker": "Eric", "text": "Peluang kaya depan mata kot. Cari kawan tak sepenting buat duit."},
+			{"is_mine": false, "speaker": "Aidan", "text": "Betul tu, baik klik pautan kat atas lepastu kita kaya sama-sama."},
+			{"is_mine": false, "speaker": "Chloe", "text": "Yalah orang baru, dengar nasihat ni, beli Richcoin dengan kitorang lagi bagus!"}
 		]
 	},
 	"bt": {
 		"Midas": [
-			{"is_mine": false, "text": "அற்புதம்! நேற்று 5,000 போட்டேன், இன்று காலை லாபம் இரட்டிப்பாகிவிட்டது!"},
-			{"is_mine": false, "text": "எனது பிக்சட் டெபாசிட் முழுவதையும் எடுத்துவிட்டேன். RichCoin 300% லாபம் தரும் என வழிகாட்டி கூறுகிறார்!"},
-			{"is_mine": true,  "text": "புதியவர்களை வரவேற்கிறோம். இன்றைய [உத்தரவாத அதிக லாப வழி] கடைசி முறையாக திறக்கப்பட்டுள்ளது."},
-			{"is_mine": true,  "text": "எங்களுடன் உங்கள் மூலதனத்தை இரட்டிப்பாக்க, இப்போதே லிங்க்கை கிளிக் செய்யவும்:\n[url=https://richcoin-global.invest-now.pro]https://richcoin-global.invest-now.pro[/url]"},
-			{"is_mine": false, "text": "முடிந்தது! மேலும் 20,000 முதலீடு செய்துள்ளேன். நிர்வாகியுடன் சேர்ந்தால் மிக எளிதாக பணம் சம்பாதிக்கலாம்!"}
+			{"is_mine": false, "speaker": "Admin", "text": "புதியவர்களுக்கு அறிமுகம், எங்கள் குழு Richcoin என்ற புதிய கிரிப்டோவை வெளியிட்டுள்ளது!"},
+			{"is_mine": false, "speaker": "Admin", "text": "இது இன்னும் ஆரம்ப கட்ட விற்பனையில்தான் உள்ளது. இப்போது வாங்குவதுதான் மிக குறைந்த விலை!"},
+			{"is_mine": false, "speaker": "Admin", "text": "இது வந்ததும் 10 மடங்கு உயரும்! விற்றால் 10 மடங்கு லாபம்!"},
+			{"is_mine": false, "speaker": "Admin", "text": "நானும் அதிக முதலீடு செய்துள்ளேன். வாருங்கள் ஒன்றாக பணம் சம்பாதிப்போம்!"},
+			{"is_mine": false, "speaker": "Admin", "text": "ஆர்வம் உள்ளவர்கள், பின் செய்யப்பட்ட இணைப்பை கிளிக் செய்து Richcoin வாங்கலாம்."},
+			{"is_mine": false, "speaker": "Vincent", "text": "10 மடங்கு லாபம் அருமையாக உள்ளது! நானும் வாங்க விரும்புகிறேன்!"},
+			{"is_mine": false, "speaker": "Aidan", "text": "இதை தவறவிட முடியாது. தவறவிட்டால் பல வருடங்கள் காத்திருக்க வேண்டும்!"},
+			{"is_mine": false, "speaker": "Lucas", "text": "இதை வைத்து வீட்டுக்கடன் அடைத்து, கனவு காரையும் வாங்கலாம் என நம்புகிறேன்!"}
 		],
 		"Lily": [
-			{"is_mine": false, "text": "நண்பர்களே! அறிவிப்பில் சில பிரத்தியேக இடங்கள் மட்டுமே உள்ளன எனக் கூறப்பட்டுள்ளது! இன்னும் யார் வாங்கவில்லை?"},
-			{"is_mine": false, "text": "நான் ஒரு நிமிடம் தாமதித்தேன், நூலிழையில் தப்பித்தேன்! இப்போது வாங்காவிட்டால் வாழ்நாள் முழுவதும் வருந்துவீர்கள்!"},
-			{"is_mine": true,  "text": "இறுதி வாய்ப்பிற்கான கவுண்ட்டவுன் 5 நிமிடங்கள் மட்டுமே உள்ளது. இந்த விலை மீண்டும் கிடைக்காது."},
-			{"is_mine": true,  "text": "மற்றவர்கள் பணக்காரர்களாகும் வரை காத்திருந்து வருந்தாதீர்கள். இப்போதே லிங்க் மூலம் வாங்குங்கள்:\n[url=https://vip-access.richcoin-launch.net/private-sale]https://vip-access.richcoin-launch.net/private-sale[/url]"},
-			{"is_mine": false, "text": "நல்லவேளை, நான் இப்போதே முதலீடு செய்துவிட்டேன். ஒரு விநாடி தாமதித்திருந்தாலும் வாய்ப்பு போயிருக்கும்!"}
+			{"is_mine": false, "speaker": "Kelvin", "text": "ஆஹா, இந்த Richcoin பார்ப்பதற்கு நன்றாக உள்ளது, லாபமும் மிக அதிகம்."},
+			{"is_mine": false, "speaker": "Kelvin", "text": "ஆனால் கொஞ்சம் தாமதித்தால் இது சீக்கிரம் விற்றுத் தீர்ந்துவிடுமா?"},
+			{"is_mine": false, "speaker": "Admin", "text": "சரியான கேள்வி! இந்த விற்பனையில் இப்போது 10 இடங்கள் மட்டுமே மீதமுள்ளன!"},
+			{"is_mine": false, "speaker": "Admin", "text": "எனவே விரைந்து செயல்படுங்கள்! தயங்கினால் நஷ்டம்! இப்போது வாங்குங்கள்!"},
+			{"is_mine": false, "speaker": "Jolim", "text": "என்ன! இடங்கள் சீக்கிரம் முடிகிறதா?! நான் இப்போதே வாங்குகிறேன்!"},
+			{"is_mine": false, "speaker": "Angie", "text": "கொஞ்சம் தான் உள்ளதா? எனக்கும் ஒரு இடம் வேண்டும், பணம் அனுப்புகிறேன்!"},
+			{"is_mine": false, "speaker": "Adam", "text": "நானும் வாங்க வேண்டும்! தீர்ந்துவிட வேண்டாம், லிங்கை கிளிக் செய்கிறேன்!"}
 		],
 		"Jane": [
-			{"is_mine": false, "text": "முன்பு பெரும் கிரெடிட் கார்டு கடன் இருந்தது, ஆனால் வழிகாட்டியால் அடுத்த மாதம் அனைத்தையும் அடைத்துவிடலாம்!"},
-			{"is_mine": false, "text": "உங்கள் நிலை புரியுது. எனது தொழில் நஷ்டமடைந்து தூக்கமில்லாமல் தவித்தேன். இந்த காயின்தான் என் குடும்பத்தை மீட்டது."},
-			{"is_mine": true,  "text": "நம்பிக்கையை இழக்காதீர்கள். சாதாரண மக்கள் தங்கள் கஷ்டங்களிலிருந்து விடுபட்டு வாழ்க்கையை மாற்றிக்கொள்ள ஃபார்ட்டூன் காயின் மட்டுமே ஒரே வழி."},
-			{"is_mine": true,  "text": "கடனிலிருந்து விடுபட்டு உங்கள் வாழ்க்கையை மீட்டெடுக்க, இங்கே கிளிக் செய்யவும்:\n[url=https://pay.crypto-assets.secure-gateway.app/checkout]https://pay.crypto-assets.secure-gateway.app/checkout[/url]"},
-			{"is_mine": false, "text": "கண்ணீர் வருகிறது. இன்று இறுதியாக எனது நிலுவை வாடகையை செலுத்திவிட்டேன். இதுவே நமக்கான நல்வழி!"}
+			{"is_mine": false, "speaker": "Admin", "text": "உங்கள் ஆதரவுக்கு நன்றி, முந்தைய 10 இடங்களும் விற்றுத் தீர்ந்துவிட்டன!"},
+			{"is_mine": false, "speaker": "Admin", "text": "ஆனால் குழுவின் ஆர்வத்திற்காக, மேலும் 100 இடங்களை திறந்துள்ளோம்!!"},
+			{"is_mine": false, "speaker": "Admin", "text": "விலை 5% அதிகம் என்றாலும், இதுவே உங்கள் கடைசி வாய்ப்பு!"},
+			{"is_mine": false, "speaker": "Marcus", "text": "வாவ்! இவ்வளவு பேர் வாங்கிவிட்டார்களா?! நான் இப்போதுதான் சேர்ந்தேன்."},
+			{"is_mine": false, "speaker": "Marcus", "text": "ஆரம்பத்தில் இதை யாரும் வாங்க மாட்டார்கள் என்று நினைத்தேன்."},
+			{"is_mine": false, "speaker": "Marcus", "text": "இவ்வளவு பேர் வாங்குவதைப் பார்த்தால், வாய்ப்பை தவறவிட விரும்பவில்லை."},
+			{"is_mine": false, "speaker": "Chloe", "text": "நானும் அப்படித்தான், இத்தனை பேர் வாங்கியதைப் பார்த்தால் பயமாக இல்லை."},
+			{"is_mine": false, "speaker": "Chloe", "text": "நிச்சயமாக எந்தப் பிரச்சனையும் இருக்காது. நானும் வாங்குகிறேன்!"}
 		],
 		"Stanley": [
-			{"is_mine": false, "text": "பல முன்னணி வால் ஸ்ட்ரீட் முதலீட்டாளர்கள் ரகசியமாக RichCoin-ஐ வாங்கி வருவதாக உள்விவரங்கள் கூறுகின்றன."},
-			{"is_mine": false, "text": "நிச்சயமாக, அந்த உயரடுக்கு மக்கள் சாதாரண திட்டங்களை பார்க்க மாட்டார்கள். இதற்கு பெரும் நிறுவனங்களின் ஆதரவு உள்ளது."},
-			{"is_mine": true,  "text": "சரிதான். சாதாரண நிதி தயாரிப்புகள் பணவீக்கத்தை மட்டுமே எதிர்க்கும். பெரும் பணக்காரர்கள் பிரத்தியேக தனியார் ஒதுக்கீடுகளில் விளையாடுகிறார்கள்."},
-			{"is_mine": true,  "text": "இந்த குழுவிற்கு பிரத்யேக வைட்லிஸ்ட் (Whitelist) அணுகல் உள்ளது. உயர்தர சொத்து வட்டத்தில் இணைய, இங்கே கிளிக் செய்யவும்:\n[url=https://internal-referral.richcoin-launch.com]https://internal-referral.richcoin-launch.com[/url]"},
-			{"is_mine": false, "text": "[உறுப்பினர் C]: பெரும் பணக்காரர்களின் வழியைப் பின்பற்றினால் தவறாகாது. இன்று மேலும் 5 நோட்களை வாங்கினேன், தகுதி உயர்ந்துவிட்டது."}
+			{"is_mine": false, "speaker": "Admin", "text": "உண்மைதான்! ரகசிய செய்தி: உலகின் பணக்காரரான M**k-உம் Richcoin வாங்கியுள்ளார்!"},
+			{"is_mine": false, "speaker": "Eric", "text": "நிஜமாகவா!? அந்த M**k-உம் இந்த Richcoin-ஐ வாங்கியுள்ளாரா!!"},
+			{"is_mine": false, "speaker": "Jason", "text": "இந்த Richcoin இவ்வளவு பெரியதா! உலகப் பணக்காரர் கூட வாங்குகிறார்."},
+			{"is_mine": false, "speaker": "Joey", "text": "M**k-இன் முதலீட்டுப் பார்வை தவறாகாது! நான் நேரடியாக வாங்குகிறேன்!"},
+			{"is_mine": false, "speaker": "Jolim", "text": "குறைந்த விலையில் வாங்கியது நல்லது. இப்போது லாபம் உறுதி!"},
+			{"is_mine": false, "speaker": "Angie", "text": "உண்மைதான்! அவரைப் பின்தொடர்வது எப்பொழுதும் லாபமே!"},
+			{"is_mine": false, "speaker": "Adam", "text": "நல்லவேளையாக நானும் வாங்கிவிட்டேன்! மிகவும் பாதுகாப்பாக உணர்கிறேன்!"}
 		],
 		"Simon": [
-			{"is_mine": false, "text": "முன்பு கோலாலம்பூரில் தனியாக போராடியபோது தனிமையாக உணர்ந்தேன், இங்குள்ள சகோதர சகோதரிகள் சுயநலமின்றி குறிப்புகளைப் பகிர்வதற்கு நன்றி."},
-			{"is_mine": false, "text": "ஆமாம்! வழிகாட்டியும் நிர்வாகியும் குடும்பத்தினர் போல உள்ளனர். அனைவரும் இணைந்து பணம் சம்பாதிப்பது மகிழ்ச்சியாக உள்ளது."},
-			{"is_mine": true,  "text": "நாம் வெறும் முதலீட்டுக் குழு மட்டுமல்ல; ஒருவருக்கொருவர் ஆதரவளித்து இணைந்து முன்னேறும் ஒரு பெரிய குடும்பம்."},
-			{"is_mine": true,  "text": "எங்களை நம்பும் குடும்ப உறுப்பினர்களே, நமக்கான பிரத்தியேக ஒதுக்கீடு லிங்க்கை இப்போதே கிளிக் செய்யவும்:\n[url=https://exclusive-mint.crypto-fast-track.org]https://exclusive-mint.crypto-fast-track.org[/url]"},
-			{"is_mine": false, "text": "இந்த அன்பான குழுவைச் சந்திித்ததில் மகிழ்ச்சி. அனைவருடனும் இணைந்து ஃபார்ட்டூன் காயின் வாங்குவது மனதிற்கு மிகுந்த நிம்மதியைத் தருகிறது!"}
+			{"is_mine": false, "speaker": "Simon", "text": "வணக்கம், நான் இங்கு புதியவன், நண்பர்களை உருவாக்கவே இங்கு வந்தேன்."},
+			{"is_mine": false, "speaker": "Eric", "text": "நிஜமாகவா? நண்பர்களை உருவாக்கவா இந்த குழுவிற்கு வந்தீர்கள்?"},
+			{"is_mine": false, "speaker": "Eric", "text": "பணக்காரராகும் வாய்ப்பு இருக்கும்போது, நண்பர்கள் முக்கியமா?"},
+			{"is_mine": false, "speaker": "Aidan", "text": "உண்மைதான், மேலே உள்ள லிங்கை கிளிக் செய்து பணக்காரராகுங்கள்."},
+			{"is_mine": false, "speaker": "Chloe", "text": "ஆமாம் புதியவரே, எங்கள் பேச்சைக் கேளுங்கள், Richcoin வாங்குவதுதான் சிறந்தது!"}
 		]
 	}
 }
 
 
 
+
 func _ready():
-	# 1. 🟩 优先防错：如果大字典里压根不支持当前语言，强制走英文保底
+	# 1. 优先防错：判断语言
 	var current_lang = lang
 	if not all_groups_data.has(current_lang):
 		current_lang = "en"
-		
-	# 2. 🟩 剥开第一层：直接拿到当前语言的大字典
 	var lang_dict = all_groups_data[current_lang]
 	
-	# 3. 🟩 剥开第二层：拿当前正在攻略的 NPC 名字（钥匙）
-	var target_npc = Global.current_chat_name
+	# 2. 🌟 核心设计：定义固定的关卡推进顺序（对应你剧情的时间线）
+	# 时间线上：Midas 聊完后，Lily 进群接着聊，然后是 Jane，Stanley，最后 Simon 乱入
+	var npc_order = ["Midas", "Lily", "Jane", "Stanley", "Simon"]
 	
-	# 防呆：万一名字不对，默认展示 Midas 的洗脑群聊剧本
+	# 3. 抓取玩家当前正在攻略的目标
+	var target_npc = Global.current_chat_name
 	if target_npc == null or not lang_dict.has(target_npc):
 		target_npc = "Midas"
 		
-	# 4. 🟨 最终拿到剧本数组！
-	var current_script = lang_dict[target_npc]
-	
-	# 5. 🟦 渲染到 UI 生成满屏泡泡
-	for msg in current_script:
-		create_bubble(msg["text"], msg["is_mine"])
+	# 4. 🌟 动态计算截止到当前关卡，有哪些历史记录需要被打印出来
+	# 比如当前在跑 Jane 关卡，那应该显示：Midas -> Lily -> Jane 的所有对话
+	var target_index = npc_order.find(target_npc)
+	if target_index == -1:
+		target_index = 0 # 兜底安全机制
 		
-	print("✨ [群聊重构完毕] 当前语言大类: ", current_lang, " | 目标子类: ", target_npc, " | 成功渲染！")
+	print("📂 [群聊追加系统] 当前目标: ", target_npc, " | 历史关卡数: ", target_index + 1)
+	
+	# 5. 🔄 嵌套循环：按顺序追加加载之前所有目标的剧本
+	for i in range(target_index + 1):
+		var current_load_npc = npc_order[i]
+		
+		# 安全判定，确保字典里有这个目标的剧本
+		if lang_dict.has(current_load_npc):
+			var current_script = lang_dict[current_load_npc]
+			
+			# 把这个目标旗下的所有气泡按顺序塞进 UI
+			for msg in current_script:
+				create_bubble(msg["text"], msg["is_mine"], msg["speaker"])
+				
+	# 6. 全部加载完后，确保滚动条死死卡在最底下最新的消息上
+	scroll_to_bottom()
+	print("✨ [群聊历史追加完毕] 已完美无缝连接旧消息！")
 
 # ==============================================================
 # 👇 下面这两个函数，完全复制你 chat.gd 里的完美版，绝不穿帮
 # ==============================================================
 
-func create_bubble(content, is_mine):
+func create_bubble(content, is_mine,speaker):
 	var bubble = BUBBLE_SCENE.instantiate()
 	message_list.add_child(bubble)
 	
@@ -198,7 +254,7 @@ func create_bubble(content, is_mine):
 	content_label.text = content 
 	
 	var name_label = bubble.get_node("name")
-	name_label.text = "aha"
+	name_label.text = speaker
 	
 	# 🌟 动态计算气泡宽度 (最大 350px)
 	var font = content_label.get_theme_font("font")
