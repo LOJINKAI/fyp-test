@@ -226,13 +226,6 @@ func load_chat_history():
 	
 
 
-func _process(delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		_on_send_pressed()
-	
-	
-
-
 func _on_send_pressed():
 	var user_text = input_box.text.strip_edges()
 	if user_text == "":
@@ -278,17 +271,67 @@ func create_bubble(content, is_mine):
 	message_list.add_child(bubble)
 	
 	var label = bubble.get_node("Content") # 确保路径正确
-
+	
 	label.text = content 
 	
-	# 设置左右对齐
+	
+	# ==========================================
+	# 🌟 完美修复：只在超长时锁死宽度，短句由容器自然包裹
+	# ==========================================
+	var font = label.get_theme_font("font")
+	var font_size = label.get_theme_font_size("font_size")
+	var text_width = font.get_string_size(content, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
+	
+	if text_width > 350:
+		# 只有长句子超过 350px 宽，才强制开启换行并锁死宽度
+		label.custom_minimum_size.x = 350
+		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	else:
+		# 🟩 短句子（比如 "hi"）直接释放宽度锁定！
+		# 这样 Label 的宽度会绝对精准地等于 "hi" 的宽度（30px），两边不会有任何多余的死空白
+		label.custom_minimum_size.x = 0
+		label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	# ==========================================
+	
+	
+	
+	
 	if is_mine == true:
+		# 1. 玩家发的信息：整条消息靠右，文字在内部也靠右
 		bubble.size_flags_horizontal = Control.SIZE_SHRINK_END
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+		
+		# 2. 玩家气泡调色：纯白气泡 ✖ 蓝色 = 纯正的科技蓝
+		# 你原本写的 Color(0.2, 0.6, 1.0) 这个蓝色底色就非常亮眼、好看
+		bubble.modulate = Color(0.2, 0.6, 1.0, 1.0)
+		
 
 	else:
+		# 1. AI发的信息：整条消息靠左，文字在内部也靠左
 		bubble.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		
+		# 2. AI气泡调色：纯白气泡 ✖ 浅灰色 = 完美的社交软件浅灰色
+		# 想要“浅灰色”，RGB 三个通道的值就要调高一点（比如 0.85 到 0.9 之间）
+		bubble.modulate = Color(0.88, 0.88, 0.88, 1.0)
+		
+		
+	
+	
+	# ==========================================
+	# 🌟 强效修复：解决当下生成不换行的排版延迟
+	# ==========================================
+	# 1. 强制让 Label 和 气泡 重新计算自己的最小尺寸
+	label.update_minimum_size()
+	if bubble.has_method("update_minimum_size"):
+		bubble.update_minimum_size()
+	
+	# 2. 🟩 核心绝杀：强制让你的 VBoxContainer 容器立刻重新排列所有子节点
+	# 这样它就会在一微秒内把那个冲出去的长条生生勒回 350 宽并换行！
+	message_list.queue_sort()
+	# ==========================================
+	
+	
 	# 自动滚动到底部（稍后添加这个函数）
 	scroll_to_bottom()
 	
@@ -420,6 +463,29 @@ func _on_typing_timer_timeout():
 		current_ai_label.text += ai_full_response[ai_current_index]
 		ai_current_index += 1
 		# 每次打字都尝试滚动，保证长文本能看到最新的一行
+		# ==========================================
+		# 🌟 核心修复：打字机动态排版刷新
+		# 每打一个字，就重新量一下当前这句话有多长
+		# ==========================================
+		var font = current_ai_label.get_theme_font("font")
+		var font_size = current_ai_label.get_theme_font_size("font_size")
+		var text_width = font.get_string_size(current_ai_label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
+		var total_width = text_width + 40
+		
+		if total_width > 350:
+			# 一旦字数积累超过了 350，立刻锁死宽度，开启自动换行！
+			current_ai_label.custom_minimum_size.x = 350
+			current_ai_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		else:
+			# 还没超过 350 之前，紧贴文字生长
+			current_ai_label.custom_minimum_size.x = total_width
+			current_ai_label.autowrap_mode = TextServer.AUTOWRAP_OFF
+			
+		# 强制通知 UI 容器：“文字变长了/换行了，立刻重新排队！”
+		current_ai_label.update_minimum_size()
+		message_list.queue_sort()
+		# ==========================================
+		
 		scroll_to_bottom()  
 	else:
 		typing_timer.stop()
