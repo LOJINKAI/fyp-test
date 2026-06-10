@@ -104,13 +104,15 @@ stretch_mode = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 48.0
-offset_top = -425.0
-offset_right = 276.0
-offset_bottom = -325.0
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -230.0
+offset_top = -384.0
+offset_right = -6.0
+offset_bottom = -384.0
+grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
@@ -139,13 +141,15 @@ text = "none"
 
 [node name="bio" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 56.0
-offset_top = -313.0
-offset_right = 157.0
-offset_bottom = -244.0
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -222.0
+offset_top = 256.0
+offset_right = -146.0
+offset_bottom = 256.0
+grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -154,15 +158,17 @@ theme_override_font_sizes/font_size = 50
 text = "Bio"
 
 [node name="bio_card" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(450, 500)
 layout_mode = 1
-anchors_preset = 14
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 56.0
-offset_top = -209.0
-offset_right = -54.0
-offset_bottom = 319.0
+offset_left = -215.0
+offset_top = -250.0
+offset_right = 215.0
+offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -191,17 +197,19 @@ text = "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
 autowrap_mode = 1
 
 [node name="chat_button" type="Button" parent="."]
+custom_minimum_size = Vector2(432, 66)
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = 56.0
-offset_top = 375.0
-offset_right = -52.0
-offset_bottom = 438.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -215.0
+offset_top = -274.0
+offset_right = 217.0
+offset_bottom = -208.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 45
 theme_override_styles/normal = SubResource("StyleBoxFlat_63shq")

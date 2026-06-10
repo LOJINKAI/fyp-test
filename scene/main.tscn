@@ -90,14 +90,16 @@ horizontal_alignment = 1
 
 [node name="start" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(440, 80)
 layout_mode = 1
-anchors_preset = 14
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 48.0
+offset_left = -222.0
 offset_top = -177.0
-offset_right = -52.0
+offset_right = 218.0
 offset_bottom = -97.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -142,14 +144,16 @@ text = "New Game !"
 
 [node name="continue" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(440, 80)
 layout_mode = 1
-anchors_preset = 14
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 48.0
+offset_left = -222.0
 offset_top = -41.0
-offset_right = -52.0
+offset_right = 218.0
 offset_bottom = 39.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -183,14 +187,16 @@ text = "Continue"
 
 [node name="setting" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(440, 80)
 layout_mode = 1
-anchors_preset = 14
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 48.0
+offset_left = -222.0
 offset_top = 95.0
-offset_right = -52.0
+offset_right = 218.0
 offset_bottom = 175.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -228,15 +234,17 @@ text = "Setting"
 
 [node name="quit" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(440, 80)
 layout_mode = 1
-anchors_preset = 14
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 48.0
-offset_top = 247.0
-offset_right = -52.0
-offset_bottom = 327.0
+offset_left = -222.0
+offset_top = 239.0
+offset_right = 218.0
+offset_bottom = 319.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 25

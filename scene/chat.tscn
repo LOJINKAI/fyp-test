@@ -102,9 +102,9 @@ alignment = 1
 [node name="quit" type="TextureButton" parent="main/top/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 2
 size_flags_vertical = 4
-size_flags_stretch_ratio = 1.18
+size_flags_stretch_ratio = 0.0
 texture_normal = ExtResource("2_iy1w6")
 ignore_texture_size = true
 stretch_mode = 6
@@ -116,7 +116,6 @@ layout_direction = 1
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-size_flags_stretch_ratio = 12.91
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ta2v7")
 
@@ -130,7 +129,6 @@ stretch_mode = 6
 [node name="Label" type="Label" parent="main/top/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
-size_flags_stretch_ratio = 2.52
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "none
@@ -148,7 +146,7 @@ stretch_mode = 6
 [node name="help" type="TextureButton" parent="main/top/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 8
 size_flags_vertical = 4
 texture_normal = ExtResource("6_3uhj4")
 ignore_texture_size = true
@@ -157,8 +155,9 @@ stretch_mode = 6
 [node name="delete" type="TextureButton" parent="main/top/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 2
 size_flags_vertical = 4
+size_flags_stretch_ratio = 0.1
 texture_normal = ExtResource("4_w6hbh")
 ignore_texture_size = true
 stretch_mode = 6
@@ -184,7 +183,6 @@ theme_override_constants/margin_bottom = 20
 [node name="footer" type="HBoxContainer" parent="main/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-size_flags_stretch_ratio = 0.1
 
 [node name="MarginContainer" type="MarginContainer" parent="main/MarginContainer/footer"]
 self_modulate = Color(1, 1, 1, 0)
@@ -204,10 +202,9 @@ wrap_mode = 1
 script = ExtResource("5_7xw04")
 
 [node name="send" type="TextureButton" parent="main/MarginContainer/footer"]
-custom_minimum_size = Vector2(0, 80)
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 8
+size_flags_horizontal = 8
 texture_normal = ExtResource("5_xt7yk")
 ignore_texture_size = true
 stretch_mode = 5

@@ -1,0 +1,177 @@
+[gd_scene load_steps=10 format=3 uid="uid://cq4pxpneopry"]
+
+[ext_resource type="Script" path="res://gd/group.gd" id="1_80xfq"]
+[ext_resource type="Texture2D" uid="uid://ekotoyds1aak" path="res://image/app/pin.png" id="1_j8gdb"]
+[ext_resource type="Texture2D" uid="uid://qx0d78exl1ib" path="res://image/group/money.png" id="2_4qqxf"]
+[ext_resource type="Texture2D" uid="uid://bhaoludqrd7oi" path="res://image/app/quit.png" id="3_elt6q"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdx2v"]
+bg_color = Color(1, 1, 1, 1)
+shadow_color = Color(0, 0, 0, 0.196078)
+shadow_size = 6
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ta2v7"]
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_apxp1"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sf3tu"]
+content_margin_left = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p5oap"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(1, 1, 1, 1)
+
+[node name="group" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_80xfq")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -3
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="top" type="PanelContainer" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 100.0
+grow_horizontal = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_pdx2v")
+
+[node name="MarginContainer" type="MarginContainer" parent="top"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="top/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="quit" type="TextureButton" parent="top/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+size_flags_stretch_ratio = 1.18
+texture_normal = ExtResource("3_elt6q")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="PanelContainer" type="PanelContainer" parent="top/MarginContainer/HBoxContainer"]
+clip_children = 1
+custom_minimum_size = Vector2(60, 60)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+size_flags_stretch_ratio = 12.91
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ta2v7")
+
+[node name="photo" type="TextureRect" parent="top/MarginContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_4qqxf")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="top/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_stretch_ratio = 2.52
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "Group"
+
+[node name="pin_message" type="PanelContainer" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -226.0
+offset_top = 112.0
+offset_right = 229.0
+offset_bottom = 151.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_apxp1")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="pin_message"]
+layout_mode = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="pin_message/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_sf3tu")
+
+[node name="Label" type="TextureRect" parent="pin_message/HBoxContainer/PanelContainer3"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_j8gdb")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PanelContainer2" type="PanelContainer" parent="pin_message/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sf3tu")
+
+[node name="Label" type="Label" parent="pin_message/HBoxContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.442126, 0.790079, 1, 1)
+theme_override_font_sizes/font_size = 25
+text = "Link : https://richcoin-official.........."
+
+[node name="main" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 167.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="body" type="ScrollContainer" parent="main"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_p5oap")
+
+[node name="message_list" type="VBoxContainer" parent="main/body"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[connection signal="pressed" from="top/MarginContainer/HBoxContainer/quit" to="." method="_on_quit_pressed"]

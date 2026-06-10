@@ -587,7 +587,7 @@ func on_victory():
 	
 	Global.set(npc_done,true)
 	
-	Global.save_victim_states()
+	Global.save_game_status()
 	
 	if Global.Lily_done == true && Global.Midas_done == true && Global.Jane_done == true && Global.Stanley_done == true && Global.Simon_done == true:
 		Global.game_end = true

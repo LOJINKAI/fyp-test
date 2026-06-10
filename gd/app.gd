@@ -36,7 +36,7 @@ func show_target():
 	# ========================================================
 	# 🌟 核心重构：数据驱动名单 (以后加新受害者，只需要在这个数组里加名字！)
 	# ========================================================
-	var targets = ["Midas", "Lily", "Jane", "Simon", "Stanley"] 
+	var targets = ["Midas", "Lily", "Jane", "Stanley", "Simon"] 
 	
 	var is_previous_done = true # 第一把钥匙默认是给的（第一个人默认解锁）
 	
@@ -61,6 +61,9 @@ func show_target():
 			target_ui.visible = true
 			target_btn.disabled = false
 			is_previous_done = false # 把钥匙没收，后面的目标不准解锁！
+			
+			Global.current_chat_name = target
+			
 		else:
 			# 情况 C：前面的还没骗完 -> 后面的统统锁定/隐藏
 			target_ui.visible = false
@@ -260,3 +263,8 @@ func _on_simon_pressed():
 	
 	
 	get_tree().change_scene_to_file("res://scene/bio.tscn") 
+
+
+func _on_group_pressed():
+	SoundEffect.play_sound("ui_click")
+	get_tree().change_scene_to_file("res://scene/group.tscn") 

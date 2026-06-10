@@ -1,10 +1,12 @@
-[gd_scene load_steps=18 format=3 uid="uid://cfxggmjkwm8nn"]
+[gd_scene load_steps=20 format=3 uid="uid://cfxggmjkwm8nn"]
 
 [ext_resource type="Script" path="res://gd/app.gd" id="1_iaqfa"]
 [ext_resource type="Texture2D" uid="uid://bhaoludqrd7oi" path="res://image/app/quit.png" id="2_t55w7"]
 [ext_resource type="Texture2D" uid="uid://dsfylrvtv3jos" path="res://image/app/S.png" id="3_6oxoy"]
 [ext_resource type="Texture2D" uid="uid://b2oucsvmjrnf" path="res://image/app/setting.png" id="4_fl3x8"]
 [ext_resource type="Texture2D" uid="uid://df7w6kkvhxgv7" path="res://image/app/Lily.png" id="5_tv8i7"]
+[ext_resource type="Texture2D" uid="uid://qx0d78exl1ib" path="res://image/group/money.png" id="5_tvi4j"]
+[ext_resource type="Texture2D" uid="uid://ekotoyds1aak" path="res://image/app/pin.png" id="6_gxqyn"]
 [ext_resource type="Texture2D" uid="uid://b6etxjksfwg7u" path="res://image/app/Midas.png" id="7_vynqb"]
 [ext_resource type="Texture2D" uid="uid://l8a6idcbaann" path="res://image/app/Jane.png" id="8_i73o2"]
 [ext_resource type="Texture2D" uid="uid://dwk2wol6cusjs" path="res://image/app/Stanley.png" id="9_tfd68"]
@@ -148,14 +150,82 @@ expand_mode = 2
 stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_top = 128.0
-offset_right = 648.0
-offset_bottom = 888.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 104.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="group" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(500, 130)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5b3rb")
+
+[node name="group" type="Button" parent="VBoxContainer/group"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/group/group"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/group/group/HBoxContainer"]
+clip_children = 1
+custom_minimum_size = Vector2(100, 100)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_g7g6t")
+
+[node name="photo" type="TextureRect" parent="VBoxContainer/group/group/HBoxContainer/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("5_tvi4j")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/group/group/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "Group"
+
+[node name="pin" type="PanelContainer" parent="VBoxContainer/group/group/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0.772549)
+clip_children = 1
+custom_minimum_size = Vector2(50, 50)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_g7g6t")
+
+[node name="pin" type="TextureRect" parent="VBoxContainer/group/group/HBoxContainer/pin"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("6_gxqyn")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="midas" type="PanelContainer" parent="VBoxContainer"]
 visible = false
-custom_minimum_size = Vector2(648, 130)
+custom_minimum_size = Vector2(500, 130)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5b3rb")
 
@@ -197,7 +267,7 @@ text = "Midas"
 
 [node name="lily" type="PanelContainer" parent="VBoxContainer"]
 visible = false
-custom_minimum_size = Vector2(648, 130)
+custom_minimum_size = Vector2(500, 130)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5b3rb")
 
@@ -239,7 +309,7 @@ text = "Lily"
 
 [node name="jane" type="PanelContainer" parent="VBoxContainer"]
 visible = false
-custom_minimum_size = Vector2(648, 130)
+custom_minimum_size = Vector2(500, 130)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wxca3")
 
@@ -281,7 +351,7 @@ text = "Jane"
 
 [node name="stanley" type="PanelContainer" parent="VBoxContainer"]
 visible = false
-custom_minimum_size = Vector2(648, 130)
+custom_minimum_size = Vector2(500, 130)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wxca3")
 
@@ -323,7 +393,7 @@ text = "Stanley"
 
 [node name="simon" type="PanelContainer" parent="VBoxContainer"]
 visible = false
-custom_minimum_size = Vector2(648, 130)
+custom_minimum_size = Vector2(500, 130)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wxca3")
 
@@ -366,10 +436,10 @@ text = "Simon"
 [node name="arrow" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 216.0
-offset_top = 96.0
-offset_right = 666.0
-offset_bottom = 296.0
+offset_left = 208.0
+offset_top = 200.0
+offset_right = 658.0
+offset_bottom = 400.0
 rotation = 1.0472
 scale = Vector2(0.9, 0.9)
 mouse_filter = 2
@@ -383,6 +453,7 @@ libraries = {
 autoplay = "arrow"
 
 [connection signal="pressed" from="top/MarginContainer/HBoxContainer/PanelContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="VBoxContainer/group/group" to="." method="_on_group_pressed"]
 [connection signal="pressed" from="VBoxContainer/midas/midas" to="." method="_on_midas_pressed"]
 [connection signal="pressed" from="VBoxContainer/lily/lily" to="." method="_on_lily_pressed"]
 [connection signal="pressed" from="VBoxContainer/jane/jane" to="." method="_on_jane_pressed"]

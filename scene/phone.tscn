@@ -90,18 +90,26 @@ horizontal_alignment = 1
 
 [node name="main_page2" type="PanelContainer" parent="."]
 clip_children = 1
-layout_mode = 0
-offset_left = 72.0
-offset_top = 264.0
-offset_right = 172.0
-offset_bottom = 364.0
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -246.0
+offset_top = -329.0
+offset_right = -146.0
+offset_bottom = -229.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_q5d3c")
 
 [node name="chat" type="TextureButton" parent="main_page2"]
 layout_mode = 2
 texture_normal = ExtResource("3_07te4")
 ignore_texture_size = true
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="arrow" type="TextureRect" parent="."]
 visible = false
@@ -142,6 +150,7 @@ offset_bottom = -62.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_q5d3c")
 
 [node name="TextureRect" type="TextureRect" parent="Control/call"]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture = ExtResource("6_kat26")
 expand_mode = 1
@@ -157,6 +166,7 @@ offset_bottom = -62.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_q5d3c")
 
 [node name="TextureRect" type="TextureRect" parent="Control/camera"]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture = ExtResource("7_d1m8u")
 expand_mode = 1
@@ -172,6 +182,7 @@ offset_bottom = -62.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_q5d3c")
 
 [node name="TextureRect" type="TextureRect" parent="Control/mail"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 texture = ExtResource("7_q5sdp")
 expand_mode = 1
@@ -179,11 +190,19 @@ stretch_mode = 6
 
 [node name="main_page" type="PanelContainer" parent="Control"]
 clip_children = 1
-layout_mode = 0
-offset_left = 154.0
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 146.0
 offset_top = -162.0
-offset_right = 254.0
+offset_right = 246.0
 offset_bottom = -62.0
+grow_horizontal = 2
+grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_q5d3c")
 
 [node name="TextureButton" type="TextureButton" parent="Control/main_page"]

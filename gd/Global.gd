@@ -5,7 +5,7 @@ extends Node
 
 
 #save file
-const victim_file = "user://victim_status.json"
+
 const game_status = "user://game_status.json"
 const game_setting = "user://game_setting.json"
 const chat_history = "user://chat_history.json"
@@ -67,7 +67,6 @@ func _ready():
 	
 	# 🟩 游戏一启动，就自动加载本地所有的屏蔽数据，保证变量在内存中是最新的
 	laod_game_setting()
-	load_victim_states()
 	load_game_status()
 	
 	load_game_sound_volume()
@@ -91,8 +90,6 @@ func _ready():
 
 func reset_and_new_game():
 	
-	if FileAccess.file_exists(victim_file): 
-		DirAccess.remove_absolute(victim_file)
 	if FileAccess.file_exists(game_status):
 		DirAccess.remove_absolute(game_status)
 	if FileAccess.file_exists(chat_history): 
@@ -110,7 +107,6 @@ func reset_and_new_game():
 	Stanley_done = false
 	Simon_done = false
 	
-	load_victim_states()
 	load_game_status()
 
 
@@ -265,7 +261,18 @@ func save_game_status():
 			"app_tutorial_finished": app_tutorial_finished,
 			"bio_tutorial_finished": bio_tutorial_finished,
 			"chat_tutorial_finished": chat_tutorial_finished,
-			"game_end": game_end
+			"game_end": game_end,
+			
+			"current_chat_name": current_chat_name,
+			
+			
+			"Lily_done": Lily_done,
+			"Midas_done": Midas_done,
+			"Jane_done": Jane_done,
+			"Stanley_done": Stanley_done,
+			"Simon_done": Simon_done 
+			
+			
 
 		}
 		var json_string = JSON.stringify(data_to_save)
@@ -288,13 +295,18 @@ func load_game_status():
 		if data is Dictionary:
 
 
-			# 1. 恢复语言
 			phone_tutorial_finished = data.get("phone_tutorial_finished", false)
 			app_tutorial_finished = data.get("app_tutorial_finished", false)
 			bio_tutorial_finished = data.get("bio_tutorial_finished", false)
 			chat_tutorial_finished = data.get("chat_tutorial_finished", false)
 			game_end = data.get("game_end", false)
-
+			current_chat_name  = data.get("current_chat_name", false)
+			
+			Lily_done = data.get("Lily_done", false)
+			Midas_done = data.get("Midas_done", false)
+			Jane_done = data.get("Jane_done", false)
+			Stanley_done = data.get("Stanley_done", false)
+			Simon_done = data.get("Simon_done", false)
 
 
 func save_game_setting():
@@ -304,6 +316,7 @@ func save_game_setting():
 			"current_language": current_language,
 			"bgm_volume": bgm_volume,
 			"sound_effect_volume": sound_effect_volume,
+			"current_chat_name": current_chat_name
 		}
 		var json_string = JSON.stringify(data_to_save)
 		file.store_string(json_string)
@@ -328,48 +341,8 @@ func laod_game_setting():
 
 
 
-# 🟩 在游戏启动时，或者各个场景准备时调用，用来从本地文件读取屏蔽状态
-func load_victim_states():
-	if not FileAccess.file_exists(victim_file):
-		return # 文件不存在说明全是默认值
-		
-	var file = FileAccess.open(victim_file, FileAccess.READ)
-	if file:
-		var json_string = file.get_as_text()
-		file.close()
-		
-		var data = JSON.parse_string(json_string)
-		if data is Dictionary:
-			
-			
 
-			Lily_done = data.get("Lily_done", false)
-			Midas_done = data.get("Midas_done", false)
-			Jane_done = data.get("Jane_done", false)
-			Stanley_done = data.get("Stanley_done", false)
-			Simon_done = data.get("Simon_done", false)
-			
 
-# 📝 只要状态一改变，就立刻物理写进硬盘
-func save_victim_states():
-	var file = FileAccess.open(victim_file, FileAccess.WRITE)
-	if file:
-		var data_to_save = {
-			
-			
-			
-			# 🟩 新增：把四个受害者是否成功收割（Done）的状态也狠狠存进硬盘！
-			"Lily_done": Lily_done,
-			"Midas_done": Midas_done,
-			"Jane_done": Jane_done,
-			"Stanley_done": Stanley_done,
-			"Simon_done": Simon_done 
-			
-		}
-		var json_string = JSON.stringify(data_to_save)
-		file.store_string(json_string)
-		file.close()
-		print("📝 [Global] 本地硬盘文件同步成功（已包含所有通关/屏蔽数据）。")
 
 # 🟩 新增：供所有关卡/场景调用的物理清空聊天历史函数
 func reset_victim_chat_history():
