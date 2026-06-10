@@ -37,11 +37,6 @@ var fail_message
 var entering
 var show_image_message
 
-#record victim block status
-var Lily_current_block = false
-var Midas_current_block = false
-var Jane_current_block = false
-var Stanley_current_block = false
 
 
 #record victim done or not
@@ -347,13 +342,7 @@ func load_victim_states():
 		if data is Dictionary:
 			
 			
-			# 2. 恢复加入黑名单的屏蔽状态
-			Lily_current_block = data.get("Lily_current_block", false)
-			Midas_current_block = data.get("Midas_current_block", false)
-			Jane_current_block = data.get("Jane_current_block", false)
-			Stanley_current_block = data.get("Stanley_current_block", false)
-			
-			# 🟩 新增：从硬盘里安全恢复四个人的通关状态！
+
 			Lily_done = data.get("Lily_done", false)
 			Midas_done = data.get("Midas_done", false)
 			Jane_done = data.get("Jane_done", false)
@@ -368,11 +357,6 @@ func save_victim_states():
 		var data_to_save = {
 			
 			
-			# 1. 储存点击黑名单的屏蔽状态
-			"Lily_current_block": Lily_current_block,
-			"Midas_current_block": Midas_current_block,
-			"Jane_current_block": Jane_current_block,
-			"Stanley_current_block": Stanley_current_block,
 			
 			# 🟩 新增：把四个受害者是否成功收割（Done）的状态也狠狠存进硬盘！
 			"Lily_done": Lily_done,

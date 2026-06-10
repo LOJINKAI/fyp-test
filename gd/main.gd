@@ -78,12 +78,15 @@ func _on_start_pressed():
 	
 
 func _on_intro_finished():
-	#get_tree().change_scene_to_file("res://scene/phone.tscn")
+	
+	await get_tree().create_timer(2.0).timeout
+	
+	get_tree().change_scene_to_file("res://scene/phone.tscn")
 	
 	#Global.fade_to_fade("res://scene/phone.tscn", 1.0)
 	
 	
-	Global.fade_to_scene("res://scene/phone.tscn", 1.0)
+	#Global.fade_to_scene("res://scene/phone.tscn", 1.0)
 
 
 func _on_setting_pressed():
