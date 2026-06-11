@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bjf7fwhuho70n"]
+[gd_scene load_steps=18 format=3 uid="uid://bjf7fwhuho70n"]
 
 [ext_resource type="Script" path="res://gd/chat.gd" id="1_alrcu"]
 [ext_resource type="Texture2D" uid="uid://bhaoludqrd7oi" path="res://image/app/quit.png" id="2_iy1w6"]
@@ -40,6 +40,9 @@ corner_radius_top_left = 25
 corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64agg"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ur3ob"]
 bg_color = Color(0.695158, 0, 0.126318, 1)
@@ -191,13 +194,20 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8
 
-[node name="TextEdit" type="TextEdit" parent="main/MarginContainer/footer/MarginContainer"]
-custom_minimum_size = Vector2(420.935, 80)
+[node name="InputScroll" type="ScrollContainer" parent="main/MarginContainer/footer/MarginContainer"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_om3rr")
+horizontal_scroll_mode = 0
+
+[node name="TextEdit" type="TextEdit" parent="main/MarginContainer/footer/MarginContainer/InputScroll"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 0
 size_flags_stretch_ratio = 8.64
 theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_om3rr")
+theme_override_styles/normal = SubResource("StyleBoxFlat_64agg")
 placeholder_text = "Message"
 wrap_mode = 1
 scroll_fit_content_height = true
@@ -307,7 +317,7 @@ text = "Next Target"
 [connection signal="pressed" from="main/top/MarginContainer/HBoxContainer/note" to="." method="_on_note_pressed"]
 [connection signal="pressed" from="main/top/MarginContainer/HBoxContainer/help" to="." method="_on_help_pressed"]
 [connection signal="pressed" from="main/top/MarginContainer/HBoxContainer/delete" to="." method="_on_delete_pressed"]
-[connection signal="text_changed" from="main/MarginContainer/footer/MarginContainer/TextEdit" to="." method="_on_text_edit_text_changed"]
+[connection signal="text_changed" from="main/MarginContainer/footer/MarginContainer/InputScroll/TextEdit" to="." method="_on_text_edit_text_changed"]
 [connection signal="pressed" from="main/MarginContainer/footer/send" to="." method="_on_send_pressed"]
 [connection signal="pressed" from="fail_layer/ColorRect/again" to="." method="_on_again_pressed"]
 [connection signal="pressed" from="success_layer/ColorRect/next_target" to="." method="_on_next_target_pressed"]

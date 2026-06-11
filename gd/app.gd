@@ -23,12 +23,12 @@ func _ready():
 	
 	
 	var targets = ["Midas", "Lily", "Jane", "Stanley", "Simon"]
-	var all_targets_scammed = false # 默认设为全过
+	var all_targets_scammed = true # 默认设为全过
 	
 	# 2. 循环检查，只要有任何一个人的 _done 是 false，就说明还没通关！
 	for target in targets:
-		if Global.get(target + "_done") == true:
-			all_targets_scammed = true
+		if Global.get(target + "_done") == false:
+			all_targets_scammed = false
 			break 
 			
 			

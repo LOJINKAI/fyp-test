@@ -11,13 +11,18 @@ const NOTE_POPUP_SCENE = preload("res://scene/note.tscn")
 @onready var message_list = $main/body/message_list
 
 
-@onready var input_box := $main/MarginContainer/footer/MarginContainer/TextEdit
-							
+@onready var input_box := $main/MarginContainer/footer/MarginContainer/InputScroll/TextEdit
+@onready var input_scroll := $main/MarginContainer/footer/MarginContainer/InputScroll
+
+
 @onready var send_button := $"main/MarginContainer/footer/send"
 
 var http := HTTPRequest.new()
 var typing_timer: Timer
 var typing_speed := 0.03
+
+var drag_velocity := 0.0
+var is_dragging := false
 
 
 # 在代码顶部添加一个变量
@@ -87,7 +92,15 @@ func _ready():
 	$main/top/MarginContainer/HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar
 	
 	
-	input_box.gui_input.connect(_on_input_box_gui_input)
+	if input_box:
+		# 1. 彻底开启无限生长模式！TextEdit 在 ScrollContainer 肚子里会无限长高，永远不出现内部滚动条
+		input_box.scroll_fit_content_height = true 
+		
+		
+		# 2. 对外壳 ScrollContainer 的原生丑陋滚动条进行光学隐形和物理压扁
+		var v_scroll = input_scroll.get_v_scroll_bar()
+		v_scroll.modulate = Color(1, 1, 1, 0)
+		v_scroll.scale.x = 0
 	
 	
 	
@@ -103,6 +116,8 @@ func _ready():
 	add_child(typing_timer)
 	
 	ProjectSettings.set_setting("display/window/handheld/page_focus_mode", 0)
+	
+	input_box.gui_input.connect(_on_input_box_gui_input)
 	
 	load_chat_history() 
 	
@@ -136,52 +151,45 @@ func _ready():
 
 
 func _on_input_box_gui_input(event):
-	# 只有当输入框内容超过 180，自适应被关闭，需要内部滑动时，才触发截胡
-	if input_box.scroll_fit_content_height == false:
+	# 只有当输入框被撑满（高度达到180）时，才允许滑动
+	if input_scroll.size.y >= 180:
 		
-		# 🌟 修复 2：如果玩家已经选中了文字（长按呼出了全选，或者正在拖动光标选词）
-		# 绝对不截胡！直接放行给系统，保证输入法的全选/复制/粘贴功能 100% 正常！
-		if input_box.has_selection():
-			return
-			
-		# 1. 检测：是不是手指在屏幕上拖拽？
+		# 1. 🌟 识别手指在屏幕上的滑动拖拽
 		if event is InputEventScreenDrag or (event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
+			is_dragging = true
 			
-			var v_scroll = input_box.get_v_scroll_bar()
-			if v_scroll:
-				# 🌟 修复 1：加上阻尼系数（damp_factor）
-				# 把手指的位移乘以 0.4，大幅降低滑动敏感度，手感立刻变成 Messenger 那种沉稳感！
-				var damp_factor = 0.4
-				v_scroll.value -= (event.relative.y * damp_factor)
-				
-				# 🌟 绝杀：只吞掉幅度大于 1 像素的明确滑动！
-				# 这样你长按屏幕时手指的轻微抖动就不会被吞，长按全选菜单就能完美弹出了！
-				if abs(event.relative.y) > 1.0:
-					input_box.accept_event()
-					
-					
+			# 完美跟手：手指滑多少，滚动条就推多少
+			input_scroll.scroll_vertical -= event.relative.y
+			drag_velocity = event.relative.y # 记录这一瞬间的速度，留给惯性引擎用
+			
+			# 💥 究极绝杀：一口吞掉这个滑动事件！
+			# TextEdit 根本收不到这个拖拽，也就绝对不会去画蓝色的选中框了！
+			input_box.accept_event()
+			
+		# 2. 🌟 识别手指离开屏幕（松开）
+		elif event is InputEventScreenTouch or event is InputEventMouseButton:
+			if not event.pressed:
+				is_dragging = false
 
-func _process(_delta):
-	# 1. 动态抓取手机输入法的实时像素高度
+
+func _process(delta):
 	var keyboard_height = DisplayServer.virtual_keyboard_get_height()
-	
-	# 2. 抓取你最外层的整体布局控制节点
-	# 根据你的 tscn 路径，最外层包裹输入框和聊天区的是 $main 节点
 	var main_container = $main 
-	
 	if main_container:
-		# 🎯 核心魔法：如果键盘弹出来了（高度 > 0），我们就把外壳的底部外边距（offset_bottom）
-		# 强行缩水负的键盘高度！这样整个外壳会被生生“向上拉上去”！
-		# 如果键盘缩回去了（高度 = 0），它就会老老实实回到原本的屏幕最底端。
 		var target_bottom = -keyboard_height
-		
-		# 只有当高度真的发生变化时才修改，节省性能，防止画面抖动
 		if main_container.offset_bottom != target_bottom:
 			main_container.offset_bottom = target_bottom
-			
-			# 3. 🟩 绝杀：被顶上去的一瞬间，强迫聊天记录立刻滚到底部，露出最新的气泡！
 			if keyboard_height > 0:
 				scroll_to_bottom()
+	# --- 2. 🌟 新增：手写顶级物理惯性引擎（Momentum Scrolling） ---
+	# 当手指离开屏幕，且速度还不为0时，让它自己“飞”一会儿再停下
+	if input_scroll and not is_dragging and abs(drag_velocity) > 0.1:
+		input_scroll.scroll_vertical -= drag_velocity
+		
+		# 摩擦力刹车系统：这里的 15.0 是摩擦系数
+		# 数值越大停得越快，数值越小滑得越远，你可以根据手感自己改！
+		drag_velocity = lerp(drag_velocity, 0.0, 15.0 * delta)
+	
 
 
 
@@ -305,9 +313,8 @@ func _on_send_pressed():
 	
 	
 	input_box.text = ""
-	input_box.scroll_fit_content_height = true # 恢复自适应权限
-	input_box.custom_minimum_size.y = 50       # 恢复初始高度
-	input_box.size.y = 50                      # 强行缩回
+	input_scroll.custom_minimum_size.y = 90
+	input_scroll.size.y = 90
 	
 	
 	
@@ -847,49 +854,41 @@ func _on_note_pressed():
 	get_tree().current_scene.add_child(popup)
 
 
+
+
+
 func _on_text_edit_text_changed():
-	var min_height = 50   # 基础高度
+	
+	await get_tree().process_frame
+	
+	var min_height = 90   # 基础高度
 	var max_height = 180  # 极限高度
 	
-	input_box.add_theme_constant_override("scroll_bar_width", 0)
-	input_box.add_theme_constant_override("scroll_bar_margin", 0)
+	input_scroll.custom_minimum_size.y = 0
+	input_scroll.size.y = 0
+	input_box.size.y = 0
 	
-	# 1. 释放权限，准备测算
-	input_box.scroll_fit_content_height = true
-	input_box.custom_minimum_size.y = 0
-	input_box.size.y = 0 
 	
-	# 2. 获取这堆文字实际需要的真实包裹高度
-	var real_height = input_box.get_combined_minimum_size().y
 	
+	# 1. 测算文字真实需要的无限高度
+	var real_height = input_box.get_combined_minimum_size().y 
+	
+	# 2. 🎯 核心魔法：我们去掐 ScrollContainer(外壳) 的高度，让 TextEdit 在里面自由伸展！
+	var target_height = clamp(real_height, min_height, max_height)
+	input_scroll.custom_minimum_size.y = target_height
+	input_scroll.size.y = target_height 
+	
+	
+	
+	# 3. 🌟 防盲打终极方案：确保打字时光标永远在视线内！
 	if real_height > max_height:
-		# 🟥 超过限制：剥夺自适应权限，锁死高度
-		input_box.scroll_fit_content_height = false
-		input_box.custom_minimum_size.y = max_height
-		input_box.size.y = max_height 
+		await get_tree().process_frame # 等待底层UI重新排版完成
 		
-		# 抓出潜伏的滚动条强制隐形
-		for child in input_box.get_children():
-			if child is VScrollBar or child is ScrollBar:
-				child.visible = false 
-				child.custom_minimum_size.x = 0 
+		# 抓取当前光标在 TextEdit 内部的 Y 轴物理坐标
+		var caret_y = input_box.get_caret_draw_pos().y
+		var current_scroll = input_scroll.scroll_vertical
 		
-		# ==========================================================
-		# 🌟 修复 3：防盲打绝杀！
-		# 只要文字发生改变（你在打字），立刻强迫输入框内部的视口往下滚，
-		# 死死盯住你的光标！你打到哪，它就滚到哪，绝对不会停留在开头！
-		input_box.adjust_viewport_to_caret()
-		# ==========================================================
-				
-	else:
-		# 🟩 没超过限制：动态回缩！
-		input_box.scroll_fit_content_height = true
-		
-		var target_height = max(real_height, min_height)
-		input_box.custom_minimum_size.y = target_height
-		input_box.size.y = target_height 
-		
-		# 保险起见顺手清理滑条
-		for child in input_box.get_children():
-			if child is VScrollBar or child is ScrollBar:
-				child.visible = false
+		# 如果光标跑到了外壳视口的下面，强行把滚动条拉下去盯着它！
+		if caret_y > (current_scroll + target_height - 40):
+			input_scroll.scroll_vertical = caret_y - target_height + 60
+
