@@ -98,6 +98,11 @@ func tutorial():
 
 
 func game_end():
+	
+	$VBoxContainer/group/group.disabled = true
+	$top/MarginContainer/HBoxContainer/PanelContainer/quit.disabled = true
+	
+	
 	# 1. 🌟 把 story_end1 拆开，剥离最后一句
 	var full_story = Global.story[lang].get("story_end1").duplicate()
 	var last_sentence = [full_story.pop_back()] 

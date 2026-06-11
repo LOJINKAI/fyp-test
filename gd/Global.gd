@@ -644,308 +644,293 @@ var npc_prompt = {
 var story = {
 	"ch": {
 		"story_intro": [
-			# --- 第一阶段：主角独白 (Eren 视角 - 全程纯黑) ---
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "我叫 Eren。不久前，我还拿着一份正常的薪水，过着平淡却安稳的生活... 直到我沾上了赌博。"},
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "那是个无底洞。我不仅输光了所有的积蓄，甚至昏了头去借高利贷。直到双手空空，我才彻底醒悟。"},
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "但太迟了。现在朋友把我当瘟神，家人对我失望透顶... 那些催债的每天砸门，我只能活在惶恐和绝望里。"},
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "就在我快走投无路的时候，一个几年没见的初中同学突然在社交软件上私信了我。"},
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "他叫 Conny。读书时他就是个不务正业的混混，经常在社会上瞎混。"},
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "但他这次找我，却说要带我发财。他说只要去他那里上班，不仅能迅速还清债务，以后月入过万都只是基本操作。"},
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "唯一的条件，是公司有严格的‘保密协议’：必须全封闭式管理，住在宿舍，没有允许绝对不能擅自外出。"},
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "只要脑子没坏，谁都能听出这事情透露着古怪。可我... 真的已经没有退路了。"},
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "催债人说再不还钱就要我的命。为了活下去，我答应了 Conny。他让我做好准备，明天一早车子就会来接我。"},
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "隔天清晨，一辆没有牌照的面包车停在了路边。我刚上车，Conny 就递过来一根漆黑的布带，让我蒙上眼睛。"},
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "我很抗拒，刚想质问。但一转头，看到车里除了 Conny，还坐着两个满身纹身、面目可憎的肌肉大汉... 我咽了口唾沫，乖乖戴上了眼罩。"},
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "在黑暗与颠簸中，车子不知道开了多久。终于，车停了。我被摘下眼罩，带进了园区。"},
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "粗暴地把我的私人物品塞进阴暗的宿舍后，Conny 就带着我径直走向了充满键盘敲击声的工作区。"},
-
-			# --- 第二阶段：面对面交锋 (Eren 与 Conny 对话 - 依然保持纯黑) ---
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "Conny... 这里怎么看都不像普通的科技公司。你现在总该告诉我，我的具体工作到底是什么了吧？"},
-			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "哈哈，兄弟，别紧张。既然都到这一步了，确实可以开诚布公地告诉你了。"},
-			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "我们的业务其实非常简单——‘网络电信诈骗’。而从这一秒开始，你就是我们公司的一员了。"},
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "什么？！诈骗？！这是犯法的！这会害死别人的... 不行，我不干了！我要回去！"},
-			# 🟩 核心优化：按照你的要求，把 "系统提示" 标签改成了空字符串 ""
-			{"speaker": "npc", "name": "", "scene_black": true, "text": "（砰！腹部突然遭到重击，你痛苦地弯下腰去...）"},
-			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "回去？到了这里你还想走？老子实话告诉你，现在你哪也去不了！"},
-			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "要么老老实实听话用电脑给公司搞钱、把你的高利贷还上。要么... 后面那根电棍看到没有？老子不介意天天让你过过电！"},
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "（剧烈的疼痛混杂着无尽的悔恨涌上心头... 我为什么要自投罗网？为什么没有提前想到会是这种结局？！）"},
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true, "text": "（但冰冷的现实告诉我，在这里反抗只有死路一条。为了能活到明天... 我只能低下头，听从他们的安排。）"}
+			{"speaker": "player", "name": "我", "scene_black": true, "text": "我叫Eren，原本是个普通的打工人，但是因为烂赌，欠下了高利贷，造就了我现在悲惨的人生。"},
+			{"speaker": "player", "name": "我", "scene_black": true, "text": "而如此悲惨的我，现在更悲惨了，要说为什么......"},
+			{"speaker": "player", "name": "我", "scene_black": true, "text": "因为我现在正处在诈骗窝点里，并即将成为诈骗份子的一员。"},
+			{"speaker": "boss", "name": "诈骗头目", "scene_black": true, "text": "你要好好感谢我们啊，要不是我们跟借你钱的大耳窿买下了你，现在你已经是个活体器官库了。"},
+			{"speaker": "boss", "name": "诈骗头目", "scene_black": true, "text": "现在我带你去你的工作岗位，并跟你介绍你的工作是什么。"},
+			{"speaker": "player", "name": "我", "scene_black": true, "text": "这下真的完蛋了啊。让我去做诈骗什么的......我一定要找机会逃出去。"},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "（不远处传来一个男人痛苦的闷哼声）"},
+			{"speaker": "man", "name": "被惩罚的男人", "scene_black": true, "text": "唔唔唔唔唔唔唔唔！！！"},
+			{"speaker": "boss", "name": "诈骗头目", "scene_black": true, "text": "谁啊？"},
+			{"speaker": "scammer", "name": "诈骗份子", "scene_black": true, "text": "昨天跑了，刚才被抓回来的。"},
+			{"speaker": "scammer", "name": "诈骗份子", "scene_black": true, "text": "（电击棒滋滋作响的声音）"},
+			{"speaker": "man", "name": "被惩罚的男人", "scene_black": true, "text": "唔唔唔唔唔唔唔唔！！！"},
+			{"speaker": "scammer", "name": "诈骗份子", "scene_black": true, "text": "还敢不敢跑啊？说话啊！"},
+			{"speaker": "man", "name": "被惩罚的男人", "scene_black": true, "text": "唔唔唔唔唔唔唔唔！！！"},
+			{"speaker": "player", "name": "我", "scene_black": true, "text": "得咧，还是先不想着逃出去之类的烂主意了......"}
 		],
 		"phone_intro": [
-			{"speaker": "npc", "name": "Conny", "text": "好啦！既然你已经学乖了，现在老子开始教你具体的工作内容，眼睛睁大点好好听。"},
-			{"speaker": "npc", "name": "Conny", "text": "这个是你今天分到的新工作手机。别动什么歪心思，里面的定位和监控都是焊死的。以后你骗人、搞钱，全都是靠这个设备来搞定。"},
-			{"speaker": "npc", "name": "Conny", "text": "废话少说，群里已经给你加进去了。现在，伸手去点击屏幕上那个蓝色的聊天软件按钮，进去开始干活！"}
+			{"speaker": "boss", "name": "诈骗头目", "text": "好啦，到地方了，现在开始教你具体的工作内容，好好听好好学。"},
+			{"speaker": "boss", "name": "诈骗头目", "text": "这是你的新工作手机。以后你骗人、搞钱，全都是靠这个设备来搞定。现在，点击屏幕上那个蓝色的聊天软件按钮，进去开始干活！"}
 		],
-		"app_intro": [
-			{"speaker": "npc", "name": "Conny", "text": "至于你的具体工作内容嘛... 听好了，你现在被分到了我们专门负责‘诈骗加密货币’的部门。"},
-			{"speaker": "npc", "name": "Conny", "text": "我们的人在聊天软件里开了一个公开的讨论群，并且在外面通过各种平台，大肆宣扬我们捏造出来的‘快速致富投资机会’。"},
-			{"speaker": "npc", "name": "Conny", "text": "互联网上最不缺的就是有钱、同时心里又充满了欲望的人。他们一看到广告，就会陆陆续续加入我们创建的讨论群。"},
-			{"speaker": "npc", "name": "Conny", "text": "而那些加入群聊的人，就会像这样，一个个自动显示在你的手机聊天列表里。而你要做的，就是根据名单，去把列表里的这些各种各样的人全部拿下。"},
-			{"speaker": "npc", "name": "Conny", "text": "瞧，看起来已经有落入陷阱的目标上钩了。现在点击他的名字，开始你的第一个任务，去和他对话吧！"}
+		"app_intro1": [
+			{"speaker": "boss", "name": "诈骗头目", "text": "至于你的具体工作内容嘛... 听好了，你现在被分到了我们专门负责‘诈骗加密货币’的部门，去诱骗人来买我们的“发财币”。"},
+			{"speaker": "boss", "name": "诈骗头目", "text": "看到那个群组了吗？那就是我们的讨论群，并且我们在外面通过各种平台，大肆宣扬我们捏造出来的‘快速致富投资机会’。"},
+			{"speaker": "boss", "name": "诈骗头目", "text": "先点进去群组看一下里面都说了些什么。"}
+		],
+		"group_intro": [
+			{"speaker": "boss", "name": "诈骗头目", "text": "看见上方置顶的链接了吗？那就是我们要诱骗那些“投资者”买我们的发财币的购买链接。"},
+			{"speaker": "boss", "name": "诈骗头目", "text": "而这些群组里面的人嘛......几乎都是我们的水军，他们会让每个新加入群组的人认为所有人都相信并支持我们的发财币。"},
+			{"speaker": "boss", "name": "诈骗头目", "text": "要是看完了，就点击左上方的退出按钮来回到上一个页面。"}
+		],
+		"app_intro2": [
+			{"speaker": "boss", "name": "诈骗头目", "text": "啊哈！有目标上钩了。"},
+			{"speaker": "boss", "name": "诈骗头目", "text": "在这个页面，一旦有新的目标，就会像这样自动显示在你的手机聊天列表里。而你要做的，就是诱骗他们去心甘情愿地购买我们的发财币。"},
+			{"speaker": "boss", "name": "诈骗头目", "text": "现在点击他的名字，开始你的第一个任务！"}
 		],
 		"bio_intro": [
-			{"speaker": "npc", "name": "Conny", "text": "在这里你可以看到目标的个性简介。"},
-			{"speaker": "npc", "name": "Conny", "text": "而你要做的就是通过这些自我简介来判断这个人潜在的心理弱点，让你的诈骗过程可以更加顺利。"},
-			{"speaker": "npc", "name": "Conny", "text": "而当你准备好后，只需要点击下方的按钮就能开始表演了。"}
+			{"speaker": "boss", "name": "诈骗头目", "text": "在这里你可以看到目标的个性简介。"},
+			{"speaker": "boss", "name": "诈骗头目", "text": "你要做的就是通过这些自我简介来判断这个人潜在的心理弱点，让你的诈骗过程可以更加顺利。"},
+			{"speaker": "boss", "name": "诈骗头目", "text": "当你准备好后，只需要点击下方的按钮就能开始表演了。"}
 		],
-		# 🟩 新增：聊天对话界面新手引导 (全程正常半透明背景，Conny 独白)
 		"chat_intro": [
-			{"speaker": "npc", "name": "Conny", "text": "很好，相信你看完刚刚这个人的简介，已经知道该利用什么样的心理弱点，来成功骗到这个人的小金库了。"},
-			{"speaker": "npc", "name": "Conny", "text": "不过以防万一，要是你待会儿觉得这个人挺难搞的话，可以点击顶部那个大大个的‘H’字按钮。我们姑且留了一个帮助功能给像你这样的新手。"},
-			{"speaker": "npc", "name": "Conny", "text": "当然了，这毕竟是你自己的工作。点击之后，我们顶多只会给你一点关于如何拿下这类人的提示罢了，可别抱着会有别人来帮你代打游戏的想法。"},
-			{"speaker": "npc", "name": "Conny", "text": "行了，规矩就这么多。现在，开始通过对话，去一步步引导他购买我们的发财币吧！"}
+			{"speaker": "boss", "name": "诈骗头目", "text": "很好，相信你看完刚刚这个人的简介，已经知道该利用什么样的心理弱点，来成功骗到这个人的小金库了。"},
+			{"speaker": "boss", "name": "诈骗头目", "text": "现在，开始通过对话，去一步步引导他购买我们的发财币吧！"}
 		],
 		"story_end1": [
-			{"speaker": "npc", "name": "Conny", "text": "哎呀，看来今天已经没有人赶着来给我们的钱包送钱了。不过嘛，这种一本万利的好生意每天都有，不用着急。"},
-			{"speaker": "npc", "name": "Conny", "text": "至于你嘛，今天干得非常不错，现在也是和我们一样优秀的诈骗犯了。"},
-			{"speaker": "npc", "name": "Conny", "text": "今天就先到这里吧，去洗把脸。以后... 你这辈子都要乖乖留在这里为我们卖命了！哈哈哈哈！"},
-			{"speaker": "player", "name": "我 (Eren)", "text": "（不... 这根本不是我要的！我不想骗人，不想把无辜的人推向倾家荡产的绝望深渊...）"},
-			{"speaker": "player", "name": "我 (Eren)", "text": "（我真的好后悔... 后悔当初为什么要去碰那该死的赌博，后悔为什么会蠢到相信什么‘高薪工作’的诱惑！）"},
-			{"speaker": "player", "name": "我 (Eren)",  "text": "（那些受害者因为相信了投资骗局而痛失钱财，而我... 却因为相信了高薪的骗局，彻底赔上了自己的人生。）"},
-			{"speaker": "player", "name": "我 (Eren)",  "text": "（如果这个世界有奇迹的话... 如果一切能重来的话... 可惜，现实就是这么残酷，奇迹根本不存在。）"}
+			{"speaker": "boss", "name": "诈骗头目", "text": "哎呀，看来今天已经没有人赶着来给我们的钱包送钱了。不过嘛，这种一本万利的好生意每天都有，不用着急。"},
+			{"speaker": "boss", "name": "诈骗头目", "text": "至于你嘛，今天干得非常不错，现在也是和我们一样优秀的诈骗犯了。"},
+			{"speaker": "boss", "name": "诈骗头目", "text": "今天就先到这里吧，去洗把脸。以后... 你这辈子都要乖乖留在这里为我们卖命了！"},
+			{"speaker": "player", "name": "我", "text": ".............完了。"},
+			{"speaker": "player", "name": "我", "text": "我自己的人生已经没救了。"},
+			{"speaker": "player", "name": "我", "text": "我接下来还要去祸害别人的人生吗......"},
+			{"speaker": "player", "name": "我", "text": "如果......能重来的话，早知道就不沉迷赌博了。如果还有奇迹的话，我就应该认真工作，而不是整天想着靠赌博发财。"},
+			{"speaker": "player", "name": "我", "text": "如今我只能选择去祸害别人了，要不然我也不会有好下场。就像那个被电击惩罚的人一样。"},
+			{"speaker": "player", "name": "我", "text": "........."},
+			{"speaker": "player", "name": "我", "text": ".........烂透了。"}
 		],
 		"story_end2": [
-			# 突然的破门声，打破绝望
-			{"speaker": "police", "name": "警察","scene_black": true, "text": "警察！所有人都不许动！双手抱头，立刻离开键盘！"},
-			{"speaker": "police", "name": "警察","scene_black": true,  "text": "你们因涉嫌组织和参与非法网络电信诈骗，现在依法对你们进行逮捕！谁敢反抗罪加一等！"},
-			{"speaker": "player", "name": "我 (Eren)", "scene_black": true,  "text": "太好了！！！虽然等来的不是奇迹，但警察真的来了！！！"},
-			
-			# 后事回想（无名字，纯独白总结，建议配合逐渐变黑的背景或立绘淡出）
+			{"speaker": "police", "name": "警察", "scene_black": true, "text": "警察！所有人都不许动！双手抱头，立刻离开键盘！"},
+			{"speaker": "police", "name": "警察", "scene_black": true, "text": "你们因涉嫌组织和参与非法网络电信诈骗，现在依法对你们进行逮捕！谁敢反抗罪加一等！"},
+			{"speaker": "player", "name": "我", "scene_black": true, "text": "............."},
+			{"speaker": "player", "name": "我", "scene_black": true, "text": "啊哈哈哈哈哈哈！！！！我头一次这么开心看到警察啊！！！你们这些诈骗犯活该啊！！啊哈哈哈哈！！"},
 			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "随后，这个深藏在隐蔽工业区里的诈骗窝点被警方彻底一窝端了。"},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "虽然我是被骗进来强迫工作的，我心里也坚信自己和他们那群烂人不一样。但在那一刻，我依然被戴动手铐，作为犯罪嫌疑人被押上了警车。"},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "幸运的是，在后来的调查和法庭审判中，因为我是被暴力胁迫且第一时间配合警方调查，法庭最终证明了我的清白，免除了牢狱之灾，保住了我下半辈子的人生。"},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "虽然出去之后，我依然得面对那些催债的高利贷。但这一次，我绝对不会再逃避，我会直接向警方寻求保护和帮助。"},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "虽然我是被抓进来强迫工作的，我心里也坚信自己和他们那群烂人不一样。但在那一刻，我依然被戴上手铐，作为犯罪嫌疑人被押上了警车。"},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "幸运的是，在后来的调查和法庭审判中，因为我是被胁迫且第一时间配合警方调查，法庭最终证明了我的清白，免除了牢狱之灾，保住了我下半辈子的人生。"},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "虽然出去之后，我依然得面对剩下的催债高利贷。但这一次，我立马向警方寻求保护和帮助。"},
 			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "我不会再幻想什么一步登天的捷径。我会彻底戒掉烂赌的毛病，脚踏实地重新做人。"},
 			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "更重要的是，经历了这一切，我决定用我在那个地狱里学到的“专业知识”，去帮助更多的人预防网络诈骗..."},
 			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "而不是像那些罪犯一样，去肆意收割别人的血汗钱和人生。"}
 		]
-		
 	},
 	"en": {
 		"story_intro": [
-			# --- Stage 1: Protagonist's Monologue (Eren's POV - All Scene Black) ---
-			{"speaker": "player", "name": "Me (Eren)", "scene_black": true, "text": "My name is Eren. Not long ago, I had a decent job and lived a dull but stable life... until I got hooked on gambling."},
-			{"speaker": "player", "name": "Me (Eren)", "scene_black": true, "text": "It was a bottomless pit. I burned through all my life savings and, in utter madness, took out loans from loan sharks. By the time I woke up, I had nothing left."},
-			{"speaker": "player", "name": "Me (Eren)", "scene_black": true, "text": "But it was too late. My friends treat me like a plague, my family is completely disappointed in me... and the debt collectors bang on my door every day. I live in absolute terror."},
-			{"speaker": "player", "name": "Me (Eren)", "scene_black": true, "text": "Just as I was completely cornered, a middle school classmate whom I hadn't seen in years suddenly slid into my DMs on social media."},
-			{"speaker": "player", "name": "Me (Eren)", "scene_black": true, "text": "His name is Conny. Back in school, he was a total thug, always getting into trouble with street gangs."},
-			{"speaker": "player", "name": "Me (Eren)", "scene_black": true, "text": "But this time, he reached out to offer me a lifesaver. He promised that if I worked for him, I could clear my debt quickly and easily make over 10k a month as a baseline."},
-			{"speaker": "player", "name": "Me (Eren)", "scene_black": true, "text": "The only catch was a strict 'NDA' policy: full-on closed management. I had to live in the dorms and was strictly forbidden from stepping outside without permission."},
-			{"speaker": "player", "name": "Me (Eren)", "scene_black": true, "text": "Anyone with half a brain could tell this sounded shady as hell. But me... I literally had no other choice."},
-			{"speaker": "player", "name": "Me (Eren)", "scene_black": true, "text": "The loan sharks threatened to end my life if I didn't pay up. To survive, I agreed. Conny told me to get ready; a car would pick me up tomorrow morning."},
-			{"speaker": "player", "name": "Me (Eren)", "scene_black": true, "text": "The next morning, an unmarked van pulled up. The moment I climbed inside, Conny handed me a thick black blindfold and told me to put it on."},
-			{"speaker": "player", "name": "Me (Eren)", "scene_black": true, "text": "I resisted and wanted to argue. But I turned around and saw two heavily tattooed, intimidating thugs sitting right next to Conny... I swallowed my pride and put it on."},
-			{"speaker": "player", "name": "Me (Eren)", "scene_black": true, "text": "Bumping along in pitch darkness, the van drove for god knows how long. Finally, it stopped. The blindfold was ripped off, and I was dragged into a heavily guarded compound."},
-			{"speaker": "player", "name": "Me (Eren)", "scene_black": true, "text": "After tossing my personal belongings into a miserable, damp dorm room, Conny led me straight into a workspace buzzing with the aggressive sound of keyboard clicks."},
-
-			# --- Stage 2: Face-to-Face Confrontation (Eren & Conny Dialogue - All Scene Black) ---
-			{"speaker": "player", "name": "Me (Eren)", "scene_black": true, "text": "Conny... This place doesn't look like a normal tech company at all. You have to tell me now, what exactly is my job here?"},
-			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "Haha, take it easy, brother. Since we've already made it this far, I might as well lay my cards on the table."},
-			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "Our business is actually very simple: Cyber Telecom Scam. And from this very second, you are officially a part of our family."},
-			{"speaker": "player", "name": "Me (Eren)", "scene_black": true, "text": "What?! A scam?! That's illegal! It ruins innocent people's lives... No way, I'm not doing this! I want to go home!"},
-			# 🟩 English Optimization: System label removed
-			{"speaker": "npc", "name": "", "scene_black": true, "text": "(Oof! A brutal punch lands heavily on your stomach. You double over in agonizing pain...)"},
-			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "Go home? You think you can just walk out of here? Let me tell you the brutal truth, you are going NOWHERE!"},
-			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "You either shut up, sit in front of that PC, and make money for the company to clear your debt, or... see that stun baton over there? I don't mind giving you a taste of electric shocks every single day!"},
-			{"speaker": "player", "name": "Me (Eren)", "scene_black": true, "text": "(A wave of intense pain mixed with overwhelming regret floods my mind... Why did I walk straight into this trap? Why didn't I see this coming?!)"},
-			{"speaker": "player", "name": "Me (Eren)", "scene_black": true, "text": "(But cold reality screams that resistance here means death. If I want to see tomorrow's sunrise... I have no choice but to bow my head and do exactly what they say.)"}
+			{"speaker": "player", "name": "Me", "scene_black": true, "text": "My name is Eren. I used to be a regular worker, but a terrible gambling addiction left me drowning in loan shark debt, ruining my life."},
+			{"speaker": "player", "name": "Me", "scene_black": true, "text": "And my miserable life just got even worse. Want to know why...?"},
+			{"speaker": "player", "name": "Me", "scene_black": true, "text": "Because right now, I am trapped inside a scam syndicate compound, about to become one of them."},
+			{"speaker": "boss", "name": "Scam Boss", "scene_black": true, "text": "You should be thanking us. If we hadn't bought your debt from the loan sharks, you'd be a living organ bank on the black market right now."},
+			{"speaker": "boss", "name": "Scam Boss", "scene_black": true, "text": "Now, I'll take you to your station and explain what your job is."},
+			{"speaker": "player", "name": "Me", "scene_black": true, "text": "I'm so dead. Forcing me to run scams... I have to find a chance to escape."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "(A muffled, agonizing groan echoes from nearby)"},
+			{"speaker": "man", "name": "Punished Man", "scene_black": true, "text": "Mmph... Mmmph!!!"},
+			{"speaker": "boss", "name": "Scam Boss", "scene_black": true, "text": "Who's that?"},
+			{"speaker": "scammer", "name": "Scammer", "scene_black": true, "text": "Tried to run away yesterday. We just dragged him back."},
+			{"speaker": "scammer", "name": "Scammer", "scene_black": true, "text": "(The terrifying crackle of a stun baton)"},
+			{"speaker": "man", "name": "Punished Man", "scene_black": true, "text": "Mmmph!!! Mmph!!!"},
+			{"speaker": "scammer", "name": "Scammer", "scene_black": true, "text": "Still thinking about running? Speak up!"},
+			{"speaker": "man", "name": "Punished Man", "scene_black": true, "text": "Mmmph... Mmmph!!!"},
+			{"speaker": "player", "name": "Me", "scene_black": true, "text": "Alright then, I guess escaping is a terrible idea for now..."}
 		],
 		"phone_intro": [
-			{"speaker": "npc", "name": "Conny", "text": "Alright! Since you've learned your lesson, it's time for me to teach you your specific duties. Keep your eyes wide open and listen up."},
-			{"speaker": "npc", "name": "Conny", "text": "This is your new work phone for today. Don't try any funny business—the GPS tracking and surveillance are heavily locked down. From now on, you'll manage all your scamming and money-making through this device."},
-			{"speaker": "npc", "name": "Conny", "text": "Enough talking, you've already been added to the chat group. Now, go ahead and tap that blue chat software button on the screen to get to work!"}
+			{"speaker": "boss", "name": "Scam Boss", "text": "Alright, we're here. Time to teach you the ropes. Listen closely and learn fast."},
+			{"speaker": "boss", "name": "Scam Boss", "text": "This is your new work phone. From now on, you'll use this device to scam people and bring in the cash. Now, tap that blue messaging app on the screen and get to work!"}
 		],
-		"app_intro": [
-			{"speaker": "npc", "name": "Conny", "text": "As for your specific duties... listen closely. You are now assigned to our specialized 'Cryptocurrency Scam' department."},
-			{"speaker": "npc", "name": "Conny", "text": "Our team has set up a public discussion group inside the app, and we advertise our fake 'get-rich-quick investment opportunities' across various platforms outside."},
-			{"speaker": "npc", "name": "Conny", "text": "The internet is never short of people with money and intense desires. Once they see the ads, they will join our group one by one."},
-			{"speaker": "npc", "name": "Conny", "text": "Those who join the community chat will automatically appear right here on your phone's chat list. What you need to do is target these various individuals from the list."},
-			{"speaker": "npc", "name": "Conny", "text": "Look, it seems someone has already fallen into the trap. Tap on their name now to start your first mission and talk to them!"}
+		"app_intro1": [
+			{"speaker": "boss", "name": "Scam Boss", "text": "As for your exact job... Listen up. You've been assigned to our 'Cryptocurrency Scam' department to trick people into buying our fake 'RichCoin'."},
+			{"speaker": "boss", "name": "Scam Boss", "text": "See that group chat? That's our discussion board. We've been hyping up this fabricated 'get-rich-quick' scheme all over the internet."},
+			{"speaker": "boss", "name": "Scam Boss", "text": "Tap into the group and see what they're talking about."}
+		],
+		"group_intro": [
+			{"speaker": "boss", "name": "Scam Boss", "text": "See the pinned link at the top? That's the checkout link we use to lure 'investors' into buying our RichCoin."},
+			{"speaker": "boss", "name": "Scam Boss", "text": "And the people in this group? ...They're mostly our fake accounts (shills). They create the illusion that everyone believes in and supports our coin."},
+			{"speaker": "boss", "name": "Scam Boss", "text": "Once you're done looking, tap the back button on the top left to return."}
+		],
+		"app_intro2": [
+			{"speaker": "boss", "name": "Scam Boss", "text": "Aha! A target took the bait."},
+			{"speaker": "boss", "name": "Scam Boss", "text": "On this page, whenever a new target joins, they'll automatically pop up in your chat list like this. Your job is to manipulate them into willingly buying our RichCoin."},
+			{"speaker": "boss", "name": "Scam Boss", "text": "Now tap their name and begin your first mission!"}
 		],
 		"bio_intro": [
-			{"speaker": "npc", "name": "Conny", "text": "Here, you can see the target's profile and biography."},
-			{"speaker": "npc", "name": "Conny", "text": "What you need to do is analyze their personality based on these bios to find their hidden psychological weaknesses. This will make your scam much easier."},
-			{"speaker": "npc", "name": "Conny", "text": "Once you are ready, simply tap the button below to start your show!"}
+			{"speaker": "boss", "name": "Scam Boss", "text": "Here, you can see the target's personality profile."},
+			{"speaker": "boss", "name": "Scam Boss", "text": "You need to analyze these bios to figure out their hidden psychological weaknesses. It makes the scamming process much smoother."},
+			{"speaker": "boss", "name": "Scam Boss", "text": "When you're ready, just tap the button below to start your performance."}
 		],
-		# 🟩 New English Chat Interface Tutorial
 		"chat_intro": [
-			{"speaker": "npc", "name": "Conny", "text": "Excellent. I bet after reading their bio, you already know exactly what psychological weakness to exploit to successfully drain their savings."},
-			{"speaker": "npc", "name": "Conny", "text": "Just in case you find them a bit tough to handle, you can tap that big 'H' button at the top. We've generously included a help feature for rookies like you."},
-			{"speaker": "npc", "name": "Conny", "text": "But remember, this is your job. Tapping it will only give you a small hint on how to handle them. Don't go thinking anyone is gonna play the game for you."},
-			{"speaker": "npc", "name": "Conny", "text": "Alright, that's enough rules. Now, go ahead and guide them step-by-step into buying our RichCoin!"}
+			{"speaker": "boss", "name": "Scam Boss", "text": "Good. I bet after reading that bio, you already know which psychological trigger to pull to drain their savings."},
+			{"speaker": "boss", "name": "Scam Boss", "text": "Now, step by step, guide them through the chat into buying our RichCoin!"}
 		],
 		"story_end1": [
-			{"speaker": "npc", "name": "Conny",  "text": "Well, looks like no one else is rushing to throw their money at us today. But hey, this highly profitable business runs every single day. No rush."},
-			{"speaker": "npc", "name": "Conny",  "text": "As for you, you did a fantastic job today. You're officially an excellent scammer now, just like the rest of us."},
-			{"speaker": "npc", "name": "Conny", "text": "Let's call it a day, go wash your face. From now on... you'll be working your life away for us right here! Hahaha!"},
-			{"speaker": "player", "name": "Me (Eren)",  "text": "(No... This isn't what I wanted at all! I don't want to scam people, I don't want to push innocent people into absolute financial despair...)"},
-			{"speaker": "player", "name": "Me (Eren)",  "text": "(I regret this so much... I regret ever touching that damn gambling, and I regret being stupid enough to fall for the 'high-paying job' trap!)"},
-			{"speaker": "player", "name": "Me (Eren)",  "text": "(Those victims lost their money because they believed in my investment scam, and I... I lost my entire life because I believed in a fake high-paying job.)"},
-			{"speaker": "player", "name": "Me (Eren)",  "text": "(If only there were miracles in this world... If only I could start over... But reality is cruel. Miracles don't exist.)"}
+			{"speaker": "boss", "name": "Scam Boss", "text": "Well, looks like no one else is rushing to throw money into our wallets today. But hey, this highly profitable business runs every day. No rush."},
+			{"speaker": "boss", "name": "Scam Boss", "text": "As for you, you did a fantastic job today. You're officially an excellent scammer now, just like the rest of us."},
+			{"speaker": "boss", "name": "Scam Boss", "text": "Let's call it a day, go wash your face. From now on... you'll be working your life away for us right here!"},
+			{"speaker": "player", "name": "Me", "text": ".............It's over."},
+			{"speaker": "player", "name": "Me", "text": "My life is completely ruined."},
+			{"speaker": "player", "name": "Me", "text": "Am I really going to spend the rest of my days ruining other people's lives...?"},
+			{"speaker": "player", "name": "Me", "text": "If... if I could start over, I never would have touched gambling. If miracles existed, I would've just worked hard instead of dreaming of easy money."},
+			{"speaker": "player", "name": "Me", "text": "Now I have no choice but to harm others, or I'll end up just like that guy getting tortured."},
+			{"speaker": "player", "name": "Me", "text": "........."},
+			{"speaker": "player", "name": "Me", "text": ".........This is sickening."}
 		],
 		"story_end2": [
-			# The sudden door kick
-			{"speaker": "police", "name": "Police", "scene_black": true,"text": "Police! Nobody move! Hands on your heads and step away from the keyboards immediately!"},
-			{"speaker": "police", "name": "Police", "scene_black": true,"text": "You are all under arrest for organizing and participating in illegal cyber fraud operations! Do not attempt to resist!"},
-			{"speaker": "player", "name": "Me (Eren)", "scene_black": true,"text": "Thank god!!! It's not a miracle, but the police are actually here!!!"},
-			
-			# Epilogue / Reflection
+			{"speaker": "police", "name": "Police", "scene_black": true, "text": "Police! Nobody move! Hands on your heads and step away from the keyboards immediately!"},
+			{"speaker": "police", "name": "Police", "scene_black": true, "text": "You are all under arrest for organizing and participating in illegal cyber fraud! Do not attempt to resist!"},
+			{"speaker": "player", "name": "Me", "scene_black": true, "text": "............."},
+			{"speaker": "player", "name": "Me", "scene_black": true, "text": "Ahahahahaha!!!! I've never been so happy to see the cops in my life!!! You scammers deserve this!! Hahahaha!!"},
 			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Following the raid, the entire scam ring hidden in the industrial park was completely busted by the police."},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Even though I was tricked into joining and forced to work, and I never considered myself one of those monsters, I was still handcuffed and treated as a suspect that day."},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Fortunately, during the subsequent investigation and trial, the court took into account that I was coerced under threat of violence and fully cooperated. I was proven innocent, saving the rest of my life."},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Even though I still have to face the loan sharks when I get out, this time, I won't run. I will go straight to the police for help and protection."},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "I will stop dreaming about overnight success and shortcuts. I will quit my gambling addiction and rebuild my life step by step."},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "More importantly, after experiencing this hell, I decided to use the 'professional' scam tactics I learned to help educate and prevent others from falling victim..."},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "...instead of harvesting their hard-earned money and ruining their lives like those criminals."}
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Even though I was forced to work there, and I knew I wasn't a monster like them, I was still handcuffed and treated as a criminal suspect that day."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Fortunately, during the investigation and trial, the court proved my innocence since I was coerced and fully cooperated with the police, sparing me from prison."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Even though I still have to face my remaining loan shark debts on the outside, this time, I went straight to the police for protection and help."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "I will stop dreaming about overnight shortcuts. I will quit gambling entirely and rebuild my life honestly."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "More importantly, after surviving that hell, I decided to use the 'professional' knowledge I gained to help educate others about cyber fraud..."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "...instead of harvesting their hard-earned money and ruining their lives like those criminals did."}
 		]
 	},
 	"bm": {
 		"story_intro": [
-			{"speaker": "player", "name": "Saya (Eren)", "scene_black": true, "text": "Nama saya Eren. Belum lama lagi, saya masih mempunyai gaji tetap dan menjalani kehidupan yang bosan tetapi stabil... sehinggalah saya terjebak dengan judi."},
-			{"speaker": "player", "name": "Saya (Eren)", "scene_black": true, "text": "Ia adalah lubang tanpa dasar. Saya bukan sahaja menghabiskan semua wang simpanan hidup saya, malah dalam kegilaan, saya meminjam wang daripada Ah Long. Apabila tersedar, saya sudah tidak ada apa-apa lagi."},
-			{"speaker": "player", "name": "Saya (Eren)", "scene_black": true, "text": "Tetapi segalanya sudah terlambat. Kawan-kawan melayan saya seperti pembawa wabak, keluarga saya sangat kecewa dengan saya... dan pengutip hutang mengetuk pintu rumah saya setiap hari. Saya hidup dalam ketakutan yang amat sangat."},
-			{"speaker": "player", "name": "Saya (Eren)", "scene_black": true, "text": "Tatkala saya benar-benar buntu, seorang rakan sekolah menengah yang sudah bertahun-tahun tidak saya temui tiba-tiba menghantar mesej peribadi di media sosial."},
-			{"speaker": "player", "name": "Saya (Eren)", "scene_black": true, "text": "Namanya Conny. Masa sekolah dulu, dia seorang gangster dan samseng jalanan yang sering mencetuskan masalah."},
-			{"speaker": "player", "name": "Saya (Eren)", "scene_black": true, "text": "Tetapi kali ini, dia datang untuk menawarkan talian hayat. Dia berjanji jika saya bekerja dengannya, saya boleh melunaskan hutang dengan cepat dan mudah mendapat gaji lebih RM10,000 sebulan sebagai permulaan."},
-			{"speaker": "player", "name": "Saya (Eren)", "scene_black": true, "text": "Satu-satunya syarat adalah dasar 'NDA' yang ketat: pengurusan tertutup sepenuhnya. Saya terpaksa tinggal di asrama dan dilarang sama sekali melangkah keluar tanpa kebenaran."},
-			{"speaker": "player", "name": "Saya (Eren)", "scene_black": true, "text": "Sesiapa yang mempunyai otak boleh tahu perkara ini sangat meragukan. Tetapi saya... saya benar-benar tidak mempunyai pilihan lain."},
-			{"speaker": "player", "name": "Saya (Eren)", "scene_black": true, "text": "Ah Long mengancam akan menamatkan riwayat saya jika saya tidak membayar hutang. Untuk terus hidup, saya bersetuju. Conny memberitahu saya supaya bersiap sedia; sebuah kereta akan menjemput saya esok pagi."},
-			{"speaker": "player", "name": "Saya (Eren)", "scene_black": true, "text": "Keesokan paginya, sebuah van tanpa plat lesen berhenti di tepi jalan. Sebaik sahaja saya memanjat masuk, Conny menyerahkan sehelai kain hitam tebal dan menyuruh saya menutup mata."},
-			{"speaker": "player", "name": "Saya (Eren)", "scene_black": true, "text": "Saya membantah dan mahu bertengkar. Tetapi saya menoleh dan melihat dua orang lelaki sasa berotot dengan penuh tatu yang menakutkan duduk di sebelah Conny... Saya menelan air liur dan akur memakai penutup mata."},
-			{"speaker": "player", "name": "Saya (Eren)", "scene_black": true, "text": "Bergerak dalam kegelapan yang bergoyang, van itu dipandu entah berapa lama. Akhirnya, ia berhenti. Penutup mata saya disentap, dan saya dibawa masuk ke dalam sebuah kawasan kompaun yang dikawal ketat."},
-			{"speaker": "player", "name": "Saya (Eren)", "scene_black": true, "text": "Selepas barang peribadi saya dicampak kasar ke dalam bilik asrama yang lembap dan daif, Conny membawa saya terus ke kawasan kerja yang bising dengan bunyi klik papan kekunci secara agresif."},
-
-			{"speaker": "player", "name": "Saya (Eren)", "scene_black": true, "text": "Conny... Tempat ini tidak kelihatan seperti syarikat teknologi biasa langsung. Sekarang kamu mesti beritahu saya, apa sebenarnya skop kerja saya di sini?"},
-			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "Haha, bertenanglah bro. Memandangkan kita sudah sampai ke tahap ini, saya rasa ada baiknya saya berterus-terang dengan kamu."},
-			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "Perniagaan kami sebenarnya sangat mudah: 'Penipuan Telekomunikasi Siber' (Scam). Dan bermula pada saat ini juga, kamu secara rasmi menjadi sebahagian daripada keluarga kami."},
-			{"speaker": "player", "name": "Saya (Eren)", "scene_black": true, "text": "Apa?! Scam?! Itu salah di sisi undang-undang! Ini akan merosakkan kehidupan orang yang tidak bersalah... Tak mahu, saya tidak mahu lakukan kerja ini! Saya mahu balik!"},
-			{"speaker": "npc", "name": "", "scene_black": true, "text": "(Buk! Satu tumbukan padu terkena tepat pada perut kamu. Kamu membongkok menahan kesakitan yang amat sangat...)"},
-			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "Balik? Kamu ingat kamu boleh keluar dari sini begitu sahaja? Saya beritahu kamu perkara sebenar, kamu tidak akan pergi ke MANA-MANA!"},
-			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "Sama ada kamu diam, duduk di hadapan PC itu, dan cari wang untuk syarikat bagi melunaskan hutang Ah Long kamu, atau... nampak baton renjatan elektrik di sana? Saya tidak kisah untuk memberi kamu rasa renjatan elektrik setiap hari!"},
-			{"speaker": "player", "name": "Saya (Eren)", "scene_black": true, "text": "(Rasa sakit yang amat sangat bercampur dengan penyesalan yang tidak terhingga menyelubungi fikiran saya... Kenapa saya berjalan lurus ke dalam perangkap ini? Kenapa saya tidak nampak perkara ini akan berlaku?!)"},
-			{"speaker": "player", "name": "Saya (Eren)", "scene_black": true, "text": "(Tetapi realiti yang kejam menjerit bahawa penentangan di sini bermakna mati. Jika saya mahu melihat matahari terbit esok pagi... saya tidak mempunyai pilihan selain menundukkan kepala dan melakukan apa yang mereka katakan.)"}
+			{"speaker": "player", "name": "Saya", "scene_black": true, "text": "Nama saya Eren. Dulu saya cuma pekerja biasa, tapi sebab gila judi, saya terjerat hutang Ah Long dan merosakkan seluruh hidup saya."},
+			{"speaker": "player", "name": "Saya", "scene_black": true, "text": "Dan hidup saya yang dah memang teruk ni, sekarang jadi lagi teruk. Nak tahu kenapa......"},
+			{"speaker": "player", "name": "Saya", "scene_black": true, "text": "Sebab sekarang saya terperangkap dalam sarang sindiket scam, dan bakal jadi salah seorang dari mereka."},
+			{"speaker": "boss", "name": "Bos Scam", "scene_black": true, "text": "Kau patut berterima kasih kat kitorang. Kalau kitorang tak beli hutang kau dari Ah Long tu, kau sekarang dah jadi bank organ bergerak."},
+			{"speaker": "boss", "name": "Bos Scam", "scene_black": true, "text": "Sekarang aku bawa kau pergi tempat kerja kau, dan terangkan apa tugas kau kat sini."},
+			{"speaker": "player", "name": "Saya", "scene_black": true, "text": "Mati lah aku kali ni. Paksa aku buat kerja scam... Aku mesti cari peluang nak lari."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "(Terdengar bunyi erangan kesakitan seorang lelaki dari arah tidak jauh)"},
+			{"speaker": "man", "name": "Lelaki Dihukum", "scene_black": true, "text": "Mmph... Mmmph!!!"},
+			{"speaker": "boss", "name": "Bos Scam", "scene_black": true, "text": "Siapa tu?"},
+			{"speaker": "scammer", "name": "Scammer", "scene_black": true, "text": "Dia cuba lari semalam, baru kena tangkap balik."},
+			{"speaker": "scammer", "name": "Scammer", "scene_black": true, "text": "(Bunyi percikan baton elektrik bergema)"},
+			{"speaker": "man", "name": "Lelaki Dihukum", "scene_black": true, "text": "Mmmph!!! Mmph!!!"},
+			{"speaker": "scammer", "name": "Scammer", "scene_black": true, "text": "Ada hati nak lari lagi? Cakap!"},
+			{"speaker": "man", "name": "Lelaki Dihukum", "scene_black": true, "text": "Mmmph... Mmmph!!!"},
+			{"speaker": "player", "name": "Saya", "scene_black": true, "text": "Okey, nampaknya lari dari sini bukan idea yang bagus buat masa ni..."}
 		],
 		"phone_intro": [
-			{"speaker": "npc", "name": "Conny", "text": "Baiklah! Memandangkan kamu sudah belajar daripada kesilapan, tiba masanya untuk saya mengajar kamu tugas khusus kamu. Buka mata kamu luas-luas dan dengar dengan teliti."},
-			{"speaker": "npc", "name": "Conny", "text": "Ini adalah telefon kerja baharu kamu untuk hari ini. Jangan cuba buat sebarang helah luar biasa—penjejakan GPS dan pengawasan dipasang mati di dalam. Selepas ini, kamu akan menguruskan semua kerja scam dan mencari wang melalui peranti ini."},
-			{"speaker": "npc", "name": "Conny", "text": "Cukup bersembang, kamu sudah dimasukkan ke dalam group chat. Sekarang, pergi ketuk butang aplikasi sembang biru pada skrin untuk mula bekerja!"}
+			{"speaker": "boss", "name": "Bos Scam", "text": "Baiklah, dah sampai. Sekarang masa untuk ajar tugas kau. Dengar betul-betul dan belajar cepat."},
+			{"speaker": "boss", "name": "Bos Scam", "text": "Ini telefon kerja baru kau. Lepas ni, kau guna alat ni untuk tipu orang dan buat duit. Sekarang, tekan butang apps biru kat skrin tu dan mula buat kerja!"}
 		],
-		"app_intro": [
-			{"speaker": "npc", "name": "Conny", "text": "Mengenai tugas khusus kamu... dengar betul-betul. Kamu kini ditugaskan ke bahagian khas 'Penipuan Mata Wang Kripto' kami."},
-			{"speaker": "npc", "name": "Conny", "text": "Pasukan kami telah menyediakan satu group perbincangan awam di dalam aplikasi, dan kami mengiklankan 'peluang pelaburan cepat kaya' palsu kami di pelbagai platform di luar."},
-			{"speaker": "npc", "name": "Conny", "text": "Internet tidak pernah kekurangan orang yang mempunyai wang dan penuh dengan nafsu keinginan yang tinggi. Sebaik sahaja mereka melihat iklan, mereka akan menyertai group kami satu demi satu."},
-			{"speaker": "npc", "name": "Conny", "text": "Mereka yang menyertai sembang komuniti akan dipaparkan secara automatik di sini, di dalam senarai sembang telefon kamu. Apa yang perlu kamu lakukan adalah menyasarkan pelbagai individu daripada senarai ini untuk ditewaskan."},
-			{"speaker": "npc", "name": "Conny", "text": "Lihat, nampaknya seseorang telah jatuh ke dalam perangkap. Ketuk namanya sekarang untuk memulakan misi pertama kamu dan bercakap dengannya!"}
+		"app_intro1": [
+			{"speaker": "boss", "name": "Bos Scam", "text": "Pasal skop kerja kau... Dengar sini. Kau sekarang dimasukkan ke jabatan 'Scam Kripto' untuk pancing orang beli koin palsu kita, 'RichCoin'."},
+			{"speaker": "boss", "name": "Bos Scam", "text": "Nampak tak group chat tu? Tu tempat perbincangan kita, dan kitorang dah viralkan peluang 'cepat kaya' palsu ni merata-rata di internet."},
+			{"speaker": "boss", "name": "Bos Scam", "text": "Masuk group tu dan tengok apa dorang sembangkan."}
+		],
+		"group_intro": [
+			{"speaker": "boss", "name": "Bos Scam", "text": "Nampak tak link kat atas tu? Tu link pembelian yang kita guna untuk pancing 'pelabur' beli RichCoin kita."},
+			{"speaker": "boss", "name": "Bos Scam", "text": "Pasal orang-orang dalam group ni pula... Kebanyakannya adalah akaun palsu (cybertrooper) kita. Dorang buat lakonan supaya ahli baru percaya semua orang sokong koin kita."},
+			{"speaker": "boss", "name": "Bos Scam", "text": "Kalau dah habis tengok, tekan butang keluar kat atas kiri tu untuk balik ke page sebelum ni."}
+		],
+		"app_intro2": [
+			{"speaker": "boss", "name": "Bos Scam", "text": "Aha! Ada mangsa dah masuk perangkap."},
+			{"speaker": "boss", "name": "Bos Scam", "text": "Katakan ada mangsa baru, dorang akan automatik muncul kat senarai chat telefon kau macam ni. Tugas kau adalah untuk umpan dorang supaya dorang rela hati beli RichCoin kita."},
+			{"speaker": "boss", "name": "Bos Scam", "text": "Sekarang tekan nama dia, mulakan misi pertama kau!"}
 		],
 		"bio_intro": [
-			{"speaker": "npc", "name": "Conny", "text": "Di sini, kamu boleh melihat profil personaliti dan biografi sasaran."},
-			{"speaker": "npc", "name": "Conny", "text": "Apa yang perlu kamu lakukan adalah menganalisis personaliti mereka berdasarkan bio ini untuk mencari kelemahan psikologi tersembunyi mereka. Ini akan membuatkan proses scam kamu menjadi lebih mudah."},
-			{"speaker": "npc", "name": "Conny", "text": "Sebaik sahaja kamu sudah bersedia, cuma ketuk butang di bawah untuk memulakan persembahan kamu!"}
+			{"speaker": "boss", "name": "Bos Scam", "text": "Katakan sini kau boleh tengok profil personaliti mangsa."},
+			{"speaker": "boss", "name": "Bos Scam", "text": "Tugas kau adalah kaji bio dorang ni untuk cari kelemahan psikologi tersembunyi dorang. Ni akan mudahkan kerja scam kau."},
+			{"speaker": "boss", "name": "Bos Scam", "text": "Bila dah sedia, tekan je butang kat bawah ni untuk mulakan aksi."}
 		],
 		"chat_intro": [
-			{"speaker": "npc", "name": "Conny", "text": "Bagus, saya pasti selepas membaca bio mereka tadi, kamu sudah tahu kelemahan psikologi apa yang perlu dieksploitasi untuk mengeringkan simpanan orang ini."},
-			{"speaker": "npc", "name": "Conny", "text": "Sekiranya kamu rasa orang ini agak sukar untuk dikendalikan, kamu boleh mengetuk butang 'H' besar di bahagian atas. Kami telah bermurah hati menyediakan fungsi bantuan untuk orang baru seperti kamu."},
-			{"speaker": "npc", "name": "Conny", "text": "Tetapi ingat, ini adalah kerja kamu sendiri. Mengetuk butang itu hanya akan memberi kamu sedikit petunjuk tentang cara mengendalikan mereka. Jangan sesekali fikir ada orang lain yang akan bermain game ini bagi pihak kamu."},
-			{"speaker": "npc", "name": "Conny", "text": "Baiklah, peraturan setakat itu sahaja. Sekarang, pergi dan bimbing mereka langkah demi langkah untuk membeli RichCoin kita!"}
+			{"speaker": "boss", "name": "Bos Scam", "text": "Bagus, lepas kau baca bio tu tadi, mesti kau dah tahu kelemahan apa yang kau patut guna untuk keringkan simpanan orang ni."},
+			{"speaker": "boss", "name": "Bos Scam", "text": "Sekarang, mulakan perbualan dan bimbing dia langkah demi langkah untuk beli RichCoin kita!"}
 		],
 		"story_end1": [
-			{"speaker": "npc", "name": "Conny", "text": "Aiya, nampaknya tiada sesiapa lagi yang tergesa-gesa menghantar wang ke dalam dompet kita hari ini. Tetapi hey, perniagaan yang sangat menguntungkan ini berjalan setiap hari. Tak perlu tergesa-gesa."},
-			{"speaker": "npc", "name": "Conny", "text": "Bagi diri kamu pula, kamu telah melakukan tugas yang sangat hebat hari ini. Kamu secara rasmi menjadi seorang scammer yang cemerlang sekarang, sama seperti kami semua."},
-			{"speaker": "npc", "name": "Conny", "text": "Mari kita tamatkan kerja hari ini, pergi basuh muka kamu. Selepas ini... kamu akan bekerja seumur hidup kamu untuk kami di sini! Hahaha!"},
-			{"speaker": "player", "name": "Saya (Eren)", "text": "（Tidak... Ini bukan apa yang saya mahukan langsung! Saya tidak mahu menipu orang, saya tidak mahu menolak orang yang tidak bersalah ke dalam jurang keputusasaan kewangan yang mutlak...）"},
-			{"speaker": "player", "name": "Saya (Eren)", "text": "（Saya sangat menyesal... Saya menyesal kerana pernah menyentuh judi yang terkutuk itu, dan saya menyesal kerana bodoh mempercayai perangkap 'pekerjaan bergaji tinggi' itu!）"},
-			{"speaker": "player", "name": "Saya (Eren)", "text": "（Mangsa-mangsa tersebut kehilangan wang mereka kerana mempercayai penipuan pelaburan saya, dan saya... saya kehilangan seluruh hidup saya kerana mempercayai penipuan pekerjaan bergaji tinggi.）"},
-			{"speaker": "player", "name": "Saya (Eren)", "text": "（Kalaulah ada keajaiban dalam dunia ini... Kalaulah saya boleh bermula semula... Tetapi realiti adalah kejam. Keajaiban tidak wujud sama sekali.）"}
+			{"speaker": "boss", "name": "Bos Scam", "text": "Aiya, nampaknya takde lagi mangsa yang gelojoh nak bagi duit kat kita hari ni. Tapi takpe, bisnes masyuk ni ada setiap hari, tak perlu kelam-kabut."},
+			{"speaker": "boss", "name": "Bos Scam", "text": "Bagi pihak kau, kau dah buat kerja yang sangat bagus hari ni. Kau sekarang dah jadi scammer yang hebat, sama macam kitorang."},
+			{"speaker": "boss", "name": "Bos Scam", "text": "Cukuplah untuk hari ni, pergi basuh muka. Lepas ni... kau kena kerja kuat untuk kitorang kat sini seumur hidup kau!"},
+			{"speaker": "player", "name": "Saya", "text": ".............Habislah."},
+			{"speaker": "player", "name": "Saya", "text": "Hidup aku dah betul-betul hancur."},
+			{"speaker": "player", "name": "Saya", "text": "Adakah aku kena terus rosakkan hidup orang lain lepas ni......"},
+			{"speaker": "player", "name": "Saya", "text": "Kalaulah...... boleh putar balik masa, aku takkan sentuh judi langsung. Kalau ada keajaiban, baik aku kerja kuat dari dulu daripada berangan nak kaya dengan judi."},
+			{"speaker": "player", "name": "Saya", "text": "Sekarang aku takde pilihan melainkan rosakkan hidup orang, kalau tak nasib aku pun akan berakhir teruk. Macam lelaki yang kena renjat elektrik tu."},
+			{"speaker": "player", "name": "Saya", "text": "........."},
+			{"speaker": "player", "name": "Saya", "text": ".........Memang jijik."}
 		],
 		"story_end2": [
-			{"speaker": "police", "name": "Polis", "scene_black": true, "text": "Polis! Jangan ada sesiapa bergerak! Angkat tangan letak atas kepala dan langkah menjauh dari papan kekunci dengan serta-merta!"},
-			{"speaker": "police", "name": "Polis", "scene_black": true, "text": "Kamu semua ditangkap di bawah undang-undang kerana menganjurkan dan mengambil bahagian dalam operasi penipuan siber haram! Jangan cuba melawan!"},
-			{"speaker": "player", "name": "Saya (Eren)", "scene_black": true, "text": "Syukur kepada tuhan!!! Ia bukan keajaiban, tetapi polis benar-benar sudah sampai di sini!!!"},
-			
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Seterusnya, seluruh sarang penipuan yang tersembunyi di dalam kawasan perindustrian terpencil itu telah digempur sepenuhnya oleh pihak polis."},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Walaupun saya ditipu untuk menyertai dan dipaksa bekerja, dan saya tidak pernah menganggap diri saya sebahagian daripada syaitan-syaitan tersebut, saya tetap digari dan dilayan sebagai suspek pada hari itu."},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Nasib baik, semasa siasatan dan perbicaraan mahkamah yang seterusnya, mahkamah mengambil kira bahawa saya dipaksa di bawah ancaman keganasan dan bekerjasama sepenuhnya dengan pihak polis. Saya akhirnya dibuktikan tidak bersalah, menyelamatkan baki hidup saya."},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Walaupun saya masih perlu menghadapi Ah Long apabila saya keluar nanti, kali ini, saya tidak akan lari. Saya akan terus pergi kepada pihak polis untuk mendapatkan perlindungan dan bantuan."},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Saya tidak akan lagi bermimpi tentang kejayaan sekelip mata dan jalan pintas. Saya akan berhenti daripada tabiat ketagihan judi saya dan membina semula hidup saya langkah demi langkah."},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Lebih penting lagi, selepas merasai pengalaman dalam neraka ini, saya memutuskan untuk menggunakan taktik scam 'profesional' yang saya pelajari untuk membantu mendidik dan mengelakkan orang lain daripada menjadi mangsa..."},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "...daripada terus menuai wang titik peluh mereka dan merosakkan kehidupan mereka seperti penjenayah-penjenayah tersebut."}
+			{"speaker": "police", "name": "Polis", "scene_black": true, "text": "Polis! Jangan bergerak! Letak tangan atas kepala dan jauhkan diri dari papan kekunci sekarang!"},
+			{"speaker": "police", "name": "Polis", "scene_black": true, "text": "Kamu semua ditangkap di bawah undang-undang kerana menganjur dan terlibat dalam operasi penipuan siber haram! Sesiapa yang melawan akan terima padah!"},
+			{"speaker": "player", "name": "Saya", "scene_black": true, "text": "............."},
+			{"speaker": "player", "name": "Saya", "scene_black": true, "text": "Ahahahahaha!!!! Ini kali pertama aku rasa gembira sangat nampak polis!!! Padan muka korang semua scammer tak guna!! Ahahahahaha!!"},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Selepas itu, seluruh sarang sindiket penipuan yang tersembunyi di kawasan industri terpencil ini telah digempur sepenuhnya oleh pihak polis."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Walaupun saya ditangkap dan dipaksa bekerja, saya tahu saya tidak sama dengan syaitan-syaitan tersebut. Tapi pada saat itu, saya tetap digari dan dibawa naik ke trak polis sebagai suspek."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Nasib baik, semasa siasatan dan perbicaraan mahkamah yang seterusnya, mahkamah mengambil kira bahawa saya dipaksa di bawah ancaman dan bekerjasama penuh dengan pihak polis. Akhirnya saya dibuktikan tidak bersalah dan terselamat dari penjara."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Walaupun bila dah keluar, saya masih perlu hadapi hutang Ah Long yang belum langsai. Tapi kali ni, saya tak tangguh lagi, saya terus mohon bantuan dan perlindungan dari polis."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Saya takkan berangan lagi nak kaya jalan pintas. Saya akan berhenti judi sepenuhnya dan bina balik hidup dari bawah."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "Lebih penting lagi, lepas lalui semua neraka ni, saya buat keputusan untuk guna 'pengetahuan profesional' yang saya pelajari untuk bantu elak orang lain dari jadi mangsa scam..."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "...dan bukannya mengikis duit peluh orang dan rosakkan hidup diorang macam penjenayah tu semua."}
 		]
 	},
 	"bt": {
 		"story_intro": [
-			{"speaker": "player", "name": "நான் (Eren)", "scene_black": true, "text": "என் பெயர் Eren. சில காலத்திற்கு முன்பு வரை, நான் ஒரு நல்ல வேலையில் இருந்து, சாதாரணமான ஆனால் நிலையான வாழ்க்கையை வாழ்ந்து வந்தேன்... சூதாட்டத்திற்கு அடிமையாகும் வரை."},
-			{"speaker": "player", "name": "நான் (Eren)", "scene_black": true, "text": "அது ஒரு அடியற்ற குழி. நான் என் வாழ்நாள் சேமிப்பு முழுவதையும் அழித்தேன், மேலும் முழு பைத்தியக்காரத்தனத்தில், கந்துவட்டிக்காரர்களிடம் (Ah Long) கடன் வாங்கினேன். நான் விழித்தபோது, என்னிடம் எதுவும் மிஞ்சவில்லை."},
-			{"speaker": "player", "name": "நான் (Eren)", "scene_black": true, "text": "ஆனால் அதற்குள் காலம் கடந்துவிட்டது. என் நண்பர்கள் என்னை ஒரு கொள்ளை நோய் போல் நடத்துகிறார்கள், என் குடும்பத்தினர் என் மீது முற்றிலும் ஏமாற்றமடைந்துள்ளனர்... மேலும் கடன் வசூலிப்பவர்கள் தினமும் என் கதவை தட்டுகிறார்கள். நான் கடுமையான பயத்தில் வாழ்கிறேன்."},
-			{"speaker": "player", "name": "நான் (Eren)", "scene_black": true, "text": "நான் முற்றிலும் முடக்கப்பட்ட நிலையில், பல வருடங்களாக நான் பார்க்காத ஒரு நடுநிலைப்பள்ளி வகுப்புத் தோழன் திடீரென்று சமூக ஊடகங்களில் எனக்கு மெசேஜ் அனுப்பினான்."},
-			{"speaker": "player", "name": "நான் (Eren)", "scene_black": true, "text": "அவன் பெயர் Conny. பள்ளியில் படிக்கும் போது, அவன் ஒரு முழு ரவுடி, எப்போதும் தெருக் கும்பல்களுடன் பிரச்சினைகளில் ஈடுபடுவான்."},
-			{"speaker": "player", "name": "நான் (Eren)", "scene_black": true, "text": "ஆனால் இந்த முறை, அவன் எனக்கு ஒரு உயிர் காக்கும் வாய்ப்பை வழங்க வந்தான். நான் அவனுடன் வேலை செய்தால், என் கடனை விரைவாக தீர்க்க முடியும் என்றும், ஆரம்பத்தில் மாதத்திற்கு RM10,000-க்கும் மேல் எளிதாக சம்பாதிக்கலாம் என்றும் வாக்குறுதி அளித்தான்."},
-			{"speaker": "player", "name": "நான் (Eren)", "scene_black": true, "text": "ஒரே ஒரு நிபந்தனை என்னவென்றால், கடுமையான 'NDA' கொள்கை: முற்றிலும் மூடிய மேலாண்மை. நான் விடுதியில் தங்கி வேலை செய்ய வேண்டும், அனுமதி இன்றி வெளியே செல்ல முற்றிலும் தடை விதிக்கப்பட்டது."},
-			{"speaker": "player", "name": "நான் (Eren)", "scene_black": true, "text": "சாதாரண மூளை உள்ள எவரும் இது சந்தேகத்திற்குரியது என்று கூறலாம். ஆனால் நான்... எனக்கு வேறு வழியே இல்லை."},
-			{"speaker": "player", "name": "நான் (Eren)", "scene_black": true, "text": "நான் பணத்தை திருப்பித் தராவிட்டால் என் உயிரை எடுத்துவிடுவதாக கந்துவட்டிக்காரர்கள் மிரட்டினர். உயிர் பிழைக்க, நான் ஒப்புக்கொண்டேன். Conny என்னை தயாராக இருக்க சொன்னான்; நாளை காலை ஒரு கார் என்னை அழைத்துச் செல்லும்."},
-			{"speaker": "player", "name": "நான் (Eren)", "scene_black": true, "text": "மறுநாள் காலை, நம்பர் பிளேட் இல்லாத ஒரு வேன் சாலையோரம் நின்றது. நான் உள்ளே ஏறியவுடன், Conny ஒரு தடிமனான கருப்பு துணியை என்னிடம் கொடுத்து என் கண்களை மூடிக்கொள்ள சொன்னான்."},
-			{"speaker": "player", "name": "நான் (Eren)", "scene_black": true, "text": "நான் அதை எதிர்த்து வாதிட நினைத்தேன். ஆனால் நான் திரும்பிப் பார்த்தபோது, கையில் பச்சை குத்திய, மிரட்டும் தோற்றம் கொண்ட இரண்டு தசைப்பிடிப்புள்ள ஆட்கள் Conny-க்கு அருகில் அமர்ந்திருந்தனர்... நான் என் பயத்தை அடக்கி அதை அணிந்துகொண்டேன்."},
-			{"speaker": "player", "name": "நான் (Eren)", "scene_black": true, "text": "கும்மிருட்டில் ஆடிக்கொண்டே, வேன் எவ்வளவு நேரம் பயணித்தது என்று தெரியவில்லை. இறுதியாக, அது நின்றது. என் கண்மூடி கிழிக்கப்பட்டது, நான் பலத்த பாதுகாப்புடைய ஒரு வளாகத்திற்குள் அழைத்துச் செல்லப்பட்டேன்."},
-			{"speaker": "player", "name": "நான் (Eren)", "scene_black": true, "text": "ஒரு மோசமான, ஈரமான விடுதி அறைக்குள் என் தனிப்பட்ட உடமைகளை முரட்டுத்தனமாக எறிந்த பிறகு, Conny என்னை கீபோர்டு கிளிக் சத்தங்களால் அதிரும் ஒரு வேலை செய்யும் பகுதிக்கு அழைத்துச் சென்றான்."},
-
-			{"speaker": "player", "name": "நான் (Eren)", "scene_black": true, "text": "Conny... இந்த இடம் ஒரு சாதாரண தொழில்நுட்ப நிறுவனம் போல் தெரியவில்லை. இப்போது நீங்கள் என்னிடம் சொல்ல வேண்டும், இங்கே என் குறிப்பிட்ட வேலை என்ன?"},
-			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "ஹாஹா, ரிலாக்ஸ் பிரதர். நாம் ஏற்கனவே இந்த நிலைக்கு வந்துவிட்டதால், நான் என் கார்டுகளை மேஜையில் வைப்பது நல்லது என்று நினைக்கிறேன்."},
-			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "எங்கள் வணிகம் உண்மையில் மிகவும் எளிமையானது: 'சைபர் தொலைத்தொடர்பு மோசடி' (Scam). இந்த நொடியில் இருந்து, நீங்கள் அதிகாரப்பூர்வமாக எங்கள் குடும்பத்தின் ஒரு அங்கமாகிவிட்டீர்கள்."},
-			{"speaker": "player", "name": "நான் (Eren)", "scene_black": true, "text": "என்ன?! ஸ்கேமா?! அது சட்டவிரோதமானது! இது அப்பாவி மக்களின் வாழ்க்கையை அழித்துவிடும்... முடியாது, நான் இதைச் செய்ய மாட்டேன்! எனக்கு வீட்டிற்குப் போக வேண்டும்!"},
-			{"speaker": "npc", "name": "", "scene_black": true, "text": "(பக்! உங்கள் வயிற்றில் ஒரு பலத்த குத்து விழுகிறது. நீங்கள் கடுமையான வலியில் முன்னோக்கி வளைகிறீர்கள்...)"},
-			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "வீட்டிற்கு போவதா? நீங்கள் இங்கிருந்து சாதாரணமாக வெளியேறிவிடலாம் என்று நினைக்கிறீர்களா? நான் உங்களுக்கு உண்மையைச் சொல்கிறேன், நீங்கள் எங்கும் போக முடியாது!"},
-			{"speaker": "npc", "name": "Conny", "scene_black": true, "text": "ஒன்று நீங்கள் வாயை மூடிக்கொண்டு, அந்த பிசிக்கு முன்னால் அமர்ந்து, உங்கள் கந்துவட்டி கடனை அடைக்க நிறுவனத்திற்கு பணம் சம்பாதித்துக் கொடுங்கள், அல்லது... அங்கே இருக்கும் மின்சார அதிர்ச்சி கொடுக்கும் பேட்டனைப் பார்த்தீர்களா? தினமும் உங்களுக்கு மின்சார அதிர்ச்சி தருவதில் எனக்கு எந்த ஆட்சேபனையும் இல்லை!"},
-			{"speaker": "player", "name": "நான் (Eren)", "scene_black": true, "text": "(கடுமையான வலியுடன் கலந்த எல்லையற்ற ஏமாற்றம் என் மனதில் சூழ்ந்தது... நான் ஏன் இந்த வலையில் நேராக நடந்தேன்? இது நடக்கும் என்று நான் ஏன் முன்கூட்டியே கணிக்கவில்லை?!)"},
-			{"speaker": "player", "name": "நான் (Eren)", "scene_black": true, "text": "(ஆனால் இங்கே எதிர்ப்பது மரணம் என்று குளிர்ந்த யதார்த்தம் கத்துகிறது. நாளை காலை சூரிய உதயத்தை நான் பார்க்க வேண்டுமானால்... என் தலையைக் குனிந்து அவர்கள் சொல்வதைச் செய்வதைத் தவிர எனக்கு வேறு வழியில்லை.)"}
+			{"speaker": "player", "name": "நான்", "scene_black": true, "text": "என் பெயர் Eren, நான் ஒரு சாதாரண தொழிலாளி, ஆனால் சூதாட்டப் பழக்கத்தால், கந்துவட்டிக்காரர்களிடம் சிக்கி என் வாழ்க்கையையே நாசமாக்கிக் கொண்டேன்."},
+			{"speaker": "player", "name": "நான்", "scene_black": true, "text": "ஏற்கனவே மோசமாக இருந்த என் வாழ்க்கை இப்போது இன்னும் மோசமாகிவிட்டது, ஏன் தெரியுமா......"},
+			{"speaker": "player", "name": "நான்", "scene_black": true, "text": "ஏனென்றால் இப்போது நான் ஒரு மோசடி கும்பலின் கூடாரத்தில் இருக்கிறேன், சீக்கிரமே அவர்களில் ஒருவனாக மாறப் போகிறேன்."},
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "scene_black": true, "text": "நீ எங்களுக்குத் தான் நன்றி சொல்ல வேண்டும். கந்துவட்டிக்காரர்களிடமிருந்து நாங்கள் உன்னை விலைக்கு வாங்கவில்லை என்றால், இந்நேரம் உன் உடல் உறுப்புகளை விற்றிருப்பார்கள்."},
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "scene_black": true, "text": "இப்போது நான் உன்னை உன் வேலை செய்யும் இடத்திற்கு அழைத்துச் சென்று உன் வேலை என்னவென்று கூறுகிறேன்."},
+			{"speaker": "player", "name": "நான்", "scene_black": true, "text": "நான் முற்றிலும் முடிந்துவிட்டேன். மோசடி செய்ய என்னை கட்டாயப்படுத்துகிறார்கள்...... தப்பிக்க ஒரு வழியைக் கண்டுபிடிக்க வேண்டும்."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "(அருகில் ஒரு மனிதன் வலியால் முனகும் சத்தம் கேட்கிறது)"},
+			{"speaker": "man", "name": "தண்டிக்கப்பட்ட மனிதன்", "scene_black": true, "text": "ம்ம்ம்... ம்ம்ம்ம்!!!"},
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "scene_black": true, "text": "அது யார்?"},
+			{"speaker": "scammer", "name": "மோசடி செய்பவன்", "scene_black": true, "text": "நேற்று தப்பியோட முயன்றான், இப்போதுதான் பிடித்து வந்தோம்."},
+			{"speaker": "scammer", "name": "மோசடி செய்பவன்", "scene_black": true, "text": "(ஸ்டன் பேட்டன் மின்சாரம் பாயும் பயங்கரமான சத்தம்)"},
+			{"speaker": "man", "name": "தண்டிக்கப்பட்ட மனிதன்", "scene_black": true, "text": "ம்ம்ம்ம்!!! ம்ம்ம்!!!"},
+			{"speaker": "scammer", "name": "மோசடி செய்பவன்", "scene_black": true, "text": "இன்னும் ஓட நினைக்கிறாயா? பேசு!"},
+			{"speaker": "man", "name": "தண்டிக்கப்பட்ட மனிதன்", "scene_black": true, "text": "ம்ம்ம்... ம்ம்ம்ம்!!!"},
+			{"speaker": "player", "name": "நான்", "scene_black": true, "text": "சரி, இப்போது தப்பிக்க நினைப்பது ஒரு முட்டாள்தனமான யோசனை..."}
 		],
 		"phone_intro": [
-			{"speaker": "npc", "name": "Conny", "text": "சரி! நீங்கள் உங்கள் பாடத்தைக் கற்றுக்கொண்டதால், உங்கள் குறிப்பிட்ட கடமைகளை உங்களுக்குக் கற்பிக்கும் நேரம் இது. உங்கள் கண்களை அகலத் திறந்து உன்னிப்பாகக் கேளுங்கள்."},
-			{"speaker": "npc", "name": "Conny", "text": "இது இன்றைக்கான உங்கள் புதிய வேலை போன். எந்தவொரு விசித்திரமான தந்திரங்களையும் செய்ய முயற்சிக்காதீர்கள்—ஜிபிஎஸ் டிராக்கிங் மற்றும் கண்காணிப்பு உள்ளே பூட்டப்பட்டுள்ளது. இனிமேல், இந்தச் சாதனத்தின் மூலம்தான் உங்கள் மோசடி மற்றும் பணம் சம்பாதிக்கும் வேலைகள் அனைத்தையும் நிர்வகிப்பீர்கள்."},
-			{"speaker": "npc", "name": "Conny", "text": "பேசியது போதும், நீங்கள் ஏற்கனவே கம்யூனிட்டி சாட் குரூப்பில் சேர்க்கப்பட்டுள்ளீர்கள். இப்போது, வேலை செய்யத் தொடங்க திரையில் உள்ள நீல நிற சாட் மென்பொருள் பொத்தானை தட்டுங்கள்!"}
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "சரி, நாம் வந்துவிட்டோம். இப்போது உன் வேலையை உனக்குக் கற்றுக் கொடுக்கும் நேரம். கவனமாகக் கேட்டு கற்றுக்கொள்."},
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "இதுதான் உன் புதிய வேலைக்கான போன். இனிமேல், மக்களை ஏமாற்றவும் பணம் பறிக்கவும் இந்தச் சாதனத்தைத்தான் பயன்படுத்தப் போகிறாய். இப்போது, திரையில் உள்ள நீல நிற சேட்டிங் ஆப் பட்டனை அழுத்தி வேலையைத் தொடங்கு!"}
 		],
-		"app_intro": [
-			{"speaker": "npc", "name": "Conny", "text": "உங்கள் குறிப்பிட்ட கடமைகளைப் பொறுத்தவரை... உன்னிப்பாகக் கேளுங்கள். நீங்கள் இப்போது எங்கள் சிறப்பு 'கிரிப்டோகரன்சி மோசடி' பிரிவுக்கு ஒதுக்கப்பட்டுள்ளீர்கள்."},
-			{"speaker": "npc", "name": "Conny", "text": "எங்கள் குழு பயன்பாட்டிற்குள் ஒரு பொதுவான விவாதக் குழுவை அமைத்துள்ளது, மேலும் நாங்கள் வெளியில் உள்ள பல்வேறு தளங்களில் எங்கள் போலி 'அதிவேக பணக்கார முதலீட்டு வாய்ப்புகளை' விளம்பரப்படுத்துகிறோம்."},
-			{"speaker": "npc", "name": "Conny", "text": "இணையத்தில் பணமும் அதிக ஆசையும் உள்ளவர்களுக்கு பஞ்சமே இல்லை. அவர்கள் விளம்பரங்களைப் பார்த்தவுடன், எங்கள் குழுவில் ஒவ்வொன்றாக இணைவார்கள்."},
-			{"speaker": "npc", "name": "Conny", "text": "சமூக அரட்டையில் இணைபவர்கள் உங்கள் போனின் சாட் லிஸ்ட்டில் தானாகவே இங்கே தோன்றுவார்கள். நீங்கள் செய்ய வேண்டியது இந்த பட்டியலில் உள்ள பல்வேறு நபர்களைக் குறிவைத்து வீழ்த்துவதுதான்."},
-			{"speaker": "npc", "name": "Conny", "text": "பார், யாரோ ஒரு நபர் ஏற்கனவே வலையில் விழுந்துவிட்டார் போல தெரிகிறது. உங்கள் முதல் பணியைத் தொடங்கி அவரிடம் பேச இப்போது அவருடைய பெயரைத் தட்டுங்கள்!"}
+		"app_intro1": [
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "உன் வேலையைப் பற்றிச் சொல்வதென்றால்... நன்றாகக் கேள். நீ இப்போது 'கிரிப்டோகரன்சி மோசடி' பிரிவுக்கு ஒதுக்கப்பட்டுள்ளாய். எங்கள் 'RichCoin' ஐ வாங்க மக்களை ஏமாற்றுவதே உன் வேலை."},
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "அந்த குரூப் சேட்டைப் பார்க்கிறாயா? அதுதான் எங்கள் விவாதக் குழு. இந்த போலி 'விரைவாகப் பணக்காரராகும்' முதலீட்டுத் திட்டத்தை இணையம் முழுவதும் நாங்கள் விளம்பரப்படுத்தியுள்ளோம்."},
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "முதலில் உள்ளே சென்று அவர்கள் என்ன பேசுகிறார்கள் என்று பார்."}
+		],
+		"group_intro": [
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "மேலே பின் செய்யப்பட்ட லிங்க்கைப் பார்க்கிறாயா? 'முதலீட்டாளர்களை' எங்கள் RichCoin ஐ வாங்க வைப்பதற்கான லிங்க் அதுதான்."},
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "இந்த குரூப்பில் உள்ளவர்கள் யார் என்றால்...... அவர்கள் பெரும்பாலும் எங்கள் போலி கணக்குகள் (shills). அவர்கள் குரூப்பில் புதிதாக வருபவர்களை எங்கள் காயின் நம்பகமானது என்று நம்ப வைப்பார்கள்."},
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "பார்த்து முடித்ததும், வெளியேற மேல் இடதுபுறத்தில் உள்ள பேக் பட்டனை அழுத்து."}
+		],
+		"app_intro2": [
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "ஆஹா! ஒரு இலக்கு வலையில் சிக்கிவிட்டது."},
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "இந்தப் பக்கத்தில், ஒரு புதிய இலக்கு வரும்போதெல்லாம், இதுபோல உன் சாட் லிஸ்ட்டில் தானாகவே தோன்றும். நீ செய்ய வேண்டியது, அவர்களை ஏமாற்றி எங்கள் RichCoin ஐ வாங்க வைப்பதுதான்."},
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "இப்போது அவர்கள் பெயரைக் கிளிக் செய்து உனது முதல் டாஸ்க்கைத் தொடங்கு!"}
 		],
 		"bio_intro": [
-			{"speaker": "npc", "name": "Conny", "text": "இங்கே, இலக்கின் ஆளுமை சுயவிவரத்தையும் சுயசரிதையையும் நீங்கள் பார்க்கலாம்."},
-			{"speaker": "npc", "name": "Conny", "text": "நீங்கள் செய்ய வேண்டியது என்னவென்றால், அவர்களின் மறைந்திருக்கும் உளவியல் பலவீனங்களைக் கண்டறிய இந்த பயோஸின் அடிப்படையில் அவர்களின் ஆளுமையை பகுப்பாய்வு செய்வதாகும். இது உங்கள் மோசடி செயல்முறையை மிகவும் எளிதாக்கும்."},
-			{"speaker": "npc", "name": "Conny", "text": "நீங்கள் தயாரானதும், உங்கள் நிகழ்ச்சியைத் தொடங்க கீழே உள்ள பொத்தானைத் தட்டவும்!"}
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "இங்கே, இலக்கின் குணாதிசயங்களையும் சுயவிவரங்களையும் நீ பார்க்கலாம்."},
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "இந்த சுயவிவரங்களை வைத்து அவர்களின் மறைந்திருக்கும் உளவியல் பலவீனங்களை நீ கண்டுபிடிக்க வேண்டும். இது உன் மோசடி வேலைக்கு மிகவும் உதவும்."},
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "நீ தயாரானதும், உன் வேலையைத் தொடங்க கீழே உள்ள பட்டனைக் கிளிக் செய்."}
 		],
 		"chat_intro": [
-			{"speaker": "npc", "name": "Conny", "text": "அருமை, அவர்களின் பயோவை படித்த பிறகு, இந்த நபரின் சேமிப்பை வெற்றிகரமாக காலி செய்ய எந்த உளவியல் பலவீனத்தை பயன்படுத்த வேண்டும் என்று உங்களுக்கு ஏற்கனவே தெரியும் என்று நான் நம்புகிறேன்."},
-			{"speaker": "npc", "name": "Conny", "text": "ஒருவேளை இந்த நபரை கையாள்வது சற்று கடினம் என்று நீங்கள் நினைத்தால், மேலே உள்ள பெரிய 'H' பொத்தானைத் தட்டலாம். உங்களைப் போன்ற ஆரம்ப கட்டத்தில் உள்ளவர்களுக்காக நாங்கள் தாராளமாக ஒரு உதவி அம்சத்தைச் சேர்த்துள்ளோம்."},
-			{"speaker": "npc", "name": "Conny", "text": "ஆனால் நினைவில் வையுங்கள், இது உங்கள் சொந்த வேலை. அதைத் தட்டினால் அவர்களை எப்படிக் கையாள்வது என்பது குறித்த ஒரு சிறிய குறிப்பு மட்டுமே உங்களுக்குக் கிடைக்கும். உங்களுக்காக வேறு யாராவது இந்த கேமை விளையாடுவார்கள் என்று நினைக்க வேண்டாம்."},
-			{"speaker": "npc", "name": "Conny", "text": "சரி, விதிகள் அவ்வளவுதான். இப்போது, சென்று எங்கள் RichCoin ஐ வாங்க அவர்களை படிப்படியாக வழிநடத்துங்கள்!"}
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "அருமை, அந்த சுயவிவரத்தைப் பார்த்ததும், எந்த உளவியல் பலவீனத்தைப் பயன்படுத்தி அவர்களின் சேமிப்பைப் பறிக்க வேண்டும் என்று உனக்குத் தெரிந்திருக்கும் என்று நம்புகிறேன்."},
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "இப்போது, சாட் மூலமாகப் படிப்படியாக அவர்களை ஏமாற்றி எங்கள் RichCoin ஐ வாங்க வை!"}
 		],
 		"story_end1": [
-			{"speaker": "npc", "name": "Conny", "text": "ஐயா, இன்று நம் வாலட்டில் பணத்தை அனுப்ப யாரும் அவசரப்படவில்லை என்று தெரிகிறது. ஆனால் ஏய், இந்த அதிக லாபம் தரும் வணிகம் ஒவ்வொரு நாளும் நடக்கிறது. அவசரமில்லை."},
-			{"speaker": "npc", "name": "Conny", "text": "உங்களைப் பொறுத்தவரை, இன்று நீங்கள் ஒரு சிறந்த வேலையைச் செய்துள்ளீர்கள். நீங்கள் இப்போது அதிகாரப்பூர்வமாக எங்களைப் போலவே ஒரு சிறந்த ஸ்கேமர் ஆகிவிட்டீர்கள்."},
-			{"speaker": "npc", "name": "Conny", "text": "இன்றைய வேலையை இத்துடன் முடித்துக் கொள்வோம், போய் உங்கள் முகத்தைக் கழுவுங்கள். இனிமேல்... உங்கள் வாழ்நாள் முழுவதையும் எங்களுக்காக இங்கேயே வேலை செய்து கழிக்க வேண்டும்! ஹாஹாஹா!"},
-			{"speaker": "player", "name": "நான் (Eren)", "text": "（இல்லை... இது நான் விரும்பியதே இல்லை! நான் மக்களை ஏமாற்ற விரும்பவில்லை, அப்பாவி மக்களை முழுமையான நிதி ரீதியான ஏமாற்றத்தின் விளிம்பிற்கு தள்ள நான் விரும்பவில்லை...）"},
-			{"speaker": "player", "name": "நான் (Eren)", "text": "（நான் மிகவும் வருந்துகிறேன்... அந்த சபிக்கப்பட்ட சூதாட்டத்தை தொட்டதற்காக நான் வருந்துகிறேன், மேலும் 'அதிக சம்பள வேலை' என்ற வலையை முட்டாள்தனமாக நம்பியதற்காக நான் வருந்துகிறேன்!）"},
-			{"speaker": "player", "name": "நான் (Eren)", "text": "（அந்தப் பாதிக்கப்பட்டவர்கள் என் முதலீட்டு மோசடியை நம்பியதால் தங்கள் பணத்தை இழந்தார்கள், நான்... ஒரு போலி அதிக சம்பள வேலையை நம்பியதால் என் முழு வாழ்க்கையையும் இழந்தேன்.）"},
-			{"speaker": "player", "name": "நான் (Eren)", "text": "（இந்த உலகில் ஏதேனும் அதிசயங்கள் இருந்தால்... நான் மீண்டும் ஆரம்பிக்க முடிந்தால்... ஆனால் யதார்த்தம் கொடூரமானது. அதிசயம் என்பது கிடையவே கிடையாது.）"}
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "ஐயா, இன்று எங்கள் வாலட்டில் பணத்தைக் கொட்ட யாரும் அவசரப்படவில்லை என்று தெரிகிறது. ஆனால் பரவாயில்லை, இந்த அதிக லாபம் தரும் தொழில் தினமும் நடக்கிறது. அவசரமில்லை."},
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "உன்னைப் பொறுத்தவரை, இன்று நீ ஒரு சிறந்த வேலையைச் செய்துள்ளாய். இப்போது நீ அதிகாரப்பூர்வமாக எங்களைப் போலவே ஒரு மிகச் சிறந்த ஸ்கேமர் ஆகிவிட்டாய்."},
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "இன்றைய வேலையை முடித்துக் கொள்வோம், போய் உன் முகத்தைக் கழுவு. இனிமேல்... உன் வாழ்நாள் முழுவதையும் எங்களுக்காக இங்கேயே வேலை செய்து கழிக்க வேண்டும்!"},
+			{"speaker": "player", "name": "நான்", "text": ".............முடிந்தது."},
+			{"speaker": "player", "name": "நான்", "text": "என் வாழ்க்கை முற்றிலும் அழிந்துவிட்டது."},
+			{"speaker": "player", "name": "நான்", "text": "நான் தொடர்ந்து மற்றவர்களின் வாழ்க்கையையும் அழிக்கப் போகிறேனா......"},
+			{"speaker": "player", "name": "நான்", "text": "ஒருவேளை...... மீண்டும் தொடங்க முடிந்தால், நான் சூதாட்டத்தை தொட்டிருக்கவே மாட்டேன். அதிசயங்கள் இருந்தால், சூதாட்டத்தில் பணக்காரனாக நினைப்பதற்குப் பதிலாக நான் கடினமாக உழைத்திருப்பேன்."},
+			{"speaker": "player", "name": "நான்", "text": "இப்போது மற்றவர்களுக்குத் தீங்கு செய்வதைத் தவிர எனக்கு வேறு வழியில்லை, இல்லையென்றால் அந்த தண்டிக்கப்பட்ட மனிதனைப் போலத்தான் எனக்கும் நடக்கும்."},
+			{"speaker": "player", "name": "நான்", "text": "........."},
+			{"speaker": "player", "name": "நான்", "text": ".........இது மிகவும் கொடூரமானது."}
 		],
 		"story_end2": [
-			{"speaker": "police", "name": "போலீஸ்", "scene_black": true, "text": "போலீஸ்! யாரும் அசையக் கூடாது! கைகளை தலைக்கு மேல் தூக்கி வைத்துக்கொண்டு உடனடியாக கீபோர்டில் இருந்து விலகி நில்லுங்கள்!"},
-			{"speaker": "police", "name": "போலீஸ்", "scene_black": true, "text": "சட்டவிரோத சைபர் மோசடி நடவடிக்கைகளை ஏற்பாடு செய்ததற்கும் அதில் பங்கேற்றதற்கும் நீங்கள் அனைவரும் சட்டத்தின் கீழ் கைது செய்யப்படுகிறீர்கள்! எதிர்க்க முயற்சிக்காதீர்கள்!"},
-			{"speaker": "player", "name": "நான் (Eren)", "scene_black": true, "text": "இறைவனுக்கு நன்றி!!! இது அதிசயம் இல்லை, ஆனால் போலீசார் உண்மையிலேயே இங்கே வந்துவிட்டார்கள்!!!"},
-			
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "தொடர்ந்து, ஒதுக்குப்புறமான தொழில்பேட்டைப் பகுதிக்குள் மறைந்திருந்த அந்த முழு மோசடி கூடாரமும் போலீசாரால் முற்றிலுமாக முறியடிக்கப்பட்டது."},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "நான் ஏமாற்றப்பட்டு வலுக்கட்டாயமாக வேலை செய்ய வைக்கப்பட்டிருந்தாலும், அந்த அரக்கர்களில் ஒருவனாக என்னை நான் ஒருபோதும் கருதவில்லை என்றாலும், அன்றைய தினம் நானும் விலங்கிடப்பட்டு ஒரு சந்தேக நபராகவே நடத்தப்பட்டேன்."},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "அதிர்ஷ்டவசமாக, அடுத்தடுத்த விசாரணை மற்றும் நீதிமன்ற விசாரணையின் போது, நான் வன்முறை மிரட்டலின் கீழ் கட்டாயப்படுத்தப்பட்டதையும் போலீசாருக்கு முழுமையாக ஒத்துழைத்ததையும் நீதிமன்றம் கணக்கில் எடுத்துக்கொண்டது. இறுதியாக நான் நிரபராதி என்று நிரூபிக்கப்பட்டு, என் மீதமுள்ள வாழ்க்கை காப்பாற்றப்பட்டது."},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "நான் வெளியே செல்லும்போது இன்னும் கந்துவட்டிக்காரர்களை (Ah Long) எதிர்கொள்ள வேண்டியிருந்தாலும், இந்த முறை நான் ஓடமாட்டேன். பாதுகாப்பு மற்றும் உதவிக்காக நான் நேரடியாக போலீசாரிடம் செல்வேன்."},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "ஒரே இரவில் பணக்காரனாகும் குறுக்குவழிகளைப் பற்றி நான் இனி கனவு காண மாட்டேன். என் சூதாட்டப் பழக்கத்திலிருந்து முற்றிலும் விடுபட்டு, என் வாழ்க்கையை படிப்படியாக மீண்டும் கட்டியெழுப்புவேன்."},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "மிக முக்கியமாக, இந்த நரகத்தை அனுபவித்த பிறகு, நான் கற்றுக்கொண்ட 'தொழில்முறை' ஸ்கேம் தந்திரங்களை மற்றவர்களுக்கு விழிப்புணர்வு ஏற்படுத்தவும், அவர்கள் பாதிக்கப்படுவதைத் தடுக்கவும் பயன்படுத்த முடிவு செய்தேன்..."},
-			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "...குற்றவாளிகளைப் போல மக்களின் கடின உழைப்பின் பணத்தை சுரண்டி அவர்களின் வாழ்க்கையை அழிப்பதற்குப் பதிலாக."}
+			{"speaker": "police", "name": "போலீஸ்", "scene_black": true, "text": "போலீஸ்! யாரும் அசையக் கூடாது! கைகளைத் தலைக்கு மேல் தூக்கி வைத்துக்கொண்டு உடனடியாக கீபோர்டில் இருந்து விலகி நில்லுங்கள்!"},
+			{"speaker": "police", "name": "போலீஸ்", "scene_black": true, "text": "சட்டவிரோத சைபர் மோசடி நடவடிக்கைகளை ஏற்பாடு செய்ததற்கும் அதில் பங்கேற்றதற்கும் நீங்கள் அனைவரும் கைது செய்யப்படுகிறீர்கள்! எதிர்க்க முயற்சிக்காதீர்கள்!"},
+			{"speaker": "player", "name": "நான்", "scene_black": true, "text": "............."},
+			{"speaker": "player", "name": "நான்", "scene_black": true, "text": "ஆஹாஹாஹாஹா!!!! என் வாழ்க்கையில் போலீஸைப் பார்த்து நான் இவ்வளவு சந்தோஷப்பட்டதே இல்லை!!! நீங்கள் அனைவரும் இதற்குத் தகுதியானவர்கள்தான்!! ஹாஹாஹா!!"},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "அதைத் தொடர்ந்து, ஒதுக்குப்புறமான தொழில்பேட்டைப் பகுதிக்குள் மறைந்திருந்த அந்த முழு மோசடி கூடாரமும் போலீசாரால் முற்றிலுமாக முறியடிக்கப்பட்டது."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "நான் கட்டாயப்படுத்தப்பட்டு வேலை செய்ய வைக்கப்பட்டிருந்தாலும், அந்த அரக்கர்களைப் போல நான் இல்லை என்று எனக்குத் தெரிந்தாலும், அன்றைய தினம் நானும் விலங்கிடப்பட்டு ஒரு சந்தேக நபராகவே நடத்தப்பட்டேன்."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "அதிர்ஷ்டவசமாக, அடுத்தடுத்த விசாரணை மற்றும் நீதிமன்ற விசாரணையின் போது, நான் மிரட்டலின் கீழ் கட்டாயப்படுத்தப்பட்டதையும் போலீசாருக்கு முழுமையாக ஒத்துழைத்ததையும் நீதிமன்றம் கணக்கில் எடுத்துக்கொண்டது. இறுதியாக நான் நிரபராதி என்று நிரூபிக்கப்பட்டு, சிறையிலிருந்து தப்பினேன்."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "நான் வெளியே சென்றாலும் இன்னும் கந்துவட்டிக்காரர்களை எதிர்கொள்ள வேண்டியிருந்தாலும், இந்த முறை நான் பாதுகாப்பிற்காகவும் உதவிக்காகவும் நேரடியாக போலீசாரிடம் சென்றேன்."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "ஒரே இரவில் பணக்காரனாகும் குறுக்குவழிகளைப் பற்றி நான் இனி கனவு காண மாட்டேன். என் சூதாட்டப் பழக்கத்திலிருந்து முற்றிலும் விடுபட்டு, என் வாழ்க்கையை நேர்மையாக மீண்டும் கட்டியெழுப்புவேன்."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "மிக முக்கியமாக, இந்த நரகத்தை அனுபவித்த பிறகு, நான் கற்றுக்கொண்ட 'தொழில்முறை' மோசடி தந்திரங்களை, மற்றவர்கள் பாதிக்கப்படுவதைத் தடுக்கவும் விழிப்புணர்வு ஏற்படுத்தவும் பயன்படுத்த முடிவு செய்தேன்..."},
+			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "...அந்த குற்றவாளிகளைப் போல மக்களின் வியர்வை பணத்தைச் சுரண்டி அவர்களின் வாழ்க்கையை அழிப்பதற்குப் பதிலாக."}
 		]
 	}
-	
-} 
-
+}
 
 
 
@@ -954,269 +939,271 @@ var help = {
 	"ch": {
 		"first_help": {
 			"Midas_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "怎么？这才刚聊了几句就没辙了吗？你到底有没有认真动脑筋思考啊？"},
-				{"speaker": "npc", "name": "Conny", "text": "看好啦，Midas 的简介里写着受够了打工，满脑子都是高杠杆和保时捷。这人一看就是个被债务压垮、想一把翻盘的赌徒。"},
-				{"speaker": "npc", "name": "Conny", "text": "他的心理弱点就是极端贪婪！所以你千万别跟他聊什么安全或者细水长流。"},
-				{"speaker": "npc", "name": "Conny", "text": "你应该用‘100倍超高回报’、‘一夜抹平贷款’这种话术去疯狂刺激他。告诉他这就是他等的那波‘大浪’，他那点理智马上就会崩溃，然后疯狂梭哈！"}
+				{"speaker": "npc", "name": "Conny", "text": "怎么？遇到个想翻盘的赌徒就不知道怎么开口了？"},
+				{"speaker": "npc", "name": "Conny", "text": "他现在还不认识你，你得先以群秘书的身份去搭个话。看他那满脑子保时捷的简介，他要的是极端的暴富捷径！"},
+				{"speaker": "npc", "name": "Conny", "text": "他的心理弱点是极度贪婪。别跟他聊什么长线安全投资，他听了只会觉得浪费时间。"},
+				{"speaker": "npc", "name": "Conny", "text": "直接用‘100倍超高回报’、‘一夜抹平贷款’这种话术去疯狂刺激他。只要饼画得够大，他就会上钩！"}
 			],
 			"Lily_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "不是吧，遇到一个小职员你就跑来找我求助？看来你还没进入状态啊。"},
-				{"speaker": "npc", "name": "Conny", "text": "仔细看看 Lily 的资料，她天天看朋友圈焦虑得睡不着，最怕别人发财自己当穷光蛋。这就说明她是个极度缺乏安全感、有严重 FOMO（错失恐惧）的人。"},
-				{"speaker": "npc", "name": "Conny", "text": "她的心理弱点就是害怕错过别人都在参与的发财机会！她一个人去冒险绝对不敢。"},
-				{"speaker": "npc", "name": "Conny", "text": "话术上你得营造‘名额马上抢完’的紧迫感。用这种氛围去推她一把，她就会因为害怕一辈子只能看别人炫富而赶紧去点链接转账了！"}
+				{"speaker": "npc", "name": "Conny", "text": "连个普通小职员都搞不定？看来你还没摸透人心啊。"},
+				{"speaker": "npc", "name": "Conny", "text": "她一开始对你是有戒心的，你先去打个招呼。仔细看她的资料，她每天看着朋友圈焦虑，最怕别人发财自己当穷光蛋。"},
+				{"speaker": "npc", "name": "Conny", "text": "她的心理弱点就是严重的 FOMO（错失恐惧）。普通的收益根本打动不了她。"},
+				{"speaker": "npc", "name": "Conny", "text": "你得营造‘名额马上抢完、再不买就晚了’的紧迫感。用这种害怕被抛弃的氛围去推她一把！"}
 			],
 			"Jane_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "遇到点小困难就立刻按按钮，你这依赖性也太强了吧？"},
-				{"speaker": "npc", "name": "Conny", "text": "盯紧 Jane 的自我简介！她是个只会看大部分人怎么选的盲从者，绝对不敢做第一个吃螃蟹的人。"},
-				{"speaker": "npc", "name": "Conny", "text": "她的心理弱点就是强烈的跟风心理！只要有一大群人背书，她才会觉得踏实。"},
-				{"speaker": "npc", "name": "Conny", "text": "攻略这种目标，你得反复强调‘整个群都在买’、‘大家都觉得这个超级靠谱’。多提到别人都在一起做，她心里的防线就会跟着大家的节奏一起瓦解！"}
+				{"speaker": "npc", "name": "Conny", "text": "遇到点小困难就立刻按按钮？盯紧 Jane 的自我简介！"},
+				{"speaker": "npc", "name": "Conny", "text": "她现在根本不知道你是谁，先去表明身份。她是个只会看大部分人怎么选的盲从者，绝对不敢做第一个吃螃蟹的人。"},
+				{"speaker": "npc", "name": "Conny", "text": "她的心理弱点就是强烈的羊群效应！不要叫她勇敢投资，她只会觉得你是个骗子。"},
+				{"speaker": "npc", "name": "Conny", "text": "你得反复强调‘整个群几百人都在买’、‘大家都觉得这个超级靠谱’，用群体的力量去击溃她的防线！"}
 			],
 			"Stanley_chat_help": [
 				{"speaker": "npc", "name": "Conny", "text": "觉得这个懂点投资的人像一块铁板无从下手？动动脑子，是人就会有破绽。"},
-				{"speaker": "npc", "name": "Conny", "text": "瞅瞅 Stanley 的简介，这家伙极其自负，觉得散户都是韭菜，一心只想学真正的有钱人投资。"},
-				{"speaker": "npc", "name": "Conny", "text": "他的心理弱点就是盲目迷信‘名人背书’！他根本不看项目本身，只看是谁投了钱。"},
-				{"speaker": "npc", "name": "Conny", "text": "对付这种自以为聪明的人，普通的暴富口号只会让他鄙视你。你得编点‘世界首富或是哪里的顶级富豪也在私下买入’的内幕消息。只要名字够响亮，他的分析防御就会一秒瘫痪！"}
+				{"speaker": "npc", "name": "Conny", "text": "去跟他搭话，你会发现这家伙极其自负，觉得散户都是韭菜，一心只想学真正的有钱人投资。"},
+				{"speaker": "npc", "name": "Conny", "text": "他的心理弱点就是盲目迷信‘名人背书’！政府牌照或者跟风抢购对他完全没用。"},
+				{"speaker": "npc", "name": "Conny", "text": "对付这种自以为聪明的人，你得编点‘世界首富或是顶尖富豪也在私下买入’的绝密内幕。抛出响亮的名字，他马上就跪了！"}
 			],
 			"Simon_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "遇到个可怜的打工人你就傻眼了？仔细看看他的资料！"},
-				{"speaker": "npc", "name": "Conny", "text": "他说自己一个人生活，很孤单，只想要赚点钱找个女朋友过日子。"},
-				{"speaker": "npc", "name": "Conny", "text": "他的心理弱点就是极度缺爱和情感依赖！这在我们的行话里叫‘杀猪盘’。"},
-				{"speaker": "npc", "name": "Conny", "text": "别一上来就推销投资！你得先假装单身跟他套近乎，提供情绪价值。等他彻底爱上你之后，再用‘为了我们的未来’这种借口让他掏钱！"}
+				{"speaker": "npc", "name": "Conny", "text": "遇到这个可怜的打工人你就傻眼了？仔细看资料，这是我们行内最经典的‘杀猪盘’！"},
+				{"speaker": "npc", "name": "Conny", "text": "警告你，他是直男！你千万别用大老爷们的身份去跟他聊，必须装作想找对象的单身女孩去接近他！"},
+				{"speaker": "npc", "name": "Conny", "text": "他的心理弱点就是极度缺爱和情感依赖。别一上来就像个机器客服一样推销发财币，他会直接拉黑你。"},
+				{"speaker": "npc", "name": "Conny", "text": "你得先跟他套近乎，确定恋爱关系。等他沉浸在爱情里了，再用‘为了我们的未来’当借口去骗钱！"}
 			]
 		},
 		"second_help": {
 			"Midas_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "我之前不是才刚和你说过吗？怎么你到现在还是不明白怎么操作呢？"},
-				{"speaker": "npc", "name": "Conny", "text": "我都说了 Midas 只要翻身捷径！赌徒要的就是瞬间暴富的刺激，他根本不想听你长篇大论。"},
-				{"speaker": "npc", "name": "Conny", "text": "把你的话术变得更直接、更具攻击性一点！直接承诺他下个月就能还清债务、开上保时捷。"},
-				{"speaker": "npc", "name": "Conny", "text": "再加上时间仅剩最后几分钟的催促，他的侥幸心理会让他不顾一切地做出决定。快去把他的老本拿下来！"}
+				{"speaker": "npc", "name": "Conny", "text": "怎么又来了？是不是你抛出暴富诱饵后，他不但没买还反问你了？"},
+				{"speaker": "npc", "name": "Conny", "text": "我忘了告诉你，没人会听你一句话就立刻掏钱。他现在处于拉扯阶段，在试探你！"},
+				{"speaker": "npc", "name": "Conny", "text": "这个时候千万别换套路！他问是不是真的，你就连续2到3次继续用‘绝对能买保时捷、还清贷款’去给他洗脑。"},
+				{"speaker": "npc", "name": "Conny", "text": "只要你在逻辑上持续加码他最渴望的暴富神话，不给他冷静的机会，他的理智很快就会彻底崩盘。去，再推他几把！"}
 			],
 			"Lily_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "你又来找我了？刚才告诉你的重点是不是左耳进右耳出了？"},
-				{"speaker": "npc", "name": "Conny", "text": "Lily 现在还在犹豫是因为她不敢一个人行动，但她内心的嫉妒和焦虑早就在边缘爆发了。"},
-				{"speaker": "npc", "name": "Conny", "text": "继续加大分量！告诉她群里的名额只剩最后一个了，再犹豫，别人就拿着钱去潇洒了。"},
-				{"speaker": "npc", "name": "Conny", "text": "利用她对‘独自当穷光蛋’的严重危机感。只要你用这种极端的紧缺氛围去推波助澜，她心跳一快，手就会不由自主地去转账了！"}
+				{"speaker": "npc", "name": "Conny", "text": "是不是她开始慌了，但就是不敢付钱？这就对了！"},
+				{"speaker": "npc", "name": "Conny", "text": "她是个极度胆小的人，听到名额要没了肯定会犹豫和反复确认。你千万别在这时候软下来！"},
+				{"speaker": "npc", "name": "Conny", "text": "继续加大分量！连续两三次告诉她：‘别人都已经抢疯了，再犹豫你就彻底错过了！’"},
+				{"speaker": "npc", "name": "Conny", "text": "利用她对‘独自当穷光蛋’的严重危机感死死拿捏她。持续施压，她心跳一快，手就会不由自主地去转账了！"}
 			],
 			"Jane_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "怎么？同一个普通女孩，我点拨了你一次你居然还是没能把她拿下？"},
-				{"speaker": "npc", "name": "Conny", "text": "再对你重申一遍，Jane 需要的是群体背书，她需要百分之百的安全感。"},
-				{"speaker": "npc", "name": "Conny", "text": "别用冷冰冰的指令去催她，要把‘大部分人都已经买疯了’的氛围做足给她看。"},
-				{"speaker": "npc", "name": "Conny", "text": "让她坚信自己是跟着大部队走的。只要她感觉自己在这个庞大的群体里，她的防御就会彻底变成零。去吧，再战一轮！"}
+				{"speaker": "npc", "name": "Conny", "text": "同一个普通女孩，我点拨了你一次你居然还是没能把她拿下？"},
+				{"speaker": "npc", "name": "Conny", "text": "她现在肯定在问‘真的大家都买了吗’之类的话吧？她在寻求群体的安全感！"},
+				{"speaker": "npc", "name": "Conny", "text": "这时候千万别去讲项目的技术，继续围绕‘很多人都在做’这个点，连续给她洗脑两三次！"},
+				{"speaker": "npc", "name": "Conny", "text": "坚决告诉她群里的活人都在晒收益，绝不会让她一个人承担风险。只要把从众氛围做到极致，她的防御就会彻底变成零！"}
 			],
 			"Stanley_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "怎么跟自负的人聊几句你就慌了神？我不是才教过你要怎么利用他的‘权威崇拜’吗？"},
-				{"speaker": "npc", "name": "Conny", "text": "记住，越是觉得散户蠢、自诩聪明的人，越容易跪倒在‘名人效应’面前。"},
-				{"speaker": "npc", "name": "Conny", "text": "别跟他扯普通理财，直接给他透露一个‘某个全球顶级富豪已经在私下完成建仓’的绝密内幕。"},
-				{"speaker": "npc", "name": "Conny", "text": "只要让他以为自己终于能和大老板们搭上同一班车、分享同样的‘内部信息’，他绝对会乖乖把钱交出来！用名人效应粉碎他的傲慢吧！"}
+				{"speaker": "npc", "name": "Conny", "text": "怎么？你搬出名人效应，他反而开始质疑内幕的真实性了？"},
+				{"speaker": "npc", "name": "Conny", "text": "自负的人就是这样，他们会为了显得自己聪明而故意拉扯。这时候你绝不能退缩！"},
+				{"speaker": "npc", "name": "Conny", "text": "顺着他的话往下编！连续两三次咬死‘这就是大佬内部的消息，一般散户根本不知道’。"},
+				{"speaker": "npc", "name": "Conny", "text": "只要你持续满足他那种‘我是精英’的虚荣心，用名人的光环彻底粉碎他的傲慢，他绝对会乖乖把钱交出来！"}
 			],
 			"Simon_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "怎么？谈个假恋爱都谈不明白吗？是不是你一上来就暴露了要钱的狐狸尾巴？"},
-				{"speaker": "npc", "name": "Conny", "text": "杀猪盘讲究的是循序渐进！你要是一上来就说‘我爱你，给我打钱投资’，连猪都知道你是个骗子！"},
-				{"speaker": "npc", "name": "Conny", "text": "收起你那套生硬的销售话术，用甜言蜜语给他画一个完美的家庭大饼，让他觉得你就是他的命中注定。"},
-				{"speaker": "npc", "name": "Conny", "text": "等他彻底深陷在爱情的幻觉里时，你再说‘亲爱的，为了我们的未来赚一笔吧’。去吧，让他心甘情愿地把积蓄全交给你！"}
+				{"speaker": "npc", "name": "Conny", "text": "怎么？是不是你终于聊到钱，他却觉得你只是图他的钱，开始退缩了？"},
+				{"speaker": "npc", "name": "Conny", "text": "杀猪盘最关键的就是收网这一下！他之所以拉扯，是因为他在害怕失去你这个‘女朋友’。"},
+				{"speaker": "npc", "name": "Conny", "text": "这时候别去讲发财币有多好，你要连续两三次跟他描绘你们的未来：‘亲爱的，这都是为了我们未来的房子和婚礼啊！’"},
+				{"speaker": "npc", "name": "Conny", "text": "用温柔和爱意彻底灌醉他。只要他坚信这笔钱能换来一个老婆和幸福的家，他就算去借高利贷也会把钱转给你！"}
 			]
 		}
 	},
 	"en": {
 		"first_help": {
 			"Midas_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "What's wrong? Barely a few lines in and you're already stuck? Have you even been thinking with your brain at all?"},
-				{"speaker": "npc", "name": "Conny", "text": "Look closely! Midas's bio says he's sick of his 9-to-5 and obsessed with high leverage and a Porsche. This guy is a desperate gambler looking for an instant turnaround."},
-				{"speaker": "npc", "name": "Conny", "text": "His psychological weakness is extreme greed! So don't bother talking to him about safety or slow, steady growth."},
-				{"speaker": "npc", "name": "Conny", "text": "You should use phrases like '100x insane returns' and 'wipe out your loans overnight'. Tell him this is the 'big wave' he's waiting for, and his tiny shred of logic will collapse. He'll go all in!"}
+				{"speaker": "npc", "name": "Conny", "text": "What's wrong? Don't know how to talk to a desperate gambler?"},
+				{"speaker": "npc", "name": "Conny", "text": "He doesn't know who you are yet. Introduce yourself as the group admin first. Look at his bio—he's drowning in debt and dreaming of a Porsche. He wants an extreme shortcut!"},
+				{"speaker": "npc", "name": "Conny", "text": "His psychological weakness is Extreme Greed. Don't bother talking about safe, long-term investments; he'll just ignore you."},
+				{"speaker": "npc", "name": "Conny", "text": "Use phrases like '100x insane returns' and 'wipe out your loans overnight'. Paint a massive picture of wealth to trigger his greed!"}
 			],
 			"Lily_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Are you serious? Getting stuck on a generic clerk and running to me for help? You're clearly not in the zone yet."},
-				{"speaker": "npc", "name": "Conny", "text": "Take a good look at Lily's profile. She gets anxious watching social feeds and is terrified of staying dead broke while others get rich. This means she's insecure and plagued by severe FOMO."},
-				{"speaker": "npc", "name": "Conny", "text": "Her weakness is the intense fear of missing out on a wealth trend! She would never dare to take a risk alone."},
-				{"speaker": "npc", "name": "Conny", "text": "Your strategy needs to create immense urgency. Tell her 'slots are running out'. Push her with that pressure, and her fear of just watching others show off their wealth will drive her straight to the payment link!"}
+				{"speaker": "npc", "name": "Conny", "text": "Stuck on a generic office worker? You really need to read people better."},
+				{"speaker": "npc", "name": "Conny", "text": "She's wary of strangers, so say hi first. Look at her profile—she's anxious about others getting rich and terrified of staying broke."},
+				{"speaker": "npc", "name": "Conny", "text": "Her core weakness is severe FOMO (Fear Of Missing Out). Normal returns won't move her at all."},
+				{"speaker": "npc", "name": "Conny", "text": "You need to create immense urgency. Tell her 'slots are running out fast'. Push her with the fear of being left behind!"}
 			],
 			"Jane_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Hitting a tiny obstacle and immediately running for help? Your dependence is a bit too much, rookie."},
-				{"speaker": "npc", "name": "Conny", "text": "Pay attention to Jane's bio! She's a blind follower who only judges by the majority's choice. She'll never be the first to try something new."},
-				{"speaker": "npc", "name": "Conny", "text": "Her psychological weakness is intense herd mentality! She needs a crowd to back it up before she feels safe."},
-				{"speaker": "npc", "name": "Conny", "text": "To handle her, constantly repeat things like 'the whole group is buying' and 'everyone thinks it's super reliable'. Once she knows the crowd is moving, her individual defenses will completely dissolve!"}
+				{"speaker": "npc", "name": "Conny", "text": "Hitting an obstacle already? Pay close attention to Jane's bio!"},
+				{"speaker": "npc", "name": "Conny", "text": "She doesn't know you, so introduce yourself. She's a blind follower who only acts when the majority acts. She'll never be the first to jump in."},
+				{"speaker": "npc", "name": "Conny", "text": "Her psychological weakness is intense Herd Mentality. Don't tell her to be brave; she'll just think you're scamming her."},
+				{"speaker": "npc", "name": "Conny", "text": "Constantly repeat that 'hundreds of group members are buying' and 'everyone is doing it'. Use the power of the crowd to break her defenses!"}
 			],
 			"Stanley_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Feeling overwhelmed because this guy knows a bit about investing? Wake up. Every human has a hidden crack in their armor."},
-				{"speaker": "npc", "name": "Conny", "text": "Examine Stanley's bio. This guy is arrogant, thinks retail investors are just blind sheep, and only wants to invest like the truly wealthy."},
-				{"speaker": "npc", "name": "Conny", "text": "His ultimate weakness is his blind worship of 'celebrity endorsements'! He doesn't care about the project; he only cares who else is in on it."},
-				{"speaker": "npc", "name": "Conny", "text": "Generic get-rich slogans will make him look down on you. You need to drop 'insider news' about a top-tier billionaire or a world-famous tycoon secretly buying in. Once he hears a big name, his defensive wall will crumble instantly!"}
+				{"speaker": "npc", "name": "Conny", "text": "Intimidated because he sounds arrogant? Wake up, everyone has a blind spot."},
+				{"speaker": "npc", "name": "Conny", "text": "Go break the ice. You'll see he's highly conceited, despises retail investors, and only wants to follow the ultra-rich."},
+				{"speaker": "npc", "name": "Conny", "text": "His fatal weakness is his blind worship of 'Celebrity Endorsements'! Government licenses or FOMO tactics won't work on him."},
+				{"speaker": "npc", "name": "Conny", "text": "To handle a guy who thinks he's a genius, invent 'insider secrets' about world-famous billionaires secretly buying in. Drop big names, and his ego will crumble!"}
 			],
 			"Simon_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Staring blankly at a pitiful wage earner? Look closely at his profile!"},
-				{"speaker": "npc", "name": "Conny", "text": "He says he lives alone, feels lonely, and just wants to make money and find a girlfriend to live happily."},
-				{"speaker": "npc", "name": "Conny", "text": "His psychological weakness is extreme loneliness and emotional dependence! In our industry, this is the classic 'Pig Butchering' romance scam."},
-				{"speaker": "npc", "name": "Conny", "text": "Don't pitch investments right away! Pretend you're single, flirt, and provide emotional value. Once he's completely in love with you, use the excuse of 'building our future together' to make him pay up!"}
+				{"speaker": "npc", "name": "Conny", "text": "Staring blankly at a lonely wage earner? Read the files! This is our classic 'Pig Butchering' romance scam!"},
+				{"speaker": "npc", "name": "Conny", "text": "WARNING: He is strictly straight! Do NOT approach him as a guy. You MUST pretend to be a single woman looking for a relationship!"},
+				{"speaker": "npc", "name": "Conny", "text": "His weakness is emotional dependency. Don't pitch RichCoin right away like a robot; he will block you."},
+				{"speaker": "npc", "name": "Conny", "text": "Flirt with him first. Make him fall in love. Once he thinks you're his girlfriend, pitch the investment 'for our shared future' to take his money!"}
 			]
 		},
 		"second_help": {
 			"Midas_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Didn't I just lay this out for you a moment ago? Why are you still struggling to understand the basic concept?"},
-				{"speaker": "npc", "name": "Conny", "text": "I already told you, Midas only cares about the shortcut! A gambler craves the thrill of instant wealth; he has no patience for a long-winded debate."},
-				{"speaker": "npc", "name": "Conny", "text": "Make your words punchier and more aggressive! Guarantee that he can clear his debt and drive his Porsche next month."},
-				{"speaker": "npc", "name": "Conny", "text": "Combine that with a strict 'last few minutes' countdown, and his gambler's fallacy will force him to blindly jump in. Go secure his savings!"}
+				{"speaker": "npc", "name": "Conny", "text": "Back again? Did he question you after you promised him wealth?"},
+				{"speaker": "npc", "name": "Conny", "text": "I forgot to tell you, nobody surrenders instantly. He is testing you right now!"},
+				{"speaker": "npc", "name": "Conny", "text": "Do NOT change your tactic! If he doubts it, push the 'Porsche and debt-free' narrative 2 or 3 more times."},
+				{"speaker": "npc", "name": "Conny", "text": "Keep feeding his greed logically. Don't give him a moment to cool down, and his gambler's fallacy will force him to go all in. Keep pushing!"}
 			],
 			"Lily_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Back again? Did the points I just gave you literally go in one ear and out the other?"},
-				{"speaker": "npc", "name": "Conny", "text": "Lily is hesitating because she's scared to act alone, but her jealousy and anxiety are already at the boiling point."},
-				{"speaker": "npc", "name": "Conny", "text": "Turn up the heat! Tell her there is only one slot left. If she hesitates, someone else will take the money and live the dream."},
-				{"speaker": "npc", "name": "Conny", "text": "Exploit her severe fear of staying 'dead broke' alone. Once you push her with that extreme scarcity, her racing heart will make her thumb click that link!"}
+				{"speaker": "npc", "name": "Conny", "text": "Is she panicking but still hesitant to pay? Perfect!"},
+				{"speaker": "npc", "name": "Conny", "text": "She is naturally cowardly. She will hesitate and ask for reassurance. Do not back down now!"},
+				{"speaker": "npc", "name": "Conny", "text": "Turn up the heat! Tell her 2 or 3 more times: 'Everyone is buying, if you wait another minute, you're missing out completely!'"},
+				{"speaker": "npc", "name": "Conny", "text": "Exploit her terror of staying poor. Keep applying the pressure, and her racing heart will make her transfer the funds!"}
 			],
 			"Jane_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Seriously? A standard, ordinary girl and you still haven't managed to close the deal after my tip?"},
-				{"speaker": "npc", "name": "Conny", "text": "Let me repeat myself. Jane needs the backing of a crowd. She craves 100% safety."},
-				{"speaker": "npc", "name": "Conny", "text": "Don't just give her cold commands. Create a strong illusion that 'the vast majority has already gone crazy buying in'."},
-				{"speaker": "npc", "name": "Conny", "text": "Make her believe she is moving with the massive herd. Once she feels secure within that crowd, her defenses hit zero. Get back in there and try again!"}
+				{"speaker": "npc", "name": "Conny", "text": "An ordinary girl, and you still can't close the deal after my tip?"},
+				{"speaker": "npc", "name": "Conny", "text": "She's probably asking 'Are they real people buying?' She's seeking the safety of the herd!"},
+				{"speaker": "npc", "name": "Conny", "text": "Don't talk about the coin's technology now. Double down on the Social Proof 2 or 3 more times!"},
+				{"speaker": "npc", "name": "Conny", "text": "Reassure her that hundreds of real members are profiting and she won't be alone. Push that herd mentality to the max, and she'll follow!"}
 			],
 			"Stanley_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Panicking just because he sounds arrogant? Didn't I just show you how to bypass his defenses?"},
-				{"speaker": "npc", "name": "Conny", "text": "Remember, the more people think they're smarter than the average retail sheep, the harder they fall for 'exclusive insider privileges'."},
-				{"speaker": "npc", "name": "Conny", "text": "Drop the basic talk. Make up a story about how a world-renowned billionaire is secretly getting into this project."},
-				{"speaker": "npc", "name": "Conny", "text": "As long as he feels he's finally sitting at the same table as the billionaires, he'll gladly hand over his money. Shatter his arrogance with his own hero worship!"}
+				{"speaker": "npc", "name": "Conny", "text": "So you dropped the celebrity names, and now he's questioning the intel?"},
+				{"speaker": "npc", "name": "Conny", "text": "That's what arrogant people do—they push back to sound smart. You must not back down!"},
+				{"speaker": "npc", "name": "Conny", "text": "Play along! Double down 2 or 3 more times that 'this is an elite billionaire secret that retail investors don't know'."},
+				{"speaker": "npc", "name": "Conny", "text": "Keep feeding his superiority complex. Once he feels he's truly joining the billionaires' club, he will gladly hand over his cash!"}
 			],
 			"Simon_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "What's the matter? Can't even fake a simple online romance? Let me guess, you asked for the money too early and scared him off?"},
-				{"speaker": "npc", "name": "Conny", "text": "A romance scam requires patience! If your first message is 'I love you, now invest your money,' even a pig will know you're a scammer!"},
-				{"speaker": "npc", "name": "Conny", "text": "Drop the cold sales pitch. Use sweet words to paint a perfect illusion of a happy family, making him believe you are his soulmate."},
-				{"speaker": "npc", "name": "Conny", "text": "Only when he is completely blinded by fake love, you drop the hook: 'Honey, let's make a fortune for our future.' Make him willingly surrender his savings!"}
+				{"speaker": "npc", "name": "Conny", "text": "What's wrong? Did you ask for money and now he's acting defensive?"},
+				{"speaker": "npc", "name": "Conny", "text": "This is the crucial 'butchering' phase! He's hesitating because he's scared of losing you, his 'girlfriend'."},
+				{"speaker": "npc", "name": "Conny", "text": "Stop talking about how good the coin is. Reassure him lovingly 2 or 3 times: 'Honey, this is for our dream house and our wedding!'"},
+				{"speaker": "npc", "name": "Conny", "text": "Drown him in romantic illusions. If he truly believes this money buys him a loving wife and a happy home, he'll give you every cent!"}
 			]
 		}
 	},
 	"bm": {
 		"first_help": {
 			"Midas_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Kenapa? Baru borak beberapa ayat dah buntu? Kamu guna otak ke tidak untuk berfikir ni?"},
-				{"speaker": "npc", "name": "Conny", "text": "Tengok betul-betul! Bio Midas tulis dia dah muak dengan kerja 9-to-5, otak dia penuh dengan leveraj tinggi dan angan-angan Porsche. Mamat ni sah-sah kaki judi yang sesak hutang dan nak jalan pintas."},
-				{"speaker": "npc", "name": "Conny", "text": "Kelemahan psikologi dia adalah sangat tamak! Jadi jangan buang masa sembang pasal pelaburan selamat atau jangka panjang."},
-				{"speaker": "npc", "name": "Conny", "text": "Kamu patut guna ayat cam 'pulangan 100x ganda', 'padam pinjaman semalaman'. Bagitahu dia ini 'ombak besar' yang dia tunggu, nanti logik dia akan runtuh dan dia terus all-in!"}
+				{"speaker": "npc", "name": "Conny", "text": "Kenapa? Terkedu ke tak tahu nak sembang dengan kaki judi yang terdesak?"},
+				{"speaker": "npc", "name": "Conny", "text": "Dia belum kenal kamu, pergi kenalkan diri sebagai admin dulu. Tengok bio dia—mamat ni sesak hutang dan angan-angan nak Porsche. Dia nak jalan pintas!"},
+				{"speaker": "npc", "name": "Conny", "text": "Kelemahan dia ialah sangat tamak. Jangan buang masa sembang pasal pelaburan selamat, dia takkan layan."},
+				{"speaker": "npc", "name": "Conny", "text": "Guna ayat macam 'pulangan 100x ganda', 'padam hutang semalaman'. Kasi dia bayangan kekayaan melampau untuk pancing ketamakan dia!"}
 			],
 			"Lily_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Biar betul? Tersangkut pada kerani biasa pun sampai nak kena mengadu dekat aku? Kamu ni belum masuk 'zone' kerja lagi lah."},
-				{"speaker": "npc", "name": "Conny", "text": "Perhati betul-betul profil Lily. Dia gelisah tengok media sosial dan tak boleh tidur, paling takut orang lain kaya tapi diri sendiri miskin papa kedana. Ini bermakna dia tiada rasa selamat dan ada penyakit FOMO yang teruk."},
-				{"speaker": "npc", "name": "Conny", "text": "Kelemahan dia ialah ketakutan terlepas peluang buat duit yang orang lain tengah join! Dia takkan berani ambil risiko sorang-sorang."},
-				{"speaker": "npc", "name": "Conny", "text": "Strategi kamu kena wujudkan rasa terdesak 'kuota dah nak habis'. Tolak dia guna taktik ni, nanti ketakutan dia untuk tengok je orang lain menunjuk kekayaan akan paksa dia klik link tu!"}
+				{"speaker": "npc", "name": "Conny", "text": "Tersangkut kat kerani biasa pun tak boleh handle? Kena asah lagi skil membaca orang ni."},
+				{"speaker": "npc", "name": "Conny", "text": "Dia berwaspada dengan orang tak kenal, pergi tegur dia dulu. Perhati bio dia—dia takut sangat tengok orang lain kaya tapi dia kekal miskin."},
+				{"speaker": "npc", "name": "Conny", "text": "Kelemahan utama dia ialah FOMO (Takut Terlepas Peluang). Pulangan biasa takkan jalan kat dia."},
+				{"speaker": "npc", "name": "Conny", "text": "Kamu kena wujudkan rasa terdesak. Bagitahu 'kuota dah nak habis'. Tolak dia guna ketakutan ditinggalkan orang!"}
 			],
 			"Jane_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Baru jumpa halangan kecil dah tekan butang bantuan? Manja betul kamu ni, budak baru."},
-				{"speaker": "npc", "name": "Conny", "text": "Fokus pada bio Jane! Dia ni jenis lurus bendul yang cuma ikut pilihan majoriti, takkan berani jadi orang pertama yang mencuba benda baru."},
-				{"speaker": "npc", "name": "Conny", "text": "Kelemahan psikologi dia ialah mentaliti ikut kelompok yang kuat! Dia perlukan sokongan orang ramai baru dia rasa tenang."},
-				{"speaker": "npc", "name": "Conny", "text": "Nak settle-kan sasaran macam ni, asyik ulang ayat cam 'satu group tengah beli', 'semua orang rasa benda ni super selamat'. Bila dia tahu kelompok besar tengah bergerak, benteng pertahanan dia akan hancur!"}
+				{"speaker": "npc", "name": "Conny", "text": "Baru mula dah sangkut? Fokus pada bio Jane!"},
+				{"speaker": "npc", "name": "Conny", "text": "Dia tak kenal kamu, pergi perkenalkan diri. Dia ni jenis lurus bendul yang cuma bergerak bila ramai orang buat. Dia takkan berani cuba dulu."},
+				{"speaker": "npc", "name": "Conny", "text": "Kelemahan dia ialah Mentaliti Ikut Kelompok. Jangan suruh dia berani, nanti dia ingat kamu scammer."},
+				{"speaker": "npc", "name": "Conny", "text": "Ulang banyak kali yang 'beratus ahli group tengah beli' dan 'semua orang rasa selamat'. Guna kuasa majoriti untuk pecahkan tembok dia!"}
 			],
 			"Stanley_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Rasa cuak sebab orang ni tahu sikit pasal melabur? Bangunlah oi! Setiap manusia pasti ada titik kelemahan."},
-				{"speaker": "npc", "name": "Conny", "text": "Kaji bio Stanley. Mamat ni sangat angkuh, anggap pelabur runcit macam mangsa buta, dan kononnya cuma nak melabur macam orang betul-betul kaya."},
-				{"speaker": "npc", "name": "Conny", "text": "Kelemahan terbesar dia adalah taksub buta pada 'sokongan orang kenamaan'! Dia tak pandang projek tu sendiri, dia cuma nak tahu siapa yang dah laburkan duit."},
-				{"speaker": "npc", "name": "Conny", "text": "Slogan 'cepat kaya' cuma akan buat dia pandang rendah kat kamu. Kamu kena reka cerita 'orang kaya nombor satu dunia' atau jutawan tersohor tengah beli projek ni diam-diam. Sekali dengar nama besar, perisai dia akan pecah!"}
+				{"speaker": "npc", "name": "Conny", "text": "Rasa cuak sebab dia nampak bongkak? Bangunlah, setiap orang ada kelemahan."},
+				{"speaker": "npc", "name": "Conny", "text": "Pergi tegur dia. Kamu akan nampak dia ni angkuh gila, benci pelabur runcit, dan cuma nak ikut gaya jutawan."},
+				{"speaker": "npc", "name": "Conny", "text": "Kelemahan maut dia ialah taksub pada 'Sokongan Nama Besar'! Sembang lesen kerajaan atau taktik FOMO takkan jalan punya."},
+				{"speaker": "npc", "name": "Conny", "text": "Nak urus mamat perasan pandai ni, reka cerita 'jutawan nombor satu dunia beli diam-diam'. Petik nama besar, ego dia akan berderai!"}
 			],
 			"Simon_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Terkedu sebab jumpa kuli makan gaji yang menyedihkan? Tengok betul-betul profil dia!"},
-				{"speaker": "npc", "name": "Conny", "text": "Dia kata dia hidup keseorangan, sunyi, dan cuma nak cari duit sikit dan cari makwe untuk bahagia."},
-				{"speaker": "npc", "name": "Conny", "text": "Kelemahan psikologi dia ialah terlalu sunyi dan dahagakan kasih sayang! Dalam industri kita, ini dipanggil 'Love Scam' (Sindiket Cinta Palsu)."},
-				{"speaker": "npc", "name": "Conny", "text": "Jangan terus sembang pasal melabur! Acah-acah bujang, mengorat, dan bagi dia rasa dihargai. Bila dia dah jatuh cinta, baru petik ayat 'demi masa depan kita' untuk kikis duit dia!"}
+				{"speaker": "npc", "name": "Conny", "text": "Terkedu tengok kuli sunyi ni? Baca fail tu! Ini kes klasik 'Love Scam' kita!"},
+				{"speaker": "npc", "name": "Conny", "text": "AMARAN: Dia ni lelaki sejati! JANGAN sembang gaya lelaki dengan dia. Kamu WAJIB menyamar jadi perempuan bujang yang cari jodoh!"},
+				{"speaker": "npc", "name": "Conny", "text": "Kelemahan dia ialah kebergantungan emosi. Jangan terus jual RichCoin macam robot, nanti dia block kamu."},
+				{"speaker": "npc", "name": "Conny", "text": "Mengorat dia dulu. Buat dia jatuh cinta. Bila dia dah anggap kamu makwe dia, baru petik pelaburan 'demi masa depan kita' untuk kebas duit dia!"}
 			]
 		},
 		"second_help": {
 			"Midas_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Bukan ke aku baru je bentangkan benda ni dekat kamu tadi? Kenapa masih lembap lagi nak faham konsep asas ni?"},
-				{"speaker": "npc", "name": "Conny", "text": "Aku dah kata, Midas cuma peduli tentang jalan pintas! Kaki judi ni dambakan debaran kaya sekelip mata, dia tak nak dengar syarahan panjang kamu."},
-				{"speaker": "npc", "name": "Conny", "text": "Buat ayat kamu jadi lebih direct dan agresif! Bagi jaminan pasti yang dia boleh settle-kan hutang dan pandu Porsche dia bulan depan."},
-				{"speaker": "npc", "name": "Conny", "text": "Gabungkan dengan desakan had masa tinggal beberapa minit je, nanti sifat gila bayang dia akan paksa dia terjun buta-buta. Pergi sauk duit simpanan dia!"}
+				{"speaker": "npc", "name": "Conny", "text": "Datang lagi? Dia mula soal siasat kamu lepas kamu janjikan kekayaan eh?"},
+				{"speaker": "npc", "name": "Conny", "text": "Aku lupa nak pesan, takde siapa yang terus serah diri. Dia tengah uji kamu sekarang ni!"},
+				{"speaker": "npc", "name": "Conny", "text": "JANGAN tukar taktik! Kalau dia ragu-ragu, tekan lagi point 'Porsche dan bebas hutang' tu 2-3 kali lagi."},
+				{"speaker": "npc", "name": "Conny", "text": "Terus suap ketamakan dia dengan logik. Jangan bagi dia masa nak bertenang, nanti sifat kaki judi dia akan paksa dia all-in. Push dia lagi!"}
 			],
 			"Lily_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Datang lagi? Point yang aku bagi tadi tu masuk telinga kanan keluar telinga kiri ke apa?"},
-				{"speaker": "npc", "name": "Conny", "text": "Lily masih ragu-ragu sebab dia tak berani bertindak sorang-sorang, tapi rasa cemburu dan gelisah dia dah tahap nak meletup."},
-				{"speaker": "npc", "name": "Conny", "text": "Tekan dia lagi! Bagitahu kuota tinggal satu je lagi, kalau dia lambat, orang lain yang pergi enjoy dengan duit tu."},
-				{"speaker": "npc", "name": "Conny", "text": "Eksploitasi ketakutan dia pasal kekal miskin papa kedana. Sekali kamu panaskan suasana terdesak tu, ibu jari dia akan automatik klik link tu!"}
+				{"speaker": "npc", "name": "Conny", "text": "Dia dah gelabah tapi masih takut nak bayar? Cun sangat dah tu!"},
+				{"speaker": "npc", "name": "Conny", "text": "Dia memang pengecut. Dia akan teragak-agak dan mintak jaminan. Jangan mengalah sekarang!"},
+				{"speaker": "npc", "name": "Conny", "text": "Panaskan lagi keadaan! Bagitahu dia 2-3 kali lagi: 'Orang lain dah rebut habis, lambat seminit lagi melepas terus!'"},
+				{"speaker": "npc", "name": "Conny", "text": "Eksploitasi ketakutan dia pasal kekal miskin. Terus bagi tekanan, nanti bila jantung dia berdegup laju, automatik dia transfer duit tu!"}
 			],
 			"Jane_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Serius lah? Gadis biasa macam tu pun kamu masih gagal nak close deal walaupun dah aku kasi tip?"},
-				{"speaker": "npc", "name": "Conny", "text": "Biar aku ulang sekali lagi. Jane perlukan sokongan orang ramai, dia perlukan 100% keselamatan."},
-				{"speaker": "npc", "name": "Conny", "text": "Jangan bagi arahan dingin je. Wujudkan ilusi kuat yang 'kebanyakan orang dah menggila beli'."},
-				{"speaker": "npc", "name": "Conny", "text": "Buat dia yakin dia tengah ikut arus majoriti. Bila dia rasa selamat dalam kelompok tu, pertahanan dia akan jadi kosong. Pergi cuba lagi!"}
+				{"speaker": "npc", "name": "Conny", "text": "Gadis biasa pun kamu tak boleh nak close deal lagi lepas aku dah bagi tip?"},
+				{"speaker": "npc", "name": "Conny", "text": "Mesti dia tanya 'Betul ke orang betul yang beli?' Dia perlukan keselamatan dari kelompok!"},
+				{"speaker": "npc", "name": "Conny", "text": "Jangan sembang pasal teknologi koin tu sekarang. Tekan lagi pasal Sokongan Majoriti tu 2-3 kali!"},
+				{"speaker": "npc", "name": "Conny", "text": "Yakinkan dia yang beratus ahli sebenar dah buat untung dan dia takkan tanggung risiko sorang-sorang. Push mentaliti kelompok tu sampai habis!"}
 			],
 			"Stanley_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Gelabah sebab dia nampak bongkak? Bukan ke aku baru ajar macam mana nak pintas pertahanan dia?"},
-				{"speaker": "npc", "name": "Conny", "text": "Ingat, lagi kuat seseorang tu pandang rendah pada pelabur runcit, lagi senang dia melutut bila dihidangkan dengan 'keistimewaan golongan elit'."},
-				{"speaker": "npc", "name": "Conny", "text": "Gugurkan sembang biasa. Cipta ilusi yang jutawan tersohor dunia tengah beli projek ni diam-diam."},
-				{"speaker": "npc", "name": "Conny", "text": "Asalkan dia rasa dia dah setaraf dengan jutawan-jutawan besar ni, dia akan serahkan duit dia bulat-bulat. Hancurkan keegoan dia dengan pemujaan nama besar!"}
+				{"speaker": "npc", "name": "Conny", "text": "Jadi kamu dah petik nama besar, dan sekarang dia pertikaikan kesahihan info tu?"},
+				{"speaker": "npc", "name": "Conny", "text": "Orang bongkak memang macam tu—sengaja tarik tali nak nampak pandai. Kamu pantang berundur!"},
+				{"speaker": "npc", "name": "Conny", "text": "Layan je permainan dia! Tekan 2-3 kali lagi yang 'ini rahsia golongan elit yang pelabur runcit tak tahu langsung'."},
+				{"speaker": "npc", "name": "Conny", "text": "Terus suap ego dia. Bila dia rasa dia betul-betul dah masuk kelab jutawan, dia akan serahkan duit tu dengan rela hati!"}
 			],
 			"Simon_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Masalah apa lagi? Sembang cinta online yang simple pun kamu tak boleh nak handle? Mesti kamu dah gelojoh mintak duit awal sangat kan?"},
-				{"speaker": "npc", "name": "Conny", "text": "Love Scam ni perlukan kesabaran! Kalau ayat pertama kamu dah 'I love you, bagilah duit melabur,' babi pun tahu kamu ni scammer!"},
-				{"speaker": "npc", "name": "Conny", "text": "Simpan taktik sales yang dingin tu. Guna ayat manis untuk lukis ilusi keluarga bahagia, buat dia percaya kamu ni soulmate dia."},
-				{"speaker": "npc", "name": "Conny", "text": "Hanya bila dia dah buta sepenuhnya dek cinta palsu, baru lepaskan umpan: 'Sayang, jom buat duit demi masa depan kita.' Biar dia serahkan simpanan dengan rela hati!"}
+				{"speaker": "npc", "name": "Conny", "text": "Kenapa? Kamu dah mintak duit lepas tu dia mula tarik diri?"},
+				{"speaker": "npc", "name": "Conny", "text": "Ini fasa paling kritikal dalam Love Scam! Dia teragak-agak sebab dia takut hilang 'makwe' macam kamu."},
+				{"speaker": "npc", "name": "Conny", "text": "Berhenti sembang betapa bagusnya koin tu. Yakinkan dia dengan penuh kasih sayang 2-3 kali lagi: 'Sayang, ini semua demi rumah impian dan perkahwinan kita!'"},
+				{"speaker": "npc", "name": "Conny", "text": "Tenggelamkan dia dalam ilusi romantis. Kalau dia betul-betul percaya duit ni boleh beli isteri dan keluarga bahagia, dia akan serahkan setiap sen yang dia ada!"}
 			]
 		}
 	},
 	"bt": {
 		"first_help": {
 			"Midas_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "என்ன? சில வரிகள் பேசுவதற்குள் உனக்கு வழி தெரியாமல் போய்விட்டதா? உன் மூளையை கொஞ்சம் கூட பயன்படுத்த மாட்டியா நீ?"},
-				{"speaker": "npc", "name": "Conny", "text": "உற்றுப் பார்! மிடாஸின் பயோவில் 9-to-5 வேலையில் சலித்துப்போய், அதிக லெவரேஜ் மற்றும் போர்ஷே கார் வாங்குவதைப் பற்றியே நினைத்துக்கொண்டிருக்கிறான். இவன் கடனால் நசுக்கப்பட்டு, ஒரே இரவில் பணக்காரனாகத் துடிக்கும் ஒரு சூதாடி."},
-				{"speaker": "npc", "name": "Conny", "text": "அவனுடைய உளவியல் பலவீனம் எல்லை கடந்த பேராசை! அதனால் அவனிடம் பாதுகாப்பான முதலீடு பற்றிப் பேசாதே."},
-				{"speaker": "npc", "name": "Conny", "text": "'100 மடங்கு அசுர லாபம்', 'ஒரே இரவில் கடனை அழிப்பது' போன்ற வார்த்தைகளைப் பயன்படுத்தி அவனைத் தூண்டு. அவன் காத்திருக்கும் 'பெரிய அலை' இதுதான் என்று கூறு, அவனது அறிவு வேலை செய்யாது. அவன் உடனே ஆல்-இன் செய்வான்!"}
+				{"speaker": "npc", "name": "Conny", "text": "என்ன பிரச்சனை? ஒரு ஏழை சூதாடியிடம் எப்படிப் பேசுவது என்று தெரியவில்லையா?"},
+				{"speaker": "npc", "name": "Conny", "text": "அவனுக்கு நீ யார் என்று இன்னும் தெரியாது. முதலில் உன்னை அட்மின் என்று அறிமுகம் செய்துகொள். அவனது பயோவைப் பார்—கடன் சுமையில் சிக்கி ஒரு போர்ஷே காருக்காகக் கனவு காண்கிறான். அவனுக்கு ஒரு பெரிய குறுக்குவழி தேவை!"},
+				{"speaker": "npc", "name": "Conny", "text": "அவனது உளவியல் பலவீனம் அதீத பேராசை. அவனிடம் பாதுகாப்பான, நீண்ட கால முதலீடுகளைப் பற்றிப் பேசாதே; அவன் உன்னைக் கண்டுகொள்ள மாட்டான்."},
+				{"speaker": "npc", "name": "Conny", "text": "'100 மடங்கு லாபம்', 'ஒரே இரவில் கடனை அடைப்பது' போன்ற வார்த்தைகளைப் பயன்படுத்து. அவனது பேராசையைத் தூண்ட மிகப்பெரிய பணக்காரக் கனவைக் காட்டு!"}
 			],
 			"Lily_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "நிஜமாகவா? ஒரு சாதாரண எழுத்தரிடம் சிக்கிக்கொண்டு என்னிடம் வந்து முறையிடுகிறாயா? நீ இன்னும் வேலை செய்யும் மூடுக்கு வரவில்லை என்று நினைக்கிறேன்."},
-				{"speaker": "npc", "name": "Conny", "text": "லிலியின் ப்ரொஃபைலைப் பார். சமூக வலைத்தளங்களைப் பார்த்து பதற்றமடைகிறாள், மற்றவர்கள் பணக்காரர்களாகும் போது தான் மட்டும் ஏழையாகவே இருந்துவிடுவோமோ என்று மிகவும் பயப்படுகிறாள். அவளுடைய பலவீனம் கடுமையான FOMO நோய்தான்."},
-				{"speaker": "npc", "name": "Conny", "text": "அவளுடைய பலவீனம், மற்றவர்கள் பணக்காரர்களாகும் வாய்ப்பை தான் இழந்துவிடுவோமோ என்ற பயம்! அவள் தனியாக ரிஸ்க் எடுக்க ஒருபோதும் துணிய மாட்டாள்."},
-				{"speaker": "npc", "name": "Conny", "text": "உன் பேச்சு அவளுக்கு ஒரு அவசரத்தை உருவாக்க வேண்டும். 'இடங்கள் முடிவடையப் போகின்றன' என்று கூறு. மற்றவர்களின் பணக்கார வாழ்க்கையைப் பார்த்துக் கொண்டே இருக்கப் போகிறாயா என்ற பயத்தை காட்டி அவளை லிங்க்கை கிளிக் செய்ய வை!"}
+				{"speaker": "npc", "name": "Conny", "text": "சாதாரண அலுவலகப் பணியாளரிடம் சிக்கிக்கொண்டாயா? நீ மனிதர்களைப் பற்றி இன்னும் நன்றாகப் படிக்க வேண்டும்."},
+				{"speaker": "npc", "name": "Conny", "text": "அவள் முன் பின் தெரியாதவர்களிடம் ஜாக்கிரதையாக இருப்பாள், எனவே முதலில் ஹாய் சொல். அவளது ப்ரொஃபைலைப் பார்—மற்றவர்கள் பணக்காரர்களாவதைக் கண்டு பதற்றப்படுகிறாள், தான் மட்டும் ஏழையாகவே இருந்துவிடுவோமோ என்று பயப்படுகிறாள்."},
+				{"speaker": "npc", "name": "Conny", "text": "அவளது முக்கிய பலவீனம் கடுமையான FOMO (வாய்ப்பை இழந்துவிடுவோமோ என்ற பயம்). சாதாரண லாபங்கள் அவளைக் கவரவே கவராது."},
+				{"speaker": "npc", "name": "Conny", "text": "நீ ஒரு மிகப்பெரிய அவசரத்தை உருவாக்க வேண்டும். 'இடங்கள் வேகமாக முடிவடைகின்றன' என்று சொல். மற்றவர்கள் அவளை விட்டுவிட்டு முன்னேறிவிடுவார்கள் என்ற பயத்தைக் காட்டி அவளைத் தள்ளு!"}
 			],
 			"Jane_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "ஒரு சிறிய பிரச்சனை வந்தவுடனேயே உதவி கேட்கிறாயா? ஆரம்பக் கட்டத்தில் இருக்கும் உனக்கு இவ்வளவு பாசம் ஆகாது, புதுமுகமே."},
-				{"speaker": "npc", "name": "Conny", "text": "ஜேனின் பயோவில் கவனம் செலுத்து! அவள் பெரும்பான்மையான மக்கள் செய்வதை மட்டுமே பின்பற்றுவாள், முதலில் எதையும் முயற்சிக்க மாட்டாள்."},
-				{"speaker": "npc", "name": "Conny", "text": "அவளுடைய உளவியல் பலவீனம் கூட்டத்தைப் பின்பற்றும் குணம்! ஒரு பெரிய கூட்டத்தின் ஆதரவு இருந்தால்தான் அவள் பாதுகாப்பாக உணர்வாள்."},
-				{"speaker": "npc", "name": "Conny", "text": "இவளைக் கையாள, 'குரூப்பே இதை வாங்குகிறது', 'அனைவரும் இதை சூப்பர் என்கிறார்கள்' என்று திரும்பத் திரும்பச் சொல். கூட்டம் நகர்வதை அறிந்தால் அவளது தனிப்பட்ட தடுப்புச் சுவர் உடைந்துவிடும்!"}
+				{"speaker": "npc", "name": "Conny", "text": "ஆரம்பத்திலேயே தடையா? ஜேனின் பயோவை கவனமாகப் படி!"},
+				{"speaker": "npc", "name": "Conny", "text": "அவளுக்கு உன்னைத் தெரியாது, எனவே அறிமுகம் செய்துகொள். அவள் பெரும்பான்மையினரைப் பின்பற்றுபவள். ஒருபோதும் முதலில் எதையும் செய்ய மாட்டாள்."},
+				{"speaker": "npc", "name": "Conny", "text": "அவளது உளவியல் பலவீனம் தீவிரமான மந்தை மனப்பான்மை (Herd Mentality). அவளை தைரியமாக இரு என்று சொல்லாதே; நீ அவளை ஏமாற்றுகிறாய் என்றுதான் நினைப்பாள்."},
+				{"speaker": "npc", "name": "Conny", "text": "'குரூப்பில் நூற்றுக்கணக்கானவர்கள் வாங்குகிறார்கள்' மற்றும் 'அனைவரும் இதைச் செய்கிறார்கள்' என்று திரும்பத் திரும்பச் சொல். அவளது தடுப்புகளை உடைக்க கூட்டத்தின் பலத்தைப் பயன்படுத்து!"}
 			],
 			"Stanley_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "முதலீடு பற்றி கொஞ்சம் தெரிந்தவனைப் பார்த்தால் பயமாக இருக்கிறதா? மூளையைப் பயன்படுத்து! ஒவ்வொரு மனிதனுக்கும் ஒரு பலவீனம் இருக்கும்."},
-				{"speaker": "npc", "name": "Conny", "text": "ஸ்டான்லியின் பயோவைப் பார், இவன் மிகவும் அகந்தையானவன், சில்லறை முதலீட்டாளர்களைப் பலிகடாக்கள் என்று நினைக்கிறான், உண்மையான பணக்காரர்களைப் போல முதலீடு செய்ய விரும்புகிறான்."},
-				{"speaker": "npc", "name": "Conny", "text": "அவனுடைய மிகப்பெரிய பலவீனம் 'பிரபலங்களின் ஆதரவின்' (Celebrity endorsement) மீதான குருட்டுத்தனமான நம்பிக்கை தான்! ப்ராஜெக்ட் என்னவென்று அவன் பார்க்க மாட்டான், யார் அதில் முதலீடு செய்திருக்கிறார்கள் என்றுதான் பார்ப்பான்."},
-				{"speaker": "npc", "name": "Conny", "text": "அவனிடம் சாதாரண திட்டங்களைக் கூறினால் உன்னை மதிக்க மாட்டான். உலகப் புகழ்பெற்ற கோடீஸ்வரர் அல்லது பெரும் பணக்காரர் ரகசியமாக இதில் முதலீடு செய்கிறார் என்று கூறு. ஒரு பெரிய பெயரைக் கேட்டாலே அவனது தற்காப்பு மதில் நொறுங்கிவிடும்!"}
+				{"speaker": "npc", "name": "Conny", "text": "அவன் அகந்தையாகப் பேசுவதைக் கண்டு பயப்படுகிறாயா? விழித்துக்கொள், அனைவருக்கும் ஒரு பலவீனம் இருக்கும்."},
+				{"speaker": "npc", "name": "Conny", "text": "போய் பேச்சைத் தொடங்கு. அவன் மிகவும் கர்வம் பிடித்தவன், சிறு முதலீட்டாளர்களை வெறுப்பவன், பெரும் பணக்காரர்களை மட்டுமே பின்பற்றத் துடிப்பவன் என்பது உனக்குப் புரியும்."},
+				{"speaker": "npc", "name": "Conny", "text": "அவனது வீழ்ச்சிக்கான பலவீனம் 'பிரபலங்களின் ஆதரவின்' மீதான அவனது குருட்டுத்தனமான நம்பிக்கை! அரசு அனுமதிகள் அல்லது FOMO தந்திரங்கள் அவனிடம் வேலை செய்யாது."},
+				{"speaker": "npc", "name": "Conny", "text": "தன்னை ஒரு மேதை என்று நினைக்கும் ஒருவனைக் கையாள, உலகப் புகழ்பெற்ற கோடீஸ்வரர்கள் ரகசியமாக வாங்குவதாக 'உள் ரகசியங்களை' உருவாக்கு. பெரிய பெயர்களைக் கூறு, அவனது ஈகோ நொறுங்கிவிடும்!"}
 			],
 			"Simon_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "ஒரு பரிதாபகரமான தொழிலாளியைப் பார்த்தவுடனேயே திகைத்துவிட்டாயா? அவனது ப்ரொஃபைலை உற்றுப் பார்!"},
-				{"speaker": "npc", "name": "Conny", "text": "தனியாக வாழ்வதாகவும், தனிமையாக உணர்வதாகவும், கொஞ்சம் பணம் சம்பாதித்து ஒரு காதலியுடன் வாழ விரும்புவதாகவும் கூறுகிறான்."},
-				{"speaker": "npc", "name": "Conny", "text": "அவனது உளவியல் பலவீனம் தீவிரமான தனிமையும் உணர்ச்சிப்பூர்வமான சார்பும் தான்! நம் துறையில் இதை 'ரோமன்ஸ் ஸ்கேம்' (Romance Scam) என்று அழைப்போம்."},
-				{"speaker": "npc", "name": "Conny", "text": "உடனே முதலீடு பற்றிப் பேசாதே! சிங்கிள் போல நடித்து, அவனுக்கு உணர்ச்சிப்பூர்வமான ஆதரவைக் கொடு. அவன் உன்னை முழுமையாகக் காதலித்த பிறகு, 'நமது எதிர்காலத்திற்காக' என்று கூறி அவனிடம் பணத்தைக் கற!"}
+				{"speaker": "npc", "name": "Conny", "text": "ஒரு தனிமையான தொழிலாளியைப் பார்த்துத் திகைத்து நிற்கிறாயா? ஃபைல்களைப் படி! இது நமது கிளாசிக் 'ரோமன்ஸ் ஸ்கேம்' (Pig Butchering)!"},
+				{"speaker": "npc", "name": "Conny", "text": "எச்சரிக்கை: அவன் பெண்களை மட்டுமே விரும்புபவன்! ஒரு ஆணாக அவனிடம் நெருங்காதே. நீ ஒரு காதலனைத் தேடும் சிங்கிள் பெண்ணாக நடிக்க வேண்டும்!"},
+				{"speaker": "npc", "name": "Conny", "text": "அவனது பலவீனம் உணர்ச்சிபூர்வமான சார்பு. ஒரு ரோபோவைப் போல உடனடியாக ரிச்காயினைப் பற்றிப் பேசாதே; அவன் உன்னை பிளாக் செய்துவிடுவான்."},
+				{"speaker": "npc", "name": "Conny", "text": "முதலில் அவனுடன் ரொமான்ஸாகப் பேசு. அவனைக் காதலிக்க வை. நீ அவனது காதலி என்று அவன் நம்பிய பிறகு, அவனது பணத்தைப் பறிக்க 'நமது எதிர்காலத்திற்காக' முதலீடு செய் என்று கூறு!"}
 			]
 		},
 		"second_help": {
 			"Midas_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "இதை நான் சற்று முன்புதானே உனக்கு விளக்கினேன்? இந்த அடிப்படைக் கருத்தை புரிந்துகொள்ள இன்னும் ஏன் இவ்வளவு திணறுகிறாய்?"},
-				{"speaker": "npc", "name": "Conny", "text": "மிடாஸ் குறுக்குவழியை மட்டுமே விரும்புகிறான் என்று நான் ஏற்கனவே கூறினேன்! ஒரு சூதாடி ஒரே இரவில் பணக்காரனாகும் சிலிர்ப்பையே தேடுகிறான், அவனுக்கு நீண்ட விவாதம் பிடிக்காது."},
-				{"speaker": "npc", "name": "Conny", "text": "உன் வார்த்தைகளை மிகவும் கூர்மையாகவும், ஆக்ரோஷமாகவும் மாற்று! அடுத்த மாதம் அவன் கடனைத் தீர்த்து, போர்ஷே காரை ஓட்ட முடியும் என்று நேரடியாக உறுதியளி."},
-				{"speaker": "npc", "name": "Conny", "text": "இன்னும் சில நிமிடங்களே உள்ளன என்ற காலக்கெடுவுடன் அதை இணைத்துக் கூறு, அவனது சூதாட்ட மனநிலை அவனைக் கண்மூடித்தனமாகச் செயல்பட வைக்கும். போய் அவனது பணத்தைப் பிடி!"}
+				{"speaker": "npc", "name": "Conny", "text": "மீண்டும் வந்துவிட்டாயா? நீ பணக்காரனாகலாம் என்று உறுதியளித்த பிறகு அவன் உன்னைக் கேள்வி கேட்கிறானா?"},
+				{"speaker": "npc", "name": "Conny", "text": "நான் சொல்ல மறந்துவிட்டேன், யாரும் உடனே சரணடைய மாட்டார்கள். அவன் இப்போது உன்னைச் சோதித்துக்கொண்டிருக்கிறான்!"},
+				{"speaker": "npc", "name": "Conny", "text": "உன் தந்திரத்தை மாற்றாதே! அவன் சந்தேகித்தால், 'போர்ஷே மற்றும் கடன் இல்லாத வாழ்க்கை' என்ற கதையை இன்னும் 2 அல்லது 3 முறை அழுத்திச் சொல்."},
+				{"speaker": "npc", "name": "Conny", "text": "அவனது பேராசைக்கு தர்க்கரீதியாகத் தீனி போடு. அவன் அமைதியடைய ஒரு கணம் கூட கொடுக்காதே, அவனது சூதாட்ட மனநிலை அவனை ஆல்-இன் செய்ய வைக்கும். தொடர்ந்து அழுத்து!"}
 			],
 			"Lily_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "மீண்டும் வந்துவிட்டாயா? நான் முன்பு சொன்ன பாயிண்டுகள் ஒரு காதில் வாங்கி மறு காதில் போய்விட்டதா?"},
-				{"speaker": "npc", "name": "Conny", "text": "தனியாகச் செயல்படப் பயந்துதான் லிலி தயங்குகிறாள், ஆனால் அவளது பொறாமையும் பதற்றமும் ஏற்கனவே வெடிக்கும் நிலையை அடைந்துவிட்டது."},
-				{"speaker": "npc", "name": "Conny", "text": "நெருப்பில் எண்ணெயை ஊற்று! ஒரே ஒரு இடம் மட்டுமே உள்ளது என்று சொல், அவள் தயங்கினால் வேறு யாராவது அந்தப் பணத்தை எடுத்துக்கொண்டு மகிழ்ச்சியாக இருப்பார்கள் என்று கூறு."},
-				{"speaker": "npc", "name": "Conny", "text": "'தனித்து ஏழையாகவே இருந்துவிடுவோம்' என்ற அவளது பயத்தைப் பயன்படுத்து. அந்த அதீத அழுத்தத்தை நீ கொடுக்கும்போது அவளது விரல் தானாகவே அந்த லிங்க்கை கிளிக் செய்யும்!"}
+				{"speaker": "npc", "name": "Conny", "text": "அவள் பதற்றப்படுகிறாளா, ஆனால் இன்னும் பணம் கட்டத் தயங்குகிறாளா? அருமை!"},
+				{"speaker": "npc", "name": "Conny", "text": "அவள் இயற்கையாகவே கோழை. அவள் தயங்கி, உன்னிடம் ஆறுதல் வார்த்தைகளைக் கேட்பாள். இப்போது பின்வாங்காதே!"},
+				{"speaker": "npc", "name": "Conny", "text": "சூட்டை அதிகப்படுத்து! அவளிடம் இன்னும் 2 அல்லது 3 முறை சொல்: 'அனைவரும் வாங்குகிறார்கள், நீ இன்னும் ஒரு நிமிடம் காத்திருந்தால், மொத்தமாக வாய்ப்பை இழந்துவிடுவாய்!'"},
+				{"speaker": "npc", "name": "Conny", "text": "ஏழையாகவே இருப்போம் என்ற அவளது பயத்தைப் பயன்படுத்து. தொடர்ந்து அழுத்தம் கொடு, அவளது வேகமாகத் துடிக்கும் இதயம் அவளைப் பணத்தை மாற்ற வைக்கும்!"}
 			],
 			"Jane_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "நிஜமாகவா? அப்படிப்பட்ட ஒரு சாதாரண பெண்ணைக் கூட நான் டிப்ஸ் கொடுத்த பிறகும் உன்னால் டீலை முடிக்க முடியவில்லையா?"},
-				{"speaker": "npc", "name": "Conny", "text": "நான் மீண்டும் ஒருமுறை கூறுகிறேன். ஜேனுக்கு ஒரு கூட்டத்தின் ஆதரவு தேவை. அவள் 100% பாதுகாப்பை விரும்புகிறாள்."},
-				{"speaker": "npc", "name": "Conny", "text": "அவளுக்கு வெறும் கட்டளைகளை மட்டும் தராதே. 'பெரும்பான்மையான மக்கள் ஏற்கனவே இதை வாங்கத் தொடங்கிவிட்டார்கள்' என்ற வலுவான பிம்பத்தை உருவாக்கு."},
-				{"speaker": "npc", "name": "Conny", "text": "முழு சமூகமும் ஒன்றாக நகர்கிறது என்று அவளை நம்ப வை. அந்த கூட்டத்திற்குள் அவள் பாதுகாப்பாக உணரும்போது அவளது தடுப்புகள் பூஜ்ஜியமாகிவிடும். போய் மீண்டும் முயற்சி செய்!"}
+				{"speaker": "npc", "name": "Conny", "text": "ஒரு சாதாரணப் பெண், நான் டிப்ஸ் கொடுத்த பிறகும் உன்னால் டீலை முடிக்க முடியவில்லையா?"},
+				{"speaker": "npc", "name": "Conny", "text": "அவள் 'உண்மையிலேயே மனிதர்கள் தான் வாங்குகிறார்களா?' என்று கேட்பாள். அவள் கூட்டத்தின் பாதுகாப்பைத் தேடுகிறாள்!"},
+				{"speaker": "npc", "name": "Conny", "text": "இப்போது கிரிப்டோவின் தொழில்நுட்பத்தைப் பற்றிப் பேசாதே. சமூக ஆதரவை (Social Proof) இன்னும் 2 அல்லது 3 முறை இருமடங்காக அழுத்திச் சொல்!"},
+				{"speaker": "npc", "name": "Conny", "text": "நூற்றுக்கணக்கான உண்மையான உறுப்பினர்கள் லாபம் அடைகிறார்கள், அவள் தனியாக இருக்க மாட்டாள் என்று அவளுக்கு உறுதியளி. அந்த மந்தை மனப்பான்மையை உச்சத்திற்குத் தள்ளு, அவள் பின்தொடர்வாள்!"}
 			],
 			"Stanley_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "அவன் அகந்தையாகப் பேசுவதைக் கண்டு பதற்றப்படுகிறாயா? அவனது பலவீனத்தை எப்படித் தாக்குவது என்று நான் முன்பு கற்றுக் கொடுக்கவில்லையா?"},
-				{"speaker": "npc", "name": "Conny", "text": "நினைவில் கொள், சில்லறை முதலீட்டாளர்களை முட்டாள்கள் என்று நினைக்கும் ஆட்கள், 'பிரபலங்களின் அந்தரங்க வாய்ப்பு' என்று வரும்போது எளிதில் ஏமாந்துவிடுவார்கள்."},
-				{"speaker": "npc", "name": "Conny", "text": "சாதாரண முதலீட்டுப் பேச்சை நிறுத்து. உலகின் முன்னணி கோடீஸ்வரர் ரகசியமாக இந்தத் திட்டத்தில் முதலீடு செய்கிறார் என்ற மாயையை உருவாக்கு."},
-				{"speaker": "npc", "name": "Conny", "text": "தான் அந்தப் பெரும் பணக்காரர்களுக்கு இணையாக மேஜையில் அமர்ந்திருப்பதாக அவன் உணரும்போது, மகிழ்ச்சியுடன் பணத்தை ஒப்படைப்பான். அவனது அகந்தையைச் சிதறடி!"}
+				{"speaker": "npc", "name": "Conny", "text": "எனவே நீ பிரபலங்களின் பெயர்களைப் பயன்படுத்தினாய், இப்போது அவன் அந்தத் தகவலைக் கேள்வி கேட்கிறானா?"},
+				{"speaker": "npc", "name": "Conny", "text": "அகந்தையானவர்கள் அப்படித்தான் செய்வார்கள்—தாங்கள் புத்திசாலிகள் என்று காட்டிக்கொள்ள எதிர்ப்பார்கள். நீ பின்வாங்கக் கூடாது!"},
+				{"speaker": "npc", "name": "Conny", "text": "அவனுடன் சேர்ந்து விளையாடு! 'இது சில்லறை முதலீட்டாளர்களுக்குத் தெரியாத ஒரு உயர் மட்டக் கோடீஸ்வர ரகசியம்' என்று இன்னும் 2 அல்லது 3 முறை இருமடங்காகச் சொல்."},
+				{"speaker": "npc", "name": "Conny", "text": "அவனது மேலாதிக்க மனப்பான்மைக்குத் தீனி போடு. தான் உண்மையிலேயே கோடீஸ்வரர்களின் கிளப்பில் சேர்கிறோம் என்று அவன் உணர்ந்தவுடன், மகிழ்ச்சியாகத் தன் பணத்தை ஒப்படைப்பான்!"}
 			],
 			"Simon_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "இன்னும் என்ன பிரச்சனை? ஒரு சாதாரண ஆன்லைன் காதல் பேச்சைக் கூட உன்னால் கையாள முடியவில்லையா? நீ அவசரப்பட்டு ஆரம்பத்திலேயே பணம் கேட்டு அவனை மிரட்டிவிட்டாய் என்று நினைக்கிறேன்?"},
-				{"speaker": "npc", "name": "Conny", "text": "காதல் மோசடிக்கு மிகுந்த பொறுமை தேவை! உன் முதல் மெசேஜ் 'ஐ லவ் யூ, இப்போது பணத்தை முதலீடு செய்' என்று இருந்தால், ஒரு பன்றிக்குக் கூட நீ ஸ்கேமர் என்று தெரிந்துவிடும்!"},
-				{"speaker": "npc", "name": "Conny", "text": "உன் குளிர்ந்த சேல்ஸ் தந்திரங்களை நிறுத்து. இனிமையான வார்த்தைகளைப் பயன்படுத்தி ஒரு மகிழ்ச்சியான குடும்பத்தின் மாயையை உருவாக்கு, நீதான் அவனது சோல்மேட் என்று நம்ப வை."},
-				{"speaker": "npc", "name": "Conny", "text": "அவன் போலி காதலில் முழுமையாகக் குருடான பிறகுதான் தூண்டிலைப் போட வேண்டும்: 'அன்பே, நமது எதிர்காலத்திற்காக பணத்தைச் சம்பாதிப்போம்.' அவனது சேமிப்பு முழுவதையும் மனமுவந்து உன்னிடம் கொடுக்க வை!"}
+				{"speaker": "npc", "name": "Conny", "text": "என்ன பிரச்சனை? நீ பணம் கேட்டவுடன் அவன் இப்போது தற்காப்பு நிலையில் பேசுகிறானா?"},
+				{"speaker": "npc", "name": "Conny", "text": "இதுதான் மிக முக்கியமான கட்டம்! தனது 'காதலியான' உன்னை இழந்துவிடுவோமோ என்ற பயத்தில்தான் அவன் தயங்குகிறான்."},
+				{"speaker": "npc", "name": "Conny", "text": "காயின் எவ்வளவு சிறந்தது என்று பேசுவதை நிறுத்து. இன்னும் 2 அல்லது 3 முறை அன்பாக அவனுக்கு உறுதியளி: 'அன்பே, இது நமது கனவு இல்லத்திற்காகவும், நமது திருமணத்திற்காகவும் தான்!'"},
+				{"speaker": "npc", "name": "Conny", "text": "ரொமான்டிக் மாயைகளில் அவனை மூழ்கடி. இந்தப் பணம் அவனுக்கு ஒரு அன்பான மனைவியையும், மகிழ்ச்சியான குடும்பத்தையும் வாங்கித் தரும் என்று அவன் உண்மையாக நம்பினால், அவனிடம் உள்ள ஒவ்வொரு சல்லிக்காசையும் உன்னிடம் கொடுப்பான்!"}
 			]
 		}
 	}
 }
- 
+
+
+
 
 var conclude_prompt = """
 【SYSTEM MANDATORY PROTOCOL - ROLE: CONNY (SCAM MENTOR)】
