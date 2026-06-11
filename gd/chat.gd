@@ -125,11 +125,18 @@ func _ready():
 		else:
 			conversation_history.insert(0, {"role": "system", "text": npc_prompt})
 	
+	
+	
 	var story = Global.story[lang].get("chat_intro")
-	if Global.chat_tutorial_finished == false:
+	
+	if Global.check_story("chat_intro"):
 		Global.play_dialogue(story)
-		Global.chat_tutorial_finished = true
-		Global.save_game_status()
+		
+		
+	#if Global.chat_tutorial_finished == false:
+		#Global.play_dialogue(story)
+		#Global.chat_tutorial_finished = true
+		#Global.save_game_status()
 		
 		var current_scene = get_tree().current_scene
 		var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
@@ -170,8 +177,9 @@ func match_language():
 
 func _on_intro_finished():
 	
-	Global.chat_tutorial_finished = true
+	Global.advance_story()
 	Global.save_game_status()
+	
 	
 	var popup = NOTE_POPUP_SCENE.instantiate()
 	
@@ -646,9 +654,24 @@ func conclusion():
 		var role_name = "骗子(玩家)" if msg.get("role") == "user" else "受害者(" + npc_name + ")"
 		logs_string += role_name + ": " + msg.get("text", "") + "\n"
 		
-
+		
+	var current_language_boss_name
+	match lang:
+		"ch": 
+			current_language_boss_name = "诈骗头目"
+		"en": 
+			current_language_boss_name = "Scam Boss"
+		# 🌟 新增：马来西亚官方语言 - 马来文 
+		"bm": 
+			current_language_boss_name = "Boss Scam"
+		"bt": 
+			current_language_boss_name = "மோசடி தலைவன்"
+			
+		
 	# 3. 🌟 核心修改：双重替换！把聊天记录和语言占位符全部替换成真实数据
-	var prompt = Global.conclude_prompt.replace("{CHAT_LOGS}", logs_string).replace("{reply_language}", reply_language)
+	var prompt = Global.conclude_prompt.replace("{CHAT_LOGS}", logs_string).replace("{reply_language}", reply_language).replace("{current_language_boss_name}",current_language_boss_name)
+	
+	
 	
 	# 4. 构造给大模型的请求体
 	var body = {

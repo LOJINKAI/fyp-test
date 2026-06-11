@@ -18,8 +18,7 @@ func _ready():
 	$black_cover.mouse_filter = MOUSE_FILTER_IGNORE
 	update_time_display()
 	
-	#Global.current_language = "ch"
-	print("\n\nGlobal.bio_tutorial_finished = ",Global.bio_tutorial_finished)
+
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -48,6 +47,24 @@ func _on_quit_pressed():
 func _on_continue_pressed():
 	SoundEffect.play_sound("ui_click")
 	
+	if Global.check_story("chat_intro"):
+		
+		# 2. 🟩 拿到属于当前语言的这段剧情文本数据
+		var current_story = Global.story[Global.current_language].get("chat_intro")
+		
+		# 3. 🟩 本地亲自调用播放，这样你就能直接在这里掌控它的生命周期！
+		Global.play_dialogue(current_story)
+		
+		$black_cover.visible = true
+		$black_cover.mouse_filter = MOUSE_FILTER_STOP
+		
+		# 4. 🟩 重点：动态绑定当前这个对话框的销毁信号到你指定的本地善后函数！
+		var current_scene = get_tree().current_scene
+		var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
+		
+		if active_dialogue:
+			active_dialogue.tree_exited.connect(_on_intro_finished)
+	
 	get_tree().change_scene_to_file("res://scene/phone.tscn")
 	
 	
@@ -58,6 +75,8 @@ func _on_start_pressed():
 	Bgm.play_music("game")
 	
 	Global.reset_and_new_game()
+	
+	
 	
 	var story = Global.story[Global.current_language].get("story_intro")
 	
@@ -78,6 +97,8 @@ func _on_start_pressed():
 	
 
 func _on_intro_finished():
+	
+	Global.advance_story()
 	
 	await get_tree().create_timer(2.0).timeout
 	

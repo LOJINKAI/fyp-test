@@ -434,12 +434,18 @@ theme_override_font_sizes/font_size = 50
 text = "Simon"
 
 [node name="arrow" type="TextureRect" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 208.0
-offset_top = 200.0
-offset_right = 658.0
-offset_bottom = 400.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -78.0
+offset_top = -513.0
+offset_right = 372.0
+offset_bottom = -313.0
+grow_horizontal = 2
+grow_vertical = 2
 rotation = 1.0472
 scale = Vector2(0.9, 0.9)
 mouse_filter = 2

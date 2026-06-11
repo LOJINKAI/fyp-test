@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpx7ecpdqejg4"]
+[gd_scene load_steps=7 format=3 uid="uid://dpx7ecpdqejg4"]
 
 [ext_resource type="Script" path="res://gd/dialogue.gd" id="1_3yn5h"]
-[ext_resource type="Texture2D" uid="uid://dm0c3bd3bdxxy" path="res://image/character/player3.png" id="2_ian1j"]
+[ext_resource type="Texture2D" uid="uid://cgu13ftdeefnq" path="res://image/character/new_player.png" id="2_pkr7v"]
 [ext_resource type="Texture2D" uid="uid://ckqargovujy0p" path="res://image/character/conny3.png" id="3_bywt1"]
+[ext_resource type="Texture2D" uid="uid://2ru12yu7tbs8" path="res://image/character/scammer.png" id="3_luseq"]
 [ext_resource type="Texture2D" uid="uid://cojo23waodss8" path="res://image/character/police2.png" id="4_ar7h2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_odowj"]
@@ -28,31 +29,68 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.196078)
 
-[node name="left_avatar" type="TextureRect" parent="."]
+[node name="player" type="TextureRect" parent="."]
 visible = false
-offset_top = 536.0
-offset_right = 219.0
-offset_bottom = 736.0
-scale = Vector2(1.17, 1.17)
-texture = ExtResource("2_ian1j")
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -49.0001
+offset_right = 155.0
+offset_bottom = 151.0
+grow_vertical = 2
+scale = Vector2(1.635, 1.635)
+texture = ExtResource("2_pkr7v")
 expand_mode = 1
+stretch_mode = 5
 
-[node name="right_avatar" type="TextureRect" parent="."]
+[node name="scammer" type="TextureRect" parent="."]
 visible = false
-offset_left = 272.0
-offset_top = 536.0
-offset_right = 497.0
-offset_bottom = 736.0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -65.0
+offset_right = 187.0
+offset_bottom = 229.0
+grow_vertical = 2
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("3_luseq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Boss" type="TextureRect" parent="."]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -268.0
+offset_top = -49.0
+offset_right = -43.0
+offset_bottom = 151.0
+grow_horizontal = 0
+grow_vertical = 2
 scale = Vector2(1.17, 1.17)
+size_flags_horizontal = 8
 texture = ExtResource("3_bywt1")
 expand_mode = 1
+stretch_mode = 5
 
 [node name="police" type="TextureRect" parent="."]
 visible = false
-offset_left = 40.0
-offset_top = 432.0
-offset_right = 375.0
-offset_bottom = 663.0
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -540.0
+offset_top = -169.0
+offset_right = -205.0
+offset_bottom = 62.0
+grow_horizontal = 0
+grow_vertical = 2
 scale = Vector2(2.16, 2.16)
 texture = ExtResource("4_ar7h2")
 expand_mode = 1
@@ -89,7 +127,6 @@ size_flags_vertical = 1
 size_flags_stretch_ratio = 0.12
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 30
-text = "Player"
 
 [node name="right" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -98,7 +135,6 @@ size_flags_vertical = 1
 size_flags_stretch_ratio = 0.18
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 30
-text = "NPC"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 300)

@@ -225,6 +225,15 @@ var all_groups_data = {
 
 
 func _ready():
+	
+	
+	if Global.check_story("group_intro"):
+		var story = Global.story[lang].get("group_intro")
+		Global.play_dialogue(story)
+		Global.advance_story()
+		Global.save_game_status()
+	
+	
 	# 🟩 全局紧贴设置：让所有气泡默认死死贴合在一起（去除 VBoxContainer 的阻力）
 	message_list.add_theme_constant_override("separation", 2)
 	

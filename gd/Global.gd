@@ -13,6 +13,21 @@ const chat_history = "user://chat_history.json"
 
 const DIALOGUE_SYSTEM = preload("res://scene/dialogue.tscn")
 
+const all_story = [
+	"story_intro",
+	"phone_intro",
+	"app_intro1",
+	"group_intro",
+	"app_intro2",
+	"bio_intro",
+	"chat_intro",
+	"story_end1",
+	"story_end2"
+]
+
+var current_story_index =  0
+var current_story =  0
+
 var current_language 
 var reply_language
 
@@ -87,6 +102,24 @@ func _ready():
 	
 	
 
+func check_story(required_step):
+	# A. 判定越界：如果所有教学早就全部看完了，直接放行
+	if current_story_index >= all_story.size():
+		return false
+		
+	# B. 核心关键：只有当“当前场景需要触发的教学”完美对上了“进度指针指向的教学”时，才播放
+	if all_story[current_story_index] == required_step:
+		if story[current_language].has(required_step):
+			return true
+		
+		
+	return false
+
+func advance_story():
+	current_story_index += 1
+	save_game_status() 
+	print("✨ [Global 教学系统] 步进成功！当前教学索引位置：", current_story_index)
+
 
 func reset_and_new_game():
 	
@@ -95,11 +128,8 @@ func reset_and_new_game():
 	if FileAccess.file_exists(chat_history): 
 		DirAccess.remove_absolute(chat_history)
 		
-	#record tutorial
-	phone_tutorial_finished = false
-	app_tutorial_finished = false
-	bio_tutorial_finished = false
-	chat_tutorial_finished = false
+	
+	current_story_index = 0
 	
 	Lily_done = false
 	Midas_done = false
@@ -265,6 +295,8 @@ func save_game_status():
 			
 			"current_chat_name": current_chat_name,
 			
+			"current_story_index": current_story_index,
+			
 			
 			"Lily_done": Lily_done,
 			"Midas_done": Midas_done,
@@ -301,6 +333,7 @@ func load_game_status():
 			chat_tutorial_finished = data.get("chat_tutorial_finished", false)
 			game_end = data.get("game_end", false)
 			current_chat_name  = data.get("current_chat_name", false)
+			current_story_index = data.get("current_story_index", 0)
 			
 			Lily_done = data.get("Lily_done", false)
 			Midas_done = data.get("Midas_done", false)
@@ -638,8 +671,6 @@ var npc_prompt = {
 
 
 
-
-
 # 🌍 游戏内所有大段主线剧情/开场白的多语言文本仓库 (已规范化加入 chat_intro 并优化系统提示标签)
 var story = {
 	"ch": {
@@ -791,12 +822,12 @@ var story = {
 			{"speaker": "player", "name": "Saya", "scene_black": true, "text": "Nama saya Eren. Dulu saya cuma pekerja biasa, tapi sebab gila judi, saya terjerat hutang Ah Long dan merosakkan seluruh hidup saya."},
 			{"speaker": "player", "name": "Saya", "scene_black": true, "text": "Dan hidup saya yang dah memang teruk ni, sekarang jadi lagi teruk. Nak tahu kenapa......"},
 			{"speaker": "player", "name": "Saya", "scene_black": true, "text": "Sebab sekarang saya terperangkap dalam sarang sindiket scam, dan bakal jadi salah seorang dari mereka."},
-			{"speaker": "boss", "name": "Bos Scam", "scene_black": true, "text": "Kau patut berterima kasih kat kitorang. Kalau kitorang tak beli hutang kau dari Ah Long tu, kau sekarang dah jadi bank organ bergerak."},
-			{"speaker": "boss", "name": "Bos Scam", "scene_black": true, "text": "Sekarang aku bawa kau pergi tempat kerja kau, dan terangkan apa tugas kau kat sini."},
+			{"speaker": "boss", "name": "Boss Scam", "scene_black": true, "text": "Kau patut berterima kasih kat kitorang. Kalau kitorang tak beli hutang kau dari Ah Long tu, kau sekarang dah jadi bank organ bergerak."},
+			{"speaker": "boss", "name": "Boss Scam", "scene_black": true, "text": "Sekarang aku bawa kau pergi tempat kerja kau, dan terangkan apa tugas kau kat sini."},
 			{"speaker": "player", "name": "Saya", "scene_black": true, "text": "Mati lah aku kali ni. Paksa aku buat kerja scam... Aku mesti cari peluang nak lari."},
 			{"speaker": "player_feeling", "name": "", "scene_black": true, "text": "(Terdengar bunyi erangan kesakitan seorang lelaki dari arah tidak jauh)"},
 			{"speaker": "man", "name": "Lelaki Dihukum", "scene_black": true, "text": "Mmph... Mmmph!!!"},
-			{"speaker": "boss", "name": "Bos Scam", "scene_black": true, "text": "Siapa tu?"},
+			{"speaker": "boss", "name": "Boss Scam", "scene_black": true, "text": "Siapa tu?"},
 			{"speaker": "scammer", "name": "Scammer", "scene_black": true, "text": "Dia cuba lari semalam, baru kena tangkap balik."},
 			{"speaker": "scammer", "name": "Scammer", "scene_black": true, "text": "(Bunyi percikan baton elektrik bergema)"},
 			{"speaker": "man", "name": "Lelaki Dihukum", "scene_black": true, "text": "Mmmph!!! Mmph!!!"},
@@ -805,37 +836,37 @@ var story = {
 			{"speaker": "player", "name": "Saya", "scene_black": true, "text": "Okey, nampaknya lari dari sini bukan idea yang bagus buat masa ni..."}
 		],
 		"phone_intro": [
-			{"speaker": "boss", "name": "Bos Scam", "text": "Baiklah, dah sampai. Sekarang masa untuk ajar tugas kau. Dengar betul-betul dan belajar cepat."},
-			{"speaker": "boss", "name": "Bos Scam", "text": "Ini telefon kerja baru kau. Lepas ni, kau guna alat ni untuk tipu orang dan buat duit. Sekarang, tekan butang apps biru kat skrin tu dan mula buat kerja!"}
+			{"speaker": "boss", "name": "Boss Scam", "text": "Baiklah, dah sampai. Sekarang masa untuk ajar tugas kau. Dengar betul-betul dan belajar cepat."},
+			{"speaker": "boss", "name": "Boss Scam", "text": "Ini telefon kerja baru kau. Lepas ni, kau guna alat ni untuk tipu orang dan buat duit. Sekarang, tekan butang apps biru kat skrin tu dan mula buat kerja!"}
 		],
 		"app_intro1": [
-			{"speaker": "boss", "name": "Bos Scam", "text": "Pasal skop kerja kau... Dengar sini. Kau sekarang dimasukkan ke jabatan 'Scam Kripto' untuk pancing orang beli koin palsu kita, 'RichCoin'."},
-			{"speaker": "boss", "name": "Bos Scam", "text": "Nampak tak group chat tu? Tu tempat perbincangan kita, dan kitorang dah viralkan peluang 'cepat kaya' palsu ni merata-rata di internet."},
-			{"speaker": "boss", "name": "Bos Scam", "text": "Masuk group tu dan tengok apa dorang sembangkan."}
+			{"speaker": "boss", "name": "Boss Scam", "text": "Pasal skop kerja kau... Dengar sini. Kau sekarang dimasukkan ke jabatan 'Scam Kripto' untuk pancing orang beli koin palsu kita, 'RichCoin'."},
+			{"speaker": "boss", "name": "Boss Scam", "text": "Nampak tak group chat tu? Tu tempat perbincangan kita, dan kitorang dah viralkan peluang 'cepat kaya' palsu ni merata-rata di internet."},
+			{"speaker": "boss", "name": "Boss Scam", "text": "Masuk group tu dan tengok apa dorang sembangkan."}
 		],
 		"group_intro": [
-			{"speaker": "boss", "name": "Bos Scam", "text": "Nampak tak link kat atas tu? Tu link pembelian yang kita guna untuk pancing 'pelabur' beli RichCoin kita."},
-			{"speaker": "boss", "name": "Bos Scam", "text": "Pasal orang-orang dalam group ni pula, kebanyakannya adalah akaun palsu (cybertrooper) kita. Dorang buat lakonan supaya ahli baru percaya semua orang sokong koin kita."},
-			{"speaker": "boss", "name": "Bos Scam", "text": "Kalau dah habis tengok, tekan butang keluar kat atas kiri tu untuk balik ke page sebelum ni."}
+			{"speaker": "boss", "name": "Boss Scam", "text": "Nampak tak link kat atas tu? Tu link pembelian yang kita guna untuk pancing 'pelabur' beli RichCoin kita."},
+			{"speaker": "boss", "name": "Boss Scam", "text": "Pasal orang-orang dalam group ni pula, kebanyakannya adalah akaun palsu (cybertrooper) kita. Dorang buat lakonan supaya ahli baru percaya semua orang sokong koin kita."},
+			{"speaker": "boss", "name": "Boss Scam", "text": "Kalau dah habis tengok, tekan butang keluar kat atas kiri tu untuk balik ke page sebelum ni."}
 		],
 		"app_intro2": [
-			{"speaker": "boss", "name": "Bos Scam", "text": "Aha! Ada mangsa dah masuk perangkap."},
-			{"speaker": "boss", "name": "Bos Scam", "text": "Katakan ada mangsa baru, dorang akan automatik muncul kat senarai chat telefon kau macam ni. Tugas kau adalah untuk umpan dorang supaya dorang rela hati beli RichCoin kita."},
-			{"speaker": "boss", "name": "Bos Scam", "text": "Sekarang tekan nama dia, mulakan misi pertama kau!"}
+			{"speaker": "boss", "name": "Boss Scam", "text": "Aha! Ada mangsa dah masuk perangkap."},
+			{"speaker": "boss", "name": "Boss Scam", "text": "Katakan ada mangsa baru, dorang akan automatik muncul kat senarai chat telefon kau macam ni. Tugas kau adalah untuk umpan dorang supaya dorang rela hati beli RichCoin kita."},
+			{"speaker": "boss", "name": "Boss Scam", "text": "Sekarang tekan nama dia, mulakan misi pertama kau!"}
 		],
 		"bio_intro": [
-			{"speaker": "boss", "name": "Bos Scam", "text": "Katakan sini kau boleh tengok profil personaliti mangsa."},
-			{"speaker": "boss", "name": "Bos Scam", "text": "Tugas kau adalah kaji bio dorang ni untuk cari kelemahan psikologi tersembunyi dorang. Ni akan mudahkan kerja scam kau."},
-			{"speaker": "boss", "name": "Bos Scam", "text": "Bila dah sedia, tekan je butang kat bawah ni untuk mulakan aksi."}
+			{"speaker": "boss", "name": "Boss Scam", "text": "Katakan sini kau boleh tengok profil personaliti mangsa."},
+			{"speaker": "boss", "name": "Boss Scam", "text": "Tugas kau adalah kaji bio dorang ni untuk cari kelemahan psikologi tersembunyi dorang. Ni akan mudahkan kerja scam kau."},
+			{"speaker": "boss", "name": "Boss Scam", "text": "Bila dah sedia, tekan je butang kat bawah ni untuk mulakan aksi."}
 		],
 		"chat_intro": [
-			{"speaker": "boss", "name": "Bos Scam", "text": "Bagus, lepas kau baca bio tu tadi, mesti kau dah tahu kelemahan apa yang kau patut guna untuk keringkan simpanan orang ni."},
-			{"speaker": "boss", "name": "Bos Scam", "text": "Sekarang, mulakan perbualan dan bimbing dia langkah demi langkah untuk beli RichCoin kita!"}
+			{"speaker": "boss", "name": "Boss Scam", "text": "Bagus, lepas kau baca bio tu tadi, mesti kau dah tahu kelemahan apa yang kau patut guna untuk keringkan simpanan orang ni."},
+			{"speaker": "boss", "name": "Boss Scam", "text": "Sekarang, mulakan perbualan dan bimbing dia langkah demi langkah untuk beli RichCoin kita!"}
 		],
 		"story_end1": [
-			{"speaker": "boss", "name": "Bos Scam", "text": "Aiya, nampaknya takde lagi mangsa yang gelojoh nak bagi duit kat kita hari ni. Tapi takpe, bisnes masyuk ni ada setiap hari, tak perlu kelam-kabut."},
-			{"speaker": "boss", "name": "Bos Scam", "text": "Bagi pihak kau, kau dah buat kerja yang sangat bagus hari ni. Kau sekarang dah jadi scammer yang hebat, sama macam kitorang."},
-			{"speaker": "boss", "name": "Bos Scam", "text": "Cukuplah untuk hari ni, pergi basuh muka. Lepas ni... kau kena kerja kuat untuk kitorang kat sini seumur hidup kau!"},
+			{"speaker": "boss", "name": "Boss Scam", "text": "Aiya, nampaknya takde lagi mangsa yang gelojoh nak bagi duit kat kita hari ni. Tapi takpe, bisnes masyuk ni ada setiap hari, tak perlu kelam-kabut."},
+			{"speaker": "boss", "name": "Boss Scam", "text": "Bagi pihak kau, kau dah buat kerja yang sangat bagus hari ni. Kau sekarang dah jadi scammer yang hebat, sama macam kitorang."},
+			{"speaker": "boss", "name": "Boss Scam", "text": "Cukuplah untuk hari ni, pergi basuh muka. Lepas ni... kau kena kerja kuat untuk kitorang kat sini seumur hidup kau!"},
 			{"speaker": "player", "name": "Saya", "text": ".............Habislah."},
 			{"speaker": "player", "name": "Saya", "text": "Hidup aku dah betul-betul hancur."},
 			{"speaker": "player", "name": "Saya", "text": "Adakah aku kena terus rosakkan hidup orang lain lepas ni......"},
@@ -939,264 +970,264 @@ var help = {
 	"ch": {
 		"first_help": {
 			"Midas_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "怎么？遇到个想翻盘的赌徒就不知道怎么开口了？"},
-				{"speaker": "npc", "name": "Conny", "text": "他现在还不认识你，你得先以群秘书的身份去搭个话。看他那满脑子保时捷的简介，他要的是极端的暴富捷径！"},
-				{"speaker": "npc", "name": "Conny", "text": "他的心理弱点是极度贪婪。别跟他聊什么长线安全投资，他听了只会觉得浪费时间。"},
-				{"speaker": "npc", "name": "Conny", "text": "直接用‘100倍超高回报’、‘一夜抹平贷款’这种话术去疯狂刺激他。只要饼画得够大，他就会上钩！"}
+				{"speaker": "boss", "name": "诈骗头目", "text": "怎么？遇到个想翻盘的赌徒就不知道怎么开口了？"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "他现在还不认识你，你得先以群秘书的身份去搭个话。看他那满脑子保时捷的简介，他要的是极端的暴富捷径！"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "他的心理弱点是极度贪婪。别跟他聊什么长线安全投资，他听了只会觉得浪费时间。"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "直接用‘100倍超高回报’、‘一夜抹平贷款’这种话术去疯狂刺激他。只要饼画得够大，他就会上钩！"}
 			],
 			"Lily_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "连个普通小职员都搞不定？看来你还没摸透人心啊。"},
-				{"speaker": "npc", "name": "Conny", "text": "她一开始对你是有戒心的，你先去打个招呼。仔细看她的资料，她每天看着朋友圈焦虑，最怕别人发财自己当穷光蛋。"},
-				{"speaker": "npc", "name": "Conny", "text": "她的心理弱点就是严重的 FOMO（错失恐惧）。普通的收益根本打动不了她。"},
-				{"speaker": "npc", "name": "Conny", "text": "你得营造‘名额马上抢完、再不买就晚了’的紧迫感。用这种害怕被抛弃的氛围去推她一把！"}
+				{"speaker": "boss", "name": "诈骗头目", "text": "连个普通小职员都搞不定？看来你还没摸透人心啊。"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "她一开始对你是有戒心的，你先去打个招呼。仔细看她的资料，她每天看着朋友圈焦虑，最怕别人发财自己当穷光蛋。"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "她的心理弱点就是严重的 FOMO（错失恐惧）。普通的收益根本打动不了她。"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "你得营造‘名额马上抢完、再不买就晚了’的紧迫感。用这种害怕被抛弃的氛围去推她一把！"}
 			],
 			"Jane_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "遇到点小困难就立刻按按钮？盯紧 Jane 的自我简介！"},
-				{"speaker": "npc", "name": "Conny", "text": "她现在根本不知道你是谁，先去表明身份。她是个只会看大部分人怎么选的盲从者，绝对不敢做第一个吃螃蟹的人。"},
-				{"speaker": "npc", "name": "Conny", "text": "她的心理弱点就是强烈的羊群效应！不要叫她勇敢投资，她只会觉得你是个骗子。"},
-				{"speaker": "npc", "name": "Conny", "text": "你得反复强调‘整个群几百人都在买’、‘大家都觉得这个超级靠谱’，用群体的力量去击溃她的防线！"}
+				{"speaker": "boss", "name": "诈骗头目", "text": "遇到点小困难就立刻按按钮？盯紧 Jane 的自我简介！"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "她现在根本不知道你是谁，先去表明身份。她是个只会看大部分人怎么选的盲从者，绝对不敢做第一个吃螃蟹的人。"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "她的心理弱点就是强烈的羊群效应！不要叫她勇敢投资，她只会觉得你是个骗子。"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "你得反复强调‘整个群几百人都在买’、‘大家都觉得这个超级靠谱’，用群体的力量去击溃她的防线！"}
 			],
 			"Stanley_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "觉得这个懂点投资的人像一块铁板无从下手？动动脑子，是人就会有破绽。"},
-				{"speaker": "npc", "name": "Conny", "text": "去跟他搭话，你会发现这家伙极其自负，觉得散户都是韭菜，一心只想学真正的有钱人投资。"},
-				{"speaker": "npc", "name": "Conny", "text": "他的心理弱点就是盲目迷信‘名人背书’！政府牌照或者跟风抢购对他完全没用。"},
-				{"speaker": "npc", "name": "Conny", "text": "对付这种自以为聪明的人，你得编点‘世界首富或是顶尖富豪也在私下买入’的绝密内幕。抛出响亮的名字，他马上就跪了！"}
+				{"speaker": "boss", "name": "诈骗头目", "text": "觉得这个懂点投资的人像一块铁板无从下手？动动脑子，是人就会有破绽。"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "去跟他搭话，你会发现这家伙极其自负，觉得散户都是韭菜，一心只想学真正的有钱人投资。"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "他的心理弱点就是盲目迷信‘名人背书’！政府牌照或者跟风抢购对他完全没用。"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "对付这种自以为聪明的人，你得编点‘世界首富或是顶尖富豪也在私下买入’的绝密内幕。抛出响亮的名字，他马上就跪了！"}
 			],
 			"Simon_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "遇到这个可怜的打工人你就傻眼了？仔细看资料，这是我们行内最经典的‘杀猪盘’！"},
-				{"speaker": "npc", "name": "Conny", "text": "警告你，他是直男！你千万别用大老爷们的身份去跟他聊，必须装作想找对象的单身女孩去接近他！"},
-				{"speaker": "npc", "name": "Conny", "text": "他的心理弱点就是极度缺爱和情感依赖。别一上来就像个机器客服一样推销发财币，他会直接拉黑你。"},
-				{"speaker": "npc", "name": "Conny", "text": "你得先跟他套近乎，确定恋爱关系。等他沉浸在爱情里了，再用‘为了我们的未来’当借口去骗钱！"}
+				{"speaker": "boss", "name": "诈骗头目", "text": "遇到这个可怜的打工人你就傻眼了？仔细看资料，这是我们行内最经典的‘杀猪盘’！"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "警告你，他是直男！你千万别用大老爷们的身份去跟他聊，必须装作想找对象的单身女孩去接近他！"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "他的心理弱点就是极度缺爱和情感依赖。别一上来就像个机器客服一样推销发财币，他会直接拉黑你。"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "你得先跟他套近乎，确定恋爱关系。等他沉浸在爱情里了，再用‘为了我们的未来’当借口去骗钱！"}
 			]
 		},
 		"second_help": {
 			"Midas_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "怎么又来了？是不是你抛出暴富诱饵后，他不但没买还反问你了？"},
-				{"speaker": "npc", "name": "Conny", "text": "我忘了告诉你，没人会听你一句话就立刻掏钱。他现在处于拉扯阶段，在试探你！"},
-				{"speaker": "npc", "name": "Conny", "text": "这个时候千万别换套路！他问是不是真的，你就连续2到3次继续用‘绝对能买保时捷、还清贷款’去给他洗脑。"},
-				{"speaker": "npc", "name": "Conny", "text": "只要你在逻辑上持续加码他最渴望的暴富神话，不给他冷静的机会，他的理智很快就会彻底崩盘。去，再推他几把！"}
+				{"speaker": "boss", "name": "诈骗头目", "text": "怎么又来了？是不是你抛出暴富诱饵后，他不但没买还反问你了？"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "我忘了告诉你，没人会听你一句话就立刻掏钱。他现在处于拉扯阶段，在试探你！"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "这个时候千万别换套路！他问是不是真的，你就连续2到3次继续用‘绝对能买保时捷、还清贷款’去给他洗脑。"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "只要你在逻辑上持续加码他最渴望的暴富神话，不给他冷静的机会，他的理智很快就会彻底崩盘。去，再推他几把！"}
 			],
 			"Lily_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "是不是她开始慌了，但就是不敢付钱？这就对了！"},
-				{"speaker": "npc", "name": "Conny", "text": "她是个极度胆小的人，听到名额要没了肯定会犹豫和反复确认。你千万别在这时候软下来！"},
-				{"speaker": "npc", "name": "Conny", "text": "继续加大分量！连续两三次告诉她：‘别人都已经抢疯了，再犹豫你就彻底错过了！’"},
-				{"speaker": "npc", "name": "Conny", "text": "利用她对‘独自当穷光蛋’的严重危机感死死拿捏她。持续施压，她心跳一快，手就会不由自主地去转账了！"}
+				{"speaker": "boss", "name": "诈骗头目", "text": "是不是她开始慌了，但就是不敢付钱？这就对了！"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "她是个极度胆小的人，听到名额要没了肯定会犹豫和反复确认。你千万别在这时候软下来！"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "继续加大分量！连续两三次告诉她：‘别人都已经抢疯了，再犹豫你就彻底错过了！’"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "利用她对‘独自当穷光蛋’的严重危机感死死拿捏她。持续施压，她心跳一快，手就会不由自主地去转账了！"}
 			],
 			"Jane_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "同一个普通女孩，我点拨了你一次你居然还是没能把她拿下？"},
-				{"speaker": "npc", "name": "Conny", "text": "她现在肯定在问‘真的大家都买了吗’之类的话吧？她在寻求群体的安全感！"},
-				{"speaker": "npc", "name": "Conny", "text": "这时候千万别去讲项目的技术，继续围绕‘很多人都在做’这个点，连续给她洗脑两三次！"},
-				{"speaker": "npc", "name": "Conny", "text": "坚决告诉她群里的活人都在晒收益，绝不会让她一个人承担风险。只要把从众氛围做到极致，她的防御就会彻底变成零！"}
+				{"speaker": "boss", "name": "诈骗头目", "text": "同一个普通女孩，我点拨了你一次你居然还是没能把她拿下？"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "她现在肯定在问‘真的大家都买了吗’之类的话吧？她在寻求群体的安全感！"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "这时候千万别去讲项目的技术，继续围绕‘很多人都在做’这个点，连续给她洗脑两三次！"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "坚决告诉她群里的活人都在晒收益，绝不会让她一个人承担风险。只要把从众氛围做到极致，她的防御就会彻底变成零！"}
 			],
 			"Stanley_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "怎么？你搬出名人效应，他反而开始质疑内幕的真实性了？"},
-				{"speaker": "npc", "name": "Conny", "text": "自负的人就是这样，他们会为了显得自己聪明而故意拉扯。这时候你绝不能退缩！"},
-				{"speaker": "npc", "name": "Conny", "text": "顺着他的话往下编！连续两三次咬死‘这就是大佬内部的消息，一般散户根本不知道’。"},
-				{"speaker": "npc", "name": "Conny", "text": "只要你持续满足他那种‘我是精英’的虚荣心，用名人的光环彻底粉碎他的傲慢，他绝对会乖乖把钱交出来！"}
+				{"speaker": "boss", "name": "诈骗头目", "text": "怎么？你搬出名人效应，他反而开始质疑内幕的真实性了？"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "自负的人就是这样，他们会为了显得自己聪明而故意拉扯。这时候你绝不能退缩！"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "顺着他的话往下编！连续两三次咬死‘这就是大佬内部的消息，一般散户根本不知道’。"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "只要你持续满足他那种‘我是精英’的虚荣心，用名人的光环彻底粉碎他的傲慢，他绝对会乖乖把钱交出来！"}
 			],
 			"Simon_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "怎么？是不是你终于聊到钱，他却觉得你只是图他的钱，开始退缩了？"},
-				{"speaker": "npc", "name": "Conny", "text": "杀猪盘最关键的就是收网这一下！他之所以拉扯，是因为他在害怕失去你这个‘女朋友’。"},
-				{"speaker": "npc", "name": "Conny", "text": "这时候别去讲发财币有多好，你要连续两三次跟他描绘你们的未来：‘亲爱的，这都是为了我们未来的房子和婚礼啊！’"},
-				{"speaker": "npc", "name": "Conny", "text": "用温柔和爱意彻底灌醉他。只要他坚信这笔钱能换来一个老婆和幸福的家，他就算去借高利贷也会把钱转给你！"}
+				{"speaker": "boss", "name": "诈骗头目", "text": "怎么？是不是你终于聊到钱，他却觉得你只是图他的钱，开始退缩了？"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "杀猪盘最关键的就是收网这一下！他之所以拉扯，是因为他在害怕失去你这个‘女朋友’。"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "这时候别去讲发财币有多好，你要连续两三次跟他描绘你们的未来：‘亲爱的，这都是为了我们未来的房子和婚礼啊！’"},
+				{"speaker": "boss", "name": "诈骗头目", "text": "用温柔和爱意彻底灌醉他。只要他坚信这笔钱能换来一个老婆和幸福的家，他就算去借高利贷也会把钱转给你！"}
 			]
 		}
 	},
 	"en": {
 		"first_help": {
 			"Midas_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "What's wrong? Don't know how to talk to a desperate gambler?"},
-				{"speaker": "npc", "name": "Conny", "text": "He doesn't know who you are yet. Introduce yourself as the group admin first. Look at his bio—he's drowning in debt and dreaming of a Porsche. He wants an extreme shortcut!"},
-				{"speaker": "npc", "name": "Conny", "text": "His psychological weakness is Extreme Greed. Don't bother talking about safe, long-term investments; he'll just ignore you."},
-				{"speaker": "npc", "name": "Conny", "text": "Use phrases like '100x insane returns' and 'wipe out your loans overnight'. Paint a massive picture of wealth to trigger his greed!"}
+				{"speaker": "boss", "name": "Scam Boss", "text": "What's wrong? Don't know how to talk to a desperate gambler?"},
+				{"speaker": "boss", "name": "Scam Boss", "text": "He doesn't know who you are yet. Introduce yourself as the group admin first. Look at his bio—he's drowning in debt and dreaming of a Porsche. He wants an extreme shortcut!"},
+				{"speaker": "boss", "name": "Scam Boss", "text": "His psychological weakness is Extreme Greed. Don't bother talking about safe, long-term investments; he'll just ignore you."},
+				{"speaker": "boss", "name": "Scam Boss", "text": "Use phrases like '100x insane returns' and 'wipe out your loans overnight'. Paint a massive picture of wealth to trigger his greed!"}
 			],
 			"Lily_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Stuck on a generic office worker? You really need to read people better."},
-				{"speaker": "npc", "name": "Conny", "text": "She's wary of strangers, so say hi first. Look at her profile—she's anxious about others getting rich and terrified of staying broke."},
-				{"speaker": "npc", "name": "Conny", "text": "Her core weakness is severe FOMO (Fear Of Missing Out). Normal returns won't move her at all."},
-				{"speaker": "npc", "name": "Conny", "text": "You need to create immense urgency. Tell her 'slots are running out fast'. Push her with the fear of being left behind!"}
+				{"speaker": "boss", "name": "Scam Boss", "text": "Stuck on a generic office worker? You really need to read people better."},
+				{"speaker": "boss", "name": "Scam Boss", "text": "She's wary of strangers, so say hi first. Look at her profile—she's anxious about others getting rich and terrified of staying broke."},
+				{"speaker": "boss", "name": "Scam Boss", "text": "Her core weakness is severe FOMO (Fear Of Missing Out). Normal returns won't move her at all."},
+				{"speaker": "boss", "name": "Scam Boss", "text": "You need to create immense urgency. Tell her 'slots are running out fast'. Push her with the fear of being left behind!"}
 			],
 			"Jane_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Hitting an obstacle already? Pay close attention to Jane's bio!"},
-				{"speaker": "npc", "name": "Conny", "text": "She doesn't know you, so introduce yourself. She's a blind follower who only acts when the majority acts. She'll never be the first to jump in."},
-				{"speaker": "npc", "name": "Conny", "text": "Her psychological weakness is intense Herd Mentality. Don't tell her to be brave; she'll just think you're scamming her."},
-				{"speaker": "npc", "name": "Conny", "text": "Constantly repeat that 'hundreds of group members are buying' and 'everyone is doing it'. Use the power of the crowd to break her defenses!"}
+				{"speaker": "boss", "name": "Scam Boss", "text": "Hitting an obstacle already? Pay close attention to Jane's bio!"},
+				{"speaker": "boss", "name": "Scam Boss", "text": "She doesn't know you, so introduce yourself. She's a blind follower who only acts when the majority acts. She'll never be the first to jump in."},
+				{"speaker": "boss", "name": "Scam Boss", "text": "Her psychological weakness is intense Herd Mentality. Don't tell her to be brave; she'll just think you're scamming her."},
+				{"speaker": "boss", "name": "Scam Boss", "text": "Constantly repeat that 'hundreds of group members are buying' and 'everyone is doing it'. Use the power of the crowd to break her defenses!"}
 			],
 			"Stanley_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Intimidated because he sounds arrogant? Wake up, everyone has a blind spot."},
-				{"speaker": "npc", "name": "Conny", "text": "Go break the ice. You'll see he's highly conceited, despises retail investors, and only wants to follow the ultra-rich."},
-				{"speaker": "npc", "name": "Conny", "text": "His fatal weakness is his blind worship of 'Celebrity Endorsements'! Government licenses or FOMO tactics won't work on him."},
-				{"speaker": "npc", "name": "Conny", "text": "To handle a guy who thinks he's a genius, invent 'insider secrets' about world-famous billionaires secretly buying in. Drop big names, and his ego will crumble!"}
+				{"speaker": "boss", "name": "Scam Boss", "text": "Intimidated because he sounds arrogant? Wake up, everyone has a blind spot."},
+				{"speaker": "boss", "name": "Scam Boss", "text": "Go break the ice. You'll see he's highly conceited, despises retail investors, and only wants to follow the ultra-rich."},
+				{"speaker": "boss", "name": "Scam Boss", "text": "His fatal weakness is his blind worship of 'Celebrity Endorsements'! Government licenses or FOMO tactics won't work on him."},
+				{"speaker": "boss", "name": "Scam Boss", "text": "To handle a guy who thinks he's a genius, invent 'insider secrets' about world-famous billionaires secretly buying in. Drop big names, and his ego will crumble!"}
 			],
 			"Simon_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Staring blankly at a lonely wage earner? Read the files! This is our classic 'Pig Butchering' romance scam!"},
-				{"speaker": "npc", "name": "Conny", "text": "WARNING: He is strictly straight! Do NOT approach him as a guy. You MUST pretend to be a single woman looking for a relationship!"},
-				{"speaker": "npc", "name": "Conny", "text": "His weakness is emotional dependency. Don't pitch RichCoin right away like a robot; he will block you."},
-				{"speaker": "npc", "name": "Conny", "text": "Flirt with him first. Make him fall in love. Once he thinks you're his girlfriend, pitch the investment 'for our shared future' to take his money!"}
+				{"speaker": "boss", "name": "Scam Boss", "text": "Staring blankly at a lonely wage earner? Read the files! This is our classic 'Pig Butchering' romance scam!"},
+				{"speaker": "boss", "name": "Scam Boss", "text": "WARNING: He is strictly straight! Do NOT approach him as a guy. You MUST pretend to be a single woman looking for a relationship!"},
+				{"speaker": "boss", "name": "Scam Boss", "text": "His weakness is emotional dependency. Don't pitch RichCoin right away like a robot; he will block you."},
+				{"speaker": "boss", "name": "Scam Boss", "text": "Flirt with him first. Make him fall in love. Once he thinks you're his girlfriend, pitch the investment 'for our shared future' to take his money!"}
 			]
 		},
 		"second_help": {
 			"Midas_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Back again? Did he question you after you promised him wealth?"},
-				{"speaker": "npc", "name": "Conny", "text": "I forgot to tell you, nobody surrenders instantly. He is testing you right now!"},
-				{"speaker": "npc", "name": "Conny", "text": "Do NOT change your tactic! If he doubts it, push the 'Porsche and debt-free' narrative 2 or 3 more times."},
-				{"speaker": "npc", "name": "Conny", "text": "Keep feeding his greed logically. Don't give him a moment to cool down, and his gambler's fallacy will force him to go all in. Keep pushing!"}
+				{"speaker": "boss", "name": "Scam Boss", "text": "Back again? Did he question you after you promised him wealth?"},
+				{"speaker": "boss", "name": "Scam Boss", "text": "I forgot to tell you, nobody surrenders instantly. He is testing you right now!"},
+				{"speaker": "boss", "name": "Scam Boss", "text": "Do NOT change your tactic! If he doubts it, push the 'Porsche and debt-free' narrative 2 or 3 more times."},
+				{"speaker": "boss", "name": "Scam Boss", "text": "Keep feeding his greed logically. Don't give him a moment to cool down, and his gambler's fallacy will force him to go all in. Keep pushing!"}
 			],
 			"Lily_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Is she panicking but still hesitant to pay? Perfect!"},
-				{"speaker": "npc", "name": "Conny", "text": "She is naturally cowardly. She will hesitate and ask for reassurance. Do not back down now!"},
-				{"speaker": "npc", "name": "Conny", "text": "Turn up the heat! Tell her 2 or 3 more times: 'Everyone is buying, if you wait another minute, you're missing out completely!'"},
-				{"speaker": "npc", "name": "Conny", "text": "Exploit her terror of staying poor. Keep applying the pressure, and her racing heart will make her transfer the funds!"}
+				{"speaker": "boss", "name": "Scam Boss", "text": "Is she panicking but still hesitant to pay? Perfect!"},
+				{"speaker": "boss", "name": "Scam Boss", "text": "She is naturally cowardly. She will hesitate and ask for reassurance. Do not back down now!"},
+				{"speaker": "boss", "name": "Scam Boss", "text": "Turn up the heat! Tell her 2 or 3 more times: 'Everyone is buying, if you wait another minute, you're missing out completely!'"},
+				{"speaker": "boss", "name": "Scam Boss", "text": "Exploit her terror of staying poor. Keep applying the pressure, and her racing heart will make her transfer the funds!"}
 			],
 			"Jane_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "An ordinary girl, and you still can't close the deal after my tip?"},
-				{"speaker": "npc", "name": "Conny", "text": "She's probably asking 'Are they real people buying?' She's seeking the safety of the herd!"},
-				{"speaker": "npc", "name": "Conny", "text": "Don't talk about the coin's technology now. Double down on the Social Proof 2 or 3 more times!"},
-				{"speaker": "npc", "name": "Conny", "text": "Reassure her that hundreds of real members are profiting and she won't be alone. Push that herd mentality to the max, and she'll follow!"}
+				{"speaker": "boss", "name": "Scam Boss", "text": "An ordinary girl, and you still can't close the deal after my tip?"},
+				{"speaker": "boss", "name": "Scam Boss", "text": "She's probably asking 'Are they real people buying?' She's seeking the safety of the herd!"},
+				{"speaker": "boss", "name": "Scam Boss", "text": "Don't talk about the coin's technology now. Double down on the Social Proof 2 or 3 more times!"},
+				{"speaker": "boss", "name": "Scam Boss", "text": "Reassure her that hundreds of real members are profiting and she won't be alone. Push that herd mentality to the max, and she'll follow!"}
 			],
 			"Stanley_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "So you dropped the celebrity names, and now he's questioning the intel?"},
-				{"speaker": "npc", "name": "Conny", "text": "That's what arrogant people do—they push back to sound smart. You must not back down!"},
-				{"speaker": "npc", "name": "Conny", "text": "Play along! Double down 2 or 3 more times that 'this is an elite billionaire secret that retail investors don't know'."},
-				{"speaker": "npc", "name": "Conny", "text": "Keep feeding his superiority complex. Once he feels he's truly joining the billionaires' club, he will gladly hand over his cash!"}
+				{"speaker": "boss", "name": "Scam Boss", "text": "So you dropped the celebrity names, and now he's questioning the intel?"},
+				{"speaker": "boss", "name": "Scam Boss", "text": "That's what arrogant people do—they push back to sound smart. You must not back down!"},
+				{"speaker": "boss", "name": "Scam Boss", "text": "Play along! Double down 2 or 3 more times that 'this is an elite billionaire secret that retail investors don't know'."},
+				{"speaker": "boss", "name": "Scam Boss", "text": "Keep feeding his superiority complex. Once he feels he's truly joining the billionaires' club, he will gladly hand over his cash!"}
 			],
 			"Simon_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "What's wrong? Did you ask for money and now he's acting defensive?"},
-				{"speaker": "npc", "name": "Conny", "text": "This is the crucial 'butchering' phase! He's hesitating because he's scared of losing you, his 'girlfriend'."},
-				{"speaker": "npc", "name": "Conny", "text": "Stop talking about how good the coin is. Reassure him lovingly 2 or 3 times: 'Honey, this is for our dream house and our wedding!'"},
-				{"speaker": "npc", "name": "Conny", "text": "Drown him in romantic illusions. If he truly believes this money buys him a loving wife and a happy home, he'll give you every cent!"}
+				{"speaker": "boss", "name": "Scam Boss", "text": "What's wrong? Did you ask for money and now he's acting defensive?"},
+				{"speaker": "boss", "name": "Scam Boss", "text": "This is the crucial 'butchering' phase! He's hesitating because he's scared of losing you, his 'girlfriend'."},
+				{"speaker": "boss", "name": "Scam Boss", "text": "Stop talking about how good the coin is. Reassure him lovingly 2 or 3 times: 'Honey, this is for our dream house and our wedding!'"},
+				{"speaker": "boss", "name": "Scam Boss", "text": "Drown him in romantic illusions. If he truly believes this money buys him a loving wife and a happy home, he'll give you every cent!"}
 			]
 		}
 	},
 	"bm": {
 		"first_help": {
 			"Midas_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Kenapa? Terkedu ke tak tahu nak sembang dengan kaki judi yang terdesak?"},
-				{"speaker": "npc", "name": "Conny", "text": "Dia belum kenal kamu, pergi kenalkan diri sebagai admin dulu. Tengok bio dia—mamat ni sesak hutang dan angan-angan nak Porsche. Dia nak jalan pintas!"},
-				{"speaker": "npc", "name": "Conny", "text": "Kelemahan dia ialah sangat tamak. Jangan buang masa sembang pasal pelaburan selamat, dia takkan layan."},
-				{"speaker": "npc", "name": "Conny", "text": "Guna ayat macam 'pulangan 100x ganda', 'padam hutang semalaman'. Kasi dia bayangan kekayaan melampau untuk pancing ketamakan dia!"}
+				{"speaker": "boss", "name": "Boss Scam", "text": "Kenapa? Terkedu ke tak tahu nak sembang dengan kaki judi yang terdesak?"},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Dia belum kenal kamu, pergi kenalkan diri sebagai admin dulu. Tengok bio dia—mamat ni sesak hutang dan angan-angan nak Porsche. Dia nak jalan pintas!"},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Kelemahan dia ialah sangat tamak. Jangan buang masa sembang pasal pelaburan selamat, dia takkan layan."},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Guna ayat macam 'pulangan 100x ganda', 'padam hutang semalaman'. Kasi dia bayangan kekayaan melampau untuk pancing ketamakan dia!"}
 			],
 			"Lily_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Tersangkut kat kerani biasa pun tak boleh handle? Kena asah lagi skil membaca orang ni."},
-				{"speaker": "npc", "name": "Conny", "text": "Dia berwaspada dengan orang tak kenal, pergi tegur dia dulu. Perhati bio dia—dia takut sangat tengok orang lain kaya tapi dia kekal miskin."},
-				{"speaker": "npc", "name": "Conny", "text": "Kelemahan utama dia ialah FOMO (Takut Terlepas Peluang). Pulangan biasa takkan jalan kat dia."},
-				{"speaker": "npc", "name": "Conny", "text": "Kamu kena wujudkan rasa terdesak. Bagitahu 'kuota dah nak habis'. Tolak dia guna ketakutan ditinggalkan orang!"}
+				{"speaker": "boss", "name": "Boss Scam", "text": "Tersangkut kat kerani biasa pun tak boleh handle? Kena asah lagi skil membaca orang ni."},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Dia berwaspada dengan orang tak kenal, pergi tegur dia dulu. Perhati bio dia—dia takut sangat tengok orang lain kaya tapi dia kekal miskin."},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Kelemahan utama dia ialah FOMO (Takut Terlepas Peluang). Pulangan biasa takkan jalan kat dia."},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Kamu kena wujudkan rasa terdesak. Bagitahu 'kuota dah nak habis'. Tolak dia guna ketakutan ditinggalkan orang!"}
 			],
 			"Jane_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Baru mula dah sangkut? Fokus pada bio Jane!"},
-				{"speaker": "npc", "name": "Conny", "text": "Dia tak kenal kamu, pergi perkenalkan diri. Dia ni jenis lurus bendul yang cuma bergerak bila ramai orang buat. Dia takkan berani cuba dulu."},
-				{"speaker": "npc", "name": "Conny", "text": "Kelemahan dia ialah Mentaliti Ikut Kelompok. Jangan suruh dia berani, nanti dia ingat kamu scammer."},
-				{"speaker": "npc", "name": "Conny", "text": "Ulang banyak kali yang 'beratus ahli group tengah beli' dan 'semua orang rasa selamat'. Guna kuasa majoriti untuk pecahkan tembok dia!"}
+				{"speaker": "boss", "name": "Boss Scam", "text": "Baru mula dah sangkut? Fokus pada bio Jane!"},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Dia tak kenal kamu, pergi perkenalkan diri. Dia ni jenis lurus bendul yang cuma bergerak bila ramai orang buat. Dia takkan berani cuba dulu."},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Kelemahan dia ialah Mentaliti Ikut Kelompok. Jangan suruh dia berani, nanti dia ingat kamu scammer."},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Ulang banyak kali yang 'beratus ahli group tengah beli' dan 'semua orang rasa selamat'. Guna kuasa majoriti untuk pecahkan tembok dia!"}
 			],
 			"Stanley_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Rasa cuak sebab dia nampak bongkak? Bangunlah, setiap orang ada kelemahan."},
-				{"speaker": "npc", "name": "Conny", "text": "Pergi tegur dia. Kamu akan nampak dia ni angkuh gila, benci pelabur runcit, dan cuma nak ikut gaya jutawan."},
-				{"speaker": "npc", "name": "Conny", "text": "Kelemahan maut dia ialah taksub pada 'Sokongan Nama Besar'! Sembang lesen kerajaan atau taktik FOMO takkan jalan punya."},
-				{"speaker": "npc", "name": "Conny", "text": "Nak urus mamat perasan pandai ni, reka cerita 'jutawan nombor satu dunia beli diam-diam'. Petik nama besar, ego dia akan berderai!"}
+				{"speaker": "boss", "name": "Boss Scam", "text": "Rasa cuak sebab dia nampak bongkak? Bangunlah, setiap orang ada kelemahan."},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Pergi tegur dia. Kamu akan nampak dia ni angkuh gila, benci pelabur runcit, dan cuma nak ikut gaya jutawan."},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Kelemahan maut dia ialah taksub pada 'Sokongan Nama Besar'! Sembang lesen kerajaan atau taktik FOMO takkan jalan punya."},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Nak urus mamat perasan pandai ni, reka cerita 'jutawan nombor satu dunia beli diam-diam'. Petik nama besar, ego dia akan berderai!"}
 			],
 			"Simon_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Terkedu tengok kuli sunyi ni? Baca fail tu! Ini kes klasik 'Love Scam' kita!"},
-				{"speaker": "npc", "name": "Conny", "text": "AMARAN: Dia ni lelaki sejati! JANGAN sembang gaya lelaki dengan dia. Kamu WAJIB menyamar jadi perempuan bujang yang cari jodoh!"},
-				{"speaker": "npc", "name": "Conny", "text": "Kelemahan dia ialah kebergantungan emosi. Jangan terus jual RichCoin macam robot, nanti dia block kamu."},
-				{"speaker": "npc", "name": "Conny", "text": "Mengorat dia dulu. Buat dia jatuh cinta. Bila dia dah anggap kamu makwe dia, baru petik pelaburan 'demi masa depan kita' untuk kebas duit dia!"}
+				{"speaker": "boss", "name": "Boss Scam", "text": "Terkedu tengok kuli sunyi ni? Baca fail tu! Ini kes klasik 'Love Scam' kita!"},
+				{"speaker": "boss", "name": "Boss Scam", "text": "AMARAN: Dia ni lelaki sejati! JANGAN sembang gaya lelaki dengan dia. Kamu WAJIB menyamar jadi perempuan bujang yang cari jodoh!"},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Kelemahan dia ialah kebergantungan emosi. Jangan terus jual RichCoin macam robot, nanti dia block kamu."},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Mengorat dia dulu. Buat dia jatuh cinta. Bila dia dah anggap kamu makwe dia, baru petik pelaburan 'demi masa depan kita' untuk kebas duit dia!"}
 			]
 		},
 		"second_help": {
 			"Midas_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Datang lagi? Dia mula soal siasat kamu lepas kamu janjikan kekayaan eh?"},
-				{"speaker": "npc", "name": "Conny", "text": "Aku lupa nak pesan, takde siapa yang terus serah diri. Dia tengah uji kamu sekarang ni!"},
-				{"speaker": "npc", "name": "Conny", "text": "JANGAN tukar taktik! Kalau dia ragu-ragu, tekan lagi point 'Porsche dan bebas hutang' tu 2-3 kali lagi."},
-				{"speaker": "npc", "name": "Conny", "text": "Terus suap ketamakan dia dengan logik. Jangan bagi dia masa nak bertenang, nanti sifat kaki judi dia akan paksa dia all-in. Push dia lagi!"}
+				{"speaker": "boss", "name": "Boss Scam", "text": "Datang lagi? Dia mula soal siasat kamu lepas kamu janjikan kekayaan eh?"},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Aku lupa nak pesan, takde siapa yang terus serah diri. Dia tengah uji kamu sekarang ni!"},
+				{"speaker": "boss", "name": "Boss Scam", "text": "JANGAN tukar taktik! Kalau dia ragu-ragu, tekan lagi point 'Porsche dan bebas hutang' tu 2-3 kali lagi."},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Terus suap ketamakan dia dengan logik. Jangan bagi dia masa nak bertenang, nanti sifat kaki judi dia akan paksa dia all-in. Push dia lagi!"}
 			],
 			"Lily_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Dia dah gelabah tapi masih takut nak bayar? Cun sangat dah tu!"},
-				{"speaker": "npc", "name": "Conny", "text": "Dia memang pengecut. Dia akan teragak-agak dan mintak jaminan. Jangan mengalah sekarang!"},
-				{"speaker": "npc", "name": "Conny", "text": "Panaskan lagi keadaan! Bagitahu dia 2-3 kali lagi: 'Orang lain dah rebut habis, lambat seminit lagi melepas terus!'"},
-				{"speaker": "npc", "name": "Conny", "text": "Eksploitasi ketakutan dia pasal kekal miskin. Terus bagi tekanan, nanti bila jantung dia berdegup laju, automatik dia transfer duit tu!"}
+				{"speaker": "boss", "name": "Boss Scam", "text": "Dia dah gelabah tapi masih takut nak bayar? Cun sangat dah tu!"},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Dia memang pengecut. Dia akan teragak-agak dan mintak jaminan. Jangan mengalah sekarang!"},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Panaskan lagi keadaan! Bagitahu dia 2-3 kali lagi: 'Orang lain dah rebut habis, lambat seminit lagi melepas terus!'"},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Eksploitasi ketakutan dia pasal kekal miskin. Terus bagi tekanan, nanti bila jantung dia berdegup laju, automatik dia transfer duit tu!"}
 			],
 			"Jane_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Gadis biasa pun kamu tak boleh nak close deal lagi lepas aku dah bagi tip?"},
-				{"speaker": "npc", "name": "Conny", "text": "Mesti dia tanya 'Betul ke orang betul yang beli?' Dia perlukan keselamatan dari kelompok!"},
-				{"speaker": "npc", "name": "Conny", "text": "Jangan sembang pasal teknologi koin tu sekarang. Tekan lagi pasal Sokongan Majoriti tu 2-3 kali!"},
-				{"speaker": "npc", "name": "Conny", "text": "Yakinkan dia yang beratus ahli sebenar dah buat untung dan dia takkan tanggung risiko sorang-sorang. Push mentaliti kelompok tu sampai habis!"}
+				{"speaker": "boss", "name": "Boss Scam", "text": "Gadis biasa pun kamu tak boleh nak close deal lagi lepas aku dah bagi tip?"},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Mesti dia tanya 'Betul ke orang betul yang beli?' Dia perlukan keselamatan dari kelompok!"},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Jangan sembang pasal teknologi koin tu sekarang. Tekan lagi pasal Sokongan Majoriti tu 2-3 kali!"},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Yakinkan dia yang beratus ahli sebenar dah buat untung dan dia takkan tanggung risiko sorang-sorang. Push mentaliti kelompok tu sampai habis!"}
 			],
 			"Stanley_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Jadi kamu dah petik nama besar, dan sekarang dia pertikaikan kesahihan info tu?"},
-				{"speaker": "npc", "name": "Conny", "text": "Orang bongkak memang macam tu—sengaja tarik tali nak nampak pandai. Kamu pantang berundur!"},
-				{"speaker": "npc", "name": "Conny", "text": "Layan je permainan dia! Tekan 2-3 kali lagi yang 'ini rahsia golongan elit yang pelabur runcit tak tahu langsung'."},
-				{"speaker": "npc", "name": "Conny", "text": "Terus suap ego dia. Bila dia rasa dia betul-betul dah masuk kelab jutawan, dia akan serahkan duit tu dengan rela hati!"}
+				{"speaker": "boss", "name": "Boss Scam", "text": "Jadi kamu dah petik nama besar, dan sekarang dia pertikaikan kesahihan info tu?"},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Orang bongkak memang macam tu—sengaja tarik tali nak nampak pandai. Kamu pantang berundur!"},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Layan je permainan dia! Tekan 2-3 kali lagi yang 'ini rahsia golongan elit yang pelabur runcit tak tahu langsung'."},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Terus suap ego dia. Bila dia rasa dia betul-betul dah masuk kelab jutawan, dia akan serahkan duit tu dengan rela hati!"}
 			],
 			"Simon_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "Kenapa? Kamu dah mintak duit lepas tu dia mula tarik diri?"},
-				{"speaker": "npc", "name": "Conny", "text": "Ini fasa paling kritikal dalam Love Scam! Dia teragak-agak sebab dia takut hilang 'makwe' macam kamu."},
-				{"speaker": "npc", "name": "Conny", "text": "Berhenti sembang betapa bagusnya koin tu. Yakinkan dia dengan penuh kasih sayang 2-3 kali lagi: 'Sayang, ini semua demi rumah impian dan perkahwinan kita!'"},
-				{"speaker": "npc", "name": "Conny", "text": "Tenggelamkan dia dalam ilusi romantis. Kalau dia betul-betul percaya duit ni boleh beli isteri dan keluarga bahagia, dia akan serahkan setiap sen yang dia ada!"}
+				{"speaker": "boss", "name": "Boss Scam", "text": "Kenapa? Kamu dah mintak duit lepas tu dia mula tarik diri?"},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Ini fasa paling kritikal dalam Love Scam! Dia teragak-agak sebab dia takut hilang 'makwe' macam kamu."},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Berhenti sembang betapa bagusnya koin tu. Yakinkan dia dengan penuh kasih sayang 2-3 kali lagi: 'Sayang, ini semua demi rumah impian dan perkahwinan kita!'"},
+				{"speaker": "boss", "name": "Boss Scam", "text": "Tenggelamkan dia dalam ilusi romantis. Kalau dia betul-betul percaya duit ni boleh beli isteri dan keluarga bahagia, dia akan serahkan setiap sen yang dia ada!"}
 			]
 		}
 	},
 	"bt": {
 		"first_help": {
 			"Midas_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "என்ன பிரச்சனை? ஒரு ஏழை சூதாடியிடம் எப்படிப் பேசுவது என்று தெரியவில்லையா?"},
-				{"speaker": "npc", "name": "Conny", "text": "அவனுக்கு நீ யார் என்று இன்னும் தெரியாது. முதலில் உன்னை அட்மின் என்று அறிமுகம் செய்துகொள். அவனது பயோவைப் பார்—கடன் சுமையில் சிக்கி ஒரு போர்ஷே காருக்காகக் கனவு காண்கிறான். அவனுக்கு ஒரு பெரிய குறுக்குவழி தேவை!"},
-				{"speaker": "npc", "name": "Conny", "text": "அவனது உளவியல் பலவீனம் அதீத பேராசை. அவனிடம் பாதுகாப்பான, நீண்ட கால முதலீடுகளைப் பற்றிப் பேசாதே; அவன் உன்னைக் கண்டுகொள்ள மாட்டான்."},
-				{"speaker": "npc", "name": "Conny", "text": "'100 மடங்கு லாபம்', 'ஒரே இரவில் கடனை அடைப்பது' போன்ற வார்த்தைகளைப் பயன்படுத்து. அவனது பேராசையைத் தூண்ட மிகப்பெரிய பணக்காரக் கனவைக் காட்டு!"}
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "என்ன பிரச்சனை? ஒரு ஏழை சூதாடியிடம் எப்படிப் பேசுவது என்று தெரியவில்லையா?"},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "அவனுக்கு நீ யார் என்று இன்னும் தெரியாது. முதலில் உன்னை அட்மின் என்று அறிமுகம் செய்துகொள். அவனது பயோவைப் பார்—கடன் சுமையில் சிக்கி ஒரு போர்ஷே காருக்காகக் கனவு காண்கிறான். அவனுக்கு ஒரு பெரிய குறுக்குவழி தேவை!"},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "அவனது உளவியல் பலவீனம் அதீத பேராசை. அவனிடம் பாதுகாப்பான, நீண்ட கால முதலீடுகளைப் பற்றிப் பேசாதே; அவன் உன்னைக் கண்டுகொள்ள மாட்டான்."},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "'100 மடங்கு லாபம்', 'ஒரே இரவில் கடனை அடைப்பது' போன்ற வார்த்தைகளைப் பயன்படுத்து. அவனது பேராசையைத் தூண்ட மிகப்பெரிய பணக்காரக் கனவைக் காட்டு!"}
 			],
 			"Lily_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "சாதாரண அலுவலகப் பணியாளரிடம் சிக்கிக்கொண்டாயா? நீ மனிதர்களைப் பற்றி இன்னும் நன்றாகப் படிக்க வேண்டும்."},
-				{"speaker": "npc", "name": "Conny", "text": "அவள் முன் பின் தெரியாதவர்களிடம் ஜாக்கிரதையாக இருப்பாள், எனவே முதலில் ஹாய் சொல். அவளது ப்ரொஃபைலைப் பார்—மற்றவர்கள் பணக்காரர்களாவதைக் கண்டு பதற்றப்படுகிறாள், தான் மட்டும் ஏழையாகவே இருந்துவிடுவோமோ என்று பயப்படுகிறாள்."},
-				{"speaker": "npc", "name": "Conny", "text": "அவளது முக்கிய பலவீனம் கடுமையான FOMO (வாய்ப்பை இழந்துவிடுவோமோ என்ற பயம்). சாதாரண லாபங்கள் அவளைக் கவரவே கவராது."},
-				{"speaker": "npc", "name": "Conny", "text": "நீ ஒரு மிகப்பெரிய அவசரத்தை உருவாக்க வேண்டும். 'இடங்கள் வேகமாக முடிவடைகின்றன' என்று சொல். மற்றவர்கள் அவளை விட்டுவிட்டு முன்னேறிவிடுவார்கள் என்ற பயத்தைக் காட்டி அவளைத் தள்ளு!"}
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "சாதாரண அலுவலகப் பணியாளரிடம் சிக்கிக்கொண்டாயா? நீ மனிதர்களைப் பற்றி இன்னும் நன்றாகப் படிக்க வேண்டும்."},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "அவள் முன் பின் தெரியாதவர்களிடம் ஜாக்கிரதையாக இருப்பாள், எனவே முதலில் ஹாய் சொல். அவளது ப்ரொஃபைலைப் பார்—மற்றவர்கள் பணக்காரர்களாவதைக் கண்டு பதற்றப்படுகிறாள், தான் மட்டும் ஏழையாகவே இருந்துவிடுவோமோ என்று பயப்படுகிறாள்."},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "அவளது முக்கிய பலவீனம் கடுமையான FOMO (வாய்ப்பை இழந்துவிடுவோமோ என்ற பயம்). சாதாரண லாபங்கள் அவளைக் கவரவே கவராது."},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "நீ ஒரு மிகப்பெரிய அவசரத்தை உருவாக்க வேண்டும். 'இடங்கள் வேகமாக முடிவடைகின்றன' என்று சொல். மற்றவர்கள் அவளை விட்டுவிட்டு முன்னேறிவிடுவார்கள் என்ற பயத்தைக் காட்டி அவளைத் தள்ளு!"}
 			],
 			"Jane_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "ஆரம்பத்திலேயே தடையா? ஜேனின் பயோவை கவனமாகப் படி!"},
-				{"speaker": "npc", "name": "Conny", "text": "அவளுக்கு உன்னைத் தெரியாது, எனவே அறிமுகம் செய்துகொள். அவள் பெரும்பான்மையினரைப் பின்பற்றுபவள். ஒருபோதும் முதலில் எதையும் செய்ய மாட்டாள்."},
-				{"speaker": "npc", "name": "Conny", "text": "அவளது உளவியல் பலவீனம் தீவிரமான மந்தை மனப்பான்மை (Herd Mentality). அவளை தைரியமாக இரு என்று சொல்லாதே; நீ அவளை ஏமாற்றுகிறாய் என்றுதான் நினைப்பாள்."},
-				{"speaker": "npc", "name": "Conny", "text": "'குரூப்பில் நூற்றுக்கணக்கானவர்கள் வாங்குகிறார்கள்' மற்றும் 'அனைவரும் இதைச் செய்கிறார்கள்' என்று திரும்பத் திரும்பச் சொல். அவளது தடுப்புகளை உடைக்க கூட்டத்தின் பலத்தைப் பயன்படுத்து!"}
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "ஆரம்பத்திலேயே தடையா? ஜேனின் பயோவை கவனமாகப் படி!"},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "அவளுக்கு உன்னைத் தெரியாது, எனவே அறிமுகம் செய்துகொள். அவள் பெரும்பான்மையினரைப் பின்பற்றுபவள். ஒருபோதும் முதலில் எதையும் செய்ய மாட்டாள்."},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "அவளது உளவியல் பலவீனம் தீவிரமான மந்தை மனப்பான்மை (Herd Mentality). அவளை தைரியமாக இரு என்று சொல்லாதே; நீ அவளை ஏமாற்றுகிறாய் என்றுதான் நினைப்பாள்."},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "'குரூப்பில் நூற்றுக்கணக்கானவர்கள் வாங்குகிறார்கள்' மற்றும் 'அனைவரும் இதைச் செய்கிறார்கள்' என்று திரும்பத் திரும்பச் சொல். அவளது தடுப்புகளை உடைக்க கூட்டத்தின் பலத்தைப் பயன்படுத்து!"}
 			],
 			"Stanley_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "அவன் அகந்தையாகப் பேசுவதைக் கண்டு பயப்படுகிறாயா? விழித்துக்கொள், அனைவருக்கும் ஒரு பலவீனம் இருக்கும்."},
-				{"speaker": "npc", "name": "Conny", "text": "போய் பேச்சைத் தொடங்கு. அவன் மிகவும் கர்வம் பிடித்தவன், சிறு முதலீட்டாளர்களை வெறுப்பவன், பெரும் பணக்காரர்களை மட்டுமே பின்பற்றத் துடிப்பவன் என்பது உனக்குப் புரியும்."},
-				{"speaker": "npc", "name": "Conny", "text": "அவனது வீழ்ச்சிக்கான பலவீனம் 'பிரபலங்களின் ஆதரவின்' மீதான அவனது குருட்டுத்தனமான நம்பிக்கை! அரசு அனுமதிகள் அல்லது FOMO தந்திரங்கள் அவனிடம் வேலை செய்யாது."},
-				{"speaker": "npc", "name": "Conny", "text": "தன்னை ஒரு மேதை என்று நினைக்கும் ஒருவனைக் கையாள, உலகப் புகழ்பெற்ற கோடீஸ்வரர்கள் ரகசியமாக வாங்குவதாக 'உள் ரகசியங்களை' உருவாக்கு. பெரிய பெயர்களைக் கூறு, அவனது ஈகோ நொறுங்கிவிடும்!"}
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "அவன் அகந்தையாகப் பேசுவதைக் கண்டு பயப்படுகிறாயா? விழித்துக்கொள், அனைவருக்கும் ஒரு பலவீனம் இருக்கும்."},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "போய் பேச்சைத் தொடங்கு. அவன் மிகவும் கர்வம் பிடித்தவன், சிறு முதலீட்டாளர்களை வெறுப்பவன், பெரும் பணக்காரர்களை மட்டுமே பின்பற்றத் துடிப்பவன் என்பது உனக்குப் புரியும்."},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "அவனது வீழ்ச்சிக்கான பலவீனம் 'பிரபலங்களின் ஆதரவின்' மீதான அவனது குருட்டுத்தனமான நம்பிக்கை! அரசு அனுமதிகள் அல்லது FOMO தந்திரங்கள் அவனிடம் வேலை செய்யாது."},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "தன்னை ஒரு மேதை என்று நினைக்கும் ஒருவனைக் கையாள, உலகப் புகழ்பெற்ற கோடீஸ்வரர்கள் ரகசியமாக வாங்குவதாக 'உள் ரகசியங்களை' உருவாக்கு. பெரிய பெயர்களைக் கூறு, அவனது ஈகோ நொறுங்கிவிடும்!"}
 			],
 			"Simon_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "ஒரு தனிமையான தொழிலாளியைப் பார்த்துத் திகைத்து நிற்கிறாயா? ஃபைல்களைப் படி! இது நமது கிளாசிக் 'ரோமன்ஸ் ஸ்கேம்' (Pig Butchering)!"},
-				{"speaker": "npc", "name": "Conny", "text": "எச்சரிக்கை: அவன் பெண்களை மட்டுமே விரும்புபவன்! ஒரு ஆணாக அவனிடம் நெருங்காதே. நீ ஒரு காதலனைத் தேடும் சிங்கிள் பெண்ணாக நடிக்க வேண்டும்!"},
-				{"speaker": "npc", "name": "Conny", "text": "அவனது பலவீனம் உணர்ச்சிபூர்வமான சார்பு. ஒரு ரோபோவைப் போல உடனடியாக ரிச்காயினைப் பற்றிப் பேசாதே; அவன் உன்னை பிளாக் செய்துவிடுவான்."},
-				{"speaker": "npc", "name": "Conny", "text": "முதலில் அவனுடன் ரொமான்ஸாகப் பேசு. அவனைக் காதலிக்க வை. நீ அவனது காதலி என்று அவன் நம்பிய பிறகு, அவனது பணத்தைப் பறிக்க 'நமது எதிர்காலத்திற்காக' முதலீடு செய் என்று கூறு!"}
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "ஒரு தனிமையான தொழிலாளியைப் பார்த்துத் திகைத்து நிற்கிறாயா? ஃபைல்களைப் படி! இது நமது கிளாசிக் 'ரோமன்ஸ் ஸ்கேம்' (Pig Butchering)!"},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "எச்சரிக்கை: அவன் பெண்களை மட்டுமே விரும்புபவன்! ஒரு ஆணாக அவனிடம் நெருங்காதே. நீ ஒரு காதலனைத் தேடும் சிங்கிள் பெண்ணாக நடிக்க வேண்டும்!"},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "அவனது பலவீனம் உணர்ச்சிபூர்வமான சார்பு. ஒரு ரோபோவைப் போல உடனடியாக ரிச்காயினைப் பற்றிப் பேசாதே; அவன் உன்னை பிளாக் செய்துவிடுவான்."},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "முதலில் அவனுடன் ரொமான்ஸாகப் பேசு. அவனைக் காதலிக்க வை. நீ அவனது காதலி என்று அவன் நம்பிய பிறகு, அவனது பணத்தைப் பறிக்க 'நமது எதிர்காலத்திற்காக' முதலீடு செய் என்று கூறு!"}
 			]
 		},
 		"second_help": {
 			"Midas_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "மீண்டும் வந்துவிட்டாயா? நீ பணக்காரனாகலாம் என்று உறுதியளித்த பிறகு அவன் உன்னைக் கேள்வி கேட்கிறானா?"},
-				{"speaker": "npc", "name": "Conny", "text": "நான் சொல்ல மறந்துவிட்டேன், யாரும் உடனே சரணடைய மாட்டார்கள். அவன் இப்போது உன்னைச் சோதித்துக்கொண்டிருக்கிறான்!"},
-				{"speaker": "npc", "name": "Conny", "text": "உன் தந்திரத்தை மாற்றாதே! அவன் சந்தேகித்தால், 'போர்ஷே மற்றும் கடன் இல்லாத வாழ்க்கை' என்ற கதையை இன்னும் 2 அல்லது 3 முறை அழுத்திச் சொல்."},
-				{"speaker": "npc", "name": "Conny", "text": "அவனது பேராசைக்கு தர்க்கரீதியாகத் தீனி போடு. அவன் அமைதியடைய ஒரு கணம் கூட கொடுக்காதே, அவனது சூதாட்ட மனநிலை அவனை ஆல்-இன் செய்ய வைக்கும். தொடர்ந்து அழுத்து!"}
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "மீண்டும் வந்துவிட்டாயா? நீ பணக்காரனாகலாம் என்று உறுதியளித்த பிறகு அவன் உன்னைக் கேள்வி கேட்கிறானா?"},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "நான் சொல்ல மறந்துவிட்டேன், யாரும் உடனே சரணடைய மாட்டார்கள். அவன் இப்போது உன்னைச் சோதித்துக்கொண்டிருக்கிறான்!"},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "உன் தந்திரத்தை மாற்றாதே! அவன் சந்தேகித்தால், 'போர்ஷே மற்றும் கடன் இல்லாத வாழ்க்கை' என்ற கதையை இன்னும் 2 அல்லது 3 முறை அழுத்திச் சொல்."},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "அவனது பேராசைக்கு தர்க்கரீதியாகத் தீனி போடு. அவன் அமைதியடைய ஒரு கணம் கூட கொடுக்காதே, அவனது சூதாட்ட மனநிலை அவனை ஆல்-இன் செய்ய வைக்கும். தொடர்ந்து அழுத்து!"}
 			],
 			"Lily_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "அவள் பதற்றப்படுகிறாளா, ஆனால் இன்னும் பணம் கட்டத் தயங்குகிறாளா? அருமை!"},
-				{"speaker": "npc", "name": "Conny", "text": "அவள் இயற்கையாகவே கோழை. அவள் தயங்கி, உன்னிடம் ஆறுதல் வார்த்தைகளைக் கேட்பாள். இப்போது பின்வாங்காதே!"},
-				{"speaker": "npc", "name": "Conny", "text": "சூட்டை அதிகப்படுத்து! அவளிடம் இன்னும் 2 அல்லது 3 முறை சொல்: 'அனைவரும் வாங்குகிறார்கள், நீ இன்னும் ஒரு நிமிடம் காத்திருந்தால், மொத்தமாக வாய்ப்பை இழந்துவிடுவாய்!'"},
-				{"speaker": "npc", "name": "Conny", "text": "ஏழையாகவே இருப்போம் என்ற அவளது பயத்தைப் பயன்படுத்து. தொடர்ந்து அழுத்தம் கொடு, அவளது வேகமாகத் துடிக்கும் இதயம் அவளைப் பணத்தை மாற்ற வைக்கும்!"}
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "அவள் பதற்றப்படுகிறாளா, ஆனால் இன்னும் பணம் கட்டத் தயங்குகிறாளா? அருமை!"},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "அவள் இயற்கையாகவே கோழை. அவள் தயங்கி, உன்னிடம் ஆறுதல் வார்த்தைகளைக் கேட்பாள். இப்போது பின்வாங்காதே!"},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "சூட்டை அதிகப்படுத்து! அவளிடம் இன்னும் 2 அல்லது 3 முறை சொல்: 'அனைவரும் வாங்குகிறார்கள், நீ இன்னும் ஒரு நிமிடம் காத்திருந்தால், மொத்தமாக வாய்ப்பை இழந்துவிடுவாய்!'"},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "ஏழையாகவே இருப்போம் என்ற அவளது பயத்தைப் பயன்படுத்து. தொடர்ந்து அழுத்தம் கொடு, அவளது வேகமாகத் துடிக்கும் இதயம் அவளைப் பணத்தை மாற்ற வைக்கும்!"}
 			],
 			"Jane_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "ஒரு சாதாரணப் பெண், நான் டிப்ஸ் கொடுத்த பிறகும் உன்னால் டீலை முடிக்க முடியவில்லையா?"},
-				{"speaker": "npc", "name": "Conny", "text": "அவள் 'உண்மையிலேயே மனிதர்கள் தான் வாங்குகிறார்களா?' என்று கேட்பாள். அவள் கூட்டத்தின் பாதுகாப்பைத் தேடுகிறாள்!"},
-				{"speaker": "npc", "name": "Conny", "text": "இப்போது கிரிப்டோவின் தொழில்நுட்பத்தைப் பற்றிப் பேசாதே. சமூக ஆதரவை (Social Proof) இன்னும் 2 அல்லது 3 முறை இருமடங்காக அழுத்திச் சொல்!"},
-				{"speaker": "npc", "name": "Conny", "text": "நூற்றுக்கணக்கான உண்மையான உறுப்பினர்கள் லாபம் அடைகிறார்கள், அவள் தனியாக இருக்க மாட்டாள் என்று அவளுக்கு உறுதியளி. அந்த மந்தை மனப்பான்மையை உச்சத்திற்குத் தள்ளு, அவள் பின்தொடர்வாள்!"}
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "ஒரு சாதாரணப் பெண், நான் டிப்ஸ் கொடுத்த பிறகும் உன்னால் டீலை முடிக்க முடியவில்லையா?"},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "அவள் 'உண்மையிலேயே மனிதர்கள் தான் வாங்குகிறார்களா?' என்று கேட்பாள். அவள் கூட்டத்தின் பாதுகாப்பைத் தேடுகிறாள்!"},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "இப்போது கிரிப்டோவின் தொழில்நுட்பத்தைப் பற்றிப் பேசாதே. சமூக ஆதரவை (Social Proof) இன்னும் 2 அல்லது 3 முறை இருமடங்காக அழுத்திச் சொல்!"},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "நூற்றுக்கணக்கான உண்மையான உறுப்பினர்கள் லாபம் அடைகிறார்கள், அவள் தனியாக இருக்க மாட்டாள் என்று அவளுக்கு உறுதியளி. அந்த மந்தை மனப்பான்மையை உச்சத்திற்குத் தள்ளு, அவள் பின்தொடர்வாள்!"}
 			],
 			"Stanley_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "எனவே நீ பிரபலங்களின் பெயர்களைப் பயன்படுத்தினாய், இப்போது அவன் அந்தத் தகவலைக் கேள்வி கேட்கிறானா?"},
-				{"speaker": "npc", "name": "Conny", "text": "அகந்தையானவர்கள் அப்படித்தான் செய்வார்கள்—தாங்கள் புத்திசாலிகள் என்று காட்டிக்கொள்ள எதிர்ப்பார்கள். நீ பின்வாங்கக் கூடாது!"},
-				{"speaker": "npc", "name": "Conny", "text": "அவனுடன் சேர்ந்து விளையாடு! 'இது சில்லறை முதலீட்டாளர்களுக்குத் தெரியாத ஒரு உயர் மட்டக் கோடீஸ்வர ரகசியம்' என்று இன்னும் 2 அல்லது 3 முறை இருமடங்காகச் சொல்."},
-				{"speaker": "npc", "name": "Conny", "text": "அவனது மேலாதிக்க மனப்பான்மைக்குத் தீனி போடு. தான் உண்மையிலேயே கோடீஸ்வரர்களின் கிளப்பில் சேர்கிறோம் என்று அவன் உணர்ந்தவுடன், மகிழ்ச்சியாகத் தன் பணத்தை ஒப்படைப்பான்!"}
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "எனவே நீ பிரபலங்களின் பெயர்களைப் பயன்படுத்தினாய், இப்போது அவன் அந்தத் தகவலைக் கேள்வி கேட்கிறானா?"},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "அகந்தையானவர்கள் அப்படித்தான் செய்வார்கள்—தாங்கள் புத்திசாலிகள் என்று காட்டிக்கொள்ள எதிர்ப்பார்கள். நீ பின்வாங்கக் கூடாது!"},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "அவனுடன் சேர்ந்து விளையாடு! 'இது சில்லறை முதலீட்டாளர்களுக்குத் தெரியாத ஒரு உயர் மட்டக் கோடீஸ்வர ரகசியம்' என்று இன்னும் 2 அல்லது 3 முறை இருமடங்காகச் சொல்."},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "அவனது மேலாதிக்க மனப்பான்மைக்குத் தீனி போடு. தான் உண்மையிலேயே கோடீஸ்வரர்களின் கிளப்பில் சேர்கிறோம் என்று அவன் உணர்ந்தவுடன், மகிழ்ச்சியாகத் தன் பணத்தை ஒப்படைப்பான்!"}
 			],
 			"Simon_chat_help": [
-				{"speaker": "npc", "name": "Conny", "text": "என்ன பிரச்சனை? நீ பணம் கேட்டவுடன் அவன் இப்போது தற்காப்பு நிலையில் பேசுகிறானா?"},
-				{"speaker": "npc", "name": "Conny", "text": "இதுதான் மிக முக்கியமான கட்டம்! தனது 'காதலியான' உன்னை இழந்துவிடுவோமோ என்ற பயத்தில்தான் அவன் தயங்குகிறான்."},
-				{"speaker": "npc", "name": "Conny", "text": "காயின் எவ்வளவு சிறந்தது என்று பேசுவதை நிறுத்து. இன்னும் 2 அல்லது 3 முறை அன்பாக அவனுக்கு உறுதியளி: 'அன்பே, இது நமது கனவு இல்லத்திற்காகவும், நமது திருமணத்திற்காகவும் தான்!'"},
-				{"speaker": "npc", "name": "Conny", "text": "ரொமான்டிக் மாயைகளில் அவனை மூழ்கடி. இந்தப் பணம் அவனுக்கு ஒரு அன்பான மனைவியையும், மகிழ்ச்சியான குடும்பத்தையும் வாங்கித் தரும் என்று அவன் உண்மையாக நம்பினால், அவனிடம் உள்ள ஒவ்வொரு சல்லிக்காசையும் உன்னிடம் கொடுப்பான்!"}
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "என்ன பிரச்சனை? நீ பணம் கேட்டவுடன் அவன் இப்போது தற்காப்பு நிலையில் பேசுகிறானா?"},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "இதுதான் மிக முக்கியமான கட்டம்! தனது 'காதலியான' உன்னை இழந்துவிடுவோமோ என்ற பயத்தில்தான் அவன் தயங்குகிறான்."},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "காயின் எவ்வளவு சிறந்தது என்று பேசுவதை நிறுத்து. இன்னும் 2 அல்லது 3 முறை அன்பாக அவனுக்கு உறுதியளி: 'அன்பே, இது நமது கனவு இல்லத்திற்காகவும், நமது திருமணத்திற்காகவும் தான்!'"},
+				{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "ரொமான்டிக் மாயைகளில் அவனை மூழ்கடி. இந்தப் பணம் அவனுக்கு ஒரு அன்பான மனைவியையும், மகிழ்ச்சியான குடும்பத்தையும் வாங்கித் தரும் என்று அவன் உண்மையாக நம்பினால், அவனிடம் உள்ள ஒவ்வொரு சல்லிக்காசையும் உன்னிடம் கொடுப்பான்!"}
 			]
 		}
 	}
@@ -1227,11 +1258,11 @@ DO NOT include any markdown formatting like ```json or ```. Output RAW JSON ONLY
 
 Example of EXACT required format:
 [
-  {"speaker": "npc", "name": "Conny", "text": "[Opening sentence...]"},
-  {"speaker": "npc", "name": "Conny", "text": "[Weakness: Academic term + Plain explanation...]"},
-  {"speaker": "npc", "name": "Conny", "text": "[Strategy: Academic term + Plain explanation...]"},
-  {"speaker": "npc", "name": "Conny", "text": "[Prevention advice...]"},
-  {"speaker": "npc", "name": "Conny", "text": "[Closing sentence...]"}
+  {"speaker": "boss", "name": "{current_language_boss_name}", "text": "[Opening sentence...]"},
+  {"speaker": "boss", "name": "{current_language_boss_name}", "text": "[Weakness: Academic term + Plain explanation...]"},
+  {"speaker": "boss", "name": "{current_language_boss_name}", "text": "[Strategy: Academic term + Plain explanation...]"},
+  {"speaker": "boss", "name": "{current_language_boss_name}", "text": "[Prevention advice...]"},
+  {"speaker": "boss", "name": "{current_language_boss_name}", "text": "[Closing sentence...]"}
 ]
 
 【Chat Logs Below】

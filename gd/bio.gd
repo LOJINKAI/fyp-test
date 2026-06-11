@@ -18,14 +18,18 @@ func _ready():
 	
 	var story = Global.story[lang].get("bio_intro")
 	
-	
-	#if is new game then tutorial
-	if Global.bio_tutorial_finished == false:
+	if Global.check_story("bio_intro"):
 		Global.play_dialogue(story)
-		Global.bio_tutorial_finished = true
+		Global.advance_story()
 		Global.save_game_status()
 	
-
+	#if is new game then tutorial
+	#if Global.bio_tutorial_finished == false:
+		#Global.play_dialogue(story)
+		#Global.bio_tutorial_finished = true
+		#Global.save_game_status()
+	
+	
 
 
 

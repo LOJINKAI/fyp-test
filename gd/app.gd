@@ -15,22 +15,40 @@ var story
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	arrow.visible = false
+	
 	app_tutorial_finished = Global.app_tutorial_finished
-	
-	
-	
-	#game_end()
-	
-	if app_tutorial_finished == false:
-		tutorial()
-		app_tutorial_finished = true
-		Global.save_game_status()
 	
 	show_target()
 	
-	if Global.game_end == true:
+	#game_end()
+	
+	if Global.check_story("app_intro1"):
+		play_app_intro1()
+		$VBoxContainer/midas.visible = false
+		$VBoxContainer/midas/midas.disabled = true
+		
+		
+	elif Global.check_story("app_intro2"):
+		$VBoxContainer/midas.visible = true
+		$VBoxContainer/midas/midas.disabled = false
+		play_app_intro2()
+		
+	elif Global.check_story("story_end1"):
 		game_end()
-		Global.game_end = false
+	
+	
+	
+	#if app_tutorial_finished == false:
+		#tutorial()
+		#app_tutorial_finished = true
+		#Global.save_game_status()
+	
+	
+	
+	#if Global.game_end == true:
+		#game_end()
+		#Global.game_end = false
 	
 func show_target():
 	# ========================================================
@@ -78,12 +96,12 @@ func show_target():
 
 
 
-func tutorial():
+func play_app_intro1():
 	#tutorial part
 
 	#if is new game then tutorial
 	
-	story = Global.story[lang].get("app_intro")
+	story = Global.story[lang].get("app_intro1")
 	
 	Global.play_dialogue(story)
 	
@@ -91,10 +109,41 @@ func tutorial():
 	var current_scene = get_tree().current_scene
 	var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
 	
+	if active_dialogue:
+			active_dialogue.tree_exited.connect(_on_app_intro1_finished)
+
+
+func _on_app_intro1_finished():
 	arrow.visible = true
 	animation_player.play("arrow")
-		
-		
+	
+	Global.advance_story()
+	Global.save_game_status()
+	
+
+
+func play_app_intro2():
+	story = Global.story[lang].get("app_intro2")
+	
+	Global.play_dialogue(story)
+	
+	# 🟩 暴力抓取法：既然刚加进当前 scene，那它一定是当前 scene 的最后一个子节点！
+	var current_scene = get_tree().current_scene
+	var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
+	
+	if active_dialogue:
+			active_dialogue.tree_exited.connect(_on_app_intro2_finished)
+
+func _on_app_intro2_finished():
+	
+	arrow.position.y = 200
+	arrow.visible = true
+	animation_player.play("arrow")
+	
+	Global.advance_story()
+	Global.save_game_status()
+	
+
 
 
 func game_end():
