@@ -63,9 +63,10 @@ var npc_done = npc_name + "_done"
 
 
 func _ready():
-	print("lan = ",Global.current_language)
-	print("entering = ",Global.entering)
-	print("reply = ",Global.reply_language)
+	
+	
+	
+	
 	
 	match_language()
 	
@@ -86,13 +87,23 @@ func _ready():
 	$main/top/MarginContainer/HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar
 	
 	
+	#如果不要输入框的滚动条的话
+	#var v_scroll = input_box.get_v_scroll_bar()
+	## 1. 光学隐形：把它的透明度（Alpha通道）直接砍成 0！引擎强制它显示也没用，它已经是空气了。
+	#v_scroll.modulate = Color(1, 1, 1, 0) 
+	#
+	## 2. 物理压扁：把它的 X 轴缩放直接归零，剥夺它的肉身宽度，绝对不给右边留任何空隙！
+	#v_scroll.scale.x = 0
+	
 	
 	
 	
 	add_child(http)
 	http.connect("request_completed", Callable(self, "_on_request_completed"))
 	send_button.connect("pressed", Callable(self, "_on_send_pressed()"))
-
+	
+	input_box.text_changed.connect(_on_text_edit_text_changed)
+	
 	typing_timer = Timer.new()
 	typing_timer.wait_time = typing_speed
 	typing_timer.connect("timeout", Callable(self, "_on_typing_timer_timeout"))
@@ -246,7 +257,18 @@ func _on_send_pressed():
 		
 	# 1. 玩家自己的气泡【立刻】生成，输入框【立刻】清空
 	create_bubble(user_text, true)
+	
+	
+	
 	input_box.text = ""
+	input_box.scroll_fit_content_height = true # 恢复自适应权限
+	input_box.custom_minimum_size.y = 50       # 恢复初始高度
+	input_box.size.y = 50                      # 强行缩回
+	
+	
+	
+	
+	
 	save_chat_history() # 马上保存玩家刚发的那句话
 	
 	# 2. 🌟 核心调整：在这里强制停顿 1 秒，模拟对方刚看到消息的反应时间
@@ -764,3 +786,40 @@ func _on_note_pressed():
 	# 因为 Godot 的渲染规则是“越靠下的节点，渲染在越表面”
 	# 它会自动完美覆盖在你的 time、start、setting、quit 之上！
 	get_tree().current_scene.add_child(popup)
+
+
+func _on_text_edit_text_changed():
+	var min_height = 50   # 基础高度
+	var max_height = 180  # 极限高度
+	
+	input_box.add_theme_constant_override("scroll_bar_width", 0)
+	input_box.add_theme_constant_override("scroll_bar_margin", 0)
+	
+	# 1. 先假装允许它无限长高，让它先测算一下自己到底需要多高
+	input_box.scroll_fit_content_height = true
+	input_box.custom_minimum_size.y = 0
+	
+	# 2. 获取这堆文字实际需要的真实包裹高度
+	var real_height = input_box.get_combined_minimum_size().y
+	
+	if real_height > max_height:
+		# 🟥 超过限制：剥夺自适应权限，锁死高度
+		input_box.scroll_fit_content_height = false
+		input_box.custom_minimum_size.y = max_height
+		input_box.size.y = max_height 
+		
+		# 🟩 绝杀：遍历 TextEdit 的子节点，把潜伏在里面的滚动条直接抓出来藏掉！
+		for child in input_box.get_children():
+			if child is VScrollBar or child is ScrollBar:
+				child.visible = false # 强制隐形，不准显现！
+				child.custom_minimum_size.x = 0 # 抽干宽度，防止留下右边死白边
+				
+	else:
+		# 🟩 还没超过限制：保持自适应
+		input_box.scroll_fit_content_height = true
+		input_box.custom_minimum_size.y = max(real_height, min_height)
+		
+		# 还没超过上限时，保险起见也顺手清理一遍隐藏子节点的滑条
+		for child in input_box.get_children():
+			if child is VScrollBar or child is ScrollBar:
+				child.visible = false
