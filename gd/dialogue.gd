@@ -11,6 +11,8 @@ extends CanvasLayer
 @onready var boss_avatar = $Boss
 @onready var police_avatar = $police
 @onready var scammer_avatar = $scammer
+@onready var player_laugh_avatar = $player_laugh
+@onready var player_sad_avatar = $player_sad
 
 @onready var dark = $dark
 
@@ -24,7 +26,9 @@ var current_index = 0
 	"player": player_avatar,
 	"boss": boss_avatar,
 	"scammer": scammer_avatar,
-	"police": police_avatar
+	"police": police_avatar,
+	"player_laugh": player_laugh_avatar,
+	"player_sad": player_sad_avatar
 }
 
 
@@ -59,6 +63,8 @@ func show_line():
 	boss_avatar.visible = false
 	police_avatar.visible = false
 	scammer_avatar.visible = false
+	player_laugh_avatar.visible = false
+	player_sad_avatar.visible = false
 	
 	# 名字默认清空
 	left_name.text = ""
@@ -73,6 +79,10 @@ func show_line():
 		
 		# 判断名字应该挂在左边还是右边（只有主角在左边，NPC全部在右边）
 		if speaker_type == "player":
+			left_name.text = current_speaker_name
+		elif speaker_type == "player_laugh":
+			left_name.text = current_speaker_name
+		elif speaker_type == "player_sad":
 			left_name.text = current_speaker_name
 		elif speaker_type == "scammer":
 			left_name.text = current_speaker_name

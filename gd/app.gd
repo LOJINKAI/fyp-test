@@ -22,7 +22,7 @@ func _ready():
 	show_target()
 	
 	#for testing only
-	#game_end()
+	game_end()
 	
 	if Global.check_story("app_intro1"):
 		play_app_intro1()
