@@ -22,6 +22,7 @@ apiKey="*res://gd/.api_key.gd"
 Dialogue="*res://gd/dialogue.gd"
 Bgm="*res://scene/bgm.tscn"
 SoundEffect="*res://scene/sound_effect.tscn"
+SceneSoundEffect="*res://scene/scene_sound_effect.tscn"
 
 [display]
 

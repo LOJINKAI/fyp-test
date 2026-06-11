@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://cfuepmptqjkc8"]
+[gd_scene load_steps=3 format=3 uid="uid://cfuepmptqjkc8"]
 
+[ext_resource type="AudioStream" uid="uid://5o1tspw2aar" path="res://sound/ui/ui_button_click.mp3" id="1_ga50q"]
 [ext_resource type="Script" path="res://gd/sound_effect.gd" id="1_xdrn2"]
 
 [node name="sound_effect" type="AudioStreamPlayer"]
+stream = ExtResource("1_ga50q")
 volume_db = 10.0
 bus = &"sound_effect"
 script = ExtResource("1_xdrn2")

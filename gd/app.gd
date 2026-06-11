@@ -21,6 +21,20 @@ func _ready():
 	
 	show_target()
 	
+	
+	var targets = ["Midas", "Lily", "Jane", "Stanley", "Simon"]
+	var all_targets_scammed = false # 默认设为全过
+	
+	# 2. 循环检查，只要有任何一个人的 _done 是 false，就说明还没通关！
+	for target in targets:
+		if Global.get(target + "_done") == true:
+			all_targets_scammed = true
+			break 
+			
+			
+	if all_targets_scammed == true:
+		game_end()
+	
 	#for testing only
 	#game_end()
 	
@@ -35,8 +49,7 @@ func _ready():
 		$VBoxContainer/midas/midas.disabled = false
 		play_app_intro2()
 		
-	elif Global.check_story("story_end1"):
-		game_end()
+		
 	
 	
 	
@@ -224,7 +237,7 @@ func _on_end1_finished():
 	# 4. 画面亮起的同一微秒，警察踹门对话框强势弹出！
 	var story2 = Global.story[lang].get("story_end2")
 	
-	SoundEffect.play_sound("kick_door_sound")
+	SceneSoundEffect.play_sound("kick_door_sound")
 	Global.play_dialogue(story2)
 	
 	

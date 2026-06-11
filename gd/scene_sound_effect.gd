@@ -1,8 +1,9 @@
 extends AudioStreamPlayer
 
 # 预加载你的 4 个音乐文件
-var ui_click = preload("res://sound/ui/ui_button_click.mp3")
-
+var success_sound = preload("res://sound/result/success.mp3")
+var fail_sound = preload("res://sound/result/fail.mp3")
+var kick_door_sound = preload("res://sound/result/kick door.mp3")
 
 
 @onready var player = $"."
@@ -16,7 +17,9 @@ func play_sound(type):
 		
 	var new_stream = null
 	match type:
-		"ui_click": new_stream = ui_click
+		"success_sound": new_stream = success_sound
+		"fail_sound": new_stream = fail_sound
+		"kick_door_sound": new_stream = kick_door_sound
 	
 	if new_stream:
 		# 检查是否已经在播这首了，如果是，直接返回，不从头播放

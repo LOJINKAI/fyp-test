@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7jppkpgkjw8q"]
+
+[ext_resource type="AudioStream" uid="uid://bhun22u5f85rq" path="res://sound/result/kick door.mp3" id="1_hrodc"]
+[ext_resource type="Script" path="res://gd/scene_sound_effect.gd" id="2_g3tx0"]
+
+[node name="scene_sound_effect" type="AudioStreamPlayer"]
+stream = ExtResource("1_hrodc")
+bus = &"sound_effect"
+script = ExtResource("2_g3tx0")

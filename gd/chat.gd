@@ -87,14 +87,7 @@ func _ready():
 	$main/top/MarginContainer/HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar
 	
 	
-	#如果不要输入框的滚动条的话
-	#var v_scroll = input_box.get_v_scroll_bar()
-	## 1. 光学隐形：把它的透明度（Alpha通道）直接砍成 0！引擎强制它显示也没用，它已经是空气了。
-	#v_scroll.modulate = Color(1, 1, 1, 0) 
-	#
-	## 2. 物理压扁：把它的 X 轴缩放直接归零，剥夺它的肉身宽度，绝对不给右边留任何空隙！
-	#v_scroll.scale.x = 0
-	
+	input_box.gui_input.connect(_on_input_box_gui_input)
 	
 	
 	
@@ -108,6 +101,8 @@ func _ready():
 	typing_timer.wait_time = typing_speed
 	typing_timer.connect("timeout", Callable(self, "_on_typing_timer_timeout"))
 	add_child(typing_timer)
+	
+	ProjectSettings.set_setting("display/window/handheld/page_focus_mode", 0)
 	
 	load_chat_history() 
 	
@@ -127,16 +122,11 @@ func _ready():
 	
 	
 	
-	var story = Global.story[lang].get("chat_intro")
+	
 	
 	if Global.check_story("chat_intro"):
+		var story = Global.story[lang].get("chat_intro")
 		Global.play_dialogue(story)
-		
-		
-	#if Global.chat_tutorial_finished == false:
-		#Global.play_dialogue(story)
-		#Global.chat_tutorial_finished = true
-		#Global.save_game_status()
 		
 		var current_scene = get_tree().current_scene
 		var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
@@ -145,8 +135,54 @@ func _ready():
 			active_dialogue.tree_exited.connect(_on_intro_finished)
 
 
+func _on_input_box_gui_input(event):
+	# 只有当输入框内容超过 180，自适应被关闭，需要内部滑动时，才触发截胡
+	if input_box.scroll_fit_content_height == false:
+		
+		# 🌟 修复 2：如果玩家已经选中了文字（长按呼出了全选，或者正在拖动光标选词）
+		# 绝对不截胡！直接放行给系统，保证输入法的全选/复制/粘贴功能 100% 正常！
+		if input_box.has_selection():
+			return
+			
+		# 1. 检测：是不是手指在屏幕上拖拽？
+		if event is InputEventScreenDrag or (event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
+			
+			var v_scroll = input_box.get_v_scroll_bar()
+			if v_scroll:
+				# 🌟 修复 1：加上阻尼系数（damp_factor）
+				# 把手指的位移乘以 0.4，大幅降低滑动敏感度，手感立刻变成 Messenger 那种沉稳感！
+				var damp_factor = 0.4
+				v_scroll.value -= (event.relative.y * damp_factor)
+				
+				# 🌟 绝杀：只吞掉幅度大于 1 像素的明确滑动！
+				# 这样你长按屏幕时手指的轻微抖动就不会被吞，长按全选菜单就能完美弹出了！
+				if abs(event.relative.y) > 1.0:
+					input_box.accept_event()
+					
+					
 
+func _process(_delta):
+	# 1. 动态抓取手机输入法的实时像素高度
+	var keyboard_height = DisplayServer.virtual_keyboard_get_height()
 	
+	# 2. 抓取你最外层的整体布局控制节点
+	# 根据你的 tscn 路径，最外层包裹输入框和聊天区的是 $main 节点
+	var main_container = $main 
+	
+	if main_container:
+		# 🎯 核心魔法：如果键盘弹出来了（高度 > 0），我们就把外壳的底部外边距（offset_bottom）
+		# 强行缩水负的键盘高度！这样整个外壳会被生生“向上拉上去”！
+		# 如果键盘缩回去了（高度 = 0），它就会老老实实回到原本的屏幕最底端。
+		var target_bottom = -keyboard_height
+		
+		# 只有当高度真的发生变化时才修改，节省性能，防止画面抖动
+		if main_container.offset_bottom != target_bottom:
+			main_container.offset_bottom = target_bottom
+			
+			# 3. 🟩 绝杀：被顶上去的一瞬间，强迫聊天记录立刻滚到底部，露出最新的气泡！
+			if keyboard_height > 0:
+				scroll_to_bottom()
+
 
 
 
@@ -589,7 +625,7 @@ func on_failure():
 	$fail_layer.visible = true
 	$fail_layer/ColorRect/again.disabled = false
 	
-	SoundEffect.play_sound("fail_sound")
+	SceneSoundEffect.play_sound("fail_sound")
 	delete_conversation_history_only()
 	
 
@@ -616,7 +652,7 @@ func on_victory():
 	
 	# 2. 唤醒我们在场景里搭好的 SuccessLayer，并把初始透明度设为 0 (完全透明)
 	$success_layer.visible = true
-	SoundEffect.play_sound("success_sound")
+	SceneSoundEffect.play_sound("success_sound")
 	
 	Global.set(npc_done,true)
 	
@@ -818,9 +854,10 @@ func _on_text_edit_text_changed():
 	input_box.add_theme_constant_override("scroll_bar_width", 0)
 	input_box.add_theme_constant_override("scroll_bar_margin", 0)
 	
-	# 1. 先假装允许它无限长高，让它先测算一下自己到底需要多高
+	# 1. 释放权限，准备测算
 	input_box.scroll_fit_content_height = true
 	input_box.custom_minimum_size.y = 0
+	input_box.size.y = 0 
 	
 	# 2. 获取这堆文字实际需要的真实包裹高度
 	var real_height = input_box.get_combined_minimum_size().y
@@ -831,18 +868,28 @@ func _on_text_edit_text_changed():
 		input_box.custom_minimum_size.y = max_height
 		input_box.size.y = max_height 
 		
-		# 🟩 绝杀：遍历 TextEdit 的子节点，把潜伏在里面的滚动条直接抓出来藏掉！
+		# 抓出潜伏的滚动条强制隐形
 		for child in input_box.get_children():
 			if child is VScrollBar or child is ScrollBar:
-				child.visible = false # 强制隐形，不准显现！
-				child.custom_minimum_size.x = 0 # 抽干宽度，防止留下右边死白边
+				child.visible = false 
+				child.custom_minimum_size.x = 0 
+		
+		# ==========================================================
+		# 🌟 修复 3：防盲打绝杀！
+		# 只要文字发生改变（你在打字），立刻强迫输入框内部的视口往下滚，
+		# 死死盯住你的光标！你打到哪，它就滚到哪，绝对不会停留在开头！
+		input_box.adjust_viewport_to_caret()
+		# ==========================================================
 				
 	else:
-		# 🟩 还没超过限制：保持自适应
+		# 🟩 没超过限制：动态回缩！
 		input_box.scroll_fit_content_height = true
-		input_box.custom_minimum_size.y = max(real_height, min_height)
 		
-		# 还没超过上限时，保险起见也顺手清理一遍隐藏子节点的滑条
+		var target_height = max(real_height, min_height)
+		input_box.custom_minimum_size.y = target_height
+		input_box.size.y = target_height 
+		
+		# 保险起见顺手清理滑条
 		for child in input_box.get_children():
 			if child is VScrollBar or child is ScrollBar:
 				child.visible = false
