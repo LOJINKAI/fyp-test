@@ -125,6 +125,7 @@ offset_top = 112.0
 offset_right = 229.0
 offset_bottom = 151.0
 grow_horizontal = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_apxp1")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="pin_message"]
@@ -163,11 +164,17 @@ anchor_bottom = 1.0
 offset_top = 167.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 0
+theme_override_constants/separation = 0
 
 [node name="body" type="ScrollContainer" parent="main"]
+clip_contents = false
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_p5oap")
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
 
 [node name="message_list" type="VBoxContainer" parent="main/body"]
 layout_mode = 2

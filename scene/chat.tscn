@@ -166,6 +166,8 @@ stretch_mode = 6
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_p5oap")
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
 
 [node name="message_list" type="VBoxContainer" parent="main/body"]
 layout_mode = 2
@@ -197,8 +199,10 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 8.64
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_om3rr")
+text = "ff"
 placeholder_text = "Message"
 wrap_mode = 1
+scroll_fit_content_height = true
 script = ExtResource("5_7xw04")
 
 [node name="send" type="TextureButton" parent="main/MarginContainer/footer"]
@@ -306,7 +310,6 @@ text = "Next Target"
 [connection signal="pressed" from="main/top/MarginContainer/HBoxContainer/note" to="." method="_on_note_pressed"]
 [connection signal="pressed" from="main/top/MarginContainer/HBoxContainer/help" to="." method="_on_help_pressed"]
 [connection signal="pressed" from="main/top/MarginContainer/HBoxContainer/delete" to="." method="_on_delete_pressed"]
-[connection signal="text_changed" from="main/MarginContainer/footer/MarginContainer/TextEdit" to="main/MarginContainer/footer/MarginContainer/TextEdit" method="_on_text_changed"]
 [connection signal="pressed" from="main/MarginContainer/footer/send" to="." method="_on_send_pressed"]
 [connection signal="pressed" from="fail_layer/ColorRect/again" to="." method="_on_again_pressed"]
 [connection signal="pressed" from="success_layer/ColorRect/next_target" to="." method="_on_next_target_pressed"]

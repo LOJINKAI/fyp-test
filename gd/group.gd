@@ -2,10 +2,32 @@
 
 extends Control
 
-const BUBBLE_SCENE = preload("res://scene/group_chat_bubble.tscn")
+const with_name_bubble = preload("res://scene/group_chat_bubble.tscn")
+const without_name_bubble = preload("res://scene/MessageBubble.tscn")
+
 @onready var message_list = $main/body/message_list # 确保路径和你的场景一致
 
 var lang = Global.current_language
+var last_speaker = ""
+
+# ==============================================================
+# 🌟 强哥多角色全自动染色系统
+# ==============================================================
+# 1. 动态颜色映射字典（用来锁死每个人的颜色）
+var speaker_colors := {}
+
+# 2. 预设的高颜值【浅色系调色盘】池子（保证字体是黑色时依然清晰、柔和）
+# 我们用 RGB (0.85 到 0.95 之间) 调出非常小清新的马卡龙淡色系
+var pastel_color_pool := [
+	Color(0.92, 0.90, 0.98, 1.0), # 淡迷迭紫
+	Color(0.88, 0.94, 0.95, 1.0), # 淡薄荷青
+	Color(0.96, 0.93, 0.88, 1.0), # 淡燕麦象牙白
+	Color(0.95, 0.90, 0.90, 1.0), # 淡茱萸粉
+	Color(0.91, 0.95, 0.91, 1.0), # 淡抹茶绿
+	Color(0.96, 0.95, 0.88, 1.0), # 淡奶油黄
+	Color(0.90, 0.93, 0.96, 1.0)  # 淡冰川蓝
+]
+# ==============================================================
 
 
 var all_groups_data = {
@@ -153,7 +175,7 @@ var all_groups_data = {
 	"bt": {
 		"Midas": [
 			{"is_mine": false, "speaker": "Admin", "text": "புதியவர்களுக்கு அறிமுகம், எங்கள் குழு Richcoin என்ற புதிய கிரிப்டோவை வெளியிட்டுள்ளது!"},
-			{"is_mine": false, "speaker": "Admin", "text": "இது இன்னும் ஆரம்ப கட்ட விற்பனையில்தான் உள்ளது. இப்போது வாங்குவதுதான் மிக குறைந்த விலை!"},
+			{"is_mine": false, "speaker": "Admin", "text": "இதை இன்னும் ஆரம்ப கட்ட விற்பனையில்தான் உள்ளது. இப்போது வாங்குவதுதான் மிக குறைந்த விலை!"},
 			{"is_mine": false, "speaker": "Admin", "text": "இது வந்ததும் 10 மடங்கு உயரும்! விற்றால் 10 மடங்கு லாபம்!"},
 			{"is_mine": false, "speaker": "Admin", "text": "நானும் அதிக முதலீடு செய்துள்ளேன். வாருங்கள் ஒன்றாக பணம் சம்பாதிப்போம்!"},
 			{"is_mine": false, "speaker": "Admin", "text": "ஆர்வம் உள்ளவர்கள், பின் செய்யப்பட்ட இணைப்பை கிளிக் செய்து Richcoin வாங்கலாம்."},
@@ -181,7 +203,7 @@ var all_groups_data = {
 			{"is_mine": false, "speaker": "Chloe", "text": "நிச்சயமாக எந்தப் பிரச்சனையும் இருக்காது. நானும் வாங்குகிறேன்!"}
 		],
 		"Stanley": [
-			{"is_mine": false, "speaker": "Admin", "text": "உண்மைதான்! ரகசிய செய்தி: உலகின் பணக்காரரான M**k-உம் Richcoin வாங்கியுள்ளார்!"},
+			{"is_mine": false, "speaker": "Admin", "text": "உண்மைதான்! ரகசிய செய்தி: உலகின் பணக்காரரான M**k-உம் Richcoinவாங்கியுள்ளார்!"},
 			{"is_mine": false, "speaker": "Eric", "text": "நிஜமாகவா!? அந்த M**k-உம் இந்த Richcoin-ஐ வாங்கியுள்ளாரா!!"},
 			{"is_mine": false, "speaker": "Jason", "text": "இந்த Richcoin இவ்வளவு பெரியதா! உலகப் பணக்காரர் கூட வாங்குகிறார்."},
 			{"is_mine": false, "speaker": "Joey", "text": "M**k-இன் முதலீட்டுப் பார்வை தவறாகாது! நான் நேரடியாக வாங்குகிறேன்!"},
@@ -203,14 +225,16 @@ var all_groups_data = {
 
 
 func _ready():
+	# 🟩 全局紧贴设置：让所有气泡默认死死贴合在一起（去除 VBoxContainer 的阻力）
+	message_list.add_theme_constant_override("separation", 2)
+	
 	# 1. 优先防错：判断语言
 	var current_lang = lang
 	if not all_groups_data.has(current_lang):
 		current_lang = "en"
 	var lang_dict = all_groups_data[current_lang]
 	
-	# 2. 🌟 核心设计：定义固定的关卡推进顺序（对应你剧情的时间线）
-	# 时间线上：Midas 聊完后，Lily 进群接着聊，然后是 Jane，Stanley，最后 Simon 乱入
+	# 2. 🌟 核心设计：定义固定的关卡推进顺序
 	var npc_order = ["Midas", "Lily", "Jane", "Stanley", "Simon"]
 	
 	# 3. 抓取玩家当前正在攻略的目标
@@ -218,43 +242,73 @@ func _ready():
 	if target_npc == null or not lang_dict.has(target_npc):
 		target_npc = "Midas"
 		
-	# 4. 🌟 动态计算截止到当前关卡，有哪些历史记录需要被打印出来
-	# 比如当前在跑 Jane 关卡，那应该显示：Midas -> Lily -> Jane 的所有对话
+	# 4. 🌟 动态计算截止到当前关卡的历史层级数量
 	var target_index = npc_order.find(target_npc)
 	if target_index == -1:
-		target_index = 0 # 兜底安全机制
+		target_index = 0 
 		
 	print("📂 [群聊追加系统] 当前目标: ", target_npc, " | 历史关卡数: ", target_index + 1)
 	
-	# 5. 🔄 嵌套循环：按顺序追加加载之前所有目标的剧本
+	# 5. 🔄 嵌套循环：按时序加载所有的对话剧本
 	for i in range(target_index + 1):
 		var current_load_npc = npc_order[i]
 		
-		# 安全判定，确保字典里有这个目标的剧本
 		if lang_dict.has(current_load_npc):
 			var current_script = lang_dict[current_load_npc]
 			
-			# 把这个目标旗下的所有气泡按顺序塞进 UI
 			for msg in current_script:
 				create_bubble(msg["text"], msg["is_mine"], msg["speaker"])
 				
-	# 6. 全部加载完后，确保滚动条死死卡在最底下最新的消息上
+	# 6. 全部加载完后滚动到底部
 	scroll_to_bottom()
 	print("✨ [群聊历史追加完毕] 已完美无缝连接旧消息！")
 
-# ==============================================================
-# 👇 下面这两个函数，完全复制你 chat.gd 里的完美版，绝不穿帮
-# ==============================================================
 
-func create_bubble(content, is_mine,speaker):
-	var bubble = BUBBLE_SCENE.instantiate()
+func create_bubble(content, is_mine, speaker):
+	var bubble
+	var is_same_person = (speaker == last_speaker and speaker != "")
+	
+	# ==============================================================
+	# 🌟 绝杀：透明垫脚石法 (Spacer)
+	# 如果是换了新人说话，且聊天记录里已经有信息了，塞一个 15 像素高的隐形方块拉开间距！
+	# ==============================================================
+	if not is_same_person and message_list.get_child_count() > 0:
+		var spacer = Control.new()
+		spacer.custom_minimum_size.y = 15 
+		message_list.add_child(spacer)
+	
+	if is_same_person:
+		# 同一个人连续说话：直接用没有名字标签的私聊气泡！
+		bubble = without_name_bubble.instantiate()
+	else:
+		# 新换了一个人说话：用带有名字标签的群聊气泡！
+		bubble = with_name_bubble.instantiate()
+		
 	message_list.add_child(bubble)
 	
-	var content_label = bubble.get_node("PanelContainer/Content")
+	# 更新上一个发言人
+	last_speaker = speaker
+	
+	var content_label 
+	
+	if is_same_person:
+		content_label = bubble.get_node("Content") 
+	else:
+		content_label = bubble.get_node("PanelContainer/Content")
+	
 	content_label.text = content 
 	
-	var name_label = bubble.get_node("name")
-	name_label.text = speaker
+	if not is_same_person:
+		var name_label = bubble.get_node("name")
+		name_label.text = speaker
+		
+		# 控制名字的对齐
+		if is_mine == true:
+			name_label.size_flags_horizontal = Control.SIZE_SHRINK_END
+			name_label.add_theme_color_override("font_color", Color(0.6, 0.8, 1.0, 1.0))
+		else:
+			name_label.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+			name_label.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5, 1.0))
 	
 	# 🌟 动态计算气泡宽度 (最大 350px)
 	var font = content_label.get_theme_font("font")
@@ -268,26 +322,44 @@ func create_bubble(content, is_mine,speaker):
 		content_label.custom_minimum_size.x = 0
 		content_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 	
+	# ==============================================================
+	# 🌟 核心调色系统修改：多角色浅色系分配与同人沿用逻辑
+	# ==============================================================
+	var assigned_color: Color
+	
 	if is_mine == true:
-		# 管理员（玩家自身）：靠右，蓝色气泡
-		bubble.size_flags_horizontal = Control.SIZE_SHRINK_END
-		name_label.size_flags_horizontal = Control.SIZE_SHRINK_END
-		name_label.add_theme_color_override("font_color", Color(0.6, 0.8, 1.0, 1.0))
-		
-		content_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
-		bubble.modulate = Color(0.2, 0.6, 1.0, 1.0)
-		
+		# 玩家自身（或者大管理员）：保持统一帅气的科技蓝（浅亮色调）
+		assigned_color = Color(0.2, 0.6, 1.0, 1.0)
 	else:
-		# 其他群友：靠左，浅灰色气泡
-		bubble.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-		
-		name_label.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-		name_label.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5, 1.0))
-		
+		# 如果是其他群友发言：
+		if speaker_colors.has(speaker):
+			# A. 如果这个人在字典里已经分配过颜色了，直接沿用以前的专属色
+			assigned_color = speaker_colors[speaker]
+		else:
+			# B. 如果这是一个全新的人开口说话：
+			if pastel_color_pool.size() > 0:
+				# 还有富余的独立颜色，直接从池子里【弹出（Pop）】一个给他绑定
+				assigned_color = pastel_color_pool.pop_front()
+			else:
+				# 万一池子里的 7 种马卡龙浅色全被抢光了，给一个高雅的淡灰色保底
+				assigned_color = Color(0.88, 0.88, 0.88, 1.0)
+			
+			# 存进映射字典里，锁死这个名字和颜色的关系
+			speaker_colors[speaker] = assigned_color
+	
+	# 将决定好的浅色系颜色，直接赋予当前实例化的气泡背景！
+	bubble.modulate = assigned_color
+	# ==============================================================
+	
+	if is_mine == true:
+		bubble.size_flags_horizontal = Control.SIZE_SHRINK_END
 		content_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
-		bubble.modulate = Color(0.88, 0.88, 0.88, 1.0)
+	else:
+		bubble.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		content_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 
 	content_label.update_minimum_size()
+	
 	if bubble.has_method("update_minimum_size"):
 		bubble.update_minimum_size()
 	
@@ -304,12 +376,8 @@ func scroll_to_bottom():
 # 左上角的返回按钮
 func _on_back_button_pressed():
 	SoundEffect.play_sound("ui_click")
-	get_tree().change_scene_to_file("res://scene/app.tscn") # 退回到手机主界面
-
-
-
+	get_tree().change_scene_to_file("res://scene/app.tscn") 
 
 func _on_quit_pressed():
 	SoundEffect.play_sound("ui_click")
 	get_tree().change_scene_to_file("res://scene/app.tscn")
-

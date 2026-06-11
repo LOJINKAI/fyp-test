@@ -16,35 +16,34 @@ corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
-[node name="PanelContainer" type="VBoxContainer"]
-custom_minimum_size = Vector2(350, 57)
+[node name="VBoxContainer" type="VBoxContainer"]
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_top = -44.0
 offset_right = -190.0
-offset_bottom = 44.0
+offset_bottom = 41.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="name" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxFlat_cc53k")
 text = "User"
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(350, 57)
 layout_mode = 2
 size_flags_vertical = 8
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fxam7")
 
 [node name="Content" type="Label" parent="PanelContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 25
-text = "aha"
 autowrap_mode = 3
