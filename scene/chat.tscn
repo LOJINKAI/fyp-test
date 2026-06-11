@@ -198,7 +198,6 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 8.64
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_om3rr")
-text = "ff"
 placeholder_text = "Message"
 wrap_mode = 1
 scroll_fit_content_height = true

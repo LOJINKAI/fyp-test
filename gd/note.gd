@@ -24,7 +24,7 @@ var help_pages = {
 		},
 		{
 			"image": "res://image/help/think.png",
-			"text": "仔细思考目标的bio来判断如何抓住他的心理弱点来成功诱骗目标。"
+			"text": "仔细思考目标的个人简介来判断如何抓住他的心理弱点来成功诱骗目标。"
 		},
 		{
 			"image": "res://image/help/link.png",
@@ -36,7 +36,7 @@ var help_pages = {
 		},
 		{
 			"image": "res://image/help/bell.png",
-			"text": "可以点击来寻求提示。"
+			"text": "可以点击按钮来寻求提示。"
 		},
 		{
 			"image": "res://image/help/delete.png",

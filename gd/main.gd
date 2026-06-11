@@ -15,7 +15,7 @@ const SETTING_POPUP_SCENE = preload("res://scene/setting_popup.tscn")
 func _ready():
 	
 	$black_cover.visible = false
-	Bgm.play_music("main")
+	$black_cover.mouse_filter = MOUSE_FILTER_IGNORE
 	update_time_display()
 	
 	#Global.current_language = "ch"
@@ -64,7 +64,7 @@ func _on_start_pressed():
 	Global.play_dialogue(story)
 	
 	$black_cover.visible = true
-	
+	$black_cover.mouse_filter = MOUSE_FILTER_STOP
 	
 
 	

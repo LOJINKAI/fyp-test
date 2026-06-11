@@ -582,7 +582,7 @@ func on_failure():
 	$fail_layer/ColorRect/again.disabled = false
 	
 	SoundEffect.play_sound("fail_sound")
-	
+	delete_conversation_history_only()
 	
 
 
@@ -599,6 +599,9 @@ func on_victory():
 	send_button.disabled = true
 	input_box.visible = false
 	send_button.visible = false
+	
+	if FileAccess.file_exists(SAVE_PATH):
+		DirAccess.remove_absolute(SAVE_PATH)
 	
 	#这里加一个定时器，过了1秒才执行以下代码
 	await get_tree().create_timer(1.0).timeout
@@ -623,8 +626,9 @@ func on_victory():
 	#await tween.finished
 	
 	# 5. 画面完全浮现，气氛烘托到位后，正式呼叫后台让 Conny 老师入场！
-	conclusion()
 	
+	
+	conclusion()
 	
 	
 
@@ -660,6 +664,9 @@ func conclusion():
 	var headers = ["Content-Type: application/json"]
 	http.request(url, headers, HTTPClient.METHOD_POST, JSON.stringify(body))
 	
+	
+	conversation_history = [conversation_history[0]] # 只留下 system 人设提示词
+	
 
 # 🟩 新增：当 Conny 总结对话框被点完关闭后，自动执行这个函数
 func _on_conclusion_finished():
@@ -669,23 +676,6 @@ func _on_conclusion_finished():
 	$success_layer/ColorRect/next_target.disabled = false
 
 
-
-func _on_navigate_pressed():
-	# 1. 删掉物理文件
-	if FileAccess.file_exists(SAVE_PATH):
-		DirAccess.remove_absolute(SAVE_PATH)
-	
-	# 2. 清空当前数组（只保留 system prompt）
-	conversation_history = [conversation_history[0]] 
-	
-	# 3. 清空 UI 上的气泡
-	for child in message_list.get_children():
-		child.queue_free()
-		
-	
-	
-	get_tree().change_scene_to_file("res://scene/app.tscn")
-	
 
 
 func _on_delete_pressed():
@@ -707,6 +697,16 @@ func delete_conversation():
 	# 3. 清空 UI 上的气泡
 	for child in message_list.get_children():
 		child.queue_free()
+
+
+# 🌟 只清理后台和物理文件，保留前端气泡让玩家看
+func delete_conversation_history_only():
+	# 1. 删掉物理文件
+	if FileAccess.file_exists(SAVE_PATH):
+		DirAccess.remove_absolute(SAVE_PATH)
+	
+	# 2. 清空当前数组（只保留 system prompt）
+	conversation_history = [conversation_history[0]]
 
 
 # chat.gd 里的 Help 按钮修复段
