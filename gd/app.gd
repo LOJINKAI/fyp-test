@@ -21,6 +21,7 @@ func _ready():
 	
 	show_target()
 	
+	#for testing only
 	#game_end()
 	
 	if Global.check_story("app_intro1"):
@@ -38,17 +39,6 @@ func _ready():
 		game_end()
 	
 	
-	
-	#if app_tutorial_finished == false:
-		#tutorial()
-		#app_tutorial_finished = true
-		#Global.save_game_status()
-	
-	
-	
-	#if Global.game_end == true:
-		#game_end()
-		#Global.game_end = false
 	
 func show_target():
 	# ========================================================
