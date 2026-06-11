@@ -671,7 +671,7 @@ var story = {
 		],
 		"group_intro": [
 			{"speaker": "boss", "name": "诈骗头目", "text": "看见上方置顶的链接了吗？那就是我们要诱骗那些“投资者”买我们的发财币的购买链接。"},
-			{"speaker": "boss", "name": "诈骗头目", "text": "而这些群组里面的人嘛......几乎都是我们的水军，他们会让每个新加入群组的人认为所有人都相信并支持我们的发财币。"},
+			{"speaker": "boss", "name": "诈骗头目", "text": "而这些群组里面的人嘛，几乎都是我们的水军，他们会让每个新加入群组的人认为所有人都相信并支持我们的发财币。"},
 			{"speaker": "boss", "name": "诈骗头目", "text": "要是看完了，就点击左上方的退出按钮来回到上一个页面。"}
 		],
 		"app_intro2": [
@@ -743,7 +743,7 @@ var story = {
 		],
 		"group_intro": [
 			{"speaker": "boss", "name": "Scam Boss", "text": "See the pinned link at the top? That's the checkout link we use to lure 'investors' into buying our RichCoin."},
-			{"speaker": "boss", "name": "Scam Boss", "text": "And the people in this group? ...They're mostly our fake accounts (shills). They create the illusion that everyone believes in and supports our coin."},
+			{"speaker": "boss", "name": "Scam Boss", "text": "And the people in this group，they're mostly our fake accounts (shills). They create the illusion that everyone believes in and supports our coin."},
 			{"speaker": "boss", "name": "Scam Boss", "text": "Once you're done looking, tap the back button on the top left to return."}
 		],
 		"app_intro2": [
@@ -815,7 +815,7 @@ var story = {
 		],
 		"group_intro": [
 			{"speaker": "boss", "name": "Bos Scam", "text": "Nampak tak link kat atas tu? Tu link pembelian yang kita guna untuk pancing 'pelabur' beli RichCoin kita."},
-			{"speaker": "boss", "name": "Bos Scam", "text": "Pasal orang-orang dalam group ni pula... Kebanyakannya adalah akaun palsu (cybertrooper) kita. Dorang buat lakonan supaya ahli baru percaya semua orang sokong koin kita."},
+			{"speaker": "boss", "name": "Bos Scam", "text": "Pasal orang-orang dalam group ni pula, kebanyakannya adalah akaun palsu (cybertrooper) kita. Dorang buat lakonan supaya ahli baru percaya semua orang sokong koin kita."},
 			{"speaker": "boss", "name": "Bos Scam", "text": "Kalau dah habis tengok, tekan butang keluar kat atas kiri tu untuk balik ke page sebelum ni."}
 		],
 		"app_intro2": [
@@ -887,7 +887,7 @@ var story = {
 		],
 		"group_intro": [
 			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "மேலே பின் செய்யப்பட்ட லிங்க்கைப் பார்க்கிறாயா? 'முதலீட்டாளர்களை' எங்கள் RichCoin ஐ வாங்க வைப்பதற்கான லிங்க் அதுதான்."},
-			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "இந்த குரூப்பில் உள்ளவர்கள் யார் என்றால்...... அவர்கள் பெரும்பாலும் எங்கள் போலி கணக்குகள் (shills). அவர்கள் குரூப்பில் புதிதாக வருபவர்களை எங்கள் காயின் நம்பகமானது என்று நம்ப வைப்பார்கள்."},
+			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "இந்த குரூப்பில் உள்ளவர்கள் யார் என்றால், அவர்கள் பெரும்பாலும் எங்கள் போலி கணக்குகள் (shills). அவர்கள் குரூப்பில் புதிதாக வருபவர்களை எங்கள் காயின் நம்பகமானது என்று நம்ப வைப்பார்கள்."},
 			{"speaker": "boss", "name": "மோசடி தலைவன்", "text": "பார்த்து முடித்ததும், வெளியேற மேல் இடதுபுறத்தில் உள்ள பேக் பட்டனை அழுத்து."}
 		],
 		"app_intro2": [
