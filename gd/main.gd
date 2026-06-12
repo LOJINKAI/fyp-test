@@ -7,7 +7,7 @@ var current_time = Time.get_datetime_string_from_system(false, true)
 @onready var time = $"time"
 
 #setting popup
-const SETTING_POPUP_SCENE = preload("res://scene/setting_popup.tscn")
+const SETTING_POPUP_SCENE = preload("res://scene/setting_popup.tscn") 
 
 
 
