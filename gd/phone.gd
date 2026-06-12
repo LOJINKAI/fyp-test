@@ -14,7 +14,7 @@ var lang = Global.current_language
 
 
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	arrow.visible = false
 	
@@ -23,10 +23,8 @@ func _ready():
 	
 	if Global.check_story("phone_intro"):
 		
-		# 2. 🟩 拿到属于当前语言的这段剧情文本数据
 		var current_story = Global.story[Global.current_language].get("phone_intro")
 		
-		# 3. 🟩 本地亲自调用播放，这样你就能直接在这里掌控它的生命周期！
 		Global.play_dialogue(current_story)
 		
 		arrow.visible = true
@@ -52,7 +50,6 @@ func _ready():
 
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass 
 

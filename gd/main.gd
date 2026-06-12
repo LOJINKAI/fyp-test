@@ -2,16 +2,16 @@
 
 extends Control
 
-# 输出格式示例：2026-05-09 15:30:05
+
 var current_time = Time.get_datetime_string_from_system(false, true)
 @onready var time = $"time"
 
-#setting popup
+
 const SETTING_POPUP_SCENE = preload("res://scene/setting_popup.tscn") 
 
 
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	
 	Bgm.play_music("main")
@@ -22,11 +22,11 @@ func _ready():
 	
 	
 	
-#quit button
+
 func _on_quit_pressed():
 	SoundEffect.play_sound("ui_click")
 	get_tree().quit()
-	#close game
+
 
 
 func _on_continue_pressed():
@@ -34,16 +34,16 @@ func _on_continue_pressed():
 	
 	if Global.check_story("chat_intro"):
 		
-		# 2. 🟩 拿到属于当前语言的这段剧情文本数据
+
 		var current_story = Global.story[Global.current_language].get("chat_intro")
 		
-		# 3. 🟩 本地亲自调用播放，这样你就能直接在这里掌控它的生命周期！
+
 		Global.play_dialogue(current_story)
 		
 		$black_cover.visible = true
 		$black_cover.mouse_filter = MOUSE_FILTER_STOP
 		
-		# 4. 🟩 重点：动态绑定当前这个对话框的销毁信号到你指定的本地善后函数！
+
 		var current_scene = get_tree().current_scene
 		var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
 		
@@ -72,7 +72,6 @@ func _on_start_pressed():
 	
 
 	
-	# 🟩 暴力抓取法：既然刚加进当前 scene，那它一定是当前 scene 的最后一个子节点！
 	var current_scene = get_tree().current_scene
 	var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
 	
@@ -97,12 +96,9 @@ func _on_intro_finished():
 
 func _on_setting_pressed():
 	SoundEffect.play_sound("ui_click")
-	# 1. 动态实例化这个小窗口
+	
 	var popup = SETTING_POPUP_SCENE.instantiate()
 	
-	# 2. 🟩 核心：直接把它作为子节点加到当前主界面最底层
-	# 因为 Godot 的渲染规则是“越靠下的节点，渲染在越表面”
-	# 它会自动完美覆盖在你的 time、start、setting、quit 之上！
 	get_tree().current_scene.add_child(popup)
 	
 

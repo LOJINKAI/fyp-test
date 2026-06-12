@@ -9,7 +9,7 @@ var npc_done = npc + "_done"
 
 
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	$HBoxContainer/PanelContainer/photo.texture = Global.current_chat_avatar
 	$HBoxContainer/name.text = Global.current_chat_name
@@ -32,11 +32,6 @@ func _ready():
 	
 
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-		
 	
 
 

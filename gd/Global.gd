@@ -35,10 +35,10 @@ var reply_language
 var bgm_volume = 20.0
 var sound_effect_volume = 80.0
 
-# 用来存储当前正在聊天的人的头像图片
+
 var current_chat_avatar = null
 
-# 用来存储当前正在聊天的人的名字
+
 var current_chat_name = null
 
 
@@ -70,7 +70,7 @@ var bio_tutorial_finished = false
 var chat_tutorial_finished = false
 
 
-# 预载刚刚做好的全宇宙最高层级黑幕
+
 const FADE_LAYER_SCENE = preload("res://scene/fade_layer.tscn")
 var fade_instance: CanvasLayer
 var fade_mask: ColorRect
@@ -80,7 +80,7 @@ func _ready():
 	
 	
 	
-	# 🟩 游戏一启动，就自动加载本地所有的屏蔽数据，保证变量在内存中是最新的
+	
 	laod_game_setting()
 	load_game_status()
 	
@@ -88,13 +88,12 @@ func _ready():
 	
 	print("Global.current_language = ",current_language)
 	
-	 #🟩 1. 物理安全加载黑幕
 	fade_instance = FADE_LAYER_SCENE.instantiate()
 	
-	# 🟩 2. 核心修正：放弃延迟加载，直接用最高优先级的引擎底层命令物理焊死在游戏最表面！
+	
 	get_tree().root.add_child.call_deferred(fade_instance)
 	
-	# 🟩 3. 游戏启动时，默认将遮罩颜色彻底洗成全透明，防止有些误操作导致开局黑屏
+	
 	fade_mask = fade_instance.get_node("mask")
 	if fade_mask:
 		fade_mask.color = Color(0, 0, 0, 0.0)
@@ -103,11 +102,9 @@ func _ready():
 	
 
 func check_story(required_step):
-	# A. 判定越界：如果所有教学早就全部看完了，直接放行
 	if current_story_index >= all_story.size():
 		return false
 		
-	# B. 核心关键：只有当“当前场景需要触发的教学”完美对上了“进度指针指向的教学”时，才播放
 	if all_story[current_story_index] == required_step:
 		if story[current_language].has(required_step):
 			return true
@@ -152,32 +149,31 @@ func load_game_sound_volume():
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("sound_effect"), sound_effect_db)
 
 
-#这个是黑屏罢了，没有换界面
+
 func fade_layer(duration = 1.0):
-	# 1. 安全防爆抓取
+	
 	if not fade_mask:
 		fade_mask = fade_instance.get_node_or_null("mask")
 	
-	# 2. 🟥 第一阶段：用 Tween 缓慢变黑（按照你规定的时间，比如 2.0 秒）
+	
 	fade_mask.color = Color(0, 0, 0, 0.0) # 确保从透明开始
 	var tween = create_tween()
 	tween.tween_property(fade_mask, "color", Color(0, 0, 0, 1.0), duration)
 	await tween.finished
 	
-	# 3. 🌟 第二阶段：在这里你可以执行你要刷新文本的代码
-	# 函数执行到这里时，屏幕是全黑的，你可以安全地在外面等待或者更新 UI
 	
-	# 4. 🟦 第三阶段：一微秒直接将黑幕人间蒸发！瞬间亮起！
-	await get_tree().process_frame # 等一帧防闪烁
+	
+	
+	await get_tree().process_frame 
 	fade_mask.color = Color(0, 0, 0, 0.0)
 	
 	print("✨ [Global] 纯黑幕已瞬间剥离亮起！")
 
 
 
-#这个是黑屏后直接亮
+
 func fade_to_scene(target_scene_path: String, duration: float = 2.0):
-	# 安全防爆抓取
+	
 	if not fade_mask:
 		fade_mask = fade_instance.get_node_or_null("mask")
 		
@@ -191,25 +187,24 @@ func fade_to_scene(target_scene_path: String, duration: float = 2.0):
 	fade_mask.color = Color(0, 0, 0, 0.0) 
 	await get_tree().process_frame
 	
-	# 1. 🟥 第一阶段：按照你规定的时间（比如 2.0 秒），缓慢黑屏淡出
+
 	var tween = create_tween()
 	tween.tween_property(fade_mask, "color", Color(0, 0, 0, 1.0), duration)
 	await tween.finished
 	
-	# 2. 🟩 第二阶段：在全黑的绝对保护色下，物理替换底层场景
+	
 	get_tree().change_scene_to_file(target_scene_path)
 	
-	# 3. 🟦 第三阶段（核心修正）：不要动画！一微秒直接将黑幕人间蒸发！
-	# 等一帧让新场景节点挂载上，然后瞬间把 Alpha 调成 0.0 亮起！
+	
 	await get_tree().process_frame
 	fade_mask.color = Color(0, 0, 0, 0.0)
 	
 	print("✨ [Global] 底层场景已更新，黑幕已瞬间剥离亮起！")
 
 
-#这个是直接转场了，从黑屏慢慢亮
+
 func scene_to_fade(target_scene_path: String, duration: float = 2.0):
-	# 安全防爆抓取
+	
 	if not fade_mask:
 		fade_mask = fade_instance.get_node_or_null("mask")
 		
@@ -219,28 +214,27 @@ func scene_to_fade(target_scene_path: String, duration: float = 2.0):
 		
 	print("🎬 [Global] 触发反向闪现转场，目标: ", target_scene_path)
 	
-	# 1. 🟥 第一阶段：不要任何延迟！一微秒直接把黑幕掐成纯黑 (Alpha = 1.0)
-	# 物理阻断玩家的视线，防止场景在切换的瞬间产生一丝一毫的穿帮画面
+	
 	fade_mask.color = Color(0, 0, 0, 1.0)
 	
-	# 2. 🟩 第二阶段：瞬间将底层场景物理替换过去
+	
 	get_tree().change_scene_to_file(target_scene_path)
 	
-	# 稍微给新场景一丁点微秒的节点挂载和排版时间
+	
 	await get_tree().process_frame
 	await get_tree().create_timer(0.05).timeout
 	
-	# 3. 🟦 第三阶段：此时已经到了新关卡（新关卡背后是一片漆黑），现在开始优雅地拉开帷幕
+	
 	var tween_out = create_tween()
-	# 让全屏的纯黑色，在规定的时间内（比如 2.0 秒），丝滑地变回完全透明 (Alpha = 0.0)
+	
 	tween_out.tween_property(fade_mask, "color", Color(0, 0, 0, 0.0), duration)
 	
 	await tween_out.finished
 	print("✨ [Global] 反向转场完美结束，新界面已全亮披露！")
 
-#这个是慢慢暗，慢慢亮
+
 func fade_to_fade(target_scene_path: String, duration: float = 2.0):
-	# 安全防爆抓取
+	
 	if not fade_mask:
 		fade_mask = fade_instance.get_node_or_null("mask")
 		
@@ -250,32 +244,30 @@ func fade_to_fade(target_scene_path: String, duration: float = 2.0):
 		
 	print("🎬 [Global] 触发完美双向循环转场，目标: ", target_scene_path)
 	
-	# ----------------【第一阶段：逐渐黑屏】----------------
-	# 确保起始状态是 100% 全透明的
+	
 	fade_mask.color = Color(0, 0, 0, 0.0) 
 	await get_tree().process_frame
 	
 	var tween_in = create_tween()
-	# 让全屏黑色遮罩在规定时间内（比如 2.0 秒），丝滑地变到纯黑色 (Alpha = 1.0)
+	
 	tween_in.tween_property(fade_mask, "color", Color(0, 0, 0, 1.0), duration)
-	# 🔴 强制卡住！一定要等屏幕完全变黑了，才能执行下一步
+	
 	await tween_in.finished
 	
 	
-	# ----------------【第二阶段：暗中换场】----------------
-	# 在纯黑的绝对保护色下，物理替换底层场景，玩家眼睛绝不会看到任何穿帮或穿模
+	
 	get_tree().change_scene_to_file(target_scene_path)
 	
-	# 稍微给新场景 0.05 秒的时间让节点加载、排版和就位
+	
 	await get_tree().process_frame
 	await get_tree().create_timer(0.05).timeout
 	
 	
-	# ----------------【第三阶段：逐渐亮起】----------------
+	
 	var tween_out = create_tween()
-	# 让全屏的纯黑色，再次在规定的时间内（比如 2.0 秒），丝滑地变回全透明 (Alpha = 0.0)
+	
 	tween_out.tween_property(fade_mask, "color", Color(0, 0, 0, 0.0), duration)
-	# 🔵 等到屏幕完全亮起来了，整个转场才算彻底杀青闭环
+	
 	await tween_out.finished
 	
 	print("✨ [Global] 完美双向转场圆满结束！新场景已全亮披露。")
@@ -313,10 +305,10 @@ func save_game_status():
 
 
 
-# 🟩 在游戏启动时，或者各个场景准备时调用，用来从本地文件读取屏蔽状态
+
 func load_game_status():
 	if not FileAccess.file_exists(game_status):
-		return # 文件不存在说明全是默认值
+		return 
 		
 	var file = FileAccess.open(game_status, FileAccess.READ)
 	if file:
@@ -358,7 +350,7 @@ func save_game_setting():
 func laod_game_setting():
 	if not FileAccess.file_exists(game_setting):
 		current_language = "en"
-		return # 文件不存在说明全是默认值
+		return 
 		
 	var file = FileAccess.open(game_setting, FileAccess.READ)
 	if file:
@@ -377,16 +369,16 @@ func laod_game_setting():
 
 
 
-# 🟩 新增：供所有关卡/场景调用的物理清空聊天历史函数
+
 func reset_victim_chat_history():
 	var save_path = "user://chat_history.json"
 	
-	# 1. 物理安全删除受害者的聊天文件
+	
 	if FileAccess.file_exists(save_path):
 		DirAccess.remove_absolute(save_path)
 		print("🗑️ [Global] 已成功物理删除受害者历史对话文件。")
 		
-	# 2. 如果你的局部变量还挂载在内存里，顺手在这里切断引用
+	
 	conversation_history = null
 	print("✨ [Global] 内存中的受害者对话数组已成功初始化重置。")
 	
@@ -394,10 +386,10 @@ func reset_victim_chat_history():
 func play_dialogue(story_line):
 	var dialogue_instance = DIALOGUE_SYSTEM.instantiate()
 	
-	# 🟩 核心魔法：直接把对话框塞进当前正在运行的那个活跃 Scene 的最顶层！
+	
 	get_tree().current_scene.add_child(dialogue_instance)
 	
-	# 启动剧情
+	
 	dialogue_instance.start_story(story_line)
 	
 
@@ -671,7 +663,7 @@ var npc_prompt = {
 
 
 
-# 🌍 游戏内所有大段主线剧情/开场白的多语言文本仓库 (已规范化加入 chat_intro 并优化系统提示标签)
+
 var story = {
 	"ch": {
 		"story_intro": [

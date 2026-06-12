@@ -4,7 +4,7 @@ extends Control
 
 const SAVE_PATH = Global.chat_history
 
-const BUBBLE_SCENE = preload("res://scene/MessageBubble.tscn") # 载入你做的气泡场景
+const BUBBLE_SCENE = preload("res://scene/MessageBubble.tscn") 
 
 const NOTE_POPUP_SCENE = preload("res://scene/note.tscn")
 
@@ -25,21 +25,21 @@ var drag_velocity := 0.0
 var is_dragging := false
 
 
-# 在代码顶部添加一个变量
+
 var current_ai_label: Label = null
-  #  
+  
 var ai_full_response := ""
 var ai_current_index := 0 
-#
+
 
 var response_code
 
 var API_KEY = apiKey.API_KEY
 
-#懂讲现在是总结，不要发信息泡泡
+
 var is_fetching_conclusion = false
 
-# 定义一个信号，当玩家成功时通知其他场景（比如弹出通关画面）
+
 var is_success
 
 var success_id
@@ -51,10 +51,10 @@ var show_image_message
 var game_end
 
 
- # 🟦 对话历史（每次都会发送给 Gemini）
+
 var conversation_history := []
 
-#load npc info
+
 var npc_name = Global.current_chat_name
 var npc_prompt
 var lang = Global.current_language
@@ -93,11 +93,11 @@ func _ready():
 	
 	
 	if input_box:
-		# 1. 彻底开启无限生长模式！TextEdit 在 ScrollContainer 肚子里会无限长高，永远不出现内部滚动条
+		
 		input_box.scroll_fit_content_height = true 
 		
 		
-		# 2. 对外壳 ScrollContainer 的原生丑陋滚动条进行光学隐形和物理压扁
+		
 		var v_scroll = input_scroll.get_v_scroll_bar()
 		v_scroll.modulate = Color(1, 1, 1, 0)
 		v_scroll.scale.x = 0
@@ -129,7 +129,7 @@ func _ready():
 			}
 		]
 	else:
-		# 💡 终极防爆：如果第一条是 system，更新它；如果不是，强制插在最前面！
+		
 		if conversation_history[0].get("role") == "system":
 			conversation_history[0]["text"] = npc_prompt
 		else:
@@ -151,22 +151,21 @@ func _ready():
 
 
 func _on_input_box_gui_input(event):
-	# 只有当输入框被撑满（高度达到180）时，才允许滑动
+	
 	if input_scroll.size.y >= 180:
 		
-		# 1. 🌟 识别手指在屏幕上的滑动拖拽
+		
 		if event is InputEventScreenDrag or (event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
 			is_dragging = true
 			
-			# 完美跟手：手指滑多少，滚动条就推多少
-			input_scroll.scroll_vertical -= event.relative.y
-			drag_velocity = event.relative.y # 记录这一瞬间的速度，留给惯性引擎用
 			
-			# 💥 究极绝杀：一口吞掉这个滑动事件！
-			# TextEdit 根本收不到这个拖拽，也就绝对不会去画蓝色的选中框了！
+			input_scroll.scroll_vertical -= event.relative.y
+			drag_velocity = event.relative.y
+			
+			
 			input_box.accept_event()
 			
-		# 2. 🌟 识别手指离开屏幕（松开）
+		
 		elif event is InputEventScreenTouch or event is InputEventMouseButton:
 			if not event.pressed:
 				is_dragging = false
@@ -181,13 +180,11 @@ func _process(delta):
 			main_container.offset_bottom = target_bottom
 			if keyboard_height > 0:
 				scroll_to_bottom()
-	# --- 2. 🌟 新增：手写顶级物理惯性引擎（Momentum Scrolling） ---
-	# 当手指离开屏幕，且速度还不为0时，让它自己“飞”一会儿再停下
+	
 	if input_scroll and not is_dragging and abs(drag_velocity) > 0.1:
 		input_scroll.scroll_vertical -= drag_velocity
 		
-		# 摩擦力刹车系统：这里的 15.0 是摩擦系数
-		# 数值越大停得越快，数值越小滑得越远，你可以根据手感自己改！
+		
 		drag_velocity = lerp(drag_velocity, 0.0, 15.0 * delta)
 	
 
@@ -206,13 +203,13 @@ func match_language():
 			fail_message = "⚠️ Message sent but rejected by recipient."
 			entering = "Entering..."
 			show_image_message = "The recipient sent an image (showing a successful payment confirmation)."
-		# 🌟 新增：马来西亚官方语言 - 马来文 
+		
 		"bm": 
 			reply_language = "Bahasa Melayu (Malaysian)"
 			fail_message = "⚠️ Mesej telah dihantar, tetapi disekat oleh penerima."
 			entering = "Sedang menaip..."
 			show_image_message = "Penerima menghantar sekeping foto (menunjukkan pengesahan pembayaran berjaya)."
-		# 🌟 新增：马来西亚印度裔通用语言 - 淡米尔文
+		
 		"bt": 
 			reply_language = "தமிழ் (Tamil - Malaysian)"
 			fail_message = "⚠️ செய்தி அனுப்பப்பட்டது, ஆனால் பெறுநரால் நிராகரிக்கப்பட்டது."
@@ -236,7 +233,7 @@ func _on_intro_finished():
 func save_chat_history():
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if file:
-		# 将数组转为 JSON 字符串并保存
+		
 		var json_string = JSON.stringify(conversation_history)
 		file.store_string(json_string)
 		file.close()
@@ -244,45 +241,44 @@ func save_chat_history():
 
 func load_chat_history():
 	if not FileAccess.file_exists(SAVE_PATH):
-		return # 如果文件不存在（第一次运行），直接返回
+		return 
 
 	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
 	if file:
 		var json_string = file.get_as_text()
 		file.close()
 		
-		# 将 JSON 转回数组
+		
 		var data = JSON.parse_string(json_string)
 		if data is Array:
 			conversation_history = data
 			
-			# 根据读到的历史记录，生成界面上的气泡
-			# 注意：我们要跳过 "system" 角色，因为它不显示在 UI 上
+			
 			for message in conversation_history:
 				var role = message.get("role", "")
 				
-				# 1. 自动跳过 system 人设提示词，不展示在 UI 上
+				
 				if role == "system":
 					continue
 				
-				# 2. 🟩 安全获取文本的“防爆三部曲”：
+				
 				var msg_text = ""
 				
 				if message.has("text"):
-					# 情况 A：如果是老版本的纯文本结构
+					
 					msg_text = message["text"]
 				elif message.has("parts") and message["parts"] is Array and message["parts"].size() > 0:
-					# 情况 B：如果是大 Boss 场景或新版 Gemini 写入的嵌套 parts 结构
+					
 					msg_text = message["parts"][0].get("text", "")
 				
-				# 3. 如果最后提取出来的文本是空的，说明这行是不合规的数据，直接跳过
+				
 				if msg_text == "":
 					continue
 					
-				# 4. 根据角色在 UI 上生成气泡
+				
 				if role == "user":
 					create_bubble(msg_text, true)
-				elif role == "assistant" or role == "model": # 兼容新老 AI 名字
+				elif role == "assistant" or role == "model":
 					create_bubble(msg_text, false)
 	
 	
@@ -298,16 +294,15 @@ func _on_send_pressed():
 	send_button.disabled = true
 	
 	
-	# 🟦 把玩家的发言加入history
+	
 	conversation_history.append({"role": "user", "text": user_text}) 
 	print("\n\n")
 	print(conversation_history)
-	# 最多保留 10 轮对话（节省 token）
-	# 最多保留 10 轮对话（节省 token）
+	
 	if conversation_history.size() > 10:
-		conversation_history.remove_at(1) # 🌟 核心修改：保护 index 0 的 system，删除 index 1 的旧对话
+		conversation_history.remove_at(1) 
 		
-	# 1. 玩家自己的气泡【立刻】生成，输入框【立刻】清空
+	
 	create_bubble(user_text, true)
 	
 	
@@ -320,22 +315,22 @@ func _on_send_pressed():
 	
 	
 	
-	save_chat_history() # 马上保存玩家刚发的那句话
+	save_chat_history()
 	
-	# 2. 🌟 核心调整：在这里强制停顿 1 秒，模拟对方刚看到消息的反应时间
+	
 	await get_tree().create_timer(1.0).timeout
 	
-	# 3. 1秒后，才弹出假装正在输入的 AI 气泡
+	
 	current_ai_label = create_bubble(entering, false)
 	
-	# 4. 最后才正式向大模型发送请求
+	
 	send_message()
 
 
 func scroll_to_bottom():
-	# 等待一帧，让 UI 节点完成重新排版后再滚动
+	
 	await get_tree().process_frame
-	var scroll_container = $main/body # 确保这是你的 ScrollContainer 路径
+	var scroll_container = $main/body 
 	scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
 
  
@@ -343,73 +338,64 @@ func create_bubble(content, is_mine):
 	var bubble = BUBBLE_SCENE.instantiate()
 	message_list.add_child(bubble)
 	
-	var label = bubble.get_node("Content") # 确保路径正确
+	var label = bubble.get_node("Content") 
 	
 	label.text = content 
 	
 	
-	# ==========================================
-	# 🌟 完美修复：只在超长时锁死宽度，短句由容器自然包裹
-	# ==========================================
+	
 	var font = label.get_theme_font("font")
 	var font_size = label.get_theme_font_size("font_size")
 	var text_width = font.get_string_size(content, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
 	
 	if text_width > 350:
-		# 只有长句子超过 350px 宽，才强制开启换行并锁死宽度
+		
 		label.custom_minimum_size.x = 350
 		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	else:
-		# 🟩 短句子（比如 "hi"）直接释放宽度锁定！
-		# 这样 Label 的宽度会绝对精准地等于 "hi" 的宽度（30px），两边不会有任何多余的死空白
+		
 		label.custom_minimum_size.x = 0
 		label.autowrap_mode = TextServer.AUTOWRAP_OFF
-	# ==========================================
+	
 	
 	
 	
 	
 	if is_mine == true:
-		# 1. 玩家发的信息：整条消息靠右，文字在内部也靠右
+		
 		bubble.size_flags_horizontal = Control.SIZE_SHRINK_END
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		
-		# 2. 玩家气泡调色：纯白气泡 ✖ 蓝色 = 纯正的科技蓝
-		# 你原本写的 Color(0.2, 0.6, 1.0) 这个蓝色底色就非常亮眼、好看
+		
 		bubble.modulate = Color(0.2, 0.6, 1.0, 1.0)
 		
 
 	else:
-		# 1. AI发的信息：整条消息靠左，文字在内部也靠左
+		
 		bubble.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		
-		# 2. AI气泡调色：纯白气泡 ✖ 浅灰色 = 完美的社交软件浅灰色
-		# 想要“浅灰色”，RGB 三个通道的值就要调高一点（比如 0.85 到 0.9 之间）
+		
 		bubble.modulate = Color(0.88, 0.88, 0.88, 1.0)
 		
 		
 	
 	
-	# ==========================================
-	# 🌟 强效修复：解决当下生成不换行的排版延迟
-	# ==========================================
-	# 1. 强制让 Label 和 气泡 重新计算自己的最小尺寸
+	
 	label.update_minimum_size()
 	if bubble.has_method("update_minimum_size"):
 		bubble.update_minimum_size()
 	
-	# 2. 🟩 核心绝杀：强制让你的 VBoxContainer 容器立刻重新排列所有子节点
-	# 这样它就会在一微秒内把那个冲出去的长条生生勒回 350 宽并换行！
+	
 	message_list.queue_sort()
-	# ==========================================
 	
 	
-	# 自动滚动到底部（稍后添加这个函数）
+	
+	
 	scroll_to_bottom()
 	
 	
-	return label # 返回这个 label 方便后续修改文字
+	return label
 	
 
 
@@ -430,15 +416,15 @@ func send_message():
 	
 	var formatted_contents = []
 	for item in conversation_history:
-		# 关键修正点：Gemini 识别的是 "user" 和 "model"
+		
 		var gemini_role = ""
 		if item["role"] == "user":
 			gemini_role = "user"
 		else:
-			gemini_role = "model" # 必须是 model，不能是 assistant
+			gemini_role = "model"
 			
 		formatted_contents.append({
-			"role": gemini_role, # 加上这一行！明确告诉 AI 谁是谁说的
+			"role": gemini_role,
 			"parts": [{"text": item["text"]}]
 		})
 
@@ -451,18 +437,16 @@ func send_message():
 
 
 func _on_request_completed(result, response_code, headers, body):
-	#if response_code != 200:
-	## 报错信息也可以用气泡显示，或者保持在原位
-	#create_bubble("404 error", false)
+
 	print("\n\n⚠️ Error: " + str(response_code))
-	#return
+
 	
-	# 🔓 核心新增：只要有回应（不管成功失败），且不是在做通关总结，就解锁输入框
+	
 	if is_fetching_conclusion == false:
 		input_box.editable = true
 		send_button.disabled = false
 	
-	# 🌟 加强版防卡死机制：不仅查 HTTP 状态，还查 Godot 底层的请求结果（处理超时/断网）
+	
 	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200:
 		var err_msg = "网络开小差了"
 		if result == HTTPRequest.RESULT_TIMEOUT:
@@ -470,9 +454,9 @@ func _on_request_completed(result, response_code, headers, body):
 			
 		if current_ai_label:
 			current_ai_label.text = err_msg + " (Error: " + str(response_code) + ")"
-			current_ai_label = null # 释放掉，不让打字机接管
+			current_ai_label = null
 			
-		is_fetching_conclusion = false # 发生错误时安全重置
+		is_fetching_conclusion = false
 		return
 	
 	
@@ -481,35 +465,35 @@ func _on_request_completed(result, response_code, headers, body):
 	if reply_json != null and reply_json.has("candidates"):
 		var reply_text = reply_json["candidates"][0]["content"]["parts"][0]["text"].strip_edges()
 		
-		# 🌟 核心分流：如果是来拿总结的，走 Conny 对话框逻辑
+		
 		if is_fetching_conclusion == true && response_code == 200:
-			is_fetching_conclusion = false # 马上关掉开关
+			is_fetching_conclusion = false 
 			
-			# 清洗 AI 可能手贱加上的 markdown 代码块标签
+			
 			var clean_text = reply_text.replace("```json", "").replace("```", "").strip_edges()
 			var dialogue_array = JSON.parse_string(clean_text)
 			
 			if dialogue_array is Array:
 				Global.play_dialogue(dialogue_array)
 				
-				# 等待 0.1 秒让对话框实例挂载，然后绑定对话结束信号
+				
 				await get_tree().create_timer(0.1).timeout
 				var current_scene = get_tree().current_scene
 				var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
-				# 🌟👇 把下面这三行加上 👇🌟
+				
 				if active_dialogue and active_dialogue.has_signal("tree_exited"):
 					active_dialogue.tree_exited.connect(_on_conclusion_finished, CONNECT_ONE_SHOT)
 				else:
-					# 万一解析失败，也强行通关防止卡死
+					
 					_on_conclusion_finished()
-			return # 总结跑完直接 return，绝不能让它变成聊天气泡！
+			return 
 			
 		elif is_fetching_conclusion == false && response_code != 200:
 			_on_conclusion_finished()
 			
 			
 
-		# 🟦 下面是原本正常的聊天气泡处理逻辑 🟦
+		
 		conversation_history.append({"role": "assistant", "text": reply_text})
 		if conversation_history.size() > 10:
 			conversation_history.remove_at(1) 
@@ -535,38 +519,34 @@ func _on_typing_timer_timeout():
 	if current_ai_label and ai_current_index < ai_full_response.length():
 		current_ai_label.text += ai_full_response[ai_current_index]
 		ai_current_index += 1
-		# 每次打字都尝试滚动，保证长文本能看到最新的一行
-		# ==========================================
-		# 🌟 核心修复：打字机动态排版刷新
-		# 每打一个字，就重新量一下当前这句话有多长
-		# ==========================================
+		
 		var font = current_ai_label.get_theme_font("font")
 		var font_size = current_ai_label.get_theme_font_size("font_size")
 		var text_width = font.get_string_size(current_ai_label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
 		var total_width = text_width + 40
 		
 		if total_width > 350:
-			# 一旦字数积累超过了 350，立刻锁死宽度，开启自动换行！
+			
 			current_ai_label.custom_minimum_size.x = 350
 			current_ai_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		else:
-			# 还没超过 350 之前，紧贴文字生长
+			
 			current_ai_label.custom_minimum_size.x = total_width
 			current_ai_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 			
-		# 强制通知 UI 容器：“文字变长了/换行了，立刻重新排队！”
+		
 		current_ai_label.update_minimum_size()
 		message_list.queue_sort()
-		# ==========================================
+		
 		
 		scroll_to_bottom()  
 	else:
 		typing_timer.stop()
 		
 		check_for_victory_pro(ai_full_response)
-		#print("\nAI回复检查完毕: ", ai_full_response)
 		
-		current_ai_label = null # 打字结束，清空引用
+		
+		current_ai_label = null 
 
 func _on_quit_pressed():
 	SoundEffect.play_sound("ui_click")
@@ -576,30 +556,22 @@ func _on_quit_pressed():
 
 
 func check_for_victory_pro(ai_text): 
-	# 1. 统一剥离前后的空格和换行  
+	
 	var text_to_check = ai_text.strip_edges() 
 	
-	# 2. 🟩 核心判断：精准拦截小美的上钩标志性句子
-	# 这里加了两个模糊兼容（带叹号和不带叹号），防止 AI 漏掉标点符号导致不触发
+	
 	if text_to_check.contains(success_id):
 		on_victory()
 		
 		
-	# 2. 🟥 判定失败：是否包含了连续三个感叹号 "!!!"
+	
 	if text_to_check.contains("!!!"):
-		on_failure() # 呼叫失败处理函数
+		on_failure()  
 	
 	
-# 2. 🟥 🌟【防误判终极正则拦截】：判定失败
 	var regex = RegEx.new()
 	
-	# 表达式微调解读：
-	# [!！] 匹配第一个感叹号
-	# \\s* 允许有任意空格
-	# [!！] 匹配第二个感叹号
-	# \\s* 允许有任意空格
-	# [!！] 匹配第三个感叹号
-	# 🎯 核心原理：中间去掉了允许文字的通配符，它只会在“感叹号全连在一起”时才触发！
+	
 	regex.compile("[!！]\\s*[!！]\\s*[!！]")
 	
 	var result = regex.search(text_to_check)
@@ -609,26 +581,25 @@ func check_for_victory_pro(ai_text):
 		on_failure()
 
 
-# 🟥 新增的失败处理函数
 func on_failure():
 	
 	is_success = false
 	
-	# 这里写玩家失败后的逻辑，比如锁定输入框，弹出失败通知
+	
 	input_box.editable = false
 	send_button.disabled = true
 	input_box.visible = false
 	send_button.visible = false
 	
 	
-	# 给玩家一个气泡提示，比如 "对方已开启朋友验证，您还不是他的好友..."
+	
 	create_bubble(fail_message, false)
 	
 	
 	await get_tree().create_timer(1.0).timeout
 	
 	
-	# 2. 唤醒我们在场景里搭好的 SuccessLayer，并把初始透明度设为 0 (完全透明)
+	
 	$fail_layer.visible = true
 	$fail_layer/ColorRect/again.disabled = false
 	
@@ -639,13 +610,13 @@ func on_failure():
 
 
 func on_victory():
-	# 1. 生成照片气泡
+	
 	create_bubble(show_image_message, false)
 	
 	
 	is_success = true
 	
-	# 2. 🚨 锁死输入框，防止玩家在 Conny 总结时乱发消息
+	
 	input_box.editable = false
 	send_button.disabled = true
 	input_box.visible = false
@@ -654,10 +625,10 @@ func on_victory():
 	if FileAccess.file_exists(SAVE_PATH):
 		DirAccess.remove_absolute(SAVE_PATH)
 	
-	#这里加一个定时器，过了1秒才执行以下代码
+	
 	await get_tree().create_timer(1.0).timeout
 	
-	# 2. 唤醒我们在场景里搭好的 SuccessLayer，并把初始透明度设为 0 (完全透明)
+	
 	$success_layer.visible = true
 	SceneSoundEffect.play_sound("success_sound")
 	
@@ -669,14 +640,7 @@ func on_victory():
 		Global.game_end = true
 	
 	
-	## 3. 🎬 电影级缓动动画：用 1.2 秒的时间，让这层画面缓慢变得完全不透明
-	#var tween = create_tween()
-	#tween.tween_property($success_layer, "modulate", Color(1, 1, 1, 1), 1.2)
-	#
-	## 4. 强制等待这段 1.2 秒的动画播完
-	#await tween.finished
-	
-	# 5. 画面完全浮现，气氛烘托到位后，正式呼叫后台让 Conny 老师入场！
+
 	
 	
 	conclusion()
@@ -686,10 +650,8 @@ func on_victory():
 func conclusion():
 	
 	
-	# 打开分流开关，告诉系统下一条 API 回复是用来播放剧情的
 	is_fetching_conclusion = true
 	
-	# 1. 提取真正的聊天记录，拼成纯文本
 	var logs_string = ""
 	for msg in conversation_history:
 		if msg.get("role") == "system":
@@ -704,19 +666,19 @@ func conclusion():
 			current_language_boss_name = "诈骗头目"
 		"en": 
 			current_language_boss_name = "Scam Boss"
-		# 🌟 新增：马来西亚官方语言 - 马来文 
+		
 		"bm": 
 			current_language_boss_name = "Boss Scam"
 		"bt": 
 			current_language_boss_name = "மோசடி தலைவன்"
 			
 		
-	# 3. 🌟 核心修改：双重替换！把聊天记录和语言占位符全部替换成真实数据
+	#
 	var prompt = Global.conclude_prompt.replace("{CHAT_LOGS}", logs_string).replace("{reply_language}", reply_language).replace("{current_language_boss_name}",current_language_boss_name)
 	
 	
 	
-	# 4. 构造给大模型的请求体
+	
 	var body = {
 		"contents": [
 			{
@@ -731,10 +693,10 @@ func conclusion():
 	http.request(url, headers, HTTPClient.METHOD_POST, JSON.stringify(body))
 	
 	
-	conversation_history = [conversation_history[0]] # 只留下 system 人设提示词
+	conversation_history = [conversation_history[0]]
 	
 
-# 🟩 新增：当 Conny 总结对话框被点完关闭后，自动执行这个函数
+
 func _on_conclusion_finished():
 	
 	
@@ -753,33 +715,31 @@ func _on_delete_pressed():
 
 
 func delete_conversation():
-	# 1. 删掉物理文件
 	if FileAccess.file_exists(SAVE_PATH):
 		DirAccess.remove_absolute(SAVE_PATH)
 	
-	# 2. 清空当前数组（只保留 system prompt）
+	
 	conversation_history = [conversation_history[0]] 
 	
-	# 3. 清空 UI 上的气泡
+	
 	for child in message_list.get_children():
 		child.queue_free()
 
 
-# 🌟 只清理后台和物理文件，保留前端气泡让玩家看
+
 func delete_conversation_history_only():
-	# 1. 删掉物理文件
+	
 	if FileAccess.file_exists(SAVE_PATH):
 		DirAccess.remove_absolute(SAVE_PATH)
 	
-	# 2. 清空当前数组（只保留 system prompt）
+	
 	conversation_history = [conversation_history[0]]
 
 
-# chat.gd 里的 Help 按钮修复段
 
 func _on_help_pressed():
 	SoundEffect.play_sound("ui_click")
-	# 🟩 1. 安全防错：如果当前正在放别的新手教程对话，先不允许点求助
+	
 	var current_scene = get_tree().current_scene
 	var last_child = current_scene.get_child(current_scene.get_child_count() - 1)
 	if last_child and last_child.name.contains("dialogue"):
@@ -788,10 +748,10 @@ func _on_help_pressed():
 
 	var help_data = null
 	
-	# 🟩 2. 动态拼接 NPC 名字（比如 "Midas_chat_help"、"Lily_chat_help"）
+	
 	var help_key = npc_name + "_chat_help"
 	
-	# 🟩 3. 核心层级修正：最外层是 Global.help，接着是 [lang]，再跟着子字典名
+	
 	if already_helped == false:
 		var first_help_dict = Global.help[lang].get("first_help")
 		if first_help_dict:
@@ -801,22 +761,22 @@ func _on_help_pressed():
 		if second_help_dict:
 			help_data = second_help_dict.get(help_key)
 			
-	# 🟩 4. 安全启动判定，防止数据不存在导致系统崩溃
+	
 	if help_data and help_data is Array:
 		Global.play_dialogue(help_data)
 		
-		# 延迟一小帧，确保对话框已经实例进树，然后安全挂载死灭信号
+		
 		await get_tree().create_timer(0.02).timeout
 		var active_dialogue = current_scene.get_child(current_scene.get_child_count() - 1)
 		
-		# 注意：用可信赖的单次性匿名函数绑定，能完美避开跟 ready 里的旧逻辑信号撞车
+		
 		if active_dialogue and active_dialogue.has_signal("tree_exited"):
 			active_dialogue.tree_exited.connect(_on_help_finished, CONNECT_ONE_SHOT)
 			print("🎯 [Chat Help] Conny 提示小助手启动成功，已安全绑定单次销毁信号。")
 	else:
 		print("⚠️ [Chat Help] 警告：在 Global 字典中找不到对应的提示键名: ", help_key)
 
-# 🟩 当 Conny 喷完并教完话术、对话框物理粉碎时自动执行
+
 func _on_help_finished():
 	already_helped = true
 	print("✨ [Chat Help] 玩家已阅读第一轮提示，下次点击将自动升级为第二轮严厉吐槽模式。")
@@ -848,9 +808,7 @@ func _on_note_pressed():
 	SoundEffect.play_sound("ui_click")
 	var popup = NOTE_POPUP_SCENE.instantiate()
 	
-	# 2. 🟩 核心：直接把它作为子节点加到当前主界面最底层
-	# 因为 Godot 的渲染规则是“越靠下的节点，渲染在越表面”
-	# 它会自动完美覆盖在你的 time、start、setting、quit 之上！
+
 	get_tree().current_scene.add_child(popup)
 
 
@@ -861,8 +819,8 @@ func _on_text_edit_text_changed():
 	
 	await get_tree().process_frame
 	
-	var min_height = 90   # 基础高度
-	var max_height = 180  # 极限高度
+	var min_height = 90  
+	var max_height = 180  
 	
 	input_scroll.custom_minimum_size.y = 0
 	input_scroll.size.y = 0
@@ -870,25 +828,24 @@ func _on_text_edit_text_changed():
 	
 	
 	
-	# 1. 测算文字真实需要的无限高度
+
 	var real_height = input_box.get_combined_minimum_size().y 
 	
-	# 2. 🎯 核心魔法：我们去掐 ScrollContainer(外壳) 的高度，让 TextEdit 在里面自由伸展！
 	var target_height = clamp(real_height, min_height, max_height)
 	input_scroll.custom_minimum_size.y = target_height
 	input_scroll.size.y = target_height 
 	
 	
 	
-	# 3. 🌟 防盲打终极方案：确保打字时光标永远在视线内！
+	
 	if real_height > max_height:
-		await get_tree().process_frame # 等待底层UI重新排版完成
+		await get_tree().process_frame
 		
-		# 抓取当前光标在 TextEdit 内部的 Y 轴物理坐标
+		
 		var caret_y = input_box.get_caret_draw_pos().y
 		var current_scroll = input_scroll.scroll_vertical
 		
-		# 如果光标跑到了外壳视口的下面，强行把滚动条拉下去盯着它！
+		
 		if caret_y > (current_scroll + target_height - 40):
 			input_scroll.scroll_vertical = caret_y - target_height + 60
 
