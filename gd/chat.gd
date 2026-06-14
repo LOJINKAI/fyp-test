@@ -201,7 +201,7 @@ func match_language():
 			fail_message = "⚠️ 消息已发出，但被对方拒收了。"
 			entering = "对方正在输入中..."
 			show_image_message = "对方发送了照片 (支付成功截图)"
-			error_msg = "⚠️ 信号有点差，发送失败了，请再发送信息。"
+			error_msg = "⚠️ 信号有点差，请检查网络再试。"
 			time_out_msg = "⚠️ 对方好像没收到，请再发送信息。"
 			
 		"en": 
@@ -209,7 +209,7 @@ func match_language():
 			fail_message = "⚠️ Message sent but rejected by recipient."
 			entering = "Typing..."
 			show_image_message = "The recipient sent an image (showing a successful payment confirmation)."
-			error_msg = "⚠️ Connection glitch, failed to send. Please try sending again."
+			error_msg = "⚠️ Poor signal, please check your network and try again."
 			time_out_msg = "⚠️ Connection timed out. Please try sending again."
 		
 		"bm": 
@@ -217,7 +217,7 @@ func match_language():
 			fail_message = "⚠️ Mesej telah dihantar, tetapi disekat oleh penerima."
 			entering = "Sedang menaip..."
 			show_image_message = "Penerima menghantar sekeping foto (menunjukkan pengesahan pembayaran berjaya)."
-			error_msg = "⚠️ Isyarat lemah, mesej gagal dihantar. Sila hantar semula."
+			error_msg = "⚠️ Isyarat lemah, sila semak rangkaian anda dan cuba lagi."
 			time_out_msg = "⚠️ Sambungan tamat masa. Sila hantar semula."
 		
 		"bt": 
@@ -225,9 +225,8 @@ func match_language():
 			fail_message = "⚠️ செய்தி அனுப்பப்பட்டது, ஆனால் பெறுநரால் நிராகரிக்கப்பட்டது."
 			entering = "தட்டச்சு செய்கிறது..."
 			show_image_message = "பெறுநர் ஒரு படத்தை அனுப்பியுள்ளார் (வெற்றிகரமான கட்டண உறுதிப்படுத்தலைக் காட்டுகிறது)."
-			error_msg = "⚠️ சிக்னல் சரியாக இல்லை, செய்தி அனுப்பப்படவில்லை. மீண்டும் அனுப்பவும்."
+			error_msg = "⚠️ சிக்னல் சரியாக இல்லை, உங்கள் இணையத்தை சரிபார்த்து மீண்டும் முயற்சிக்கவும்."
 			time_out_msg = "⚠️ இணைப்பு நேரம் முடிந்தது. மீண்டும் அனுப்பவும்."
-
 
 
 func _on_intro_finished():
@@ -470,6 +469,25 @@ func _on_request_completed(result, response_code, headers, body):
 			
 		if current_ai_label:
 			current_ai_label.text = show_player_error_message
+			
+			
+			var font = current_ai_label.get_theme_font("font")
+			var font_size = current_ai_label.get_theme_font_size("font_size")
+			var text_width = font.get_string_size(current_ai_label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
+			
+			if text_width > 350:
+				current_ai_label.custom_minimum_size.x = 350
+				current_ai_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			else:
+				current_ai_label.custom_minimum_size.x = 0
+				current_ai_label.autowrap_mode = TextServer.AUTOWRAP_OFF
+				
+			current_ai_label.update_minimum_size()
+			message_list.queue_sort()
+			scroll_to_bottom()
+			
+			
+			
 			current_ai_label = null
 			
 		is_fetching_conclusion = false
