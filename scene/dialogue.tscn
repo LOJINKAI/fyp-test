@@ -173,4 +173,3 @@ custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 25
 text = "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"
-autowrap_mode = 1

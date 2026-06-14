@@ -63,6 +63,9 @@ var lang = Global.current_language
 var already_helped = false
 
 
+var time_out_msg
+var error_msg
+
 
 var npc_done = npc_name + "_done"
 
@@ -197,24 +200,35 @@ func match_language():
 			reply_language = "简体中文 (Simplified Chinese)"
 			fail_message = "⚠️ 消息已发出，但被对方拒收了。"
 			entering = "对方正在输入中..."
-			show_image_message = "对方发送了照片 (照片里显示了支付成功的画面)"
+			show_image_message = "对方发送了照片 (支付成功截图)"
+			error_msg = "⚠️ 信号有点差，发送失败了，请再发送信息。"
+			time_out_msg = "⚠️ 对方好像没收到，请再发送信息。"
+			
 		"en": 
 			reply_language = "English"
 			fail_message = "⚠️ Message sent but rejected by recipient."
-			entering = "Entering..."
+			entering = "Typing..."
 			show_image_message = "The recipient sent an image (showing a successful payment confirmation)."
+			error_msg = "⚠️ Connection glitch, failed to send. Please try sending again."
+			time_out_msg = "⚠️ Connection timed out. Please try sending again."
 		
 		"bm": 
 			reply_language = "Bahasa Melayu (Malaysian)"
 			fail_message = "⚠️ Mesej telah dihantar, tetapi disekat oleh penerima."
 			entering = "Sedang menaip..."
 			show_image_message = "Penerima menghantar sekeping foto (menunjukkan pengesahan pembayaran berjaya)."
+			error_msg = "⚠️ Isyarat lemah, mesej gagal dihantar. Sila hantar semula."
+			time_out_msg = "⚠️ Sambungan tamat masa. Sila hantar semula."
 		
 		"bt": 
 			reply_language = "தமிழ் (Tamil - Malaysian)"
 			fail_message = "⚠️ செய்தி அனுப்பப்பட்டது, ஆனால் பெறுநரால் நிராகரிக்கப்பட்டது."
 			entering = "தட்டச்சு செய்கிறது..."
 			show_image_message = "பெறுநர் ஒரு படத்தை அனுப்பியுள்ளார் (வெற்றிகரமான கட்டண உறுதிப்படுத்தலைக் காட்டுகிறது)."
+			error_msg = "⚠️ சிக்னல் சரியாக இல்லை, செய்தி அனுப்பப்படவில்லை. மீண்டும் அனுப்பவும்."
+			time_out_msg = "⚠️ இணைப்பு நேரம் முடிந்தது. மீண்டும் அனுப்பவும்."
+
+
 
 func _on_intro_finished():
 	
@@ -448,12 +462,14 @@ func _on_request_completed(result, response_code, headers, body):
 	
 	
 	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200:
-		var err_msg = "网络开小差了"
+		
+		var show_player_error_message = error_msg
+		
 		if result == HTTPRequest.RESULT_TIMEOUT:
-			err_msg = "AI 思考太久，请求超时了"
+			show_player_error_message = time_out_msg
 			
 		if current_ai_label:
-			current_ai_label.text = err_msg + " (Error: " + str(response_code) + ")"
+			current_ai_label.text = show_player_error_message
 			current_ai_label = null
 			
 		is_fetching_conclusion = false
