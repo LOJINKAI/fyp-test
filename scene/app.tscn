@@ -134,12 +134,19 @@ texture_normal = ExtResource("2_t55w7")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="TextureRect" type="TextureRect" parent="top/MarginContainer/HBoxContainer"]
+[node name="PanelContainer2" type="PanelContainer" parent="top/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2bmh7")
+
+[node name="quick_end" type="TextureButton" parent="top/MarginContainer/HBoxContainer/PanelContainer2"]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_stretch_ratio = 1.18
-texture = ExtResource("3_6oxoy")
-expand_mode = 2
+texture_normal = ExtResource("3_6oxoy")
+ignore_texture_size = true
 stretch_mode = 5
 
 [node name="TextureRect2" type="TextureRect" parent="top/MarginContainer/HBoxContainer"]
@@ -460,6 +467,7 @@ libraries = {
 autoplay = "arrow"
 
 [connection signal="pressed" from="top/MarginContainer/HBoxContainer/PanelContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="top/MarginContainer/HBoxContainer/PanelContainer2/quick_end" to="." method="_on_quick_end_pressed"]
 [connection signal="pressed" from="VBoxContainer/group/group" to="." method="_on_group_pressed"]
 [connection signal="pressed" from="VBoxContainer/midas/midas" to="." method="_on_midas_pressed"]
 [connection signal="pressed" from="VBoxContainer/lily/lily" to="." method="_on_lily_pressed"]

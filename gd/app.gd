@@ -13,6 +13,11 @@ var app_tutorial_finished
 var story
 
 
+#for quick game end
+
+var quick_end_button_click_count = 0 
+const quick_end_button_max_click = 6
+
 
 func _ready():
 	arrow.visible = false
@@ -306,3 +311,21 @@ func _on_simon_pressed():
 func _on_group_pressed():
 	SoundEffect.play_sound("ui_click")
 	get_tree().change_scene_to_file("res://scene/group.tscn") 
+
+
+func _on_quick_end_pressed():
+	quick_end_button_click_count += 1  # 每次按都加 1
+	
+	print("now already click ", quick_end_button_click_count, " times")
+	
+	if quick_end_button_click_count >= quick_end_button_max_click:
+		game_end()
+		quick_end_button_click_count = 0 # 触发后重置，或者根据你的需求决定是否重置
+	
+	
+	
+	
+	
+	
+	
+	
