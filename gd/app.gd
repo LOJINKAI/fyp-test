@@ -8,7 +8,7 @@ extends Control
 @onready var target_name = $VBoxContainer/all/all/HBoxContainer/Label
 
 
-var lang = Global.current_language
+var lang = Global.current_language 
 var app_tutorial_finished 
 var story
 
