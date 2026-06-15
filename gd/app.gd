@@ -319,6 +319,14 @@ func _on_quick_end_pressed():
 	print("now already click ", quick_end_button_click_count, " times")
 	
 	if quick_end_button_click_count >= quick_end_button_max_click:
+		$arrow.visible = false
+		
+		$VBoxContainer/midas.visible = false
+		$VBoxContainer/lily.visible = false
+		$VBoxContainer/jane.visible = false
+		$VBoxContainer/stanley.visible = false
+		$VBoxContainer/simon.visible = false
+		
 		game_end()
 		quick_end_button_click_count = 0 # 触发后重置，或者根据你的需求决定是否重置
 	
