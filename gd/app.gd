@@ -271,7 +271,6 @@ func _on_midas_pressed():
 	Global.app_tutorial_finished = true
 	Global.save_game_status()
 	
-	print("MIdas!")
 
 
 func _on_lily_pressed():

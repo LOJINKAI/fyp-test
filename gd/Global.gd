@@ -115,7 +115,6 @@ func check_story(required_step):
 func advance_story():
 	current_story_index += 1
 	save_game_status() 
-	print("✨ [Global 教学系统] 步进成功！当前教学索引位置：", current_story_index)
 
 
 func reset_and_new_game():
@@ -167,7 +166,6 @@ func fade_layer(duration = 1.0):
 	await get_tree().process_frame 
 	fade_mask.color = Color(0, 0, 0, 0.0)
 	
-	print("✨ [Global] 纯黑幕已瞬间剥离亮起！")
 
 
 
@@ -181,7 +179,6 @@ func fade_to_scene(target_scene_path: String, duration: float = 2.0):
 		get_tree().change_scene_to_file(target_scene_path)
 		return
 		
-	print("🎬 [Global] 触发单向黑屏转场，目标: ", target_scene_path)
 	
 	# 确保起始状态是透明的
 	fade_mask.color = Color(0, 0, 0, 0.0) 
@@ -199,7 +196,6 @@ func fade_to_scene(target_scene_path: String, duration: float = 2.0):
 	await get_tree().process_frame
 	fade_mask.color = Color(0, 0, 0, 0.0)
 	
-	print("✨ [Global] 底层场景已更新，黑幕已瞬间剥离亮起！")
 
 
 
@@ -212,7 +208,6 @@ func scene_to_fade(target_scene_path: String, duration: float = 2.0):
 		get_tree().change_scene_to_file(target_scene_path)
 		return
 		
-	print("🎬 [Global] 触发反向闪现转场，目标: ", target_scene_path)
 	
 	
 	fade_mask.color = Color(0, 0, 0, 1.0)
@@ -230,7 +225,6 @@ func scene_to_fade(target_scene_path: String, duration: float = 2.0):
 	tween_out.tween_property(fade_mask, "color", Color(0, 0, 0, 0.0), duration)
 	
 	await tween_out.finished
-	print("✨ [Global] 反向转场完美结束，新界面已全亮披露！")
 
 
 func fade_to_fade(target_scene_path: String, duration: float = 2.0):
@@ -242,7 +236,6 @@ func fade_to_fade(target_scene_path: String, duration: float = 2.0):
 		get_tree().change_scene_to_file(target_scene_path)
 		return
 		
-	print("🎬 [Global] 触发完美双向循环转场，目标: ", target_scene_path)
 	
 	
 	fade_mask.color = Color(0, 0, 0, 0.0) 
@@ -270,8 +263,6 @@ func fade_to_fade(target_scene_path: String, duration: float = 2.0):
 	
 	await tween_out.finished
 	
-	print("✨ [Global] 完美双向转场圆满结束！新场景已全亮披露。")
-
 
 
 
@@ -376,11 +367,9 @@ func reset_victim_chat_history():
 	
 	if FileAccess.file_exists(save_path):
 		DirAccess.remove_absolute(save_path)
-		print("🗑️ [Global] 已成功物理删除受害者历史对话文件。")
 		
 	
 	conversation_history = null
-	print("✨ [Global] 内存中的受害者对话数组已成功初始化重置。")
 	
 
 func play_dialogue(story_line):

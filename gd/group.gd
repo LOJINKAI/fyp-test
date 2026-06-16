@@ -252,7 +252,6 @@ func _ready():
 	if target_index == -1:
 		target_index = 0 
 		
-	print("📂 [群聊追加系统] 当前目标: ", target_npc, " | 历史关卡数: ", target_index + 1)
 	
 	
 	for i in range(target_index + 1):
@@ -266,7 +265,6 @@ func _ready():
 				
 	
 	scroll_to_bottom()
-	print("✨ [群聊历史追加完毕] 已完美无缝连接旧消息！")
 
 
 func create_bubble(content, is_mine, speaker):

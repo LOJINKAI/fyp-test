@@ -450,9 +450,6 @@ func send_message():
 
 
 func _on_request_completed(result, response_code, headers, body):
-
-	print("\n\n⚠️ Error: " + str(response_code))
-
 	
 	
 	if is_fetching_conclusion == false:
@@ -611,7 +608,7 @@ func check_for_victory_pro(ai_text):
 	var result = regex.search(text_to_check)
 	
 	if result:
-		print("💀 成功拦截受害者愤然离场信号（3连感叹号）：", result.get_string())
+		
 		on_failure()
 
 
@@ -777,7 +774,7 @@ func _on_help_pressed():
 	var current_scene = get_tree().current_scene
 	var last_child = current_scene.get_child(current_scene.get_child_count() - 1)
 	if last_child and last_child.name.contains("dialogue"):
-		print("⚠️ [Chat Help] 正在播放其他剧情，请点完后再求助")
+		
 		return
 
 	var help_data = null
@@ -806,14 +803,11 @@ func _on_help_pressed():
 		
 		if active_dialogue and active_dialogue.has_signal("tree_exited"):
 			active_dialogue.tree_exited.connect(_on_help_finished, CONNECT_ONE_SHOT)
-			print("🎯 [Chat Help] Conny 提示小助手启动成功，已安全绑定单次销毁信号。")
-	else:
-		print("⚠️ [Chat Help] 警告：在 Global 字典中找不到对应的提示键名: ", help_key)
+
 
 
 func _on_help_finished():
 	already_helped = true
-	print("✨ [Chat Help] 玩家已阅读第一轮提示，下次点击将自动升级为第二轮严厉吐槽模式。")
 
 
 
