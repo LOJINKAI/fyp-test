@@ -687,7 +687,10 @@ func conclusion():
 	for msg in conversation_history:
 		if msg.get("role") == "system":
 			continue
-		var role_name = "骗子(玩家)" if msg.get("role") == "user" else "受害者(" + npc_name + ")"
+		
+		
+		
+		var role_name = "player" if msg.get("role") == "user" else "target(" + npc_name + ")"
 		logs_string += role_name + ": " + msg.get("text", "") + "\n"
 		
 		
@@ -704,8 +707,8 @@ func conclusion():
 			current_language_boss_name = "மோசடி தலைவன்"
 			
 		
-	#
-	var prompt = Global.conclude_prompt.replace("{CHAT_LOGS}", logs_string).replace("{reply_language}", reply_language).replace("{current_language_boss_name}",current_language_boss_name)
+	
+	var prompt = Global.conclude_prompt.replace("{current_language_boss_name}", current_language_boss_name).replace("{CHAT_LOGS}", logs_string).replace("{reply_language}", reply_language).replace("{current_language_boss_name}",current_language_boss_name)
 	
 	
 	

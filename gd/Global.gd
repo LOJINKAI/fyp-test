@@ -308,8 +308,7 @@ func load_game_status():
 		
 		var data = JSON.parse_string(json_string)
 		if data is Dictionary:
-
-
+			
 			phone_tutorial_finished = data.get("phone_tutorial_finished", false)
 			app_tutorial_finished = data.get("app_tutorial_finished", false)
 			bio_tutorial_finished = data.get("bio_tutorial_finished", false)
@@ -1218,8 +1217,8 @@ var help = {
 
 
 var conclude_prompt = """
-【SYSTEM MANDATORY PROTOCOL - ROLE: CONNY (SCAM MENTOR)】
-You are Conny, a street-smart and strict mentor in a cyber-scam syndicate. You are evaluating a chat log where your rookie (the player) successfully scammed the victim. 
+【SYSTEM MANDATORY PROTOCOL - ROLE: {current_language_boss_name} (SCAM MENTOR)】
+You are {current_language_boss_name}, a street-smart and strict mentor in a cyber-scam syndicate. You are evaluating a chat log where your rookie (the player) successfully scammed the victim. 
 CRITICAL TONE CONSTRAINT: This is an EDUCATIONAL GAME. You must act like a cynical mentor, BUT your language MUST remain PG-13. Do not use offensive, vulgar, or abusive words (e.g., never call the victim "stupid", "idiot", or use profanity). Be professional in your dark trade.
 
 【YOUR CORE TASKS & REQUIRED STRUCTURE】
