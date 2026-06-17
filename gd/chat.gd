@@ -304,6 +304,7 @@ func _on_send_pressed():
 		return
 		
 	input_box.editable = false
+	input_box.visible = false
 	send_button.disabled = true
 	
 	
@@ -454,6 +455,7 @@ func _on_request_completed(result, response_code, headers, body):
 	
 	if is_fetching_conclusion == false:
 		input_box.editable = true
+		input_box.visible = true
 		send_button.disabled = false
 	
 	
@@ -649,8 +651,8 @@ func on_victory():
 	
 	
 	input_box.editable = false
-	send_button.disabled = true
 	input_box.visible = false
+	send_button.disabled = true
 	send_button.visible = false
 	
 	if FileAccess.file_exists(SAVE_PATH):
@@ -847,7 +849,6 @@ func _on_note_pressed():
 
 
 func _on_text_edit_text_changed():
-	
 	await get_tree().process_frame
 	
 	var min_height = 90  
@@ -856,27 +857,23 @@ func _on_text_edit_text_changed():
 	input_scroll.custom_minimum_size.y = 0
 	input_scroll.size.y = 0
 	input_box.size.y = 0
-	
-	
-	
-
 	var real_height = input_box.get_combined_minimum_size().y 
 	
 	var target_height = clamp(real_height, min_height, max_height)
-	input_scroll.custom_minimum_size.y = target_height
-	input_scroll.size.y = target_height 
 	
+	print("\n\nreal height : ",real_height)
 	
+	if real_height > 50:
+		input_scroll.custom_minimum_size.y = target_height + 50
+		input_scroll.size.y = target_height 
+	elif real_height <= 50:
+		input_scroll.custom_minimum_size.y = target_height 
+		input_scroll.size.y = target_height
 	
+	await get_tree().process_frame
 	
-	if real_height > max_height:
-		await get_tree().process_frame
-		
-		
-		var caret_y = input_box.get_caret_draw_pos().y
-		var current_scroll = input_scroll.scroll_vertical
-		
-		
-		if caret_y > (current_scroll + target_height - 40):
-			input_scroll.scroll_vertical = caret_y - target_height + 60
+	var caret_y = input_box.get_caret_draw_pos().y
+	var current_scroll = input_scroll.scroll_vertical
+	if caret_y > (current_scroll + target_height - 40):
+		input_scroll.scroll_vertical = caret_y - target_height + 60
 
