@@ -49,7 +49,7 @@ var help_pages = {
 		},
 		{
 			"image": "res://image/help/task.png",
-			"text": "Your task is to trick the target into buying our 'Fortune Coin' via the link in the group."
+			"text": "Your task is to trick the target into buying our 'Richcoin' via the link in the group."
 		},
 		{
 			"image": "res://image/help/think.png",
@@ -79,7 +79,7 @@ var help_pages = {
 		},
 		{
 			"image": "res://image/help/task.png",
-			"text": "Tugas anda adalah untuk memperdayakan sasaran supaya membeli 'Fortune Coin' kita melalui pautan dalam group."
+			"text": "Tugas anda adalah untuk memperdayakan sasaran supaya membeli 'Richcoin' kita melalui pautan dalam group."
 		},
 		{
 			"image": "res://image/help/think.png",
@@ -109,7 +109,7 @@ var help_pages = {
 		},
 		{
 			"image": "res://image/help/task.png",
-			"text": "குழுவில் உள்ள லிங்க் (Link) மூலம் இலக்கை ஏமாற்றி நமது 'ஃபார்ட்டூன் காயினை' (Fortune Coin) வாங்க வைப்பதே உங்கள் வேலை."
+			"text": "குழுவில் உள்ள லிங்க் (Link) மூலம் இலக்கை ஏமாற்றி நமது 'ஃபார்ட்டூன் காயினை' (Richcoin) வாங்க வைப்பதே உங்கள் வேலை."
 		},
 		{
 			"image": "res://image/help/think.png",

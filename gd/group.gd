@@ -86,7 +86,7 @@ var all_groups_data = {
 			{"is_mine": false, "speaker": "Lucas", "text": "I'm counting on this for my mortgage, maybe even buy my dream car!"}
 		],
 		"Lily": [
-			{"is_mine": false, "speaker": "Kelvin", "text": "Ah, this Richcoin really looks good with such a high ROI."},
+			{"is_mine": false, "speaker": "Kelvin", "text": "Ah, this  really looks good with such a high ROI."},
 			{"is_mine": false, "speaker": "Kelvin", "text": "But will it be sold out directly if I'm just a bit slower?"},
 			{"is_mine": false, "speaker": "Admin", "text": "Spot on! There are only 10 spots left for this internal sale!"},
 			{"is_mine": false, "speaker": "Admin", "text": "So hurry up! Hesitation means losing! Buy now, be rich later!"},
